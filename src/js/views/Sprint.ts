@@ -7,7 +7,7 @@ export class Sprint extends AbstractView {
   }
 
   getHtml() {
-    const app = <HTMLElement>document.querySelector('.app');
+    const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апп
     

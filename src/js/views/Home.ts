@@ -8,7 +8,7 @@ export class Home extends AbstractView {
 
 
   getHtml() {
-    const app = <HTMLElement>document.querySelector('.app');
+    const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить апе классы или еще какие манипуляции
 
