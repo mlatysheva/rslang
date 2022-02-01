@@ -1,5 +1,5 @@
 {
-  "name": "christmas-task",
+  "name": "rs-lang",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,10 +13,9 @@
     "type": "git",
     "url": ""
   },
-  "type": "module",
   
   "keywords": [],
-  "author": "Maria Latysheva",
+  "author": "Maria Latysheva, Julia Mironova, Olena Honcharuk",
   "license": "ISC",
   "homepage": "",
   "devDependencies": {
