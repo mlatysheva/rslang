@@ -9,10 +9,56 @@
 * {
   box-sizing: border-box;
 }
+body {
+  background-color: var(--june);
+}
 
 :root {
-  /* add global variables here */
+ --glaucous: #597cb8ff;
 }
+:root {
+--june: #b4d232ff;
+}
+:root {
+ --purple: #67103cff;
+}
+:root {
+  --olive: #7f7f13ff;
+}
+:root {
+  --amaranth: #e5044bff; 
+}
+
+
+/* SCSS Gradient */
+:root {
+  --gradient-right: linear-gradient(90deg, #597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+}
+:root {
+  --gradient-bottom: linear-gradient(180deg, #597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+}
+:root {
+  --gradient-top: linear-gradient(0deg, #597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+}
+:root {
+  --gradient-left: linear-gradient(270deg, #597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+}
+:root {
+  --gradient-top-right: linear-gradient(45deg, #597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+} 
+:root {
+  --gradient-bottom-right: linear-gradient(135deg, #597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+}
+:root {
+  --gradient-top-left: linear-gradient(225deg, #597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+}
+:root {
+  --gradient-bottom-left: linear-gradient(315deg, #597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+}
+:root {
+  --gradient-radial: radial-gradient(#597cb8ff, #b4d232ff, #67103cff, #7f7f13ff, #e5044bff);
+}
+
 
 html {
   overflow-x: hidden;
@@ -31,9 +77,9 @@ html {
   display: flex;
   flex-direction: column;
   line-height: 1.5;  
-  background-image: url();
+  /* background-image: url(); */
   background-size: cover;
-  background-position: center;    
+  background-position: center; 
 }
 
 .hide {
@@ -65,7 +111,7 @@ a {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.3);
+  background: var( --gradient-top-left);
   backdrop-filter: blur(5px);
 }
 .logo {
