@@ -1,0 +1,23 @@
+import { AbstractView } from "./AbstractView";
+
+export class Login extends AbstractView {
+  constructor() {
+    super();
+    this.setTitle('Login');
+  }
+
+  getHtml() {
+    const app = <HTMLElement>document.querySelector('.app');
+
+    // TODO: добавить манипуляции с апой
+
+    const footer = <HTMLElement>document.querySelector('.footer');    
+    footer.classList.add('hide');
+
+    return `
+    <div class="view login-view">
+      <p>Authentication of user will be added<p>
+    </div>
+    `;
+  }
+}
