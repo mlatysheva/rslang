@@ -2,7 +2,6 @@ import './style.css';
 import './css/normalise.css';
 import { navigation } from './js/router';
 import { getWord, getWords } from './js/api';
-import { Word } from './js/Word';
 
 console.log('App is running');
 
