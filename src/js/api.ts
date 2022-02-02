@@ -13,7 +13,7 @@ export async function getWords (page: number = 1): Promise<Word[]> {
     items: await response.json(),
     count: response.headers.get('X-Total-Count'),
   }
-  // console.log(`data is ${data.items[0]}`);
+  console.log(`data is ${data.items[0]}`);
   return data.items;
 }
 
@@ -21,7 +21,7 @@ export async function getWord (id: string): Promise<Word> {
   const response = (await fetch (`${words}/${id}`));
 
   let word: Word = await response.json();
-  // console.log(`word is ${word.word}`);
+  console.log(`word is ${word.word}`);
   return word;
 }
 
@@ -42,7 +42,7 @@ export const createUser = async (user: User) => {
 
 };
 
-// createUser({ "email": "example@google.mail", "password": "nwekjsf13243" });
+createUser({ "email": "example@google.mail", "password": "nwekjsf13243" });
 
 export const loginUser = async (user: User) => {
   const rawResponse = await fetch(signin, {

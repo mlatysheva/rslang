@@ -12,29 +12,36 @@
   <title>RS English Language App</title>
 </head>
 <body class="body">
-  <header>
-    <nav class="nav">
-      <a href="#/" data-href="#/" class="nav__link home"></a>
-      <a href="#/manual/" data-href="#/manual/" class="nav__link">УЧЕБНИК</a>
-      <a href="#/login/" data-href="#/login/" class="nav__link">ВОЙТИ</a>
-      <a href="#/audiocall/" data-href="#/audiocall/" class="nav__link">АУДИОВЫЗОВ</a>
-      <a href="#/sprint/" data-href="#/sprint/" class="nav__link">СПРИНТ</a>
-      <a href="#/statistics/" data-href="#/statistics/" class="nav__link">СТАТИСТИКА</a>
-    </nav>
+  <header class="header">
+    <div class="container header-container">
+      <div class="header__logo"><a href="#/" data-href="#/" class="nav__link">RS LANG</a></div>
+      <nav class="nav">
+        <a href="#/" data-href="#/" class="nav__link home"></a>
+        <a href="#/manual/" data-href="#/manual/" class="nav__link">УЧЕБНИК</a>        
+        <a href="#/audiocall/" data-href="#/audiocall/" class="nav__link">АУДИОВЫЗОВ</a>
+        <a href="#/sprint/" data-href="#/sprint/" class="nav__link">СПРИНТ</a>
+        <a href="#/statistics/" data-href="#/statistics/" class="nav__link">СТАТИСТИКА</a>
+        <a href="#/login/" data-href="#/login/" class="nav__link login-link">ВХОД</a>
+      </nav>
+    </div>
   </header>
-  <main id="app" class="app">
-    <section></section>
-    <section></section> 
+  <main class="app">
+    <div class="container main-container" id="app">
+      <section></section>
+      <section></section> 
+    </div>
   </main> <!-- End of app-->
   <footer class="footer">
-    <a href="https://rs.school/js" class="rsschool">
-      <img class="logo" src="https://rs.school/images/rs_school_js.svg" alt="logo of RS School" /> 
-    </a>  
-    <a href="mailto:">RS Lang Team © 2021</a>
-    <div class="our-gits">
-      <a href="https://github.com/mlatysheva" class="git-link">mlatysheva</a>
-      <a href="https://github.com/julia-mironova" class="git-link">julia-mironova</a>
-      <a href="https://github.com/olena-web" class="git-link">olena-web</a>
+    <div class="container footer-container">
+      <a href="https://rs.school/js" class="rsschool">
+        <img class="logo" src="https://rs.school/images/rs_school_js.svg" alt="logo of RS School" /> 
+      </a>  
+      <a href="mailto:">RS Lang Team © 2021</a>
+      <div class="our-gits">
+        <a href="https://github.com/mlatysheva" class="git-link">mlatysheva</a>
+        <a href="https://github.com/julia-mironova" class="git-link">julia-mironova</a>
+        <a href="https://github.com/olena-web" class="git-link">olena-web</a>
+      </div>
     </div>
   </footer>
 </body>
