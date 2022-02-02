@@ -42,7 +42,7 @@ export const createUser = async (user: User) => {
 
 };
 
-createUser({ "email": "example@google.mail", "password": "nwekjsf13243" });
+// createUser({ "email": "example@google.mail", "password": "nwekjsf13243" });
 
 export const loginUser = async (user: User) => {
   const rawResponse = await fetch(signin, {
