@@ -6,7 +6,7 @@ export class Statistics extends AbstractView {
     this.setTitle('Statistics');
   }
 
-  getHtml() {
+  async getHtml():Promise<string> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апой

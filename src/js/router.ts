@@ -35,7 +35,7 @@ function navigation() {
 
   const findComponentByPath = (url: string, urls: Route[]) => urls.find(route => route.path.match(url)) || undefined;
 
-  const router = () => {
+  const router = async () => {
 
     // find the component based on the current path
     const path = parseLocation();
@@ -45,12 +45,12 @@ function navigation() {
 
       let errorComponent = new Error;
 
-      (<HTMLElement>app).innerHTML = errorComponent.getHtml();
+      (<HTMLElement>app).innerHTML = await errorComponent.getHtml();
       
     } else {
 
       // Render the component in the "app" placeholder
-    (<HTMLElement>app).innerHTML = componentFound.component.getHtml();
+    (<HTMLElement>app).innerHTML = await componentFound.component.getHtml();
     }     
     
   };

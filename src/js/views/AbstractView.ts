@@ -5,7 +5,7 @@ export class AbstractView {
     document.title = title;
   }
 
-  getHtml() {
+  async getHtml():Promise<string> {
     return '';
   }
 }
