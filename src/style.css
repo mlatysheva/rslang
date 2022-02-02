@@ -101,7 +101,7 @@ a {
   justify-content: center;
 }
 
-.footer {  
+footer {  
   width: 100%;
   min-height: 3rem;  
   margin-top: auto;
@@ -124,3 +124,5 @@ a {
   text-shadow: 1px 1px black;
   display: block;
 }
+
+/* button(+button:hover) - section - header(=footer+id) -*/
