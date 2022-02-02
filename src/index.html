@@ -14,17 +14,27 @@
 <body class="body">
   <header class="header">
     <div class="container header-container">
-      <div class="header__logo"><a href="#/" data-href="#/" class="nav__link">RS LANG</a></div>
+      <div class="header__logo">
+        <a href="#/" data-href="#/" class="nav-link">RS LANG</a>
+      </div>
       <nav class="nav">
-        <a href="#/" data-href="#/" class="nav__link home"></a>
-        <a href="#/manual/" data-href="#/manual/" class="nav__link">УЧЕБНИК</a>        
-        <a href="#/audiocall/" data-href="#/audiocall/" class="nav__link">АУДИОВЫЗОВ</a>
-        <a href="#/sprint/" data-href="#/sprint/" class="nav__link">СПРИНТ</a>
-        <a href="#/statistics/" data-href="#/statistics/" class="nav__link">СТАТИСТИКА</a>
-        <a href="#/login/" data-href="#/login/" class="nav__link login-link">ВХОД</a>
+        <div class="nav-menu">
+          <a href="#/" data-href="#/" class="nav-link home"></a>
+          <a href="#/manual/" data-href="#/manual/" class="nav-link">УЧЕБНИК</a>        
+          <a href="#/audiocall/" data-href="#/audiocall/" class="nav-link">АУДИОВЫЗОВ</a>
+          <a href="#/sprint/" data-href="#/sprint/" class="nav-link">СПРИНТ</a>
+          <a href="#/statistics/" data-href="#/statistics/" class="nav-link">СТАТИСТИКА</a>
+          <a href="#/login/" data-href="#/login/" class="nav-link login-link">ВХОД</a>
+        </div>
       </nav>
+      <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
     </div>
   </header>
+
   <main class="app">
     <div class="container main-container" id="app">
       <section class="manual"></section>
