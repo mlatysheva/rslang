@@ -313,12 +313,31 @@ a {
 
 /*card styles*/
 .card {
-  max-width: 350px;
-}
-.card-img {
-  width: 250px;
-  border-radius: 50%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
+.photoTitlSound {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-title {
+  
+}
+
+
+.card-img {
+  width: 150px;
+  height: 100px;
+  border-radius: 10%;
+}
+
+.transk-transl {
+  
+  
+}
 
 /* button(+button:hover) - section - header(=footer+id) -*/

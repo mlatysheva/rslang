@@ -15,29 +15,42 @@ export class CardElement {
     let cardElement = document.createElement("div");
     cardElement.classList.add("card");
     cardElement.setAttribute("data-num", `${this.data.group}-${this.data.id}`);
+
+    let photoTitlSound =  document.createElement("div");
+    photoTitlSound.classList.add("photoTitlSound");
+
+    let soundTitle = document.createElement("div");
+    soundTitle.classList.add("soundTitle");
     let titleOfCard = document.createElement("h2");
     titleOfCard.classList.add("card-title");
     titleOfCard.textContent = this.data.word;
-    cardElement?.appendChild(titleOfCard);
+    soundTitle?.appendChild(titleOfCard);
     
     let elemImg = document.createElement("img");
     elemImg.classList.add("card-img");
     elemImg.setAttribute("src", `${imgLink}${this.data.image}`);
     elemImg.setAttribute("alt", this.alt);
-    cardElement?.appendChild(elemImg);
+    photoTitlSound?.appendChild(elemImg);
+
+    cardElement.appendChild(photoTitlSound);
 
     let elemText = document.createElement("div");
     elemText.classList.add("card-description");
 
+    let elemTraskTranl = document.createElement("div");
+    elemTraskTranl.classList.add("transk-transl");
+
     let elemTranskription = document.createElement("p");
     elemTranskription.classList.add("transkription");
     elemTranskription.innerText = `${this.data.transcription}`;
-    elemText.appendChild(elemTranskription);
+    elemTraskTranl.appendChild(elemTranskription);
 
     let elemTranslation = document.createElement("p");
     elemTranslation.classList.add("translate");
     elemTranslation.innerText = `${this.data.wordTranslate}`;
-    elemText.appendChild(elemTranslation);
+    elemTraskTranl.appendChild(elemTranslation);
+
+    elemText.appendChild(elemTraskTranl);
 
     let elemtextMeaning = document.createElement("p");
     elemtextMeaning.classList.add("textMeaning");
