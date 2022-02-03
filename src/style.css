@@ -311,4 +311,14 @@ a {
   display: block;
 }
 
+/*card styles*/
+.card {
+  max-width: 350px;
+}
+.card-img {
+  width: 250px;
+  border-radius: 50%;
+}
+
+
 /* button(+button:hover) - section - header(=footer+id) -*/

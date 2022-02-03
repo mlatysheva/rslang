@@ -8,7 +8,7 @@ export class Manual extends AbstractView {
     this.setTitle('Manual');
   }
 
-  getHtml() {
+  async getHtml():Promise<string> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апой

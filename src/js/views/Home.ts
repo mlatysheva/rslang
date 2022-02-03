@@ -7,7 +7,7 @@ export class Home extends AbstractView {
   }
 
 
-  getHtml() {
+  async getHtml():Promise<string> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить апе классы или еще какие манипуляции

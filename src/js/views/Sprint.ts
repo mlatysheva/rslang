@@ -6,7 +6,7 @@ export class Sprint extends AbstractView {
     this.setTitle('Sprint');
   }
 
-  getHtml() {
+  async getHtml():Promise<string> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апп
