@@ -29,7 +29,15 @@
 :root {
   --amaranth: #e5044b; 
 }
-
+:root {
+  --card-level0: #70db19; 
+  --card-level1: #316d15; 
+  --card-level2: #e9e650; 
+  --card-level3: #a19f10; 
+  --card-level4: #d4a5d4; 
+  --card-level5: #9b2363; 
+  
+}
 
 /* SCSS Gradient */
 :root {
@@ -316,18 +324,40 @@ a {
   max-width: 300px;
   display: flex;
   flex-direction: column;
+  padding: 10px;
+  border-radius: 10%;
 }
 
-.photoTitlSound {
+.card0 {
+  background: var(--card-level0);
+}
+
+.card1 {
+  background: var(--card-level1);
+}
+
+.card2 {
+  background: var(--card-level2);
+}
+
+.card3 {
+  background: var(--card-level3);
+}
+
+.card4 {
+  background: var(--card-level4);
+}
+
+.card5 {
+  background: var(--card-level5);
+}
+
+.photoTitlSound,
+.transk-transl {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
-.card-title {
-  
-}
-
 
 .card-img {
   width: 150px;
@@ -335,9 +365,48 @@ a {
   border-radius: 10%;
 }
 
-.transk-transl {
-  
-  
+.textMeaning,
+.textExample {
+  font-weight: bold;
+  text-align: right;
 }
+
+.textMeaningTranslate,
+.textExampleTranslate {
+  font-style: italic;
+  text-align: right;
+}
+
+.player-icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.play {
+  width: 35px;
+  height: 35px;
+  background-size: 40px 40px;
+  background-image: url(../src/assets/images/audio.svg);
+}
+
+.play:hover {
+  background-image: url(../src/assets/images/audioH.svg);
+}
+
+.pause {
+  width: 35px;
+  height: 35px;
+  background-size: 35px 35px;
+  background-image: url(../src/assets/images/pause.svg);
+}
+
+.pause {
+  background-image: url(../src/assets/images/pauseH.svg);
+}
+
 
 /* button(+button:hover) - section - header(=footer+id) -*/

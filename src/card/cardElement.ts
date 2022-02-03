@@ -1,5 +1,5 @@
 import { Word } from "../js/types";
-import { imgLink } from "../js/constants";
+import { imgLink, arrGroup } from "../js/constants";
 //import { serwerGetWordById } from 
 
 export class CardElement {
@@ -13,7 +13,26 @@ export class CardElement {
 
   renderCard(): HTMLElement {
     let cardElement = document.createElement("div");
+    cardElement.setAttribute("id", `${this.data.id}`)
     cardElement.classList.add("card");
+    if (this.data.group === arrGroup[0]) {
+      cardElement.classList.add("card0");
+    }
+    if (this.data.group === arrGroup[1]) {
+      cardElement.classList.add("card1");
+    }
+    if (this.data.group === arrGroup[2]) {
+      cardElement.classList.add("card2");
+    }
+    if (this.data.group === arrGroup[3]) {
+      cardElement.classList.add("card3");
+    }
+    if (this.data.group === arrGroup[4]) {
+      cardElement.classList.add("card4");
+    }
+    if (this.data.group === arrGroup[5]) {
+      cardElement.classList.add("card5");
+    }
     cardElement.setAttribute("data-num", `${this.data.group}-${this.data.id}`);
 
     let photoTitlSound =  document.createElement("div");
@@ -21,10 +40,19 @@ export class CardElement {
 
     let soundTitle = document.createElement("div");
     soundTitle.classList.add("soundTitle");
+
     let titleOfCard = document.createElement("h2");
     titleOfCard.classList.add("card-title");
     titleOfCard.textContent = this.data.word;
     soundTitle?.appendChild(titleOfCard);
+
+    let elemAudio = document.createElement("button");
+    elemAudio.classList.add("player-icon");
+    elemAudio.classList.add("play");
+    elemAudio.setAttribute("id", `sound-${this.data.id}`)
+    soundTitle.appendChild(elemAudio);    
+
+    photoTitlSound.appendChild(soundTitle);
     
     let elemImg = document.createElement("img");
     elemImg.classList.add("card-img");
@@ -40,15 +68,15 @@ export class CardElement {
     let elemTraskTranl = document.createElement("div");
     elemTraskTranl.classList.add("transk-transl");
 
-    let elemTranskription = document.createElement("p");
-    elemTranskription.classList.add("transkription");
-    elemTranskription.innerText = `${this.data.transcription}`;
-    elemTraskTranl.appendChild(elemTranskription);
-
     let elemTranslation = document.createElement("p");
     elemTranslation.classList.add("translate");
     elemTranslation.innerText = `${this.data.wordTranslate}`;
     elemTraskTranl.appendChild(elemTranslation);
+
+    let elemTranskription = document.createElement("p");
+    elemTranskription.classList.add("transkription");
+    elemTranskription.innerText = `${this.data.transcription}`;
+    elemTraskTranl.appendChild(elemTranskription);
 
     elemText.appendChild(elemTraskTranl);
 
@@ -67,17 +95,13 @@ export class CardElement {
     elemtextExample.innerText = `${this.data.textExample}`;
     elemText.appendChild(elemtextExample);
 
-   
-
+    let elemtextExampleTranslate = document.createElement("p");
+    elemtextExampleTranslate.classList.add("textExampleTranslate");
+    elemtextExampleTranslate.innerText = `${this.data.textExampleTranslate}`;
+    elemText.appendChild(elemtextExampleTranslate);
     
-    /*let elemFavoriteFild = document.createElement("p");
-    elemFavoriteFild.classList.add("favorite");
-    elemFavoriteFild.innerText = `${constantWords.favorite} ${this.unswerIsFavourite()}`;
-    elemToy.appendChild(elemFavoriteFild);
-    cardElement.appendChild(elemToy);//all properties in card
-    let ribbonCard = document.createElement("div");
-    ribbonCard.classList.add("ribbon");*/
     cardElement.appendChild(elemText);
     return cardElement;
   }
 }
+
