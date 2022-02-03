@@ -20,44 +20,51 @@ export class CardElement {
     titleOfCard.textContent = this.data.word;
     cardElement?.appendChild(titleOfCard);
     
-    let imgWord = document.createElement("img");
-    imgWord.classList.add("card-img");
-    imgWord.setAttribute("src", `${imgLink}${this.data.image}`);
-    imgWord.setAttribute("alt", this.alt);
-    cardElement?.appendChild(imgWord);
+    let elemImg = document.createElement("img");
+    elemImg.classList.add("card-img");
+    elemImg.setAttribute("src", `${imgLink}${this.data.image}`);
+    elemImg.setAttribute("alt", this.alt);
+    cardElement?.appendChild(elemImg);
 
-   /* let elemToy = document.createElement("div");
-    elemToy.classList.add("card-description");
+    let elemText = document.createElement("div");
+    elemText.classList.add("card-description");
 
-    let elemCountFild = document.createElement("p");
-    elemCountFild.classList.add("count");
-    elemCountFild.innerText = `${constantWords.count} ${this.data.count}`;
-    elemToy.appendChild(elemCountFild);
+    let elemTranskription = document.createElement("p");
+    elemTranskription.classList.add("transkription");
+    elemTranskription.innerText = `${this.data.transcription}`;
+    elemText.appendChild(elemTranskription);
 
-    let elemYearFild = document.createElement("p");
-    elemYearFild.classList.add("year");
-    elemYearFild.innerText = `${constantWords.year} ${this.data.year}`;
-    elemToy.appendChild(elemYearFild);
-    let elemShapeFild = document.createElement("p");
-    elemShapeFild.classList.add("shape");
-    elemShapeFild.innerText = `${constantWords.shape} ${this.data.shape}`;
-    elemToy.appendChild(elemShapeFild);
-    let elemColorFild = document.createElement("p");
-    elemColorFild.classList.add("color");
-    elemColorFild.innerText = `${constantWords.color} ${this.data.color}`;
-    elemToy.appendChild(elemColorFild);
-    let elemSizeFild = document.createElement("p");
-    elemSizeFild.classList.add("size");
-    elemSizeFild.innerText = `${constantWords.size} ${this.data.size}`;
-    elemToy.appendChild(elemSizeFild);
-    let elemFavoriteFild = document.createElement("p");
+    let elemTranslation = document.createElement("p");
+    elemTranslation.classList.add("translate");
+    elemTranslation.innerText = `${this.data.wordTranslate}`;
+    elemText.appendChild(elemTranslation);
+
+    let elemtextMeaning = document.createElement("p");
+    elemtextMeaning.classList.add("textMeaning");
+    elemtextMeaning.innerText = `${this.data.textMeaning}`;
+    elemText.appendChild(elemtextMeaning);
+
+    let elemtextMeaningTranslate = document.createElement("p");
+    elemtextMeaningTranslate.classList.add("textMeaningTranslate");
+    elemtextMeaningTranslate.innerText = `${this.data.textMeaningTranslate}`;
+    elemText.appendChild(elemtextMeaningTranslate);
+
+    let elemtextExample = document.createElement("p");
+    elemtextExample.classList.add("textExample");
+    elemtextExample.innerText = `${this.data.textExample}`;
+    elemText.appendChild(elemtextExample);
+
+   
+
+    
+    /*let elemFavoriteFild = document.createElement("p");
     elemFavoriteFild.classList.add("favorite");
     elemFavoriteFild.innerText = `${constantWords.favorite} ${this.unswerIsFavourite()}`;
     elemToy.appendChild(elemFavoriteFild);
     cardElement.appendChild(elemToy);//all properties in card
     let ribbonCard = document.createElement("div");
-    ribbonCard.classList.add("ribbon");
-    cardElement.appendChild(ribbonCard);*/
+    ribbonCard.classList.add("ribbon");*/
+    cardElement.appendChild(elemText);
     return cardElement;
   }
 }
