@@ -1,5 +1,5 @@
 import { Word } from "../js/types";
-import { imgLink, arrGroup } from "../js/constants";
+import { linkForCard, arrGroup } from "../js/constants";
 //import { serwerGetWordById } from 
 
 export class CardElement {
@@ -56,7 +56,7 @@ export class CardElement {
     
     let elemImg = document.createElement("img");
     elemImg.classList.add("card-img");
-    elemImg.setAttribute("src", `${imgLink}${this.data.image}`);
+    elemImg.setAttribute("src", `${linkForCard}${this.data.image}`);
     elemImg.setAttribute("alt", this.alt);
     photoTitlSound?.appendChild(elemImg);
 

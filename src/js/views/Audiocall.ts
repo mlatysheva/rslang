@@ -1,5 +1,6 @@
 import { AbstractView } from "./AbstractView";
 import { renderWord } from "../../card/renderOne";
+import { sound } from "../../card/soundCard";
 
 export class Audiocall extends AbstractView {
   constructor() {
@@ -11,6 +12,7 @@ export class Audiocall extends AbstractView {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апп
+    //sound();
     
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.add('hide');  
