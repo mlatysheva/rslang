@@ -6,7 +6,7 @@ export class Login extends AbstractView {
     this.setTitle('Login');
   }
 
-  getHtml() {
+  async getHtml():Promise<string> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апой
