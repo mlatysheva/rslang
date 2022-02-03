@@ -10,13 +10,13 @@ console.log('App is running');
 navigation();
 toggleHamburgerMenu();
 
-async function words(page: number) {
-  const items = await getWords(page).then((data: Word[]) =>{
-    //console.log(data);
+async function words(group: number, page: number) {
+  const items = await getWords(group, page).then((data: Word[]) =>{
+    console.log(data);
 
   });
 }
-// words(1);
+ words(2, 5);
 
 
 

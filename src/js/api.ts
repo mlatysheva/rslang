@@ -7,9 +7,9 @@ const words = `${base}/words`;
 const users = `${base}/users`;
 const signin = `${base}/signing`;
 
-export async function getWords (page: number = 1): Promise<Word[]> {
-  const response = (await fetch (`${words}?_page=${page}`));
-
+export async function getWords (group: number, page: number): Promise<Word[]> {
+  const response = (await fetch (`${words}?group=${group}&page=${page}`));
+  
   let data = {
     items: await response.json(),
     count: response.headers.get('X-Total-Count'),
