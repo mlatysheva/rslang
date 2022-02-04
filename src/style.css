@@ -219,7 +219,8 @@ a {
   }
 
   .nav-menu.active {
-      right: 0;
+    right: 0;
+    z-index: 100;
   }
 
   .hidden.active {

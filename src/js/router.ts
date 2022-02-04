@@ -6,6 +6,8 @@ import { Manual } from './views/Manual';
 import { Sprint } from './views/Sprint';
 import { Statistics } from './views/Statistics';
 import { Route } from './types';
+import { listenForLogin } from '..';
+import { Signup } from './views/Signup';
 
 function clearAllChildNodes(parent: HTMLElement): void {
   while (parent.firstChild) {
@@ -18,18 +20,20 @@ function navigation() {
 
   const homeComponent = new Home();
   const loginComponent = new Login();
+  const signupComponent = new Signup();
   const manualComponent = new Manual();
   const audiocallComponent = new Audiocall();
   const sprintComponent = new Sprint();
   const statisticsComponent = new Statistics();
 
   const routes = [
-    { path: '/', component: homeComponent },
-    { path: '/login/', component: loginComponent },
-    { path: '/manual/', component: manualComponent },
-    { path: '/audiocall/', component: audiocallComponent },
-    { path: '/sprint/', component: sprintComponent },
-    { path: '/statistics/', component: statisticsComponent },
+    { path: '/', component: homeComponent, },
+    { path: '/login/', component: loginComponent, },
+    { path: '/signup/', component: signupComponent, },
+    { path: '/manual/', component: manualComponent, },
+    { path: '/audiocall/', component: audiocallComponent, },
+    { path: '/sprint/', component: sprintComponent, },
+    { path: '/statistics/', component: statisticsComponent, },
   ];
 
   // find current location by url in the browser
@@ -63,12 +67,19 @@ function navigation() {
     window.addEventListener(event, (e) => {
       const hashClicked = location.hash;
 
-      switch (hashClicked) {
-        case '#/login/':
-          //TODO: add functions with login features
+      switch(hashClicked) {
+        case('#/'):
+          console.log('We are in home view');
+          break;
+        case ('#/login/'): 
+          // listenForLogin();
           console.log('We are in login view');
           break;
-        case '#/manual/':
+        case ('#/signup/'): 
+          // listenForLogin();
+          console.log('We are in signup view');
+          break;
+        case ('#/manual/'): 
           //TODO: add functions with manual
           console.log('We are in manual view');
           break;
@@ -80,7 +91,8 @@ function navigation() {
           //TODO: add functions with manual
           console.log('We are in sprint view');
           break;
-        case '#/statistics':
+        case('#/statistics/'):
+
           //TODO: add functions with manual
           console.log('We are in statistics view');
           break;
