@@ -15,9 +15,14 @@ export class CardElement {
     return `sound-${this.data.id}`;
   }
 
+  getSoundMeaningId(): string {
+    return `soundMeaning-${this.data.id}`;
+  }
+
   renderCard(): HTMLElement {
     let cardElement = document.createElement('div');
     const soundEnableFunction = sound(this);
+
     cardElement.setAttribute('id', `${this.data.id}`);
     cardElement.classList.add('card');
     if (this.data.group === arrGroup[0]) {
@@ -114,34 +119,24 @@ export class CardElement {
 
 function sound(cardElement: CardElement): (e: MouseEvent) => void {
   return function (e: MouseEvent) {
-    console.log(`САУНД СУКА!`);
     const changeSoundBtn = document.getElementById(cardElement.getSoundId()) as HTMLElement;
     const audio = new Audio();
+    const audioSrcWord = `${linkForCard}${cardElement.data.audio}`;
+    // const audioSrcMeaning = `${linkForCard}${cardElement.data.audioMeaning}`;
 
-    /*function chooseAudioBtn(e: any) {
-      let tree: HTMLElement = e.path.find((htmlElement: HTMLElement) => 
-      htmlElement.localName === 'div' && htmlElement.hasAttribute('data-tree'));
-      if (!tree) {
-        return;
-      } 
-      let treeImg:string = (tree.attributes as Record<string, any>)["data-tree"].value;
-      //console.log(treeImg);
-      mainTree.setAttribute("src", `../assets/tree/${treeImg}.png`);
-    }  */
-    /*let audioSrc:string;
-  
-    function getValue(){
-      audioSrc = "https://rs-lang-mlatysheva.herokuapp.com/files/01_0004_example.mp3";
-      // console.log(audio);
-      return audioSrc;
+    function getValueWord() {
+      return audioSrcWord;
     }
-  
-  
-    function playAudio() {
-      audio.src = `${audioSrc}`;
+
+    /*function getValue() {
+      return audioSrcMeaning;
+    }*/
+
+    function playAudioWord() {
+      audio.src = `${audioSrcWord}`;
       audio.currentTime = 0;
       audio.play();
-    }*/
+    }
 
     function pauseAudio() {
       audio.pause();
@@ -153,10 +148,10 @@ function sound(cardElement: CardElement): (e: MouseEvent) => void {
       if (changeSoundBtn.classList.contains('play')) {
         pauseAudio();
       } else {
-        // getValue();
-        // playAudio();
-        console.log('sound');
+        getValueWord();
+        playAudioWord();
       }
     }
+    changePlayBtn();
   };
 }
