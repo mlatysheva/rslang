@@ -22,7 +22,7 @@ async function words(group: number, page: number) {
 
   });
 }
- words(2, 5);
+// words(2, 5);
 
 
 
