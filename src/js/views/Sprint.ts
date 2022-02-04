@@ -6,18 +6,20 @@ export class Sprint extends AbstractView {
     this.setTitle('Sprint');
   }
 
-  async getHtml():Promise<string> {
+  async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апп
     
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.add('hide');
-    return `
+    let htmlElement = document.createElement('div');
+    htmlElement.innerHTML =  `
     <div class="view sprint-view">
       <p>This is sprint game<p>
     </div>
     `;
+    return htmlElement;
   }
 
   async renderCard() {

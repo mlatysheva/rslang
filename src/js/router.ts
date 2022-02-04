@@ -7,9 +7,14 @@ import { Sprint } from './views/Sprint';
 import { Statistics } from './views/Statistics';
 import { Route } from './types';
 
-function navigation() {
+function clearAllChildNodes(parent: HTMLElement): void {
+  while (parent.firstChild) {
+    parent.firstChild.remove();
+  }
+}
 
-  const app = document.getElementById('app');
+function navigation() {
+  const app = <HTMLElement>document.getElementById('app');
 
   const homeComponent = new Home();
   const loginComponent = new Login();
@@ -19,12 +24,12 @@ function navigation() {
   const statisticsComponent = new Statistics();
 
   const routes = [
-    { path: '/', component: homeComponent, },
-    { path: '/login/', component: loginComponent, },
-    { path: '/manual/', component: manualComponent, },
-    { path: '/audiocall/', component: audiocallComponent, },
-    { path: '/sprint/', component: sprintComponent, },
-    { path: '/statistics/', component: statisticsComponent, },
+    { path: '/', component: homeComponent },
+    { path: '/login/', component: loginComponent },
+    { path: '/manual/', component: manualComponent },
+    { path: '/audiocall/', component: audiocallComponent },
+    { path: '/sprint/', component: sprintComponent },
+    { path: '/statistics/', component: statisticsComponent },
   ];
 
   // find current location by url in the browser
@@ -33,59 +38,55 @@ function navigation() {
 
   // find component that corresponds to the current location
 
-  const findComponentByPath = (url: string, urls: Route[]) => urls.find(route => route.path.match(url)) || undefined;
+  const findComponentByPath = (url: string, urls: Route[]) => urls.find((route) => route.path.match(url)) || undefined;
 
   const router = async () => {
-
     // find the component based on the current path
     const path = parseLocation();
-    
+
     let componentFound = <Route>findComponentByPath(path, routes) || {};
     if (componentFound == null) {
-
-      let errorComponent = new Error;
-
-      (<HTMLElement>app).innerHTML = await errorComponent.getHtml();
-      
+      let errorComponent = new Error();
+      clearAllChildNodes(app);
+      app.appendChild(await errorComponent.getHtml());
     } else {
-
       // Render the component in the "app" placeholder
-    (<HTMLElement>app).innerHTML = await componentFound.component.getHtml();
-    }     
-    
+      clearAllChildNodes(app);
+      app.appendChild(await componentFound.component.getHtml());
+    }
   };
 
   window.addEventListener('hashchange', router);
   window.addEventListener('load', router);
   const events = ['load', 'hashchange'];
-  [...events].forEach(event => {
-    window.addEventListener(event, e => {
+  [...events].forEach((event) => {
+    window.addEventListener(event, (e) => {
       const hashClicked = location.hash;
 
-      switch(hashClicked) {
-        case ('#/login/'): 
+      switch (hashClicked) {
+        case '#/login/':
           //TODO: add functions with login features
           console.log('We are in login view');
           break;
-        case ('#/manual/'): 
+        case '#/manual/':
           //TODO: add functions with manual
           console.log('We are in manual view');
           break;
-        case ('#/audiocall/'): 
+        case '#/audiocall/':
           //TODO: add functions with manual
           console.log('We are in audiocall view');
           break;
-        case('#/sprint/'):
+        case '#/sprint/':
           //TODO: add functions with manual
           console.log('We are in sprint view');
           break;
-        case('#/statistics'):
+        case '#/statistics':
           //TODO: add functions with manual
           console.log('We are in statistics view');
           break;
-      } 
+      }
     });
-  })
+  });
 }
 
-export { navigation }
+export { navigation };
