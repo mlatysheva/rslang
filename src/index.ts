@@ -8,7 +8,7 @@ import { authenticateUser } from './login/authenticateExistingUser';
 import { Signup } from './js/views/Signup';
 import { Login } from './js/views/Login';
 import { registerUser } from './login/ registerNewUser';
-
+import '../src/book/paginationBook';
 console.log('App is running');
 
 const app = <HTMLElement>document.getElementById('app');
