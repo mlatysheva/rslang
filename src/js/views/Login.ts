@@ -6,7 +6,7 @@ export class Login extends AbstractView {
     this.setTitle('Login');
   }
 
-  async getHtml():Promise<string> {
+  async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апой
@@ -14,10 +14,11 @@ export class Login extends AbstractView {
     const footer = <HTMLElement>document.querySelector('.footer');    
     footer.classList.remove('hide');
 
-    return `
+    let htmlElement= document.createElement('div');
+    htmlElement.innerHTML = `
     <div class="view login-view">
       <p>Authentication of user will be added<p>
-    </div>
-    `;
+    </div>`;
+    return htmlElement;
   }
 }

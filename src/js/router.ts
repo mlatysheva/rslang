@@ -7,9 +7,15 @@ import { Sprint } from './views/Sprint';
 import { Statistics } from './views/Statistics';
 import { Route } from './types';
 
+function clearAllChildNodes(parent: HTMLElement): void {
+  while (parent.firstChild) {
+    parent.firstChild.remove();
+  }
+}
+
 function navigation() {
 
-  const app = document.getElementById('app');
+  const app = <HTMLElement>document.getElementById('app');
 
   const homeComponent = new Home();
   const loginComponent = new Login();
@@ -44,15 +50,13 @@ function navigation() {
     if (componentFound == null) {
 
       let errorComponent = new Error;
-
-      (<HTMLElement>app).innerHTML = await errorComponent.getHtml();
-      
+      clearAllChildNodes(app);
+      app.appendChild(await errorComponent.getHtml());      
     } else {
-
-      // Render the component in the "app" placeholder
-    (<HTMLElement>app).innerHTML = await componentFound.component.getHtml();
-    }     
-    
+      // Render the component in the "app" placeholder      
+      clearAllChildNodes(app);
+      app.appendChild(await componentFound.component.getHtml());
+    }    
   };
 
   window.addEventListener('hashchange', router);

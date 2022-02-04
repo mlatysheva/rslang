@@ -7,15 +7,14 @@ export class Audiocall extends AbstractView {
     this.setTitle('Audiocall');
   }
 
-  async getHtml(): Promise<string> {
+  async getHtml(): Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апп
     
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.add('hide');  
-    
-    return (await renderWord("5e9f5ee35eb9e72bc21af4a4")).outerHTML;//пока цель получить 1 полную карточку по id
+    return renderWord("5e9f5ee35eb9e72bc21af4a4"); //пока цель получить 1 полную карточку по id
   }
 
    

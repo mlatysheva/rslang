@@ -7,7 +7,7 @@ export class Home extends AbstractView {
   }
 
 
-  async getHtml():Promise<string> {
+  async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить апе классы или еще какие манипуляции
@@ -16,10 +16,12 @@ export class Home extends AbstractView {
     if(footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
-    return `
+    let htmlElement= document.createElement('div');
+    htmlElement.innerHTML =  `
     <div class="view home-view">
       <p>This is the home page</p>
     </div>
     `;
+    return htmlElement;
   }
 }

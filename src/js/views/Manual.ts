@@ -9,7 +9,7 @@ export class Manual extends AbstractView {
     this.setTitle('Manual');
   }
 
-  async getHtml():Promise<string> {
+  async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апой
@@ -19,7 +19,7 @@ export class Manual extends AbstractView {
       footer.classList.remove('hide');
     }
     //const manual = document.querySelector<HTMLElement>('.book')
-    return (await renderWord("5e9f5ee35eb9e72bc21af4a4")).outerHTML;
+    return renderWord("5e9f5ee35eb9e72bc21af4a4");
     // const manualView = async(): Promise<string> {
 //       await getWords(page).then((data: Word[]) => {
 //          data.forEach((item) => {
@@ -34,7 +34,6 @@ export class Manual extends AbstractView {
 //   }
 //  manualView();
 
-return '';
     // return `
     // <div class="view manual-view">
     //   <p>Manual with words will be added<p>

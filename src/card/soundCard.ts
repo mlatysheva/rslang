@@ -12,7 +12,7 @@ export function sound():void {
     //console.log(treeImg);
     mainTree.setAttribute("src", `../assets/tree/${treeImg}.png`);
   }  */
-  let audioSrc:string;
+  /*let audioSrc:string;
 
   function getValue(){
     audioSrc = "https://rs-lang-mlatysheva.herokuapp.com/files/01_0004_example.mp3";
@@ -25,7 +25,7 @@ export function sound():void {
     audio.src = `${audioSrc}`;
     audio.currentTime = 0;
     audio.play();
-  }
+  }*/
 
   function pauseAudio() {
     audio.pause();
@@ -37,12 +37,12 @@ export function sound():void {
     if (changeSoundBtn.classList.contains('play')) {
       pauseAudio();
     } else {
-      getValue();
-      playAudio();
+     // getValue();
+     // playAudio();
+     console.log("sound")
     }
   }
 
  changeSoundBtn.addEventListener('click', changePlayBtn);
-  
 }  
 
