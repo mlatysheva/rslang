@@ -1,7 +1,7 @@
-import { AbstractView } from "./AbstractView";
+import { AbstractView } from './AbstractView';
 import { Word } from '../types';
-import { getWords } from "../api";
-import { renderWord } from "../../card/renderOne";
+import { getWords } from '../api';
+import { renderWord } from '../../card/renderOne';
 const page = 1;
 export class Manual extends AbstractView {
   constructor() {
@@ -9,35 +9,37 @@ export class Manual extends AbstractView {
     this.setTitle('Manual');
   }
 
-  async getHtml():Promise<HTMLElement> {
+  async getHtml(): Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апой
 
-    const footer = <HTMLElement>document.querySelector('.footer');    
+    const footer = <HTMLElement>document.querySelector('.footer');
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
     //const manual = document.querySelector<HTMLElement>('.book')
-    return renderWord("5e9f5ee35eb9e72bc21af4a4");
+    let htmlElement = document.createElement('div');
+    htmlElement.innerHTML = `<p>тут пиши чего надобно, то и вернет</p>`;
+    return htmlElement;
     // const manualView = async(): Promise<string> {
-//       await getWords(page).then((data: Word[]) => {
-//          data.forEach((item) => {
-//           const { word, textExample, textMeaning } = item;
-//           if (manual) manual.innerHTML += `
-//           <p>${word}<p>`
-//     }); 
-//   }).catch((err) =>{
-//     throw err;
-//   })
-//   if (manual) return manual.innerHTML;
-//   }
-//  manualView();
+    //       await getWords(page).then((data: Word[]) => {
+    //          data.forEach((item) => {
+    //           const { word, textExample, textMeaning } = item;
+    //           if (manual) manual.innerHTML += `
+    //           <p>${word}<p>`
+    //     });
+    //   }).catch((err) =>{
+    //     throw err;
+    //   })
+    //   if (manual) return manual.innerHTML;
+    //   }
+    //  manualView();
 
     // return `
     // <div class="view manual-view">
     //   <p>Manual with words will be added<p>
-      
+
     // </div>
     // `;
   }
