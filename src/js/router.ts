@@ -6,6 +6,8 @@ import { Manual } from './views/Manual';
 import { Sprint } from './views/Sprint';
 import { Statistics } from './views/Statistics';
 import { Route } from './types';
+import { listenForLogin } from '..';
+import { Signup } from './views/Signup';
 
 function navigation() {
 
@@ -13,6 +15,7 @@ function navigation() {
 
   const homeComponent = new Home();
   const loginComponent = new Login();
+  const signupComponent = new Signup();
   const manualComponent = new Manual();
   const audiocallComponent = new Audiocall();
   const sprintComponent = new Sprint();
@@ -21,6 +24,7 @@ function navigation() {
   const routes = [
     { path: '/', component: homeComponent, },
     { path: '/login/', component: loginComponent, },
+    { path: '/signup/', component: signupComponent, },
     { path: '/manual/', component: manualComponent, },
     { path: '/audiocall/', component: audiocallComponent, },
     { path: '/sprint/', component: sprintComponent, },
@@ -63,9 +67,16 @@ function navigation() {
       const hashClicked = location.hash;
 
       switch(hashClicked) {
+        case('#/'):
+          console.log('We are in home view');
+          break;
         case ('#/login/'): 
-          //TODO: add functions with login features
+          listenForLogin();
           console.log('We are in login view');
+          break;
+        case ('#/signup/'): 
+          // listenForLogin();
+          console.log('We are in signup view');
           break;
         case ('#/manual/'): 
           //TODO: add functions with manual
@@ -79,7 +90,7 @@ function navigation() {
           //TODO: add functions with manual
           console.log('We are in sprint view');
           break;
-        case('#/statistics'):
+        case('#/statistics/'):
           //TODO: add functions with manual
           console.log('We are in statistics view');
           break;

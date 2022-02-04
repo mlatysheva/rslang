@@ -1,9 +1,9 @@
 import { AbstractView } from "./AbstractView";
 
-export class Login extends AbstractView {
+export class Signup extends AbstractView {
   constructor() {
     super();
-    this.setTitle('Login');
+    this.setTitle('Signup');
   }
 
   async getHtml():Promise<string> {
@@ -19,6 +19,13 @@ export class Login extends AbstractView {
     <div class="login-wrapper">
     <div class="login-header"></div>
     <form action="#">
+      <div class="field name">
+          <div class="input-area">
+            <input type="text" placeholder="Имя">
+            <i class="error error-icon fas fa-exclamation-circle"></i>
+          </div>
+          <div class="error error-txt">Имя не может быть пустым</div>
+        </div>
       <div class="field email">
         <div class="input-area">
           <input type="text" placeholder="Email">
@@ -36,10 +43,10 @@ export class Login extends AbstractView {
         <div class="error error-txt">Пароль должен содержать не менее 8 символов</div>
       </div>
       
-      <input id="login-submit" type="submit" value="Войти">
+      <input id="signup-submit" type="submit" value="Зарегистрироваться">
     </form>
     <div class="sign-txt">ИЛИ</div>
-    <a href="#/signup/" id="signup-btn" class="signup-btn" data-href="#/signup/">Зарегистрироваться</a>
+    <a href="#/login/" id="login-btn" class="login-btn" data-href="#/login/">Войти</a>
   </div>
     </div>
     `;
