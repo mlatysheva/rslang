@@ -3,7 +3,7 @@ import { AbstractView } from "./AbstractView";
 export class Error extends AbstractView {
   constructor() {
     super();
-    this.setTitle('Error - page does not exist');
+    // this.setTitle('Error - page does not exist');
   }
 
 

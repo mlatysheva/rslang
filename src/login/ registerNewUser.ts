@@ -1,3 +1,5 @@
+import { createUser } from "../js/api";
+
 export function registerUser() {
   console.log('we are in registerUser');
   const form = <HTMLElement>document.getElementById("signup-form");
@@ -8,7 +10,7 @@ export function registerUser() {
   const pField = <HTMLElement>form.querySelector(".password");
   const pInput = <HTMLInputElement>pField.querySelector("input");
 
-  form.onsubmit = (e) => {
+  form.onsubmit = async (e) => {
     e.preventDefault(); //preventing from form submitting
     console.log(`signup is clicked`);
     //if email and password is blank then add shake class in it else call specified function
@@ -25,7 +27,7 @@ export function registerUser() {
     pInput.onkeyup = () => { checkPass(); } //calling checkPassword function on pass input keyup
 
     function checkName () { 
-      let pattern = /^(([A-Za-zА-Яа-я]+[\-\']?)*([A-Za-zА-Яа-я]+)?\s)+([A-Za-zА-Яа-я]+[\-\']?)*([A-Za-zА-Яа-я]+)?$/; //pattern for validate email
+      let pattern = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/; //pattern to validate name
       if (!nInput.value.match(pattern)) { //if pattern not matched then add error and remove valid class
         nField.classList.add("error");
         nField.classList.remove("valid");
@@ -52,7 +54,7 @@ export function registerUser() {
       }
     }
 
-    function checkPass () { 
+    function checkPass() { 
       if (pInput.value == "" || pInput.value.length < 8) { //if pass is empty then add error and remove valid class
         pField.classList.add("error");
         pField.classList.remove("valid");
@@ -63,11 +65,15 @@ export function registerUser() {
         pField.classList.add("valid");
       }
     }
+    
     //if eField and pField doesn't contains error class that mean user filled details properly
     if (!nField.classList.contains("error") && !eField.classList.contains("error") && !pField.classList.contains("error")) {
       console.log(`action is ${form.getAttribute("action")}`);
-      
-      window.location.href = form.getAttribute("action") || ''; //redirecting user to the specified url which is inside action attribute of form tag
+      let newUser = { "email": eInput.value, "password": pInput.value};
+      let newUserdetails = await createUser( newUser );
+      console.log(`newUser email is ${newUserdetails.email}`);
+      console.log(`New user id is: ${newUserdetails.id}`)
+      // window.location.href = form.getAttribute("action") || ''; //redirecting user to the specified url which is inside action attribute of form tag
     }
   }
 }

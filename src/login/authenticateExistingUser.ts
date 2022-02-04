@@ -1,3 +1,5 @@
+import { loginUser } from "../js/api";
+
 export function authenticateUser() {
   console.log('we are in auhenticateUser');
   const form = <HTMLElement>document.getElementById("login-form");
@@ -6,7 +8,7 @@ export function authenticateUser() {
   const pField = <HTMLElement>form.querySelector(".password");
   const pInput = <HTMLInputElement>pField.querySelector("input");
 
-  form.onsubmit = (e) => {
+  form.onsubmit = async (e) => {
     e.preventDefault(); //preventing from form submitting
     console.log(`login is clicked`);
     //if email and password is blank then add shake class in it else call specified function
@@ -47,8 +49,12 @@ export function authenticateUser() {
     //if eField and pField doesn't contains error class that mean user filled details properly
     if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
       console.log(`action is ${form.getAttribute("action")}`);
-      
-      window.location.href = form.getAttribute("action") || ''; //redirecting user to the specified url which is inside action attribute of form tag
+      let user = { "email": eInput.value, "password": pInput.value};
+      let loginDetails = await loginUser( user );
+      console.log(`login message is ${loginDetails.message}`);
+      console.log(`user id is ${loginDetails.userId}`);
+      console.log(`user token is ${loginDetails.token}`);
+      // window.location.href = form.getAttribute("action") || ''; //redirecting user to the specified url which is inside action attribute of form tag
     }
   }
 }
