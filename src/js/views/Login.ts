@@ -45,8 +45,6 @@ export class Login extends AbstractView {
   </div>
     </div>
     `;
-      <p>Authentication of user will be added<p>
-    </div>`;
     return htmlElement;
   }
 }

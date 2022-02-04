@@ -52,7 +52,7 @@ export function listenForLogin() {
         console.log(`signup button is clicked`);
         const signupComponent = new Signup();
         const signupHTML = await signupComponent.getHtml();
-        (<HTMLElement>app).innerHTML = signupHTML;
+        (<HTMLElement>app).appendChild(signupHTML);
 
         // listen for clicks on newly rendered 'Зарегистрироваться' button
         // const signupSubmitBtn = <HTMLButtonElement>document.getElementById('signup-submit');
@@ -99,7 +99,7 @@ export function listenForSignup() {
       loginBtn.addEventListener('click', async () => {
         const loginComponent = new Login();
         const loginHTML = await loginComponent.getHtml();
-        (<HTMLElement>app).innerHTML = loginHTML;
+        (<HTMLElement>app).appendChild(loginHTML);
       })
     }
   })

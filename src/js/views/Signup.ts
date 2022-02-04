@@ -6,7 +6,7 @@ export class Signup extends AbstractView {
     this.setTitle('Signup');
   }
 
-  async getHtml():Promise<string> {
+  async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апой
@@ -14,7 +14,8 @@ export class Signup extends AbstractView {
     const footer = <HTMLElement>document.querySelector('.footer');    
     footer.classList.remove('hide');
 
-    return `
+    let htmlElement= document.createElement('div');
+    htmlElement.innerHTML = `
     <div class="view login-view">
     <div class="login-wrapper">
     <div class="login-header"></div>
@@ -50,6 +51,7 @@ export class Signup extends AbstractView {
   </div>
     </div>
     `;
+    return htmlElement;
   }
 }
 
