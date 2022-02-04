@@ -3,7 +3,7 @@ import './css/normalise.css';
 import { navigation } from './js/router';
 import { getWord, getWords } from './js/api';
 import { Word} from './js/types';
-import { toggleHamburgerMenu } from './homePage/home';
+import { logout, renderUserName, toggleHamburgerMenu } from './homePage/home';
 import { authenticateUser } from './login/authenticateExistingUser';
 import { Signup } from './js/views/Signup';
 import { Login } from './js/views/Login';
@@ -15,6 +15,8 @@ const app = <HTMLElement>document.getElementById('app');
 
 navigation();
 toggleHamburgerMenu();
+renderUserName();
+logout();
 
 async function words(group: number, page: number) {
   const items = await getWords(group, page).then((data: Word[]) =>{

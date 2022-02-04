@@ -1,4 +1,5 @@
 import { loginUser } from "../js/api";
+import { setItemToLocalStorage } from "../js/localStorage";
 
 export function authenticateUser() {
   console.log('we are in auhenticateUser');
@@ -18,43 +19,45 @@ export function authenticateUser() {
       eField.classList.remove("shake");
       pField.classList.remove("shake");
     }, 500);
-    eInput.onkeyup = () => { checkEmail(); } //calling checkEmail function on email input keyup
-    pInput.onkeyup = () => { checkPass(); } //calling checkPassword function on pass input keyup
+    eInput.onkeyup = () => { checkEmail(); } 
+    pInput.onkeyup = () => { checkPass(); } 
 
-    function checkEmail () { //checkEmail function
-      let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; //pattern for validate email
-      if (!eInput.value.match(pattern)) { //if pattern not matched then add error and remove valid class
+    function checkEmail () { 
+      let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; 
+      if (!eInput.value.match(pattern)) { 
         eField.classList.add("error");
         eField.classList.remove("valid");
         let errorTxt = <HTMLElement>eField.querySelector(".error-txt");
-        //if email value is not empty then show please enter valid email else show Email can't be blank
         (eInput.value != "") ? errorTxt.innerText = "Введите правильный Email" : errorTxt.innerText = "Email не может быть пустым";
-      } else { //if pattern matched then remove error and add valid class
+      } else { 
         eField.classList.remove("error");
         eField.classList.add("valid");
       }
     }
 
-    function checkPass () { //checkPass function
-      if (pInput.value == "" || pInput.value.length < 8) { //if pass is empty then add error and remove valid class
+    function checkPass () { 
+      if (pInput.value == "" || pInput.value.length < 8) { 
         pField.classList.add("error");
         pField.classList.remove("valid");
         let errorTxt = <HTMLElement>eField.querySelector(".error-txt");
         errorTxt.innerText = "Пароль должен содержать не менее 8 символов";
-      } else { //if pass is empty then remove error and add valid class
+      } else { 
         pField.classList.remove("error");
         pField.classList.add("valid");
       }
     }
-    //if eField and pField doesn't contains error class that mean user filled details properly
+    
     if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
       console.log(`action is ${form.getAttribute("action")}`);
       let user = { "email": eInput.value, "password": pInput.value};
       let loginDetails = await loginUser( user );
-      console.log(`login message is ${loginDetails.message}`);
-      console.log(`user id is ${loginDetails.userId}`);
+      setItemToLocalStorage('id', loginDetails.userId);
+      setItemToLocalStorage('token', loginDetails.token);
+      setItemToLocalStorage('email', eInput.value);
+      // console.log(`login message is ${loginDetails.message}`);
+      // console.log(`user id is ${loginDetails.userId}`);
       console.log(`user token is ${loginDetails.token}`);
-      // window.location.href = form.getAttribute("action") || ''; //redirecting user to the specified url which is inside action attribute of form tag
+      window.location.href = "/";
     }
   }
 }
