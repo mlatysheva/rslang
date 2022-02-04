@@ -107,3 +107,6 @@ dist
 #Julias folders
 .history
 to google doc
+
+# webstorm system folder ignore
+.idea

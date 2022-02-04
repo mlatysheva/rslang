@@ -6,7 +6,7 @@ export class Statistics extends AbstractView {
     this.setTitle('Statistics');
   }
 
-  async getHtml():Promise<string> {
+  async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     // TODO: добавить манипуляции с апой
@@ -15,11 +15,13 @@ export class Statistics extends AbstractView {
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
-    
-    return `
+
+    let htmlElement= document.createElement('div');
+    htmlElement.innerHTML =  `
     <div class="view statistics-view">
       <p>Statistics of the user will be added<p>
     </div>
     `;
+    return htmlElement;
   }
 }

@@ -7,7 +7,9 @@ export class Error extends AbstractView {
   }
 
 
-  async getHtml(): Promise<string> {
-    return `<p>404 Page does not exist</a>`;
+  async getHtml(): Promise<HTMLElement> {
+    let htmlElement= document.createElement('div');
+    htmlElement.innerHTML =  `<p>404 Page does not exist</a>`;
+    return htmlElement;
   }
 }

@@ -16,20 +16,20 @@ const app = <HTMLElement>document.getElementById('app');
 navigation();
 toggleHamburgerMenu();
 
-async function words(page: number) {
-  const items = await getWords(page).then((data: Word[]) =>{
+async function words(group: number, page: number) {
+  const items = await getWords(group, page).then((data: Word[]) =>{
     console.log(data);
 
   });
 }
-// words(1);
+ words(2, 5);
 
 
 
 async function word(id: string) {
   const word = await getWord(id).then((data: Word) =>{
-    console.log(`item is ${data.word}`);
-    console.log(data);
+    //console.log(`item is ${data.word}`);
+    //console.log(data);
 
   });
 }
