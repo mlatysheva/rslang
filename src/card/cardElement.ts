@@ -19,9 +19,15 @@ export class CardElement {
     return `soundMeaning-${this.data.id}`;
   }
 
+  getSoundExampleId(): string {
+    return `soundExample-${this.data.id}`;
+  }
+
   renderCard(): HTMLElement {
     let cardElement = document.createElement('div');
     const soundEnableFunction = sound(this);
+    const soundMeaningFunction = soundMeaning(this);
+    const soundExampleFunction = soundExample(this);
 
     cardElement.setAttribute('id', `${this.data.id}`);
     cardElement.classList.add('card');
@@ -96,6 +102,13 @@ export class CardElement {
     elemtextMeaning.innerText = `${this.data.textMeaning}`;
     elemText.appendChild(elemtextMeaning);
 
+    let elemAudioMeaning = document.createElement('button');
+    elemAudioMeaning.classList.add('player-icon');
+    elemAudioMeaning.classList.add('play');
+    elemAudioMeaning.setAttribute('id', this.getSoundMeaningId());
+    elemText.appendChild(elemAudioMeaning);
+    elemAudioMeaning.addEventListener('click', soundMeaningFunction);
+
     let elemtextMeaningTranslate = document.createElement('p');
     elemtextMeaningTranslate.classList.add('textMeaningTranslate');
     elemtextMeaningTranslate.innerText = `${this.data.textMeaningTranslate}`;
@@ -105,6 +118,13 @@ export class CardElement {
     elemtextExample.classList.add('textExample');
     elemtextExample.innerText = `${this.data.textExample}`;
     elemText.appendChild(elemtextExample);
+
+    let elemAudioExample = document.createElement('button');
+    elemAudioExample.classList.add('player-icon');
+    elemAudioExample.classList.add('play');
+    elemAudioExample.setAttribute('id', this.getSoundExampleId());
+    elemText.appendChild(elemAudioExample);
+    elemAudioExample.addEventListener('click', soundExampleFunction);
 
     let elemtextExampleTranslate = document.createElement('p');
     elemtextExampleTranslate.classList.add('textExampleTranslate');
@@ -121,19 +141,14 @@ function sound(cardElement: CardElement): (e: MouseEvent) => void {
   return function (e: MouseEvent) {
     const changeSoundBtn = document.getElementById(cardElement.getSoundId()) as HTMLElement;
     const audio = new Audio();
-    const audioSrcWord = `${linkForCard}${cardElement.data.audio}`;
-    // const audioSrcMeaning = `${linkForCard}${cardElement.data.audioMeaning}`;
+    const audioSrc = `${linkForCard}${cardElement.data.audio}`;
 
-    function getValueWord() {
-      return audioSrcWord;
+    function getValue() {
+      return audioSrc;
     }
 
-    /*function getValue() {
-      return audioSrcMeaning;
-    }*/
-
-    function playAudioWord() {
-      audio.src = `${audioSrcWord}`;
+    function playAudio() {
+      audio.src = `${audioSrc}`;
       audio.currentTime = 0;
       audio.play();
     }
@@ -148,8 +163,76 @@ function sound(cardElement: CardElement): (e: MouseEvent) => void {
       if (changeSoundBtn.classList.contains('play')) {
         pauseAudio();
       } else {
-        getValueWord();
-        playAudioWord();
+        getValue();
+        playAudio();
+      }
+    }
+    changePlayBtn();
+  };
+}
+
+function soundMeaning(cardElement: CardElement): (e: MouseEvent) => void {
+  return function (e: MouseEvent) {
+    const changeSoundBtn = document.getElementById(cardElement.getSoundMeaningId()) as HTMLElement;
+    const audio = new Audio();
+    const audioSrc = `${linkForCard}${cardElement.data.audioMeaning}`;
+
+    function getValue() {
+      return audioSrc;
+    }
+
+    function playAudio() {
+      audio.src = `${audioSrc}`;
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    function pauseAudio() {
+      audio.pause();
+    }
+
+    function changePlayBtn() {
+      changeSoundBtn.classList.toggle('pause');
+      changeSoundBtn.classList.toggle('play');
+      if (changeSoundBtn.classList.contains('play')) {
+        pauseAudio();
+      } else {
+        getValue();
+        playAudio();
+      }
+    }
+    changePlayBtn();
+  };
+}
+
+function soundExample(cardElement: CardElement): (e: MouseEvent) => void {
+  return function (e: MouseEvent) {
+    const changeSoundBtn = document.getElementById(cardElement.getSoundExampleId()) as HTMLElement;
+    const audio = new Audio();
+    const audioSrc = `${linkForCard}${cardElement.data.audioExample}`;
+
+    function getValue() {
+      return audioSrc;
+    }
+
+    function playAudio() {
+      audio.src = `${audioSrc}`;
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    function pauseAudio() {
+      audio.pause();
+    }
+
+    function changePlayBtn() {
+      changeSoundBtn.classList.toggle('pause');
+      changeSoundBtn.classList.toggle('play');
+      if (changeSoundBtn.classList.contains('play')) {
+        pauseAudio();
+      } else {
+        getValue();
+        playAudio();
       }
     }
     changePlayBtn();
