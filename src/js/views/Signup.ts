@@ -18,7 +18,7 @@ export class Signup extends AbstractView {
     <div class="view login-view">
     <div class="login-wrapper">
     <div class="login-header"></div>
-    <form action="#">
+    <form id="signup-form" action="#">
       <div class="field name">
           <div class="input-area">
             <input type="text" placeholder="Имя">

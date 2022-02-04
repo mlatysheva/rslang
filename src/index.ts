@@ -7,6 +7,7 @@ import { toggleHamburgerMenu } from './homePage/home';
 import { authenticateUser } from './login/authenticateExistingUser';
 import { Signup } from './js/views/Signup';
 import { Login } from './js/views/Login';
+import { registerUser } from './login/ registerNewUser';
 
 console.log('App is running');
 
@@ -38,6 +39,7 @@ async function word(id: string) {
 export function listenForLogin() {
   var waiting =  setInterval(() => {
     const loginSubmitBtn = <HTMLButtonElement>document.getElementById('login-submit');
+    
     const signupBtn = <HTMLButtonElement>document.getElementById('signup-btn');
 
     if (signupBtn) {
@@ -51,12 +53,23 @@ export function listenForLogin() {
         const signupComponent = new Signup();
         const signupHTML = await signupComponent.getHtml();
         (<HTMLElement>app).innerHTML = signupHTML;
+
+        // listen for clicks on newly rendered 'Зарегистрироваться' button
+        const signupSubmitBtn = <HTMLButtonElement>document.getElementById('signup-submit');
+        console.log(`signupSubmitBtn is ${signupSubmitBtn}`);
+        signupSubmitBtn?.addEventListener('click', () => {
+          console.log(`signup button is clicked`);
+          registerUser();
+        })
+        
+        // listen for clicks on newly renderes 'Войти' button
         const loginBtn = <HTMLButtonElement>document.getElementById('login-btn');
         loginBtn.addEventListener('click', async () => {
           const loginComponent = new Login();
           const loginHTML = await loginComponent.getHtml();
           (<HTMLElement>app).innerHTML = loginHTML;
         })
+        
       })
     }
   })  

@@ -71,7 +71,7 @@ function navigation() {
           console.log('We are in home view');
           break;
         case ('#/login/'): 
-          listenForLogin();
+          // listenForLogin();
           console.log('We are in login view');
           break;
         case ('#/signup/'): 

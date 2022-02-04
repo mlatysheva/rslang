@@ -1,5 +1,5 @@
 export function authenticateUser() {
-  const form = <HTMLElement>document.querySelector("form");
+  const form = <HTMLElement>document.getElementById("login-form");
   const eField = <HTMLElement>form.querySelector(".email");
   const eInput = <HTMLInputElement>eField.querySelector("input");
   const pField = <HTMLElement>form.querySelector(".password");

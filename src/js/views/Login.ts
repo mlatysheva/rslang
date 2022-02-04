@@ -18,7 +18,7 @@ export class Login extends AbstractView {
     <div class="view login-view">
     <div class="login-wrapper">
     <div class="login-header"></div>
-    <form action="#">
+    <form id="login-form" action="#">
       <div class="field email">
         <div class="input-area">
           <input type="text" placeholder="Email">
