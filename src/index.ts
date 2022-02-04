@@ -37,7 +37,7 @@ async function word(id: string) {
 
 
 export function listenForLogin() {
-  var waiting =  setInterval(() => {
+  let waiting =  setInterval(() => {
     const loginSubmitBtn = <HTMLButtonElement>document.getElementById('login-submit');
     
     const signupBtn = <HTMLButtonElement>document.getElementById('signup-btn');
@@ -55,20 +55,20 @@ export function listenForLogin() {
         (<HTMLElement>app).innerHTML = signupHTML;
 
         // listen for clicks on newly rendered 'Зарегистрироваться' button
-        const signupSubmitBtn = <HTMLButtonElement>document.getElementById('signup-submit');
-        console.log(`signupSubmitBtn is ${signupSubmitBtn}`);
-        signupSubmitBtn?.addEventListener('click', () => {
-          console.log(`signup button is clicked`);
-          registerUser();
-        })
+        // const signupSubmitBtn = <HTMLButtonElement>document.getElementById('signup-submit');
+        // console.log(`signupSubmitBtn is ${signupSubmitBtn}`);
+        // signupSubmitBtn?.addEventListener('click', () => {
+        //   console.log(`signup button is clicked`);
+        //   registerUser();
+        // })
         
         // listen for clicks on newly renderes 'Войти' button
-        const loginBtn = <HTMLButtonElement>document.getElementById('login-btn');
-        loginBtn.addEventListener('click', async () => {
-          const loginComponent = new Login();
-          const loginHTML = await loginComponent.getHtml();
-          (<HTMLElement>app).innerHTML = loginHTML;
-        })
+        // const loginBtn = <HTMLButtonElement>document.getElementById('login-btn');
+        // loginBtn.addEventListener('click', async () => {
+        //   const loginComponent = new Login();
+        //   const loginHTML = await loginComponent.getHtml();
+        //   (<HTMLElement>app).innerHTML = loginHTML;
+        // })
         
       })
     }
@@ -76,3 +76,32 @@ export function listenForLogin() {
 }
 
 listenForLogin();
+
+export function listenForSignup() {
+
+
+  let waiting =  setInterval(() => {
+    const signupSubmitBtn = <HTMLButtonElement>document.getElementById('signup-submit');
+    
+    const loginBtn = <HTMLButtonElement>document.getElementById('login-btn');
+
+    if (loginBtn) {
+      clearInterval(waiting);
+    // listen for clicks on newly rendered 'Зарегистрироваться' button
+      console.log(`signupSubmitBtn is ${signupSubmitBtn}`);
+      signupSubmitBtn?.addEventListener('click', () => {
+        console.log(`signup button is clicked`);
+        registerUser();
+      })
+      
+      // listen for clicks on newly renderes 'Войти' button
+      const loginBtn = <HTMLButtonElement>document.getElementById('login-btn');
+      loginBtn.addEventListener('click', async () => {
+        const loginComponent = new Login();
+        const loginHTML = await loginComponent.getHtml();
+        (<HTMLElement>app).innerHTML = loginHTML;
+      })
+    }
+  })
+}
+listenForSignup();

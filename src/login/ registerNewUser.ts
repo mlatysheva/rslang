@@ -1,4 +1,5 @@
 export function registerUser() {
+  console.log('we are in registerUser');
   const form = <HTMLElement>document.getElementById("signup-form");
   const nField = <HTMLElement>form.querySelector(".name");
   const nInput = <HTMLInputElement>nField.querySelector("input");
