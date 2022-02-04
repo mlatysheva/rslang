@@ -15,9 +15,20 @@ export class CardElement {
     return `sound-${this.data.id}`;
   }
 
+  getSoundMeaningId(): string {
+    return `soundMeaning-${this.data.id}`;
+  }
+
+  getSoundExampleId(): string {
+    return `soundExample-${this.data.id}`;
+  }
+
   renderCard(): HTMLElement {
     let cardElement = document.createElement('div');
     const soundEnableFunction = sound(this);
+    const soundMeaningFunction = soundMeaning(this);
+    const soundExampleFunction = soundExample(this);
+
     cardElement.setAttribute('id', `${this.data.id}`);
     cardElement.classList.add('card');
     if (this.data.group === arrGroup[0]) {
@@ -91,6 +102,13 @@ export class CardElement {
     elemtextMeaning.innerText = `${this.data.textMeaning}`;
     elemText.appendChild(elemtextMeaning);
 
+    let elemAudioMeaning = document.createElement('button');
+    elemAudioMeaning.classList.add('player-icon');
+    elemAudioMeaning.classList.add('play');
+    elemAudioMeaning.setAttribute('id', this.getSoundMeaningId());
+    elemText.appendChild(elemAudioMeaning);
+    elemAudioMeaning.addEventListener('click', soundMeaningFunction);
+
     let elemtextMeaningTranslate = document.createElement('p');
     elemtextMeaningTranslate.classList.add('textMeaningTranslate');
     elemtextMeaningTranslate.innerText = `${this.data.textMeaningTranslate}`;
@@ -100,6 +118,13 @@ export class CardElement {
     elemtextExample.classList.add('textExample');
     elemtextExample.innerText = `${this.data.textExample}`;
     elemText.appendChild(elemtextExample);
+
+    let elemAudioExample = document.createElement('button');
+    elemAudioExample.classList.add('player-icon');
+    elemAudioExample.classList.add('play');
+    elemAudioExample.setAttribute('id', this.getSoundExampleId());
+    elemText.appendChild(elemAudioExample);
+    elemAudioExample.addEventListener('click', soundExampleFunction);
 
     let elemtextExampleTranslate = document.createElement('p');
     elemtextExampleTranslate.classList.add('textExampleTranslate');
@@ -114,34 +139,19 @@ export class CardElement {
 
 function sound(cardElement: CardElement): (e: MouseEvent) => void {
   return function (e: MouseEvent) {
-    console.log(`САУНД СУКА!`);
     const changeSoundBtn = document.getElementById(cardElement.getSoundId()) as HTMLElement;
     const audio = new Audio();
+    const audioSrc = `${linkForCard}${cardElement.data.audio}`;
 
-    /*function chooseAudioBtn(e: any) {
-      let tree: HTMLElement = e.path.find((htmlElement: HTMLElement) => 
-      htmlElement.localName === 'div' && htmlElement.hasAttribute('data-tree'));
-      if (!tree) {
-        return;
-      } 
-      let treeImg:string = (tree.attributes as Record<string, any>)["data-tree"].value;
-      //console.log(treeImg);
-      mainTree.setAttribute("src", `../assets/tree/${treeImg}.png`);
-    }  */
-    /*let audioSrc:string;
-  
-    function getValue(){
-      audioSrc = "https://rs-lang-mlatysheva.herokuapp.com/files/01_0004_example.mp3";
-      // console.log(audio);
+    function getValue() {
       return audioSrc;
     }
-  
-  
+
     function playAudio() {
       audio.src = `${audioSrc}`;
       audio.currentTime = 0;
       audio.play();
-    }*/
+    }
 
     function pauseAudio() {
       audio.pause();
@@ -153,10 +163,78 @@ function sound(cardElement: CardElement): (e: MouseEvent) => void {
       if (changeSoundBtn.classList.contains('play')) {
         pauseAudio();
       } else {
-        // getValue();
-        // playAudio();
-        console.log('sound');
+        getValue();
+        playAudio();
       }
     }
+    changePlayBtn();
+  };
+}
+
+function soundMeaning(cardElement: CardElement): (e: MouseEvent) => void {
+  return function (e: MouseEvent) {
+    const changeSoundBtn = document.getElementById(cardElement.getSoundMeaningId()) as HTMLElement;
+    const audio = new Audio();
+    const audioSrc = `${linkForCard}${cardElement.data.audioMeaning}`;
+
+    function getValue() {
+      return audioSrc;
+    }
+
+    function playAudio() {
+      audio.src = `${audioSrc}`;
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    function pauseAudio() {
+      audio.pause();
+    }
+
+    function changePlayBtn() {
+      changeSoundBtn.classList.toggle('pause');
+      changeSoundBtn.classList.toggle('play');
+      if (changeSoundBtn.classList.contains('play')) {
+        pauseAudio();
+      } else {
+        getValue();
+        playAudio();
+      }
+    }
+    changePlayBtn();
+  };
+}
+
+function soundExample(cardElement: CardElement): (e: MouseEvent) => void {
+  return function (e: MouseEvent) {
+    const changeSoundBtn = document.getElementById(cardElement.getSoundExampleId()) as HTMLElement;
+    const audio = new Audio();
+    const audioSrc = `${linkForCard}${cardElement.data.audioExample}`;
+
+    function getValue() {
+      return audioSrc;
+    }
+
+    function playAudio() {
+      audio.src = `${audioSrc}`;
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    function pauseAudio() {
+      audio.pause();
+    }
+
+    function changePlayBtn() {
+      changeSoundBtn.classList.toggle('pause');
+      changeSoundBtn.classList.toggle('play');
+      if (changeSoundBtn.classList.contains('play')) {
+        pauseAudio();
+      } else {
+        getValue();
+        playAudio();
+      }
+    }
+    changePlayBtn();
   };
 }
