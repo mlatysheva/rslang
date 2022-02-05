@@ -1,11 +1,9 @@
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
 import {
-  nextPage, prevPage, currentPage, totalPages,
+  currentPage, totalPages, Group, workingButtons
 } from '../book/paginationBook';
 
-const Group = 0;
-export const numPages = 30;
 let index = 0;
 
 export async function renderPage(group: number, page: number) : Promise<HTMLElement> {
@@ -48,16 +46,12 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
       nextButton.onclick = slide.bind(offset, 1);
       prevButton.onclick = slide.bind(offset, -1);
     }
-    nextButton?.addEventListener('click', () => {
-      nextPage();
-    });
-    prevButton?.addEventListener('click', () => {
-      prevPage();
-    });
   };
   slide(0);
-
   return Page;
 }
 
 export const Page = renderPage(Group, currentPage);
+
+// export const prevButton = document.getElementById('prev');
+// export const nextButton = document.getElementById('next');

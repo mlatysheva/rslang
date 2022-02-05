@@ -1,10 +1,10 @@
 import { AbstractView } from './AbstractView';
-import { Page } from '../../book/renderPage';
+import { renderPage } from '../../book/renderPage';
+import { workingButtons, Group, currentPage } from '../../book/paginationBook';
 
 export class Manual extends AbstractView {
   constructor() {
     super();
-    // this.setTitle('Manual');
   }
 
   async getHtml(): Promise<HTMLElement> {
@@ -13,6 +13,8 @@ export class Manual extends AbstractView {
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
+    workingButtons();
+    const Page = renderPage(Group, currentPage);
     return Page;
   }
 }

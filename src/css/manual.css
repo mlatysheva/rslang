@@ -34,3 +34,6 @@
   background: var(--card-level0);
   cursor: pointer;
 }
+.opacity {
+  opacity: 0.5;
+}
