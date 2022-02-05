@@ -1,7 +1,9 @@
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
 import { settings } from '../book/svg';
-import { currentPage, totalPages, Group } from '../book/paginationBook';
+import { currentPage, totalPages } from '../book/paginationBook';
+
+export let Group = 0;
 
 let index = 0;
 
@@ -29,8 +31,7 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   const cardsOnPage = document.createElement('div');
   cardsOnPage.classList.add('book-page');
   Page.appendChild(cardsOnPage);
-
-  const data = await getWords(Group, page);
+  const data = await getWords(group, page);
   data.forEach((element) => {
     const cardOnPage = new CardElement(element).renderCard();
     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
@@ -50,20 +51,18 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   return Page;
 }
 
-export const Page = renderPage(Group, currentPage);
-
 export function createAside() {
   const aside = document.createElement('aside');
   aside.classList.add('levels');
   aside.innerHTML = `
   <h2>Textbook</h2>
   <button class="settings">${settings}</button>
-  <div class="level level1">Chapter 1</div>
-  <div class="level level2">Chapter 2</div>
-  <div class="level level3">Chapter 3</div>
-  <div class="level level4">Chapter 4</div>
-  <div class="level level5">Chapter 5</div>
-  <div class="level level6">Chapter 6</div>
+  <div id="level0" class="level level1">Chapter 1</div>
+  <div id="level1" class="level level2">Chapter 2</div>
+  <div id="level2" class="level level3">Chapter 3</div>
+  <div id="level3" class="level level4">Chapter 4</div>
+  <div id="level4" class="level level5">Chapter 5</div>
+  <div id="level5" class="level level6">Chapter 6</div>
   <div id="modal" class="modal">
     <div class = modal-content>
       <button class="close-button">&times;</button>
@@ -74,4 +73,34 @@ export function createAside() {
   </div>
  `;
   return aside;
+}
+
+export function switchLevel():Promise<HTMLElement> {
+  const level = document.querySelectorAll('.level');
+  const Page = renderPage(Group, currentPage);
+  const cardsOnPage = document.querySelector('.book-page');
+
+  level.forEach((element) => {
+    element.addEventListener('click', () => {
+      if (cardsOnPage) cardsOnPage.innerHTML = '';
+      element.classList.toggle('active-page');
+      if (element.classList.contains('active-page')) {
+        const id = parseInt(element.id.split('level')[1], 10);
+        switch (id) {
+          case 1: renderPage(1, currentPage);
+            break;
+          case 2: renderPage(2, currentPage);
+            break;
+          case 3: renderPage(3, currentPage);
+            break;
+          case 4: renderPage(4, currentPage);
+            break;
+          case 5: renderPage(5, currentPage);
+            break;
+          default: renderPage(6, currentPage);
+        }
+      }
+    });
+  });
+  return Page;
 }

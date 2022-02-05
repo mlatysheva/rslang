@@ -1,7 +1,6 @@
-import { renderPage } from '../book/renderPage';
+import { renderPage, Group } from '../book/renderPage';
 
 export let currentPage = 0;
-export let Group = 0;
 export const totalPages = 30;
 
 export function workingButtons():void {
@@ -20,7 +19,7 @@ export function workingButtons():void {
         if (currentPage < totalPages) { currentPage += 1; }
         renderPage(Group, currentPage);
       }
-      const checkButtonOpacity = function (): void {
+      const checkButtonOpacity = (): void => {
         if (prevButton) {
           clearInterval(waitForButton);
           if (currentPage === 1) {

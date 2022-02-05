@@ -1,7 +1,8 @@
 import { AbstractView } from './AbstractView';
-import { renderPage, createAside } from '../../book/renderPage';
-import { workingButtons, Group, currentPage } from '../../book/paginationBook';
+import { renderPage, createAside, Group, switchLevel} from '../../book/renderPage';
+import { workingButtons, currentPage } from '../../book/paginationBook';
 import { addModal } from '../../book/settings';
+//import changeLevel from '../../book/changeLevel';
 
 export class Manual extends AbstractView {
   constructor() {
@@ -21,10 +22,10 @@ export class Manual extends AbstractView {
     function newFunction() {
       workingButtons();
     }
-    const Page = renderPage(Group, currentPage);
     newFunction();
     addModal();
-    return Page;
+
+    return switchLevel();
   }
 }
 export default Manual;
