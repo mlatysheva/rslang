@@ -4,7 +4,7 @@ import { Page } from '../../book/renderPage';
 export class Manual extends AbstractView {
   constructor() {
     super();
-    this.setTitle('Manual');
+    // this.setTitle('Manual');
   }
 
   async getHtml(): Promise<HTMLElement> {
