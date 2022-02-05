@@ -3,7 +3,7 @@ import { AbstractView } from "./AbstractView";
 export class Statistics extends AbstractView {
   constructor() {
     super();
-    this.setTitle('Statistics');
+    // this.setTitle('Statistics');
   }
 
   async getHtml():Promise<HTMLElement> {

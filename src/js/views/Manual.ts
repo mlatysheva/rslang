@@ -6,7 +6,7 @@ const page = 1;
 export class Manual extends AbstractView {
   constructor() {
     super();
-    this.setTitle('Manual');
+    // this.setTitle('Manual');
   }
 
   async getHtml(): Promise<HTMLElement> {
