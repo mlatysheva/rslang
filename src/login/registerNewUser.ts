@@ -1,6 +1,6 @@
-import { renderUserName } from "../homePage/home";
 import { createUser } from "../js/api";
 import { setItemToLocalStorage } from "../js/localStorage";
+import { renderUserName } from "./loginLogout";
 
 export function registerUser() {
   console.log('we are in registerUser');
