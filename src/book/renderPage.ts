@@ -58,16 +58,16 @@ export function createAside() {
   aside.innerHTML = `
   <h2>Textbook</h2>
   <button class="settings">${settings}</button>
-  <div class="level1">Chapter 1</div>
-  <div class="level2">Chapter 2</div>
-  <div class="level3">Chapter 3</div>
-  <div class="level4">Chapter 4</div>
-  <div class="level5">Chapter 5</div>
-  <div class="level6">Chapter 6</div>
-  <div class="modal">
+  <div class="level level1">Chapter 1</div>
+  <div class="level level2">Chapter 2</div>
+  <div class="level level3">Chapter 3</div>
+  <div class="level level4">Chapter 4</div>
+  <div class="level level5">Chapter 5</div>
+  <div class="level level6">Chapter 6</div>
+  <div id="modal" class="modal">
     <div class = modal-content>
       <button class="close-button">&times;</button>
-      <p class="show-buttons">show buttons</p>
+      <p class="show-buttons">show button for words</p>
       <p class="show-translation">show translation</p>
       <button class="save">save</button>
     </div>
