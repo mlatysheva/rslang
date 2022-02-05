@@ -3,11 +3,12 @@ import './css/normalise.css';
 import { navigation } from './js/router';
 import { getWord, getWords } from './js/api';
 import { Word} from './js/types';
-import { logout, renderUserName, toggleHamburgerMenu } from './homePage/home';
+import { toggleHamburgerMenu } from './homePage/home';
 import { authenticateUser } from './login/authenticateExistingUser';
 import { Signup } from './js/views/Signup';
 import { Login } from './js/views/Login';
-import { registerUser } from './login/ registerNewUser';
+import { registerUser } from './login/registerNewUser';
+import { logout, renderUserName } from './login/loginLogout';
 
 console.log('App is running');
 
@@ -55,22 +56,6 @@ export function listenForLogin() {
         const signupComponent = new Signup();
         const signupHTML = await signupComponent.getHtml();
         (<HTMLElement>app).appendChild(signupHTML);
-
-        // listen for clicks on newly rendered 'Зарегистрироваться' button
-        // const signupSubmitBtn = <HTMLButtonElement>document.getElementById('signup-submit');
-        // console.log(`signupSubmitBtn is ${signupSubmitBtn}`);
-        // signupSubmitBtn?.addEventListener('click', () => {
-        //   console.log(`signup button is clicked`);
-        //   registerUser();
-        // })
-        
-        // listen for clicks on newly renderes 'Войти' button
-        // const loginBtn = <HTMLButtonElement>document.getElementById('login-btn');
-        // loginBtn.addEventListener('click', async () => {
-        //   const loginComponent = new Login();
-        //   const loginHTML = await loginComponent.getHtml();
-        //   (<HTMLElement>app).innerHTML = loginHTML;
-        // })
         
       })
     }
@@ -91,7 +76,7 @@ export function listenForSignup() {
       clearInterval(waiting);
     // listen for clicks on newly rendered 'Зарегистрироваться' button
       console.log(`signupSubmitBtn is ${signupSubmitBtn}`);
-      signupSubmitBtn?.addEventListener('click', () => {
+      (<HTMLButtonElement>signupSubmitBtn).addEventListener('click', () => {
         console.log(`signup button is clicked`);
         registerUser();
       })

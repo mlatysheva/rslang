@@ -57,7 +57,7 @@ export function authenticateUser() {
       // console.log(`login message is ${loginDetails.message}`);
       // console.log(`user id is ${loginDetails.userId}`);
       console.log(`user token is ${loginDetails.token}`);
-      window.location.href = "/";
+      window.location.hash = "/";
     }
   }
 }
