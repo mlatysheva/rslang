@@ -7,9 +7,9 @@ import { toggleHamburgerMenu } from './homePage/home';
 import { authenticateUser } from './login/authenticateExistingUser';
 import { Signup } from './js/views/Signup';
 import { Login } from './js/views/Login';
-import { registerUser } from './login/ registerNewUser';
-import '../src/book/paginationBook';
+import { registerUser } from './login/registerNewUser';
 import { logout, renderUserName } from './login/loginLogout';
+
 
 console.log('App is running');
 
@@ -25,7 +25,7 @@ async function words(group: number, page: number) {
     console.log(data);
   });
 }
-// words(2, 5);
+words(2, 5);
 
 async function word(id: string) {
   const word = await getWord(id).then((data: Word) => {

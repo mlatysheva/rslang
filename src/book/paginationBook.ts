@@ -1,10 +1,10 @@
 import { renderPage } from '../book/renderPage';
 
 export let currentPage = 0;
-export const Group = 0;
+export let Group = 0;
 export const totalPages = 30;
 
-export function workingButtons() {
+export function workingButtons():void {
   const waitForButton = setInterval(() => {
     const prevButton = document.getElementById('prev');
     const nextButton = document.getElementById('next');
@@ -22,6 +22,7 @@ export function workingButtons() {
       }
       const checkButtonOpacity = function (): void {
         if (prevButton) {
+          clearInterval(waitForButton);
           if (currentPage === 1) {
             prevButton.classList.add('opacity');
           } else { prevButton.classList.remove('opacity'); }

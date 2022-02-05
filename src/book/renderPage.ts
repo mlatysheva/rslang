@@ -1,8 +1,7 @@
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
-import {
-  currentPage, totalPages, Group, workingButtons
-} from '../book/paginationBook';
+import { settings } from '../book/svg';
+import { currentPage, totalPages, Group } from '../book/paginationBook';
 
 let index = 0;
 
@@ -53,5 +52,26 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
 
 export const Page = renderPage(Group, currentPage);
 
-// export const prevButton = document.getElementById('prev');
-// export const nextButton = document.getElementById('next');
+export function createAside() {
+  const aside = document.createElement('aside');
+  aside.classList.add('levels');
+  aside.innerHTML = `
+  <h2>Textbook</h2>
+  <button class="settings">${settings}</button>
+  <div class="level1">Chapter 1</div>
+  <div class="level2">Chapter 2</div>
+  <div class="level3">Chapter 3</div>
+  <div class="level4">Chapter 4</div>
+  <div class="level5">Chapter 5</div>
+  <div class="level6">Chapter 6</div>
+  <div class="modal">
+    <div class = modal-content>
+      <button class="close-button">&times;</button>
+      <p class="show-buttons">show buttons</p>
+      <p class="show-translation">show translation</p>
+      <button class="save">save</button>
+    </div>
+  </div>
+ `;
+  return aside;
+}

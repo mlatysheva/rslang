@@ -1,6 +1,7 @@
 import { AbstractView } from './AbstractView';
-import { renderPage } from '../../book/renderPage';
+import { renderPage, createAside } from '../../book/renderPage';
 import { workingButtons, Group, currentPage } from '../../book/paginationBook';
+import { addModal } from '../../book/settings';
 
 export class Manual extends AbstractView {
   constructor() {
@@ -13,10 +14,17 @@ export class Manual extends AbstractView {
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
-    workingButtons();
+
+    const aside = createAside();
+    app.appendChild(aside);
+
+    function newFunction() {
+      workingButtons();
+    }
     const Page = renderPage(Group, currentPage);
+    newFunction();
+    addModal();
     return Page;
   }
 }
-
 export default Manual;
