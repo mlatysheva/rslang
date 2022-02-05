@@ -1,4 +1,3 @@
-import { getItemFromLocalStorage } from "../js/localStorage";
 
 export function toggleHamburgerMenu() {
   const hamburger = <HTMLElement>document.querySelector(".hamburger");
@@ -20,22 +19,4 @@ export function toggleHamburgerMenu() {
     hamburger.classList.remove("active");
     navMenu.classList.remove("active");
   }
-}
-
-export function renderUserName() {
-  if (getItemFromLocalStorage('email') !== null) {
-    const nameField = <HTMLElement>document.querySelector('.user-name');
-    (<HTMLElement>nameField).innerHTML = getItemFromLocalStorage('email').split('"').join('');
-
-  }
-}
-
-export function logout() {
-  const logoutBtn = document.getElementById("signout-link");
-  logoutBtn?.addEventListener('click', () => {
-    if (getItemFromLocalStorage('email') != null) {
-      localStorage.clear();
-      renderUserName();
-    }
-  })
 }
