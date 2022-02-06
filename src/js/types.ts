@@ -37,6 +37,16 @@ export interface TestFieldParameters {
 }
 
 export interface User { 
-  email: string, 
-  password: string, 
+  "email": string, 
+  "password": string, 
+}
+export interface NewUserDetails {
+  id: string,
+  email: string,
+}
+
+export interface ExistingUserLoginDetails {
+  message: string,
+  token: string,
+  userId: string
 }

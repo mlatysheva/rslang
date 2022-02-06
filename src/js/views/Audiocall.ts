@@ -4,7 +4,7 @@ import { renderWord } from '../../card/renderOne';
 export class Audiocall extends AbstractView {
   constructor() {
     super();
-    this.setTitle('Audiocall');
+    // this.setTitle('Audiocall');
   }
 
   async getHtml(): Promise<HTMLElement> {

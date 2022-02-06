@@ -1,11 +1,10 @@
-import { User, UserWord, Word } from "./types";
+import { ExistingUserLoginDetails, NewUserDetails, User, UserWord, Word } from "./types";
 
-const base = 'https://react-learnwords-example.herokuapp.com';
-//https://rs-lang-mlatysheva.herokuapp.com/
+const base = 'https://rs-lang-mlatysheva.herokuapp.com';
 
 const words = `${base}/words`;
 const users = `${base}/users`;
-const signin = `${base}/signing`;
+const signin = `${base}/signin`;
 
 export async function getWords (group: number, page: number): Promise<Word[]> {
   const response = (await fetch (`${words}?group=${group}&page=${page}`));
@@ -26,7 +25,7 @@ export async function getWord (id: string): Promise<Word> {
   return word;
 }
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: User): Promise<NewUserDetails> => {
   const rawResponse = await fetch(users, {
     method: 'POST',
     headers: {
@@ -36,8 +35,9 @@ export const createUser = async (user: User) => {
     body: JSON.stringify(user)
   });
   const content = await rawResponse.json();
+  console.log(`in create user content.id is ${content.id}`);
 
-  console.log(content);
+  return content;
   // assign id: string to new user automatically
   // {id: '61fa90af95fa390015feec46', email: 'example@google.mail'}
 
@@ -45,7 +45,7 @@ export const createUser = async (user: User) => {
 
 // createUser({ "email": "example@google.mail", "password": "nwekjsf13243" });
 
-export const loginUser = async (user: User) => {
+export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> => {
   const rawResponse = await fetch(signin, {
     method: 'POST',
     headers: {
@@ -55,8 +55,9 @@ export const loginUser = async (user: User) => {
     body: JSON.stringify(user)
   });
   const content = await rawResponse.json();
+  console.log(`in login user id is ${content.id}`);
 
-  console.log(content);
+  return content;
   // "message":"Authenticated",
   // "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzk5M2RmNGNhOWQ2MDAxNzg3NDBhZSIsImlhdCI6MTU5MDI2OTE1OCwiZXhwIjoxNTkwMjgzNTU4fQ.XHKmdY_jk1R7PUbgCZfqH8TxH6XQ0USwPBSKNHMdF6I",
   // "userId":"5ec993df4ca9d600178740ae"

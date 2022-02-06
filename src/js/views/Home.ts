@@ -3,7 +3,7 @@ import { AbstractView } from "./AbstractView";
 export class Home extends AbstractView {
   constructor() {
     super();
-    this.setTitle('Learn English');
+    // this.setTitle('Learn English');
   }
 
 

@@ -1,5 +1,7 @@
 export abstract class AbstractView {
-  constructor() {}
+  constructor() {
+    document.title = 'Учи английский'
+  }
 
   setTitle(title: string) {
     document.title = title;
