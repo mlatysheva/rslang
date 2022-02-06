@@ -63,6 +63,7 @@ export function createAside() {
   <div id="level3" class="level level4">Chapter 4</div>
   <div id="level4" class="level level5">Chapter 5</div>
   <div id="level5" class="level level6">Chapter 6</div>
+  <div id="level6" class="level level7">Difficult words</div>
   <div id="modal" class="modal">
     <div class = modal-content>
       <button class="close-button">&times;</button>

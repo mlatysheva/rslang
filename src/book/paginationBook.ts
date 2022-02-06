@@ -54,7 +54,6 @@ export function workingButtons():void {
 
 export async function changeLevel() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
-    //const Page = renderPage(Group, currentPage);
     const cardsOnPage = document.querySelector('.book-page');
     if (e.target) {
       if ((e.target as HTMLElement).classList.contains('level')) {
