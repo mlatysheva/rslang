@@ -3,7 +3,7 @@ import { CardElement } from '../card/cardElement';
 import { settings } from '../book/svg';
 import { currentPage, totalPages } from '../book/paginationBook';
 
-export let Group = 0;
+export const Group = 0;
 
 let index = 0;
 
@@ -63,6 +63,7 @@ export function createAside() {
   <div id="level3" class="level level4">Chapter 4</div>
   <div id="level4" class="level level5">Chapter 5</div>
   <div id="level5" class="level level6">Chapter 6</div>
+  <div id="level6" class="level level7">Difficult words</div>
   <div id="modal" class="modal">
     <div class = modal-content>
       <button class="close-button">&times;</button>
@@ -73,34 +74,4 @@ export function createAside() {
   </div>
  `;
   return aside;
-}
-
-export function switchLevel():Promise<HTMLElement> {
-  const level = document.querySelectorAll('.level');
-  const Page = renderPage(Group, currentPage);
-  const cardsOnPage = document.querySelector('.book-page');
-
-  level.forEach((element) => {
-    element.addEventListener('click', () => {
-      if (cardsOnPage) cardsOnPage.innerHTML = '';
-      element.classList.toggle('active-page');
-      if (element.classList.contains('active-page')) {
-        const id = parseInt(element.id.split('level')[1], 10);
-        switch (id) {
-          case 1: renderPage(1, currentPage);
-            break;
-          case 2: renderPage(2, currentPage);
-            break;
-          case 3: renderPage(3, currentPage);
-            break;
-          case 4: renderPage(4, currentPage);
-            break;
-          case 5: renderPage(5, currentPage);
-            break;
-          default: renderPage(6, currentPage);
-        }
-      }
-    });
-  });
-  return Page;
 }

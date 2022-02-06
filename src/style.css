@@ -10,10 +10,15 @@
 
 * {
   box-sizing: border-box;
+  margin: 0 auto;
 }
 
-* {
-  margin: 0;
+body {
+  margin: 0 auto;
+}
+h2,
+h4 {
+  margin-bottom: 0;
 }
 
 :root {
@@ -367,14 +372,17 @@ a {
   flex-direction: column;
   padding: 10px;
   border-radius: 10%;
+  opacity: 0.8;
 }
 
 .card0 {
   background: var(--card-level0);
+  
 }
 
 .card1 {
   background: var(--card-level1);
+  color: beige;
 }
 
 .card2 {
@@ -391,6 +399,7 @@ a {
 
 .card5 {
   background: var(--card-level5);
+  color: beige;
 }
 
 .photoTitlSound,

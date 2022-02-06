@@ -1,5 +1,6 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
+import { removeItalic, removeBold } from '../book/paginationBook';
 //import { serwerGetWordById } from
 
 export class CardElement {
@@ -99,7 +100,7 @@ export class CardElement {
 
     let elemtextMeaning = document.createElement('p');
     elemtextMeaning.classList.add('textMeaning');
-    elemtextMeaning.innerText = `${this.data.textMeaning}`;
+    elemtextMeaning.innerText = `${removeItalic(this.data.textMeaning)}`;
     elemText.appendChild(elemtextMeaning);
 
     let elemAudioMeaning = document.createElement('button');
@@ -116,7 +117,7 @@ export class CardElement {
 
     let elemtextExample = document.createElement('p');
     elemtextExample.classList.add('textExample');
-    elemtextExample.innerText = `${this.data.textExample}`;
+    elemtextExample.innerText = `${removeBold(this.data.textExample)}`;
     elemText.appendChild(elemtextExample);
 
     let elemAudioExample = document.createElement('button');
@@ -128,7 +129,7 @@ export class CardElement {
 
     let elemtextExampleTranslate = document.createElement('p');
     elemtextExampleTranslate.classList.add('textExampleTranslate');
-    elemtextExampleTranslate.innerText = `${this.data.textExampleTranslate}`;
+    elemtextExampleTranslate.innerText = `${removeBold(this.data.textExampleTranslate)}`;
     elemText.appendChild(elemtextExampleTranslate);
 
     cardElement.appendChild(elemText);
