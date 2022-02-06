@@ -1,4 +1,4 @@
-import { renderPage, Group } from '../book/renderPage';
+import { renderPage, Group, switchLevel } from '../book/renderPage';
 
 export let currentPage = 0;
 export const totalPages = 30;
@@ -12,12 +12,12 @@ export function workingButtons():void {
         if (currentPage > 1) {
           // eslint-disable-next-line no-plusplus
           currentPage--;
-          renderPage(Group, currentPage);
+          switchLevel();
         }
       }
       async function nextPage() {
         if (currentPage < totalPages) { currentPage += 1; }
-        renderPage(Group, currentPage);
+        switchLevel();
       }
       const checkButtonOpacity = (): void => {
         if (prevButton) {

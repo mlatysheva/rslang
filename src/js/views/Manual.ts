@@ -18,14 +18,9 @@ export class Manual extends AbstractView {
 
     const aside = createAside();
     app.appendChild(aside);
-
-    function newFunction() {
-      workingButtons();
-    }
-    newFunction();
+    workingButtons();
     addModal();
-
-    return switchLevel();
+    return renderPage(Group, currentPage);
   }
 }
 export default Manual;

@@ -3,7 +3,7 @@ import { CardElement } from '../card/cardElement';
 import { settings } from '../book/svg';
 import { currentPage, totalPages } from '../book/paginationBook';
 
-export let Group = 0;
+export const Group = 0;
 
 let index = 0;
 
@@ -87,6 +87,8 @@ export function switchLevel():Promise<HTMLElement> {
       if (element.classList.contains('active-page')) {
         const id = parseInt(element.id.split('level')[1], 10);
         switch (id) {
+          case 0: renderPage(0, currentPage);
+            break;
           case 1: renderPage(1, currentPage);
             break;
           case 2: renderPage(2, currentPage);
@@ -95,12 +97,28 @@ export function switchLevel():Promise<HTMLElement> {
             break;
           case 4: renderPage(4, currentPage);
             break;
-          case 5: renderPage(5, currentPage);
-            break;
-          default: renderPage(6, currentPage);
+          default: renderPage(5, currentPage);
         }
       }
     });
   });
   return Page;
 }
+
+document.body.addEventListener('click', async (e: MouseEvent) => {
+  const Page = renderPage(Group, currentPage);
+  const cardsOnPage = document.querySelector('.book-page');
+  if (e.target) {
+    if ((e.target as HTMLElement).classList.contains('level')) {
+      const id = +(e.target as HTMLElement).id.split('level')[1];
+      if (cardsOnPage) cardsOnPage.innerHTML = '';
+      const data = await getWords(id, currentPage);
+      data.forEach((element) => {
+        const cardOnPage = new CardElement(element).renderCard();
+        if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+      });
+      return Page;
+    }
+    return Page;
+  }
+});
