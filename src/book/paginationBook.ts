@@ -5,6 +5,30 @@ import { CardElement } from '../card/cardElement';
 export let currentPage = 0;
 export const totalPages = 30;
 
+export function removeBold(str: string) {
+  const value = '<b>';
+  const value1 = '</b>';
+  const index = str.indexOf(value);
+  const index1 = str.indexOf(value1);
+  if (index === -1) {
+    return str;
+  }
+  const italicText = str.slice(index + 3, index1);
+  return str.slice(0, index) + italicText + str.slice(index1 + 1 + value.length);
+}
+
+export function removeItalic(str: string) {
+  const value = '<i>';
+  const value1 = '</i>';
+  const index = str.indexOf(value);
+  const index1 = str.indexOf(value1);
+  if (index === -1) {
+    return str;
+  }
+  const italicText = str.slice(index + 3, index1);
+  return str.slice(0, index) + italicText + str.slice(index1 + 1 + value.length);
+}
+
 export function workingButtons():void {
   const waitForButton = setInterval(() => {
     const prevButton = document.getElementById('prev');
