@@ -1,11 +1,9 @@
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
 import { settings } from '../book/svg';
-import { currentPage, totalPages } from '../book/paginationBook';
+import { currentPage, totalPages, prevPage, nextPage, checkButtonOpacity } from '../book/paginationBook';
 
 export const Group = 0;
-
-let index = 0;
 
 export async function renderPage(group: number, page: number) : Promise<HTMLElement> {
   const Page = document.createElement('section');
@@ -14,11 +12,17 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   const prevButton = document.createElement('button');
   prevButton.setAttribute('id', 'prev');
   prevButton.innerText = 'prev';
+
   const nextButton = document.createElement('button');
   nextButton.setAttribute('id', 'next');
   nextButton.innerText = 'next';
+
+  nextButton.setAttribute('data-state', currentPage === 1 ? 'disabled' : '');
+  prevButton.setAttribute('data-state', currentPage === totalPages ? 'disabled' : '');
+
   const counter = document.createElement('span');
   counter.classList.add('counter');
+  counter.innerHTML = `${currentPage} / ${totalPages}`;
   const paginationBtn = document.createElement('div');
   paginationBtn.classList.add('pagination');
 
@@ -36,18 +40,24 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
     const cardOnPage = new CardElement(element).renderCard();
     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
   });
-
-  const slide = (offset: number) => {
-    index = Math.min(Math.max(index + offset, 0), totalPages - 1);
-    if (counter) {
-      counter.innerHTML = `${index + 1} / ${totalPages}`;
-      nextButton.setAttribute('data-state', index === 0 ? 'disabled' : '');
-      prevButton.setAttribute('data-state', index === totalPages - 1 ? 'disabled' : '');
-      nextButton.onclick = slide.bind(offset, 1);
-      prevButton.onclick = slide.bind(offset, -1);
+  function changePages() {
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        prevPage();
+        checkButtonOpacity();
+        counter.innerHTML = `${currentPage} / ${totalPages}`;
+      });
     }
-  };
-  slide(0);
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        counter.innerHTML = `${currentPage} / ${totalPages}`;
+        nextPage();
+        checkButtonOpacity();
+      });
+    }
+  }
+  changePages();
+
   return Page;
 }
 

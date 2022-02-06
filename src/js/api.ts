@@ -1,4 +1,6 @@
-import { ExistingUserLoginDetails, NewUserDetails, User, UserWord, Word } from "./types";
+import {
+  ExistingUserLoginDetails, NewUserDetails, User, UserWord, Word,
+} from './types';
 
 const base = 'https://rs-lang-mlatysheva.herokuapp.com';
 
@@ -6,22 +8,22 @@ const words = `${base}/words`;
 const users = `${base}/users`;
 const signin = `${base}/signin`;
 
-export async function getWords (group: number, page: number): Promise<Word[]> {
-  const response = (await fetch (`${words}?group=${group}&page=${page}`));
-  
-  let data = {
+export async function getWords(group: number, page: number): Promise<Word[]> {
+  const response = (await fetch(`${words}?group=${group}&page=${page}`));
+
+  const data = {
     items: await response.json(),
     count: response.headers.get('X-Total-Count'),
-  }
-  //console.log(`data is ${data.items[0]}`);
+  };
+  // console.log(`data is ${data.items[0]}`);
   return data.items;
 }
 
-export async function getWord (id: string): Promise<Word> {
-  const response = (await fetch (`${words}/${id}`));
+export async function getWord(id: string): Promise<Word> {
+  const response = (await fetch(`${words}/${id}`));
 
-  let word: Word = await response.json();
-  //console.log(`word is ${word.word}`);
+  const word: Word = await response.json();
+  // console.log(`word is ${word.word}`);
   return word;
 }
 
@@ -29,10 +31,10 @@ export const createUser = async (user: User): Promise<NewUserDetails> => {
   const rawResponse = await fetch(users, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(user),
   });
   const content = await rawResponse.json();
   console.log(`in create user content.id is ${content.id}`);
@@ -40,7 +42,6 @@ export const createUser = async (user: User): Promise<NewUserDetails> => {
   return content;
   // assign id: string to new user automatically
   // {id: '61fa90af95fa390015feec46', email: 'example@google.mail'}
-
 };
 
 // createUser({ "email": "example@google.mail", "password": "nwekjsf13243" });
@@ -49,10 +50,10 @@ export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> =
   const rawResponse = await fetch(signin, {
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(user),
   });
   const content = await rawResponse.json();
   console.log(`in login user id is ${content.id}`);
@@ -71,11 +72,11 @@ const createUserWord = async (userId: string, wordId: string, word: string) => {
     method: 'POST',
     // withCredentials: true,
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(word)
+    body: JSON.stringify(word),
   });
   const content = await rawResponse.json();
 
@@ -102,9 +103,9 @@ const getUserWord = async (userId: string, wordId: string) => {
     method: 'GET',
     // withCredentials: true,
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json',
-    }
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
   });
   const content = await rawResponse.json();
 
