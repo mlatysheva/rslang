@@ -1,20 +1,53 @@
-import { renderPage } from '../book/renderPage';
+import { renderPage, Group } from '../book/renderPage';
 
 export let currentPage = 0;
-export let group = 0;
 export const totalPages = 30;
 
-export async function prevPage(): Promise<void> {
-  if (currentPage > 1) {
-    // eslint-disable-next-line no-plusplus
-    currentPage--;
-    await renderPage(group, currentPage);
-  }
-}
+export function workingButtons():void {
+  const waitForButton = setInterval(() => {
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+    const numPages = async ():Promise<void> => {
+      async function prevPage(): Promise<void> {
+        if (currentPage > 1) {
+          // eslint-disable-next-line no-plusplus
+          currentPage--;
+          renderPage(Group, currentPage);
+        }
+      }
+      async function nextPage() {
+        if (currentPage < totalPages) { currentPage += 1; }
+        renderPage(Group, currentPage);
+      }
+      const checkButtonOpacity = (): void => {
+        if (prevButton) {
+          clearInterval(waitForButton);
+          if (currentPage === 1) {
+            prevButton.classList.add('opacity');
+          } else { prevButton.classList.remove('opacity'); }
+        }
+        if (nextButton) {
+          if (currentPage === totalPages) {
+            nextButton.classList.add('opacity');
+          } else {
+            nextButton.classList.remove('opacity');
+          }
+        }
+      };
 
-export async function nextPage(): Promise<void> {
-  if (currentPage < totalPages) {
-    currentPage += 1;
-    await renderPage(group, currentPage);
-  }
+      if (prevButton) {
+        prevButton.addEventListener('click', () => {
+          prevPage();
+          checkButtonOpacity();
+        });
+      }
+      if (nextButton) {
+        nextButton.addEventListener('click', () => {
+          nextPage();
+          checkButtonOpacity();
+        });
+      }
+    };
+    numPages();
+  });
 }

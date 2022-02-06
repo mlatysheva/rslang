@@ -1,10 +1,12 @@
 import { AbstractView } from './AbstractView';
-import { Page } from '../../book/renderPage';
+import { renderPage, createAside, Group, switchLevel} from '../../book/renderPage';
+import { workingButtons, currentPage } from '../../book/paginationBook';
+import { addModal } from '../../book/settings';
+//import changeLevel from '../../book/changeLevel';
 
 export class Manual extends AbstractView {
   constructor() {
     super();
-    // this.setTitle('Manual');
   }
 
   async getHtml(): Promise<HTMLElement> {
@@ -13,8 +15,17 @@ export class Manual extends AbstractView {
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
-    return Page;
+
+    const aside = createAside();
+    app.appendChild(aside);
+
+    function newFunction() {
+      workingButtons();
+    }
+    newFunction();
+    addModal();
+
+    return switchLevel();
   }
 }
-
 export default Manual;

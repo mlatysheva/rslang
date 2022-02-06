@@ -34,3 +34,54 @@
   background: var(--card-level0);
   cursor: pointer;
 }
+.opacity {
+  opacity: 0.5;
+}
+.levels {
+  display: flex;
+  gap: 5em;
+}
+.level {
+  padding: 10px 15px;
+  box-shadow: 2px 5px 3px;
+  border-radius:62px;
+  color: beige;
+}
+.level:hover, 
+#prev:hover,
+#next:hover,
+#Layer_1 {
+  filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(
+7deg
+) brightness(92%) contrast(87%);
+}
+.level1 {
+  background-color: var(--card-level0);
+}
+.level2 {
+  background-color: var(--card-level1);
+}
+.level3 {
+  background-color: var(--card-level2);
+}
+.level4 {
+  background-color: var(--card-level3);
+}
+.level5 {
+  background-color: var(--card-level4);
+}
+.level6 {
+  background-color: var(--card-level5);
+}
+.settings {
+  border: none;
+  outline: none;
+  filter: alpha(opacity=100);
+  background: transparent;
+}
+.hide {
+  display: none;
+}
+.active-page {
+  transform: scale(1.2);
+}

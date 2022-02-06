@@ -27,13 +27,13 @@ function navigation() {
   const statisticsComponent = new Statistics();
 
   const routes = [
-    { path: '/', component: homeComponent, },
-    { path: '/login/', component: loginComponent, },
-    { path: '/signup/', component: signupComponent, },
-    { path: '/manual/', component: manualComponent, },
-    { path: '/audiocall/', component: audiocallComponent, },
-    { path: '/sprint/', component: sprintComponent, },
-    { path: '/statistics/', component: statisticsComponent, },
+    { path: '/', component: homeComponent },
+    { path: '/login/', component: loginComponent },
+    { path: '/signup/', component: signupComponent },
+    { path: '/manual/', component: manualComponent },
+    { path: '/audiocall/', component: audiocallComponent },
+    { path: '/sprint/', component: sprintComponent },
+    { path: '/statistics/', component: statisticsComponent },
   ];
 
   // find current location by url in the browser
@@ -48,9 +48,9 @@ function navigation() {
     // find the component based on the current path
     const path = parseLocation();
 
-    let componentFound = <Route>findComponentByPath(path, routes) || {};
+    const componentFound = <Route>findComponentByPath(path, routes) || {};
     if (componentFound == null) {
-      let errorComponent = new Error();
+      const errorComponent = new Error();
       clearAllChildNodes(app);
       app.appendChild(await errorComponent.getHtml());
     } else {
@@ -67,33 +67,33 @@ function navigation() {
     window.addEventListener(event, (e) => {
       const hashClicked = location.hash;
 
-      switch(hashClicked) {
-        case('#/'):
+      switch (hashClicked) {
+        case ('#/'):
           console.log('We are in home view');
           break;
-        case ('#/login/'): 
+        case ('#/login/'):
           // listenForLogin();
           console.log('We are in login view');
           break;
-        case ('#/signup/'): 
+        case ('#/signup/'):
           // listenForLogin();
           console.log('We are in signup view');
           break;
-        case ('#/manual/'): 
-          //TODO: add functions with manual
+        case ('#/manual/'):
+          // TODO: add functions with manual
           console.log('We are in manual view');
           break;
         case '#/audiocall/':
-          //TODO: add functions with manual
+          // TODO: add functions with manual
           console.log('We are in audiocall view');
           break;
         case '#/sprint/':
-          //TODO: add functions with manual
+          // TODO: add functions with manual
           console.log('We are in sprint view');
           break;
-        case('#/statistics/'):
+        case ('#/statistics/'):
 
-          //TODO: add functions with manual
+          // TODO: add functions with manual
           console.log('We are in statistics view');
           break;
       }
