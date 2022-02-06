@@ -1,7 +1,7 @@
 import { AbstractView } from './AbstractView';
 import { renderPage, createAside, Group } from '../../book/renderPage';
 import { workingButtons, currentPage, changeLevel } from '../../book/paginationBook';
-import { addModal } from '../../book/settings';
+import { addModal, toggleTranslate } from '../../book/settings';
 
 export class Manual extends AbstractView {
   constructor() {
@@ -20,6 +20,7 @@ export class Manual extends AbstractView {
     workingButtons();
     addModal();
     changeLevel();
+    toggleTranslate();
     return renderPage(Group, currentPage);
   }
 }

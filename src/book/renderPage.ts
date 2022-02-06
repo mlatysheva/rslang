@@ -67,9 +67,31 @@ export function createAside() {
   <div id="modal" class="modal">
     <div class = modal-content>
       <button class="close-button">&times;</button>
-      <p class="show-buttons">show button for words</p>
-      <p class="show-translation">show translation</p>
-      <button class="save">save</button>
+      <div class="switch">
+      <div class="switch-item"></div>
+      <label>
+        <span class="show-translation">show translation</span>
+        <input
+          type="checkbox"
+          id="translate"
+          class="btn-switch green tinyswitch translate"
+          checked />
+        <div><div></div></div
+      ></label>
+    </div>
+    <div class="switch">
+      <div class="switch-item"></div>
+      <label>
+        <span class="show-buttons">show button for words</span>
+        <input
+          type="checkbox"
+          id="difficult"
+          class="btn-switch green tinyswitch translate"
+          checked />
+        <div><div></div></div
+      ></label>
+    </div>
+      <button id="save" class="save">save</button>
     </div>
   </div>
  `;

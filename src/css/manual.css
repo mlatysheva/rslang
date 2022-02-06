@@ -54,7 +54,8 @@
   flex-direction: column;
   gap: 1.2em;
 }
-.level {
+.level,
+.save {
   padding: 10px 15px;
   box-shadow: 2px 5px 3px;
   border-radius:62px;
@@ -63,7 +64,7 @@
 .level:hover, 
 #prev:hover,
 #next:hover,
-#Layer_1 {
+#save {
   filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(
 7deg
 ) brightness(92%) contrast(87%);
@@ -72,7 +73,8 @@
   background-color: var(--card-level0);
 }
 .level2,
-.level7 {
+.level7,
+.save {
   background-color: var(--card-level1);
 }
 .level3 {
