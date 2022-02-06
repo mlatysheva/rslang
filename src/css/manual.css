@@ -8,6 +8,8 @@
 	overflow-y: scroll;
 }
 .book-page {
+  margin: 0 auto;
+  margin-left: 5em;
 	padding: 10px;
 	display: flex;
 	flex-direction: row;
@@ -39,7 +41,11 @@
 }
 .levels {
   display: flex;
-  gap: 5em;
+  position: fixed;
+  top: 8em;
+  left: 0px;
+  flex-direction: column;
+  gap: 2em;
 }
 .level {
   padding: 10px 15px;

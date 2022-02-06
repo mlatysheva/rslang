@@ -1,4 +1,6 @@
-import { renderPage, Group, switchLevel } from '../book/renderPage';
+import { renderPage, Group } from '../book/renderPage';
+import { getWords } from '../js/api';
+import { CardElement } from '../card/cardElement';
 
 export let currentPage = 0;
 export const totalPages = 30;
@@ -12,12 +14,10 @@ export function workingButtons():void {
         if (currentPage > 1) {
           // eslint-disable-next-line no-plusplus
           currentPage--;
-          switchLevel();
         }
       }
       async function nextPage() {
         if (currentPage < totalPages) { currentPage += 1; }
-        switchLevel();
       }
       const checkButtonOpacity = (): void => {
         if (prevButton) {
@@ -49,5 +49,25 @@ export function workingButtons():void {
       }
     };
     numPages();
+  });
+}
+
+export async function changeLevel() {
+  document.body.addEventListener('click', async (e: MouseEvent) => {
+    //const Page = renderPage(Group, currentPage);
+    const cardsOnPage = document.querySelector('.book-page');
+    if (e.target) {
+      if ((e.target as HTMLElement).classList.contains('level')) {
+        const id = +(e.target as HTMLElement).id.split('level')[1];
+        if (cardsOnPage) cardsOnPage.innerHTML = '';
+        const data = await getWords(id, currentPage);
+        data.forEach((element) => {
+          const cardOnPage = new CardElement(element).renderCard();
+          if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+        });
+        return cardsOnPage;
+      }
+      return cardsOnPage;
+    }
   });
 }
