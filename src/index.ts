@@ -10,6 +10,7 @@ import { Login } from './js/views/Login';
 import { registerUser } from './login/registerNewUser';
 import { logout, renderUserName } from './login/loginLogout';
 
+
 console.log('App is running');
 
 const app = <HTMLElement>document.getElementById('app');
@@ -25,7 +26,7 @@ async function words(group: number, page: number) {
 
   });
 }
- words(2, 5);
+// words(2, 5);
 
 
 

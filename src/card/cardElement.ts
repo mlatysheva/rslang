@@ -173,7 +173,7 @@ function sound(cardElement: CardElement): (e: MouseEvent) => void {
 
 function soundMeaning(cardElement: CardElement): (e: MouseEvent) => void {
   return function (e: MouseEvent) {
-    const changeSoundBtn = document.getElementById(cardElement.getSoundMeaningId()) as HTMLElement;
+    const changeSoundBtn = <HTMLButtonElement>document.getElementById(cardElement.getSoundMeaningId());
     const audio = new Audio();
     const audioSrc = `${linkForCard}${cardElement.data.audioMeaning}`;
 
