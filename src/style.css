@@ -25,6 +25,11 @@ h4 {
 }
 
 :root {
+  --game1: #b1f2f8;
+  --text-color-button: #804d4d;
+}
+
+:root {
   --glaucous: #597cb8;
 }
 :root {
@@ -473,16 +478,32 @@ a {
 /*game1 Audiocall*/
 .describtion-game1 {
   margin-top: 15%;
-  background: var(--card-level4);
+  background: var(--game1);
   border-radius: 25%;
   padding: 2rem;
   max-width: 500px;
   display: flex;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .game-description {
   font-size: 1rem;
+}
+
+.levelsGame1 {
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.game1 {
+  border-radius: 10%;
+  font-size: 0.8rem;
+  color: var(--text-color-button);
+  text-shadow: 12px 0px 6px rgba(231, 243, 236, 0.65);
+  margin-left: 5px;
 }
 
 /* button(+button:hover) - section - header(=footer+id) -*/
