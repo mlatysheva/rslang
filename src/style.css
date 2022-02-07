@@ -493,6 +493,7 @@ a:hover {
 }
 
 /*game1 Audiocall*/
+.round-game1,
 .describtion-game1 {
   margin-top: 15%;
   background: var(--game1);
@@ -509,6 +510,7 @@ a:hover {
   font-size: 1rem;
 }
 
+.unswers-game1,
 .levelsGame1 {
   display: flex;
   cursor: pointer;
@@ -520,6 +522,27 @@ a:hover {
   font-size: 0.8rem;
   color: var(--text-color-button);
   margin-left: 5px;
+}
+
+.unswer-btn {
+  font-size: 2rem;
+  color: var(--text-color-button);
+  background: var(--gradient-bottom-right);
+  opacity: 0.8;
+  border-radius: 25%;
+  margin-left: 15px;
+}
+
+.unswer-btn:hover {
+  color: var(--card-level1);
+}
+
+.game1-sound {
+  width: 50px;
+  margin: 15px auto;
+  padding: 30px;
+  border: thick double var(--text-color-button);
+  border-radius: 50%;
 }
 
 /* button(+button:hover) - section - header(=footer+id) -*/
