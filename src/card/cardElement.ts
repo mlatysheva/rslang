@@ -1,6 +1,6 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
-import { removeItalic, removeBold } from '../book/paginationBook';
+import { removeItalic, removeBold } from '../book/settings';
 //import { serwerGetWordById } from
 
 export class CardElement {
