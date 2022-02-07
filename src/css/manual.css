@@ -120,4 +120,7 @@
 .active-page {
   transform: scale(1.2);
 }
+.difficult-word{
+  border: 2px red dotted;
+}
 
