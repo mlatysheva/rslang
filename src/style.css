@@ -416,6 +416,7 @@ a {
 .textExample {
   font-weight: bold;
   text-align: right;
+  max-width: 230px;
 }
 
 .textMeaningTranslate,
@@ -453,6 +454,11 @@ a {
 
 .pause {
   background-image: url(../src/assets/images/pauseH.svg);
+}
+
+.meaning,
+.example {
+  display: flex;
 }
 
 /* button(+button:hover) - section - header(=footer+id) -*/

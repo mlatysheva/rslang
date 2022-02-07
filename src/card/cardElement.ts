@@ -98,34 +98,40 @@ export class CardElement {
 
     elemText.appendChild(elemTraskTranl);
 
-    let elemtextMeaning = document.createElement('p');
-    elemtextMeaning.classList.add('textMeaning');
-    elemtextMeaning.innerText = `${removeItalic(this.data.textMeaning)}`;
-    elemText.appendChild(elemtextMeaning);
-
+    let meaning = document.createElement('div');
+    meaning.classList.add('meaning');
     let elemAudioMeaning = document.createElement('button');
     elemAudioMeaning.classList.add('player-icon');
     elemAudioMeaning.classList.add('play');
     elemAudioMeaning.setAttribute('id', this.getSoundMeaningId());
-    elemText.appendChild(elemAudioMeaning);
+    meaning.appendChild(elemAudioMeaning);
     elemAudioMeaning.addEventListener('click', soundMeaningFunction);
+
+    let elemtextMeaning = document.createElement('p');
+    elemtextMeaning.classList.add('textMeaning');
+    elemtextMeaning.innerText = `${removeItalic(this.data.textMeaning)}`;
+    meaning.appendChild(elemtextMeaning);
+    elemText.appendChild(meaning);
 
     let elemtextMeaningTranslate = document.createElement('p');
     elemtextMeaningTranslate.classList.add('textMeaningTranslate');
     elemtextMeaningTranslate.innerText = `${this.data.textMeaningTranslate}`;
     elemText.appendChild(elemtextMeaningTranslate);
 
-    let elemtextExample = document.createElement('p');
-    elemtextExample.classList.add('textExample');
-    elemtextExample.innerText = `${removeBold(this.data.textExample)}`;
-    elemText.appendChild(elemtextExample);
-
+    let example = document.createElement('div');
+    example.classList.add('example');
     let elemAudioExample = document.createElement('button');
     elemAudioExample.classList.add('player-icon');
     elemAudioExample.classList.add('play');
     elemAudioExample.setAttribute('id', this.getSoundExampleId());
-    elemText.appendChild(elemAudioExample);
+    example.appendChild(elemAudioExample);
     elemAudioExample.addEventListener('click', soundExampleFunction);
+
+    let elemtextExample = document.createElement('p');
+    elemtextExample.classList.add('textExample');
+    elemtextExample.innerText = `${removeBold(this.data.textExample)}`;
+    example.appendChild(elemtextExample);
+    elemText.appendChild(example);
 
     let elemtextExampleTranslate = document.createElement('p');
     elemtextExampleTranslate.classList.add('textExampleTranslate');
