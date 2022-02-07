@@ -60,7 +60,7 @@ export class CardElement {
 
     let titleOfCard = document.createElement('h2');
     titleOfCard.classList.add('card-title');
-    titleOfCard.textContent = this.data.word;
+    titleOfCard.textContent = this.data.word.charAt(0).toUpperCase() + this.data.word.slice(1);
     soundTitle?.appendChild(titleOfCard);
 
     let elemAudio = document.createElement('button');
