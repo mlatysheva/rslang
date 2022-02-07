@@ -26,7 +26,8 @@ h4 {
 
 :root {
   --game1: #b1f2f8;
-  --text-color-button: #804d4d;
+  --text-color-button: beige;
+  --text-color-hover: #278d9f;
 }
 
 :root {
@@ -212,7 +213,9 @@ a:hover {
   /* margin-left: 2rem; */
   background-image: url('./assets/images/login.svg');
 }
-.login-link:hover, .signout-link:hover, .home:hover {
+.login-link:hover,
+.signout-link:hover,
+.home:hover {
   filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
 }
 /* Adaptive hamburger menu */
@@ -237,15 +240,13 @@ a:hover {
 
   .bar:hover {
     height: 4px;
-<<<<<<< HEAD
+
     /* background-color: var(--amaranth); */
     filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
-||||||| 5192b64
-    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%)
-    contrast(87%);
-=======
+
     filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%) contrast(87%);
->>>>>>> 7674fb4dec2e3803ab629317eccdb14e0f212fce
+
+    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%) contrast(87%);
   }
 
   .nav-menu {
@@ -493,9 +494,9 @@ a:hover {
 }
 
 /*game1 Audiocall*/
+.round-game1,
 .describtion-game1 {
   margin-top: 15%;
-  background: var(--game1);
   border-radius: 25%;
   padding: 2rem;
   max-width: 500px;
@@ -505,22 +506,59 @@ a:hover {
   flex-direction: column;
 }
 
+.describtion-game1 {
+  background: var(--game1);
+}
+
 .game-description {
   font-size: 1rem;
 }
 
+.unswers-game1,
 .levelsGame1 {
   display: flex;
   cursor: pointer;
   justify-content: space-between;
 }
 
+.unswers-game1 {
+  margin: 35px 0;
+}
+
 .game1 {
   border-radius: 10%;
   font-size: 0.8rem;
   color: var(--text-color-button);
-  text-shadow: 12px 0px 6px rgba(231, 243, 236, 0.65);
   margin-left: 5px;
+}
+
+.next-round,
+.unswer-btn {
+  font-size: 2rem;
+  color: var(--text-color-button);
+  background: var(--june);
+  border-radius: 25%;
+  margin-right: 15px;
+  padding: 10px;
+}
+
+.next-round {
+  font-size: 1.5rem;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.next-round:hover,
+.unswer-btn:hover {
+  color: var(--text-color-hover);
+}
+
+.game1-sound {
+  width: 50px;
+  margin: 15px auto;
+  padding: 30px;
+  border: thick double var(--text-color-button);
+  border-radius: 50%;
 }
 
 /* button(+button:hover) - section - header(=footer+id) -*/
