@@ -26,7 +26,7 @@ h4 {
 
 :root {
   --game1: #b1f2f8;
-  --text-color-button: #804d4d;
+  --text-color-button: beige;
 }
 
 :root {
@@ -212,7 +212,9 @@ a:hover {
   /* margin-left: 2rem; */
   background-image: url('./assets/images/login.svg');
 }
-.login-link:hover, .signout-link:hover, .home:hover {
+.login-link:hover,
+.signout-link:hover,
+.home:hover {
   filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
 }
 /* Adaptive hamburger menu */
@@ -237,15 +239,13 @@ a:hover {
 
   .bar:hover {
     height: 4px;
-<<<<<<< HEAD
+
     /* background-color: var(--amaranth); */
     filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
-||||||| 5192b64
-    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%)
-    contrast(87%);
-=======
+
     filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%) contrast(87%);
->>>>>>> 7674fb4dec2e3803ab629317eccdb14e0f212fce
+
+    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%) contrast(87%);
   }
 
   .nav-menu {
@@ -519,7 +519,6 @@ a:hover {
   border-radius: 10%;
   font-size: 0.8rem;
   color: var(--text-color-button);
-  text-shadow: 12px 0px 6px rgba(231, 243, 236, 0.65);
   margin-left: 5px;
 }
 
