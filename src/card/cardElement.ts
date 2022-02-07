@@ -1,10 +1,11 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
 import { removeItalic, removeBold } from '../book/settings';
-//import { serwerGetWordById } from
+// import { serwerGetWordById } from
 
 export class CardElement {
   data: Word;
+
   alt: string;
 
   constructor(cardDataObject: Word) {
@@ -25,7 +26,7 @@ export class CardElement {
   }
 
   renderCard(): HTMLElement {
-    let cardElement = document.createElement('div');
+    const cardElement = document.createElement('div');
     const soundEnableFunction = sound(this);
     const soundMeaningFunction = soundMeaning(this);
     const soundExampleFunction = soundExample(this);
@@ -52,18 +53,18 @@ export class CardElement {
     }
     cardElement.setAttribute('data-num', `${this.data.group}-${this.data.id}`);
 
-    let photoTitlSound = document.createElement('div');
+    const photoTitlSound = document.createElement('div');
     photoTitlSound.classList.add('photoTitlSound');
 
-    let soundTitle = document.createElement('div');
+    const soundTitle = document.createElement('div');
     soundTitle.classList.add('soundTitle');
 
-    let titleOfCard = document.createElement('h2');
+    const titleOfCard = document.createElement('h2');
     titleOfCard.classList.add('card-title');
     titleOfCard.textContent = this.data.word.charAt(0).toUpperCase() + this.data.word.slice(1);
     soundTitle?.appendChild(titleOfCard);
 
-    let elemAudio = document.createElement('button');
+    const elemAudio = document.createElement('button');
     elemAudio.classList.add('player-icon');
     elemAudio.classList.add('play');
     elemAudio.setAttribute('id', this.getSoundId());
@@ -72,7 +73,7 @@ export class CardElement {
 
     photoTitlSound.appendChild(soundTitle);
 
-    let elemImg = document.createElement('img');
+    const elemImg = document.createElement('img');
     elemImg.classList.add('card-img');
     elemImg.setAttribute('src', `${linkForCard}${this.data.image}`);
     elemImg.setAttribute('alt', this.alt);
@@ -80,65 +81,93 @@ export class CardElement {
 
     cardElement.appendChild(photoTitlSound);
 
-    let elemText = document.createElement('div');
+    const elemText = document.createElement('div');
     elemText.classList.add('card-description');
 
-    let elemTraskTranl = document.createElement('div');
+    const elemTraskTranl = document.createElement('div');
     elemTraskTranl.classList.add('transk-transl');
 
-    let elemTranslation = document.createElement('p');
+    const elemTranslation = document.createElement('p');
     elemTranslation.classList.add('translate');
     elemTranslation.innerText = `${this.data.wordTranslate}`;
     elemTraskTranl.appendChild(elemTranslation);
 
-    let elemTranskription = document.createElement('p');
+    const elemTranskription = document.createElement('p');
     elemTranskription.classList.add('transkription');
     elemTranskription.innerText = `${this.data.transcription}`;
     elemTraskTranl.appendChild(elemTranskription);
 
     elemText.appendChild(elemTraskTranl);
 
-    let meaning = document.createElement('div');
+    const meaning = document.createElement('div');
     meaning.classList.add('meaning');
-    let elemAudioMeaning = document.createElement('button');
+    const elemAudioMeaning = document.createElement('button');
     elemAudioMeaning.classList.add('player-icon');
     elemAudioMeaning.classList.add('play');
     elemAudioMeaning.setAttribute('id', this.getSoundMeaningId());
     meaning.appendChild(elemAudioMeaning);
     elemAudioMeaning.addEventListener('click', soundMeaningFunction);
 
-    let elemtextMeaning = document.createElement('p');
+    const elemtextMeaning = document.createElement('p');
     elemtextMeaning.classList.add('textMeaning');
     elemtextMeaning.innerText = `${removeItalic(this.data.textMeaning)}`;
     meaning.appendChild(elemtextMeaning);
     elemText.appendChild(meaning);
 
-    let elemtextMeaningTranslate = document.createElement('p');
+    const elemtextMeaningTranslate = document.createElement('p');
     elemtextMeaningTranslate.classList.add('textMeaningTranslate');
     elemtextMeaningTranslate.innerText = `${this.data.textMeaningTranslate}`;
     elemText.appendChild(elemtextMeaningTranslate);
 
-    let example = document.createElement('div');
+    const example = document.createElement('div');
     example.classList.add('example');
-    let elemAudioExample = document.createElement('button');
+    const elemAudioExample = document.createElement('button');
     elemAudioExample.classList.add('player-icon');
     elemAudioExample.classList.add('play');
     elemAudioExample.setAttribute('id', this.getSoundExampleId());
     example.appendChild(elemAudioExample);
     elemAudioExample.addEventListener('click', soundExampleFunction);
 
-    let elemtextExample = document.createElement('p');
+    const elemtextExample = document.createElement('p');
     elemtextExample.classList.add('textExample');
     elemtextExample.innerText = `${removeBold(this.data.textExample)}`;
     example.appendChild(elemtextExample);
     elemText.appendChild(example);
 
-    let elemtextExampleTranslate = document.createElement('p');
+    const elemtextExampleTranslate = document.createElement('p');
     elemtextExampleTranslate.classList.add('textExampleTranslate');
     elemtextExampleTranslate.innerText = `${removeBold(this.data.textExampleTranslate)}`;
     elemText.appendChild(elemtextExampleTranslate);
 
+    const difficultBtn = document.createElement('button');
+    difficultBtn.classList.add('difficult');
+    difficultBtn.innerText = 'difficult';
     cardElement.appendChild(elemText);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete');
+    deleteBtn.innerText = 'delete';
+
+    const containerBtns = document.createElement('div');
+    containerBtns.classList.add('card-buttons');
+    containerBtns.appendChild(difficultBtn);
+    containerBtns.appendChild(deleteBtn);
+    cardElement.appendChild(containerBtns);
+
+    const correctBtn = document.createElement('button');
+    correctBtn.classList.add('correct');
+    correctBtn.innerText = '0';
+    correctBtn.setAttribute('data-tooltip', 'correct answers');
+
+    const incorrectBtn = document.createElement('button');
+    incorrectBtn.classList.add('incorrect');
+    incorrectBtn.innerText = '0';
+    incorrectBtn.setAttribute('data-tooltip', 'incorrect answers');
+    const infoBtn = document.createElement('div');
+    infoBtn.classList.add('info');
+    infoBtn.appendChild(correctBtn);
+    infoBtn.appendChild(incorrectBtn);
+    cardElement.appendChild(infoBtn);
 
     return cardElement;
   }
@@ -245,3 +274,5 @@ function soundExample(cardElement: CardElement): (e: MouseEvent) => void {
     changePlayBtn();
   };
 }
+
+export default CardElement;

@@ -1,7 +1,9 @@
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
 import { settings } from '../book/svg';
-import { currentPage, totalPages, prevPage, nextPage, checkButtonOpacity } from '../book/paginationBook';
+import {
+  firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
+} from '../book/paginationBook';
 
 export const Group = 0;
 
@@ -17,12 +19,12 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   nextButton.setAttribute('id', 'next');
   nextButton.innerText = 'next';
 
-  nextButton.setAttribute('data-state', currentPage === 1 ? 'disabled' : '');
+  nextButton.setAttribute('data-state', currentPage === 0 ? 'disabled' : '');
   prevButton.setAttribute('data-state', currentPage === totalPages ? 'disabled' : '');
 
   const counter = document.createElement('span');
   counter.classList.add('counter');
-  counter.innerHTML = `${currentPage} / ${totalPages}`;
+  counter.innerHTML = `${currentPage + 1} / ${totalPages}`;
   const paginationBtn = document.createElement('div');
   paginationBtn.classList.add('pagination');
 
@@ -43,20 +45,40 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   function changePages() {
     if (prevButton) {
       prevButton.addEventListener('click', () => {
+        if (currentPage === 0) {
+          prevButton.classList.add('opacity');
+        } else if (currentPage > 0) {
+          prevButton.classList.remove('opacity');
+        }
         prevPage();
-        checkButtonOpacity();
-        counter.innerHTML = `${currentPage} / ${totalPages}`;
+        counter.innerHTML = `${currentPage + 1} / ${totalPages}`;
       });
     }
     if (nextButton) {
       nextButton.addEventListener('click', () => {
-        counter.innerHTML = `${currentPage} / ${totalPages}`;
+        prevButton.classList.remove('opacity');
+        if (currentPage === totalPages) {
+          nextButton.classList.add('opacity');
+        } else {
+          nextButton.classList.remove('opacity');
+        }
+        counter.innerHTML = `${currentPage + 1} / ${totalPages}`;
         nextPage();
-        checkButtonOpacity();
       });
     }
   }
+  changeLevel();
   changePages();
+  document.body.addEventListener('click', (e) => {
+    if (e.target) {
+      if ((e.target as HTMLElement).classList.contains('level')) {
+        if (counter) {
+          counter.innerHTML = '';
+          counter.innerHTML = `${firstPage + 1} / ${totalPages}`;
+        }
+      }
+    }
+  });
 
   return Page;
 }

@@ -240,13 +240,10 @@ a:hover {
 
   .bar:hover {
     height: 4px;
-
     /* background-color: var(--amaranth); */
     filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
 
-    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%) contrast(87%);
-
-    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%) contrast(87%);
+    /* filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%) contrast(87%); */
   }
 
   .nav-menu {
@@ -462,9 +459,9 @@ a:hover {
 }
 
 .play {
-  width: 35px;
-  height: 35px;
-  background-size: 40px 40px;
+  width: 28px;
+  height: 33px;
+  background-size: 28px 33px;
   background-image: url(../src/assets/images/audio.svg);
 }
 
@@ -488,10 +485,44 @@ a:hover {
   display: flex;
 }
 
+.card-buttons,
+.info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+.info {
+  margin-top: 1rem;
+}
+
 .translate,
 .transcription {
   margin: 0;
 }
+
+[data-tooltip] {
+  position: relative; 
+ }
+ [data-tooltip]::after {
+  content: attr(data-tooltip); 
+  position: absolute; 
+  width: 150px; 
+  right: 10px; 
+  top: 50px; 
+  background: var(--card-level1); 
+  color: beige; 
+  padding: 0.5em;
+  font-size: 10px; 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+  pointer-events: none; 
+  opacity: 0; 
+  transition: 1s; 
+ } 
+ [data-tooltip]:hover::after {
+  opacity: 1;
+  top: 2em; 
+ }
 
 /*game1 Audiocall*/
 .round-game1,
