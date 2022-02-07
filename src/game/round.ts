@@ -10,9 +10,10 @@ export class Round {
 
   renderRound(): any {
     //TODO: normal type
-    let titleOfCard = document.createElement('h2');
-    titleOfCard.classList.add('card-title');
-    titleOfCard.textContent = 'round 1';
-    return titleOfCard;
+    let gameRound = document.createElement('h2');
+    gameRound.classList.add('round');
+    gameRound.textContent = 'Слушай';
+
+    return gameRound;
   }
 }
