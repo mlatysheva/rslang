@@ -1,7 +1,7 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/constants';
 
-const arrOfUnswers = ['кот', 'скот', 'крот', 'зжет'];
+const arrOfUnswers = ['кот', 'скот', 'крот', 'жpет'];
 export class Round {
   data: Word;
 
@@ -46,6 +46,11 @@ export class Round {
     <button id=unswer3-${this.data.id} class="unswer-btn">${arrOfUnswers[3]}</button>
     `;
     gameSectionRound.appendChild(unswers);
+
+    const nextRound = document.createElement('button');
+    nextRound.classList.add('next-round');
+    nextRound.innerText = 'Пропустить -->';
+    gameSectionRound.appendChild(nextRound);
 
     return gameSectionRound;
   }

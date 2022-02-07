@@ -27,6 +27,7 @@ h4 {
 :root {
   --game1: #b1f2f8;
   --text-color-button: beige;
+  --text-color-hover: #278d9f;
 }
 
 :root {
@@ -517,6 +518,10 @@ a:hover {
   justify-content: space-between;
 }
 
+.unswers-game1 {
+  margin: 35px 0;
+}
+
 .game1 {
   border-radius: 10%;
   font-size: 0.8rem;
@@ -524,17 +529,26 @@ a:hover {
   margin-left: 5px;
 }
 
+.next-round,
 .unswer-btn {
   font-size: 2rem;
   color: var(--text-color-button);
-  background: var(--gradient-bottom-right);
+  background: var(--june);
   opacity: 0.8;
   border-radius: 25%;
-  margin-left: 15px;
+  margin-right: 15px;
+  padding: 10px;
 }
 
+.next-round {
+  font-size: 1.5rem;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.next-round:hover,
 .unswer-btn:hover {
-  color: var(--card-level1);
+  color: var(--text-color-hover);
 }
 
 .game1-sound {
