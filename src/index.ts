@@ -37,52 +37,27 @@ async function word(id: string) {
 // word('5e9f5ee35eb9e72bc21af4c9');
 
 export function listenForLogin() {
-  const waiting = setInterval(() => {
-    const loginSubmitBtn = <HTMLButtonElement>document.getElementById('login-submit');
+  document.body.addEventListener('click', async (e: MouseEvent) => { 
 
-    const signupBtn = <HTMLButtonElement>document.getElementById('signup-btn');
-
-    if (signupBtn) {
-      clearInterval(waiting);
-      loginSubmitBtn?.addEventListener('click', () => {
-        console.log('login button is clicked');
+    if (e.target) {
+      if ((e.target as HTMLElement).id ==='login-submit') {
         authenticateUser();
-      });
-      signupBtn?.addEventListener('click', async () => {
-        console.log('signup button is clicked');
-        const signupComponent = new Signup();
-        const signupHTML = await signupComponent.getHtml();
-        (<HTMLElement>app).appendChild(signupHTML);
-      });
-    }
-  });
-}
-
-listenForLogin();
-
-export function listenForSignup() {
-  const waiting = setInterval(() => {
-    const signupSubmitBtn = <HTMLButtonElement>document.getElementById('signup-submit');
-
-    const loginBtn = <HTMLButtonElement>document.getElementById('login-btn');
-
-    if (loginBtn) {
-      clearInterval(waiting);
-      // listen for clicks on newly rendered 'Зарегистрироваться' button
-      console.log(`signupSubmitBtn is ${signupSubmitBtn}`);
-      (<HTMLButtonElement>signupSubmitBtn).addEventListener('click', () => {
-        console.log('signup button is clicked');
+      }
+      if ((e.target as HTMLElement).id ==='signup-submit') {
         registerUser();
-      });
-
-      // listen for clicks on newly renderes 'Войти' button
-      const loginBtn = <HTMLButtonElement>document.getElementById('login-btn');
-      loginBtn.addEventListener('click', async () => {
+      }
+      if ((e.target as HTMLElement).id ==='login-btn') {
         const loginComponent = new Login();
         const loginHTML = await loginComponent.getHtml();
         (<HTMLElement>app).appendChild(loginHTML);
-      });
+      }
+      if ((e.target as HTMLElement).id ==='signup-btn') {
+        const signupComponent = new Signup();
+        const signupHTML = await signupComponent.getHtml();
+        (<HTMLElement>app).appendChild(signupHTML);
+      }
     }
-  });
+  })
 }
-listenForSignup();
+
+listenForLogin();

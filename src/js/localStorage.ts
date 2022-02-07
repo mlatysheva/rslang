@@ -1,6 +1,6 @@
 export function getItemFromLocalStorage(item: string) {
   if (localStorage.getItem(item) !== null) {
-    return localStorage.getItem(item) as string;
+    return JSON.parse(localStorage.getItem(item) as string);
   } else {
     return '';
   }

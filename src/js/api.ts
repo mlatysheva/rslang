@@ -1,3 +1,4 @@
+import { getItemFromLocalStorage } from './localStorage';
 import {
   ExistingUserLoginDetails, NewUserDetails, User, UserWord, Word,
 } from './types';
@@ -66,7 +67,7 @@ export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> =
 
 // loginUser({ "email": "sample@user123.com", "password": "qwerty1234" });
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzk5M2RmNGNhOWQ2MDAxNzg3NDBhZSIsImlhdCI6MTU5MDI2OTE1OCwiZXhwIjoxNTkwMjgzNTU4fQ.XHKmdY_jk1R7PUbgCZfqH8TxH6XQ0USwPBSKNHMdF6I';
+const token = getItemFromLocalStorage('token');
 const createUserWord = async (userId: string, wordId: string, word: string) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'POST',
@@ -99,7 +100,7 @@ const createUserWord = async (userId: string, wordId: string, word: string) => {
 // }
 
 const getUserWord = async (userId: string, wordId: string) => {
-  const rawResponse = await fetch(`https://<your-app-name>.herokuapp.com/users/${userId}/words/${wordId}`, {
+  const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'GET',
     // withCredentials: true,
     headers: {
@@ -126,3 +127,24 @@ const getUserWord = async (userId: string, wordId: string) => {
 //   },
 //   "wordId":"5e9f5ee35eb9e72bc21af716"
 // }
+
+export const getUserStatistics = async() => {
+  const userId = getItemFromLocalStorage('id');
+  console.log(`userID is ${userId}`);
+  const token = getItemFromLocalStorage('token');
+  try {
+    const rawResponse = await fetch(`${users}/${userId}/statistics`, {
+      method: 'GET',
+      // withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    });  
+    const content = await rawResponse.status;
+    return content;
+  }
+  catch(err) {
+    console.log(`err is ${err}`);
+  }  
+}
