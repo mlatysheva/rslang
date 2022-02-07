@@ -1,3 +1,4 @@
+import { renderForRegisteredUser } from "../../statistics/renderStatisticsPage";
 import { AbstractView } from "./AbstractView";
 
 export class Statistics extends AbstractView {
@@ -28,6 +29,7 @@ export class Statistics extends AbstractView {
       </div>
     </div>
     `;
+    await renderForRegisteredUser();
     return htmlElement;
   }
 }
