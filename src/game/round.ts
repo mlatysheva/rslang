@@ -24,6 +24,24 @@ export class Round {
     //TODO: normal type
     const soundEnableFunction = sound(this);
     let gameSectionRound = document.createElement('div');
+    if (this.data.group === arrGroup[0]) {
+      gameSectionRound.classList.add('card0');
+    }
+    if (this.data.group === arrGroup[1]) {
+      gameSectionRound.classList.add('card1');
+    }
+    if (this.data.group === arrGroup[2]) {
+      gameSectionRound.classList.add('card2');
+    }
+    if (this.data.group === arrGroup[3]) {
+      gameSectionRound.classList.add('card3');
+    }
+    if (this.data.group === arrGroup[4]) {
+      gameSectionRound.classList.add('card4');
+    }
+    if (this.data.group === arrGroup[5]) {
+      gameSectionRound.classList.add('card5');
+    }
     gameSectionRound.classList.add('round-game1');
     let gameRound = document.createElement('h2');
     gameRound.classList.add('round');

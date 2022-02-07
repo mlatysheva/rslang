@@ -497,7 +497,6 @@ a:hover {
 .round-game1,
 .describtion-game1 {
   margin-top: 15%;
-  background: var(--game1);
   border-radius: 25%;
   padding: 2rem;
   max-width: 500px;
@@ -505,6 +504,10 @@ a:hover {
   text-align: center;
   display: flex;
   flex-direction: column;
+}
+
+.describtion-game1 {
+  background: var(--game1);
 }
 
 .game-description {
@@ -534,7 +537,6 @@ a:hover {
   font-size: 2rem;
   color: var(--text-color-button);
   background: var(--june);
-  opacity: 0.8;
   border-radius: 25%;
   margin-right: 15px;
   padding: 10px;
