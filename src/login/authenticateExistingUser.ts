@@ -1,5 +1,6 @@
 import { loginUser } from "../js/api";
 import { setItemToLocalStorage } from "../js/localStorage";
+import { renderUserName } from "./loginLogout";
 
 export function authenticateUser() {
   console.log('we are in auhenticateUser');
@@ -58,6 +59,7 @@ export function authenticateUser() {
       // console.log(`user id is ${loginDetails.userId}`);
       console.log(`user token is ${loginDetails.token}`);
       window.location.hash = "/";
+      renderUserName();
     }
   }
 }

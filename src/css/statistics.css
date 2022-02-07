@@ -1,0 +1,29 @@
+.statistics-view {
+  padding-top: 50px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.statistics-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.statistic-button {
+  width: 200px;
+  text-align: center;
+  font-size: larger;
+  text-transform: uppercase;
+}
+
+.large-text {
+  padding: 2rem;
+  font-size: large;
+  text-transform: uppercase;
+  text-align: center;
+}

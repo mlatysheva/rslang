@@ -9,8 +9,6 @@ export class Statistics extends AbstractView {
   async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
-    // TODO: добавить манипуляции с апой
-
     const footer = <HTMLElement>document.querySelector('.footer');    
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
@@ -19,7 +17,15 @@ export class Statistics extends AbstractView {
     let htmlElement= document.createElement('div');
     htmlElement.innerHTML =  `
     <div class="view statistics-view">
-      <p>Statistics of the user will be added<p>
+      <div class="statistics-wrapper unregistered-statistics">
+        <div class="large-text not-available">
+          Статистика доступна только для зарегистрированных пользователей
+        </div>
+        <div class="large-text">
+          Решил зарегистрироваться?
+        </div>
+        <a href="#/signup/" id="signup-btn" class="button statistic-button signup-btn" data-href="#/signup/">Жми сюда</a>
+      </div>
     </div>
     `;
     return htmlElement;

@@ -12,18 +12,6 @@
   margin: 0 auto;
 }
 
-body {
-  margin: 0 auto;
-}
-h2,
-h4 {
-  margin-bottom: 0;
-}
-
-.card-title {
-  margin-right: 15px;
-}
-
 :root {
   --game1: #b1f2f8;
   --text-color-button: beige;
@@ -90,9 +78,19 @@ html {
   height: 100vh;
 }
 body {
+  margin: 0 auto;
   background-color: var(--june);
   color: beige;
   overflow-x: hidden;
+}
+
+h2,
+h4 {
+  margin-bottom: 0;
+}
+
+.card-title {
+  margin-right: 15px;
 }
 
 a {
