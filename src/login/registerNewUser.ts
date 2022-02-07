@@ -3,7 +3,6 @@ import { setItemToLocalStorage } from '../js/localStorage';
 import { renderUserName } from './loginLogout';
 
 export function registerUser() {
-  console.log('we are in registerUser');
   const form = <HTMLElement>document.getElementById('signup-form');
   const nField = <HTMLElement>form.querySelector('.name');
   const nInput = <HTMLInputElement>nField.querySelector('input');
@@ -14,7 +13,6 @@ export function registerUser() {
 
   form.onsubmit = async (e) => {
     e.preventDefault(); // preventing form from submitting
-    console.log('signup is clicked');
 
     ((<HTMLInputElement>nInput).value === '') ? nField.classList.add('shake', 'error') : checkName();
     ((<HTMLInputElement>eInput).value === '') ? eField.classList.add('shake', 'error') : checkEmail();
@@ -67,7 +65,6 @@ export function registerUser() {
     }
 
     if (!nField.classList.contains('error') && !eField.classList.contains('error') && !pField.classList.contains('error')) {
-      console.log(`action is ${form.getAttribute('action')}`);
       const newUser = { email: eInput.value, password: pInput.value };
       const newUserdetails = await createUser(newUser);
       setItemToLocalStorage('name', nInput.value);
@@ -77,7 +74,6 @@ export function registerUser() {
       (<HTMLElement>app).innerHTML = '';
       (<HTMLElement>app).innerText = 'Вы успешно зарегистрированы!';
       renderUserName();
-      // window.location.href = "/";
     }
   };
 }

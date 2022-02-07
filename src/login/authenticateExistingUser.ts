@@ -3,7 +3,6 @@ import { setItemToLocalStorage } from "../js/localStorage";
 import { renderUserName } from "./loginLogout";
 
 export function authenticateUser() {
-  console.log('we are in auhenticateUser');
   const form = <HTMLElement>document.getElementById("login-form");
   const eField = <HTMLElement>form.querySelector(".email");
   const eInput = <HTMLInputElement>eField.querySelector("input");
@@ -12,7 +11,6 @@ export function authenticateUser() {
 
   form.onsubmit = async (e) => {
     e.preventDefault(); //preventing from form submitting
-    console.log(`login is clicked`);
     //if email and password is blank then add shake class in it else call specified function
     ((<HTMLInputElement>eInput).value == "") ? eField.classList.add("shake", "error") : checkEmail();
     ((<HTMLInputElement>pInput).value == "") ? pField.classList.add("shake", "error") : checkPass();
@@ -49,14 +47,11 @@ export function authenticateUser() {
     }
     
     if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
-      console.log(`action is ${form.getAttribute("action")}`);
       let user = { "email": eInput.value, "password": pInput.value};
       let loginDetails = await loginUser( user );
       setItemToLocalStorage('id', loginDetails.userId);
       setItemToLocalStorage('token', loginDetails.token);
       setItemToLocalStorage('email', eInput.value);
-      // console.log(`login message is ${loginDetails.message}`);
-      // console.log(`user id is ${loginDetails.userId}`);
       console.log(`user token is ${loginDetails.token}`);
       window.location.hash = "/";
       renderUserName();
