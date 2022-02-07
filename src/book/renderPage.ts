@@ -4,6 +4,7 @@ import { settings } from '../book/svg';
 import {
   firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
 } from '../book/paginationBook';
+import { removeCard, difficultWord } from './removeCard';
 
 export const Group = 0;
 
@@ -79,15 +80,8 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
       }
     }
   });
-  document.body.addEventListener('click', (e) => {
-    if (e.target) {
-      if ((e.target as HTMLElement).classList.contains('delete')) {
-        const id = (e.target as HTMLElement).id.split('delete')[1];
-        const cardToDelete = document.getElementById(`${id}`);
-        if (cardToDelete) cardToDelete.remove();
-      }
-    }
-  });
+  removeCard();
+  difficultWord();
 
   return Page;
 }

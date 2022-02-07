@@ -142,6 +142,7 @@ export class CardElement {
     const difficultBtn = document.createElement('button');
     difficultBtn.classList.add('difficult');
     difficultBtn.innerText = 'difficult';
+    difficultBtn.setAttribute('id', `difficult${this.data.id}`);
     cardElement.appendChild(elemText);
 
     const deleteBtn = document.createElement('button');
