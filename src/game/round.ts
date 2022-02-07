@@ -57,6 +57,7 @@ export class Round {
 
     const unswers = document.createElement('div');
     unswers.classList.add('unswers-game1');
+
     unswers.innerHTML = `
     <button id=unswer0-${this.data.id} class="unswer-btn">${arrOfUnswers[0]}</button>
     <button id=unswer1-${this.data.id} class="unswer-btn">${arrOfUnswers[1]}</button>

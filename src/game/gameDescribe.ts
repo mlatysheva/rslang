@@ -1,5 +1,6 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
+import { renderGame1Round } from './roundRender';
 
 export function renderGame(): any {
   //TODO: normal type
@@ -12,9 +13,9 @@ export function renderGame(): any {
   gameDescription.classList.add('game-description');
   gameDescription.textContent = 'Цель игры: выбрать правильный перевод услышанного слова.';
   gameName.appendChild(gameDescription);
-  const levelOfDifficult = document.createElement('div');
-  levelOfDifficult.classList.add('levelsGame1');
-  levelOfDifficult.innerHTML = `
+  const levelOfRound = document.createElement('div');
+  levelOfRound.classList.add('levelsGame1');
+  levelOfRound.innerHTML = `
   <button id="levelGame0" class="game1 level1">Level 1</button>
   <button id="levelGame1" class="game1 level2">Level 2</button>
   <button id="levelGame2" class="game1 level3">Level 3</button>
@@ -23,7 +24,7 @@ export function renderGame(): any {
   <button id="levelGame5" class="game1 level6">Level 6</button>`;
 
   gameSectionDescribe.appendChild(gameName);
-  gameSectionDescribe.appendChild(levelOfDifficult);
+  gameSectionDescribe.appendChild(levelOfRound);
 
   return gameSectionDescribe;
 }
