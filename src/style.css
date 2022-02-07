@@ -85,12 +85,15 @@ html {
 body {
   background-color: var(--june);
   color: beige;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 a {
-  text-decoration: none;
-  color: beige;
+  text-decoration: none !important;
+  color: beige !important;
+}
+a:hover {
+  color: var(--amaranth);
 }
 
 .header {
@@ -125,12 +128,15 @@ a {
   font-size: x-large;
   align-items: center;
   text-align: center;
+  border-radius: 10px;
   box-shadow: 2px 5px 3px;
+}
+.header__logo:hover {
+  color: var(--amarant);
 }
 
 .header__logo:hover {
-  filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%)
-    contrast(87%);
+  filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
 }
 
 .nav-link {
@@ -199,7 +205,9 @@ a {
   /* margin-left: 2rem; */
   background-image: url('./assets/images/login.svg');
 }
-
+.login-link:hover, .signout-link:hover, .home:hover {
+  filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
+}
 /* Adaptive hamburger menu */
 
 .hamburger-menu {
@@ -222,8 +230,8 @@ a {
   
   .bar:hover {
     height: 4px;
-    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%)
-    contrast(87%);
+    /* background-color: var(--amaranth); */
+    filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
   }
   
   .nav-menu {
