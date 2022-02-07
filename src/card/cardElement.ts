@@ -147,6 +147,7 @@ export class CardElement {
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
     deleteBtn.innerText = 'delete';
+    deleteBtn.setAttribute('id', `delete${this.data.id}`);
 
     const containerBtns = document.createElement('div');
     containerBtns.classList.add('card-buttons');

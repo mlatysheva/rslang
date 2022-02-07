@@ -79,6 +79,15 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
       }
     }
   });
+  document.body.addEventListener('click', (e) => {
+    if (e.target) {
+      if ((e.target as HTMLElement).classList.contains('delete')) {
+        const id = (e.target as HTMLElement).id.split('delete')[1];
+        const cardToDelete = document.getElementById(`${id}`);
+        if (cardToDelete) cardToDelete.remove();
+      }
+    }
+  });
 
   return Page;
 }
