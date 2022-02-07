@@ -1,6 +1,6 @@
 import { AbstractView } from './AbstractView';
 import { renderPage, createAside, Group } from '../../book/renderPage';
-import { currentPage, changeLevel } from '../../book/paginationBook';
+import { currentPage } from '../../book/paginationBook';
 import { addModal, toggleTranslate } from '../../book/settings';
 
 export class Manual extends AbstractView {
@@ -17,7 +17,6 @@ export class Manual extends AbstractView {
     const aside = createAside();
     app.appendChild(aside);
     addModal();
-    changeLevel();
     toggleTranslate();
     return renderPage(Group, currentPage);
   }

@@ -1,6 +1,6 @@
 .modal {
 	display: none;
-    position: fixed;
+  position: fixed;
 	z-index: 100;
 	left: 0;
 	top: 0;

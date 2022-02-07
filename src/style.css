@@ -237,63 +237,6 @@ a:hover {
 
   .bar:hover {
     height: 4px;
-<<<<<<< HEAD
-    /* background-color: var(--amaranth); */
-    filter: invert(15%) sepia(100%) saturate(5130%) hue-rotate(334deg) brightness(88%) contrast(104%);
-||||||| 5192b64
-    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%)
-    contrast(87%);
-=======
-    filter: invert(26%) sepia(15%) saturate(638%) hue-rotate(7deg) brightness(92%) contrast(87%);
->>>>>>> 7674fb4dec2e3803ab629317eccdb14e0f212fce
-  }
-
-  .nav-menu {
-    position: fixed;
-    z-index: 10;
-    margin: 0;
-    width: 400px;
-    height: 100vh;
-    margin-top: 108px;
-    padding-top: 100px;
-    padding-left: 120px;
-    right: -400px;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--purple);
-    /* opacity: 0.9; */
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 5px;
-    text-align: center;
-    transition: 0.7s;
-  }
-  /* .home {
-    align-self: flex-start;
-    filter: invert(40%) sepia(92%) saturate(417%) hue-rotate(21deg) brightness(95%) contrast(86%);
-  } */
-  .nav-link {
-    padding-left: 0;
-  }
-  .login-link {
-    margin-left: 0;
-  }
-
-  .body {
-    overflow-y: hidden;
-  }
-
-  .nav-menu.active {
-    right: 0;
-    z-index: 100;
-  }
-
-  .hidden.active {
-    visibility: hidden;
-  }
-
-  .hamburger {
     display: block;
     z-index: 20;
     cursor: pointer;
