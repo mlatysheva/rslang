@@ -22,9 +22,17 @@ export function renderGame(): any {
   <button id="levelGame3" class="game1 level4">Level 4</button>
   <button id="levelGame4" class="game1 level5">Level 5</button>
   <button id="levelGame5" class="game1 level6">Level 6</button>`;
-
   gameSectionDescribe.appendChild(gameName);
   gameSectionDescribe.appendChild(levelOfRound);
+
+  const buttons = Array.from(gameSectionDescribe.getElementsByClassName('game1'));
+  console.log(`buttons ${buttons.length}`);
+  buttons.forEach((e: Element) => {
+    e.addEventListener('click', async () => {
+      gameSectionDescribe.innerHTML = '';
+      gameSectionDescribe.appendChild(await renderGame1Round('5e9f5ee35eb9e72bc21af4a4'));
+    });
+  });
 
   return gameSectionDescribe;
 }

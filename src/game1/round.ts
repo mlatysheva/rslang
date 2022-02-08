@@ -1,5 +1,6 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/constants';
+import { renderWord } from '../card/renderOne';
 
 const arrOfUnswers = ['кот', 'скот', 'крот', 'жpет'];
 export class Round {
@@ -68,8 +69,18 @@ export class Round {
 
     const nextRound = document.createElement('button');
     nextRound.classList.add('next-round');
+    nextRound.classList.add('unswer-btn');
     nextRound.innerText = 'Пропустить -->';
     gameSectionRound.appendChild(nextRound);
+
+    const buttons = Array.from(gameSectionRound.getElementsByClassName('unswer-btn'));
+    console.log(`buttons ${buttons.length}`);
+    buttons.forEach((e: Element) => {
+      e.addEventListener('click', async () => {
+        gameSectionRound.innerHTML = '';
+        gameSectionRound.appendChild(await renderWord('5e9f5ee35eb9e72bc21af4a4'));
+      });
+    });
 
     return gameSectionRound;
   }
