@@ -504,10 +504,11 @@ a:hover {
   margin: 0;
 }
 
-[data-tooltip] {
+/*[data-tooltip] {
   /* Девочки, я пока это закоментировала, иначе кнопки показываются поверх выезжающего меню */
-  /* position: relative; */
-}
+/* position: relative; */
+/*так может уже и норм, красивенько ж стало, только как на крестик наводить мышью - сходит с ума
+}*/
 [data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -541,7 +542,7 @@ a:hover {
 }
 
 .describtion-game1 {
-  margin-top: 15%;
+  margin-top: 8%;
 }
 
 .game-description {
