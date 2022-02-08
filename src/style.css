@@ -527,7 +527,6 @@ a:hover {
 /*game1 Audiocall*/
 .round-game1,
 .describtion-game1 {
-  margin-top: 15%;
   border-radius: 25%;
   padding: 2rem;
   max-width: 500px;
@@ -537,9 +536,9 @@ a:hover {
   flex-direction: column;
 }
 
-/*.describtion-game1 {
-  background: var(--game1);
-}*/
+.describtion-game1 {
+  margin-top: 15%;
+}
 
 .game-description {
   font-size: 1rem;

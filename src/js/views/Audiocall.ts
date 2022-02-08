@@ -1,7 +1,7 @@
 import { AbstractView } from './AbstractView';
 import { renderWord } from '../../card/renderOne';
-import { renderGame1Round } from '../../game/roundRender';
-import { renderGame } from '../../game/gameDescribe';
+import { renderGame1Round } from '../../game1/roundRender';
+import { renderGame } from '../../game1/gameDescribe';
 
 export class Audiocall extends AbstractView {
   constructor() {
@@ -16,13 +16,8 @@ export class Audiocall extends AbstractView {
 
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.add('hide');
-    /*function game1Wiev() {
-      let gameDescribe = renderGame();
-
-      return gameDescribe;
-    }*/
     let unswer = renderWord('5e9f5ee35eb9e72bc21af4a4'); //пока цель получить 1 полную карточку по id
-    let round = renderGame1Round('5e9f5ee35eb9e72bc21af4a4');
+
     let gameDescribe = renderGame();
     return gameDescribe;
   }
