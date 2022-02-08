@@ -1,4 +1,5 @@
 import { renderForRegisteredUser } from "../../statistics/renderStatisticsPage";
+import { getUserStatistics } from "../api";
 import { AbstractView } from "./AbstractView";
 
 export class Statistics extends AbstractView {
@@ -16,6 +17,7 @@ export class Statistics extends AbstractView {
     }
 
     let htmlElement= document.createElement('div');
+    const data = await getUserStatistics();
     htmlElement.innerHTML =  `
     <div class="view statistics-view">
       <div class="statistics-wrapper unregistered-statistics">

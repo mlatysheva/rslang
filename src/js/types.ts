@@ -50,3 +50,8 @@ export interface ExistingUserLoginDetails {
   token: string,
   userId: string
 }
+
+export interface UserStatistics {
+  "learnedWords": number,
+  "optional": {}
+}

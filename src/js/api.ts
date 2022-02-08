@@ -1,6 +1,6 @@
 import { getItemFromLocalStorage } from './localStorage';
 import {
-  ExistingUserLoginDetails, NewUserDetails, User, UserWord, Word,
+  ExistingUserLoginDetails, NewUserDetails, User, UserStatistics, UserWord, Word,
 } from './types';
 
 const base = 'https://rs-lang-mlatysheva.herokuapp.com';
@@ -68,6 +68,7 @@ export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> =
 // loginUser({ "email": "sample@user123.com", "password": "qwerty1234" });
 
 const token = getItemFromLocalStorage('token');
+
 const createUserWord = async (userId: string, wordId: string, word: string) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'POST',
@@ -141,8 +142,52 @@ export const getUserStatistics = async() => {
         Accept: 'application/json',
       },
     });  
-    const content = await rawResponse.status;
-    return content;
+    const result = await rawResponse;
+    if (result.status == 200) {
+      return result.json();
+    }
+    if (result.status == 404) {
+      console.log('Ты еще не начал учиться, а уже хочешь статистику смотреть!');
+      return {
+        "learnedWords": 0,
+      }
+    }
+    if (result.status == 401) {
+      console.log('Истек срок действия токена. Зарегистрируйся заново');
+      return {};
+    }
+  }
+  catch(err) {
+    console.log(`err is ${err}`);
+  }  
+}
+
+export const putUserStatistics = async(data: UserStatistics) => {
+  const userId = getItemFromLocalStorage('id');
+  console.log(`userID is ${userId}`);
+  const token = getItemFromLocalStorage('token');
+  try {
+    const rawResponse = await fetch(`${users}/${userId}/statistics`, {
+      method: 'OUT',
+      // withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+      });
+    
+    const result = await rawResponse;
+    if (result.status == 200) {
+      return result.json();
+    }
+    if (result.status == 400) {
+      return 'Bad request';
+    }
+    if (result.status == 401) {
+      return 'Истек срок действия токена. Зарегистрируйся заново';
+    }
   }
   catch(err) {
     console.log(`err is ${err}`);
