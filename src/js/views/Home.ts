@@ -17,10 +17,10 @@ export class Home extends AbstractView {
       footer.classList.remove('hide');
     }
     let htmlElement= document.createElement('div');
-    htmlElement.innerHTML =  `
-    <div class="view home-view">
-      <p>This is the home page</p>
-    </div>
+    htmlElement.classList.add('view', 'home-view');
+    htmlElement.innerHTML =  `    
+      <p class="large-text bold-text">Решил наконец-то взяться за английский?</p>
+      <p class="large-text">Наше приложение поможет тебе выучить в игровой форме наиболее распространенные 4000 слов английского языка</p>
     `;
     return htmlElement;
   }
