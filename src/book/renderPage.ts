@@ -5,6 +5,7 @@ import {
   firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
 } from '../book/paginationBook';
 import { removeCard, difficultWord, removeDifficultWord } from './difficultPage';
+import { toggleTranslate, toggleButtons } from '../book/settings';
 
 export const Group = 0;
 
@@ -103,8 +104,8 @@ export function createAside() {
   <div id="modal" class="modal">
     <div class = modal-content>
       <button class="close-button">&times;</button>
-      <div class="switch">
-      <div class="switch-item"></div>
+      <div class="switch show-translation">
+      <div class="switch-item show-translation"></div>
       <label>
         <span class="show-translation">show translation</span>
         <input
@@ -115,8 +116,8 @@ export function createAside() {
         <div><div></div></div
       ></label>
     </div>
-    <div class="switch">
-      <div class="switch-item"></div>
+    <div class="switch show-buttons">
+      <div class="switch-item show-buttons"></div>
       <label>
         <span class="show-buttons">show button for words</span>
         <input

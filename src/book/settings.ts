@@ -1,7 +1,7 @@
 export function addModal() {
-  const modal = document.querySelector('.modal');
-  const modalContent = document.querySelector('.modal-content');
-  const settingsBtn = document.querySelector('.settings');
+  const modal = document.querySelector<HTMLDivElement>('.modal');
+  const modalContent = document.querySelector<HTMLDivElement>('.modal-content');
+  const settingsBtn = document.querySelector<HTMLButtonElement>('.settings');
   const closeBtn = document.querySelector<HTMLButtonElement>('.close-button');
 
   const saveBtn = document.querySelector<HTMLButtonElement>('.save');
@@ -58,36 +58,64 @@ export function toggleTranslate(): void {
   const translateExample = document.querySelectorAll('.textExampleTranslate');
 
   let isTranslate = false;
+  const isShowButtons = false;
 
   translateMeaning.forEach((element) => {
     if (!isTranslate) {
       element.classList.add('hide');
-      isTranslate = false;
+      isTranslate = true;
     } else {
       element.classList.remove('hide');
-      isTranslate = true;
+      isTranslate = false;
     }
   });
   translateWord.forEach((element) => {
     if (!isTranslate) {
       element.classList.add('hide');
-      isTranslate = false;
+      isTranslate = true;
     } else {
       element.classList.remove('hide');
-      isTranslate = true;
+      isTranslate = false;
     }
   });
   translateExample.forEach((element) => {
     if (!isTranslate) {
       element.classList.add('hide');
-      isTranslate = false;
+      isTranslate = true;
     } else {
       element.classList.remove('hide');
-      isTranslate = true;
+      isTranslate = false;
     }
   });
-  const showTranslation = document.querySelector<HTMLElement>('.show-translation');
-  showTranslation?.addEventListener('click', () => {
-    toggleTranslate();
-  });
+  const showTranslation = document.querySelectorAll('.show-translation');
+  if (showTranslation) {
+    showTranslation.forEach((translate) => {
+      translate.addEventListener('click', () => {
+        toggleTranslate();
+      });
+    });
+  }
+}
+export function toggleButtons():void {
+  const showButtons = document.querySelectorAll('.show-buttons');
+  const containerBtns = document.querySelectorAll('.card-buttons');
+  const infoBtn = document.querySelectorAll('.info');
+  if (showButtons) {
+    showButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (containerBtns) {
+          containerBtns.forEach((item) => {
+            item.remove();
+          });
+        }
+        if (infoBtn) {
+          infoBtn.forEach((item) => {
+            item.remove();
+          });
+        }
+
+        toggleButtons();
+      });
+    });
+  }
 }

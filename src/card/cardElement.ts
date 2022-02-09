@@ -170,17 +170,17 @@ export class CardElement {
     infoBtn.appendChild(incorrectBtn);
     cardElement.appendChild(infoBtn);
 
-    document.body.addEventListener('click', async (e) => {
-      if (e.target) {
-        const id = (e.target as HTMLElement).id.split('level')[1];
-        if (id === '6') {
-          console.log(difficultBtn);
-          if (difficultBtn) difficultBtn.remove();
-          deleteBtn.innerText = '';
-          deleteBtn.innerText = 'non difficult';
-        }
-      }
-    });
+    // document.body.addEventListener('click', async (e) => {
+    //   if (e.target) {
+    //     const id = (e.target as HTMLElement).id.split('level')[1];
+    //     if (id === '6') {
+    //       console.log(difficultBtn);
+    //       if (difficultBtn) difficultBtn.remove();
+    //       deleteBtn.innerText = '';
+    //       deleteBtn.innerText = 'non difficult';
+    //     }
+    //   }
+    // });
 
     return cardElement;
   }
