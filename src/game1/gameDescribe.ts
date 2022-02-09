@@ -34,7 +34,7 @@ export function renderGame(): any {
       groupRoundIdGame1 = +e.id.slice(-1);
       console.log(`click on ${e.id.slice(-1)}`);
       gameSectionDescribe.innerHTML = '';
-      gameSectionDescribe.appendChild(await renderGame1Round('5e9f5ee35eb9e72bc21af4a4'));
+      gameSectionDescribe.appendChild(await renderGame1Round()); //any id from page
     });
   });
 

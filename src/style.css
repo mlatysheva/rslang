@@ -320,6 +320,15 @@ a:hover {
   }
 }
 
+@media (max-width: 1100px) {
+  .round-game1,
+  .describtion-game1 {
+    border-radius: 5%;
+    padding: 1rem;
+    max-width: 500px;
+  }
+}
+
 .body {
   width: 100%;
   font-family: 'Open Sans', 'Roboto', sans-serif;
@@ -534,7 +543,7 @@ a:hover {
 .describtion-game1 {
   border-radius: 25%;
   padding: 2rem;
-  max-width: 500px;
+  max-width: 1000px;
   display: flex;
   text-align: center;
   display: flex;
@@ -570,7 +579,7 @@ a:hover {
 
 .next-round,
 .unswer-btn {
-  font-size: 0.9rem;
+  font-size: 1.3rem;
   color: var(--text-color-button);
   background: var(--june);
   border-radius: 25%;
