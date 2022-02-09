@@ -2,7 +2,7 @@ import { AbstractView } from './AbstractView';
 import { renderPage, createAside, Group } from '../../book/renderPage';
 import { currentPage } from '../../book/paginationBook';
 import { addModal, toggleTranslate } from '../../book/settings';
-import { renderDifficultPage } from '../../book/removeCard';
+import { renderDifficultPage } from '../../book/difficultPage';
 
 export class Manual extends AbstractView {
   constructor() {
