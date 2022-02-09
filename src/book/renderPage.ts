@@ -117,9 +117,9 @@ export function createAside() {
       ></label>
     </div>
     <div class="switch show-buttons">
-      <div class="switch-item show-buttons"></div>
+      <div class="switch-item"></div>
       <label>
-        <span class="show-buttons">show button for words</span>
+        <span >show button for words</span>
         <input
           type="checkbox"
           id="difficult"

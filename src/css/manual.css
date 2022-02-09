@@ -116,7 +116,8 @@
   background: transparent;
 }
 .hide {
-  display: none;
+  visibility: none;
+  opacity: none;
 }
 .active-page {
   transform: scale(1.2);

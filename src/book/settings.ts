@@ -57,36 +57,17 @@ export function toggleTranslate(): void {
   const translateWord = document.querySelectorAll('.translate');
   const translateExample = document.querySelectorAll('.textExampleTranslate');
 
-  let isTranslate = false;
-  const isShowButtons = false;
-
+  // let isTranslate = false;
   translateMeaning.forEach((element) => {
-    if (!isTranslate) {
-      element.classList.add('hide');
-      isTranslate = true;
-    } else {
-      element.classList.remove('hide');
-      isTranslate = false;
-    }
+    element.classList.toggle('hide');
   });
   translateWord.forEach((element) => {
-    if (!isTranslate) {
-      element.classList.add('hide');
-      isTranslate = true;
-    } else {
-      element.classList.remove('hide');
-      isTranslate = false;
-    }
+    element.classList.toggle('hide');
   });
   translateExample.forEach((element) => {
-    if (!isTranslate) {
-      element.classList.add('hide');
-      isTranslate = true;
-    } else {
-      element.classList.remove('hide');
-      isTranslate = false;
-    }
+    element.classList.toggle('hide');
   });
+
   const showTranslation = document.querySelectorAll('.show-translation');
   if (showTranslation) {
     showTranslation.forEach((translate) => {
@@ -96,24 +77,65 @@ export function toggleTranslate(): void {
     });
   }
 }
+
 export function toggleButtons():void {
   const showButtons = document.querySelectorAll('.show-buttons');
-  const containerBtns = document.querySelectorAll('.card-buttons');
-  const infoBtn = document.querySelectorAll('.info');
+  const deleteBtns = document.querySelectorAll('.delete');
+  const difficultBtns = document.querySelectorAll('.difficult');
+  const correctBtns = document.querySelectorAll('.correct');
+  const incorrectBtns = document.querySelectorAll('.incorrect');
+  let isShowButtons = false;
+
+  function removeButtons() {
+    deleteBtns.forEach((element) => {
+      element.classList.add('hide');
+    });
+    difficultBtns.forEach((element) => {
+      element.classList.add('hide');
+    });
+    correctBtns.forEach((element) => {
+      element.classList.add('hide');
+    });
+    incorrectBtns.forEach((element) => {
+      element.classList.add('hide');
+    });
+  }
+
+  // removeButtons();
+  function addButtons() {
+    deleteBtns.forEach((element) => {
+      element.classList.remove('hide');
+    });
+    difficultBtns.forEach((element) => {
+      element.classList.remove('hide');
+    });
+    correctBtns.forEach((element) => {
+      element.classList.remove('hide');
+    });
+    incorrectBtns.forEach((element) => {
+      element.classList.remove('hide');
+    });
+  }
+  // addButtons();
+
+  // if (!isShowButtons) {
+  //   removeButtons();
+  //   isShowButtons = true;
+  // } else if (isShowButtons) {
+  //   addButtons();
+  //   isShowButtons = false;
+  // }
+
   if (showButtons) {
     showButtons.forEach((button) => {
       button.addEventListener('click', () => {
-        if (containerBtns) {
-          containerBtns.forEach((item) => {
-            item.remove();
-          });
+        if (!isShowButtons) {
+          removeButtons();
+          isShowButtons = true;
+        } else if (isShowButtons) {
+          addButtons();
+          isShowButtons = false;
         }
-        if (infoBtn) {
-          infoBtn.forEach((item) => {
-            item.remove();
-          });
-        }
-
         toggleButtons();
       });
     });
