@@ -1,0 +1,124 @@
+.sprint-view {
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+}
+.sprint-title {
+  font-size: xx-large;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.level-range {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: larger;
+}
+
+.sprint-level {
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem;
+  line-height: 4rem;
+  color: white;
+  text-align: center;
+  box-shadow: 2px 3px 5px white;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.sprint-level:hover {
+  background-color: var(--glaucous);
+}
+.sprint-level:active {
+  background-color: var(--purple);
+}
+.sprint-game-screen {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.timer-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+.clock-image {
+  width: 2rem;
+  height: 2rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('../assets/images/timer-1.svg');
+  filter: invert(11%) sepia(54%) saturate(4173%) hue-rotate(312deg) brightness(83%) contrast(97%);
+}
+.timer {
+  font-size: larger;
+  margin-top: 1rem;
+}
+
+.replay-button {
+  background-image: url('../assets/images/replay_icon.svg');
+  margin-left: auto;
+}
+
+.points {
+  font-size: xx-large;
+  margin-bottom: 2rem;
+}
+
+.question-wrapper {
+  font-size: xx-large;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.english-word, .translation {
+  display: inline-block;
+  height: 4rem;
+  margin: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  line-height: 4rem;
+  color: white;
+  text-align: center;
+  box-shadow: 2px 3px 5px white;
+  border-radius: 50px;
+}
+
+.sprint-controls-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-transform: uppercase;
+  justify-content: center;
+}
+
+.sprint-answer-button {  
+  width: 12rem;
+  height: 4rem;
+  font-size: x-large;
+  margin: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  line-height: 4rem;
+  color: white;
+  text-align: center;
+  box-shadow: 2px 3px 5px white;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.sprint-correct {
+  background-color: var(--olive);
+}
+
+.sprint-incorrect {
+  background-color: var(--amaranth);
+}

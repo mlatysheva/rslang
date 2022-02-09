@@ -9,6 +9,7 @@ import { Signup } from './js/views/Signup';
 import { Login } from './js/views/Login';
 import { registerUser } from './login/registerNewUser';
 import { logout, renderUserName } from './login/loginLogout';
+import { startSprintGame } from './sprint/sprintGame';
 
 
 console.log('App is running');
@@ -61,3 +62,20 @@ export function listenForLogin() {
 }
 
 listenForLogin();
+
+export function listenForSprint() {
+  document.body.addEventListener('click', async (e: MouseEvent) => { 
+
+    if (e.target) {
+      if ((e.target as HTMLElement).classList.contains('sprint-level')) {
+        const element = <HTMLElement>e.target;
+        const level = parseInt(element.id.split('-')[1]);
+        console.log(`level is ${level}`);
+        
+        startSprintGame(level);
+      }
+    }
+  })
+}
+listenForSprint();
+
