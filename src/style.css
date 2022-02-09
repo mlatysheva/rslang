@@ -96,6 +96,7 @@ h4 {
 a {
   text-decoration: none !important;
   color: beige !important;
+  display: block;
 }
 a:hover {
   color: var(--amaranth);
@@ -103,6 +104,17 @@ a:hover {
 
 .bold-text {
   font-weight: 700;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  margin: 1rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: invert(11%) sepia(54%) saturate(4173%) hue-rotate(312deg) brightness(83%) contrast(97%);
+  cursor: pointer;
 }
 
 .header {
@@ -355,6 +367,9 @@ a:hover {
   align-items: center;
   justify-content: center;
   color: var(--purple);
+}
+.view {
+  padding-top: 5rem;
 }
 
 .footer {

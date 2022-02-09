@@ -14,9 +14,25 @@ export class Sprint extends AbstractView {
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.add('hide');
     let htmlElement = document.createElement('div');
+    htmlElement.classList.add('view', 'sprint-view');
     htmlElement.innerHTML =  `
-    <div class="view sprint-view">
-      <p>This is sprint game<p>
+    <div class="sprint-start-screen">
+      <div class="sprint-title">
+        <p class="title sprint-title">Спринт</p>
+        <p class="large-text">Угадай 20 слов за 60 секунд.</p>
+        <p class="large-text">Игра помогает закрепить выученные слова.</p>
+      </div>
+      <div class="level-wrapper">
+        <p class="large-text">Выбери уровень:</p>
+        <div class="level-range">
+          <div class="sprint-level level-a1" id="group-0">A1</div>
+          <div class="sprint-level level-a2" id="group-1">A2</div>
+          <div class="sprint-level level-b1" id="group-2">B1</div>
+          <div class="sprint-level level-b2" id="group-3">B2</div>
+          <div class="sprint-level level-c1" id="group-4">C1</div>
+          <div class="sprint-level level-c2" id="group-5">C2</div>
+        </div>
+      </div>
     </div>
     `;
     return htmlElement;

@@ -64,6 +64,7 @@
   box-shadow: 2px 5px 3px;
   border-radius:62px;
   color: beige;
+  cursor: pointer;
 }
 .difficult, 
 .delete {
