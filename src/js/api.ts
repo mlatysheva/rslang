@@ -1,6 +1,6 @@
 import { getItemFromLocalStorage } from './localStorage';
 import {
-  ExistingUserLoginDetails, NewUserDetails, User, UserStatistics, UserWord, Word,
+  ExistingUserLoginDetails, NewUserDetails, UserWord, User, UserWordParameters, Word,
 } from './types';
 
 const base = 'https://rs-lang-mlatysheva.herokuapp.com';
@@ -69,7 +69,7 @@ export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> =
 
 const token = getItemFromLocalStorage('token');
 
-const createUserWord = async (userId: string, wordId: string, word: string) => {
+export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'POST',
     // withCredentials: true,
@@ -78,12 +78,26 @@ const createUserWord = async (userId: string, wordId: string, word: string) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(word),
+    body: JSON.stringify(body),
   });
   const content = await rawResponse.json();
 
   console.log(content);
 };
+
+export const deleteUserWord = async (userId: string, wordId: string) => {
+  const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
+    method: 'DELETE',
+
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+
+  });
+};
+// deleteUserWord('620262a55dbb20001613405b', '5e9f5ee35eb9e72bc21af518');
 
 // createUserWord({
 //   userId: "5ec993df4ca9d600178740ae",
@@ -100,7 +114,7 @@ const createUserWord = async (userId: string, wordId: string, word: string) => {
 //   "wordId":"5e9f5ee35eb9e72bc21af716"
 // }
 
-const getUserWord = async (userId: string, wordId: string) => {
+export const getUserWord = async (userId: string, wordId: string) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'GET',
     // withCredentials: true,
@@ -114,6 +128,20 @@ const getUserWord = async (userId: string, wordId: string) => {
   console.log(content);
 };
 
+export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
+  const rawResponse = await fetch(`${users}/${userId}/words`, {
+    method: 'GET',
+    // withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  });
+  const content = await rawResponse.json();
+
+  console.log(content);
+  return content;
+};
 // getUserWord({
 //   userId: "5ec993df4ca9d600178740ae",
 //   wordId: "5e9f5ee35eb9e72bc21af716"
@@ -129,7 +157,7 @@ const getUserWord = async (userId: string, wordId: string) => {
 //   "wordId":"5e9f5ee35eb9e72bc21af716"
 // }
 
-export const getUserStatistics = async() => {
+export const getUserStatistics = async () => {
   const userId = getItemFromLocalStorage('id');
   console.log(`userID is ${userId}`);
   const token = getItemFromLocalStorage('token');
@@ -141,55 +169,10 @@ export const getUserStatistics = async() => {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       },
-    });  
-    const result = await rawResponse;
-    if (result.status == 200) {
-      return result.json();
-    }
-    if (result.status == 404) {
-      console.log('Ты еще не начал учиться, а уже хочешь статистику смотреть!');
-      return {
-        "learnedWords": 0,
-      }
-    }
-    if (result.status == 401) {
-      console.log('Истек срок действия токена. Зарегистрируйся заново');
-      return {};
-    }
-  }
-  catch(err) {
+    });
+    const content = await rawResponse.status;
+    return content;
+  } catch (err) {
     console.log(`err is ${err}`);
-  }  
-}
-
-export const putUserStatistics = async(data: UserStatistics) => {
-  const userId = getItemFromLocalStorage('id');
-  console.log(`userID is ${userId}`);
-  const token = getItemFromLocalStorage('token');
-  try {
-    const rawResponse = await fetch(`${users}/${userId}/statistics`, {
-      method: 'OUT',
-      // withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-      });
-    
-    const result = await rawResponse;
-    if (result.status == 200) {
-      return result.json();
-    }
-    if (result.status == 400) {
-      return 'Bad request';
-    }
-    if (result.status == 401) {
-      return 'Истек срок действия токена. Зарегистрируйся заново';
-    }
   }
-  catch(err) {
-    console.log(`err is ${err}`);
-  }  
-}
+};

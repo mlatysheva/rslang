@@ -1,7 +1,15 @@
-import { setItemToLocalStorage } from '../js/localStorage';
+import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
+import { firstPage } from './paginationBook';
+import {
+  getWord, createUserWord, getUserWord, getUserWordsAll, deleteUserWord,
+} from '../js/api';
+import { CardElement } from '../card/cardElement';
+import { UserWordParameters } from '../js/types';
 
 export const deletedCards: Array<string> = [];
 export const difficultWords: Array<string> = [];
+
+const myId: string = getItemFromLocalStorage('id');
 
 export function removeCard() {
   document.body.addEventListener('click', (e) => {
@@ -18,17 +26,53 @@ export function removeCard() {
 }
 
 export function difficultWord() {
-  document.body.addEventListener('click', (e) => {
+  document.body.addEventListener('click', async (e):Promise< void> => {
     if (e.target) {
       if ((e.target as HTMLElement).classList.contains('difficult')) {
-        const id = (e.target as HTMLElement).id.split('difficult')[1];
-        const word = document.getElementById(`${id}`);
+        const wordId = (e.target as HTMLElement).id.split('difficult')[1];
+        const word = document.getElementById(`${wordId}`);
         if (word) word.classList.add('difficult-word');
-        difficultWords.push(id);
+        difficultWords.push(wordId);
         setItemToLocalStorage('difficultWords', JSON.stringify(difficultWords));
+        const body: UserWordParameters = {
+          difficulty: 'difficult-word',
+          optional: { testFieldString: 'test', testFieldBoolean: true },
+        };
+        await createUserWord(myId, wordId, body);
       }
     }
   });
 }
+export async function removeDifficultWord() {
+  document.body.addEventListener('click', async (e) => {
+    if (e.target) {
+      if ((e.target as HTMLElement).classList.contains('delete')) {
+        const id = (e.target as HTMLElement).id.split('delete')[1];
+        deletedCards.push(id);
+        await deleteUserWord(myId, id);
+      }
+    }
+  });
+}
+export async function renderDifficultPage() {
+  document.body.addEventListener('click', async (e) => {
+    const cardsOnPage = document.querySelector('.book-page');
+    if (e.target) {
+      const id = (e.target as HTMLElement).id.split('level')[1];
+      if (id === '6') {
+        if (cardsOnPage) cardsOnPage.innerHTML = '';
+        const diffWordsId = await getUserWordsAll(myId);
+        diffWordsId.forEach(async (item) => {
+          const diffWord = await getWord(item.wordId);
+          const cardOnPage = new CardElement(diffWord).renderCard();
+          if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+        });
+      }
+    }
+  });
+}
+// return cardsOnPage;
 
-export default { removeCard, difficultWord };
+// removeDifficultWord();
+
+export default { removeCard, difficultWord, renderDifficultPage };

@@ -4,7 +4,7 @@ import { settings } from '../book/svg';
 import {
   firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
 } from '../book/paginationBook';
-import { removeCard, difficultWord } from './removeCard';
+import { removeCard, difficultWord, renderDifficultPage, removeDifficultWord } from './removeCard';
 
 export const Group = 0;
 
@@ -82,6 +82,7 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   });
   removeCard();
   difficultWord();
+  removeDifficultWord();
 
   return Page;
 }
