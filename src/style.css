@@ -558,6 +558,7 @@ a:hover {
 
 .unswers-game1 {
   margin: 35px 0;
+  flex-wrap: wrap;
 }
 
 .game1 {
@@ -569,12 +570,16 @@ a:hover {
 
 .next-round,
 .unswer-btn {
-  font-size: 2rem;
+  font-size: 0.9rem;
   color: var(--text-color-button);
   background: var(--june);
   border-radius: 25%;
   margin-right: 15px;
   padding: 10px;
+}
+
+.unswer-btn {
+  margin-bottom: 15px;
 }
 
 .next-round {

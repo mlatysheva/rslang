@@ -1,6 +1,4 @@
 import { AbstractView } from './AbstractView';
-import { renderWord } from '../../card/renderOne';
-import { renderGame1Round } from '../../game1/roundRender';
 import { renderGame } from '../../game1/gameDescribe';
 
 export class Audiocall extends AbstractView {

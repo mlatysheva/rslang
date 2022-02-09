@@ -3,8 +3,6 @@ import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/con
 import { renderWord } from '../card/renderOne';
 import { getPlayedQuestions } from './localStorageHelper';
 import { Question1 } from './data/Question1';
-
-const arrOfUnswers = ['кот', 'скот', 'крот', 'жpет'];
 export class QuestionRenderer {
   data: Word;
   question: Question1;
@@ -64,10 +62,10 @@ export class QuestionRenderer {
     unswers.classList.add('unswers-game1');
 
     unswers.innerHTML = `
-    <button id=unswer0-${this.data.id} class="unswer-btn">${arrOfUnswers[0]}</button>
-    <button id=unswer1-${this.data.id} class="unswer-btn">${arrOfUnswers[1]}</button>
-    <button id=unswer2-${this.data.id} class="unswer-btn">${arrOfUnswers[2]}</button>
-    <button id=unswer3-${this.data.id} class="unswer-btn">${arrOfUnswers[3]}</button>
+    <button id=unswer0-${this.data.id} class="unswer-btn">${this.question.answersArray[0]}</button>
+    <button id=unswer1-${this.data.id} class="unswer-btn">${this.question.answersArray[1]}</button>
+    <button id=unswer2-${this.data.id} class="unswer-btn">${this.question.answersArray[2]}</button>
+    <button id=unswer3-${this.data.id} class="unswer-btn">${this.question.answersArray[3]}</button>
     `;
     questionSection.appendChild(unswers);
 
