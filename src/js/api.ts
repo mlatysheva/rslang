@@ -1,6 +1,7 @@
 import { getItemFromLocalStorage } from './localStorage';
 import {
-  ExistingUserLoginDetails, NewUserDetails, User, UserStatistics, UserWithName, UserWord, Word,
+  ExistingUserLoginDetails, NewUserDetails, User, UserStatistics, UserWithName, UserWord, 
+  Word, UserWordParameters,
 } from './types';
 
 const base = 'https://rs-lang-mlatysheva.herokuapp.com';
@@ -63,9 +64,8 @@ export async function getUser(): Promise<UserWithName> {
   const user: UserWithName = await response.json();
   return user;
 }
-
-const createUserWord = async (userId: string, wordId: string, word: string) => {
-  const token = getItemFromLocalStorage('token');
+const token = getItemFromLocalStorage('token');
+export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'POST',
     // withCredentials: true,
@@ -74,12 +74,26 @@ const createUserWord = async (userId: string, wordId: string, word: string) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(word),
+    body: JSON.stringify(body),
   });
   const content = await rawResponse.json();
 
   console.log(content);
 };
+
+export const deleteUserWord = async (userId: string, wordId: string) => {
+  const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
+    method: 'DELETE',
+
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+
+  });
+};
+// deleteUserWord('620262a55dbb20001613405b', '5e9f5ee35eb9e72bc21af518');
 
 // createUserWord({
 //   userId: "5ec993df4ca9d600178740ae",
@@ -96,7 +110,7 @@ const createUserWord = async (userId: string, wordId: string, word: string) => {
 //   "wordId":"5e9f5ee35eb9e72bc21af716"
 // }
 
-const getUserWord = async (userId: string, wordId: string) => {
+export const getUserWord = async (userId: string, wordId: string) => {
   const token = getItemFromLocalStorage('token');
 
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
@@ -112,6 +126,20 @@ const getUserWord = async (userId: string, wordId: string) => {
   console.log(content);
 };
 
+export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
+  const rawResponse = await fetch(`${users}/${userId}/words`, {
+    method: 'GET',
+    // withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  });
+  const content = await rawResponse.json();
+
+  console.log(content);
+  return content;
+};
 // getUserWord({
 //   userId: "5ec993df4ca9d600178740ae",
 //   wordId: "5e9f5ee35eb9e72bc21af716"
