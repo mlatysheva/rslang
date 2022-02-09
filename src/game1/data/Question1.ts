@@ -9,8 +9,10 @@ export class Question1 {
   correctAnswer: string;
   answersArray: string[];
   audioId: string;
+  word: Word;
 
   constructor(word: Word, arrayOfUniquePossibleAnswers: string[]) {
+    this.word = word;
     this.correctAnswer = word.word;
     this.answersArray = this.getAnswers(this.correctAnswer, arrayOfUniquePossibleAnswers);
     this.audioId = word.audio;

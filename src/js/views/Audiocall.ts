@@ -16,8 +16,6 @@ export class Audiocall extends AbstractView {
 
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.add('hide');
-    let unswer = renderWord('5e9f5ee35eb9e72bc21af4a4'); //пока цель получить 1 полную карточку по id
-
     let gameDescribe = renderGame();
     return gameDescribe;
   }
