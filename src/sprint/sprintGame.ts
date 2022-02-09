@@ -1,3 +1,5 @@
+import { countdown } from "./countDown";
+
 export function startSprintGame(level: number) {
   const initialScreen = <HTMLElement>document.querySelector('.sprint-start-screen');
   initialScreen?.classList.add('hide');
@@ -15,7 +17,7 @@ export function startSprintGame(level: number) {
     <div class="icon replay-button" title="К выбору уровня"></div>
     <div class="timer-wrapper">
       <div class="clock-image"></div>
-      <div class="timer">60</div>
+      <div class="timer" id="counter"></div>
     </div>
     
     <div class="points"><span class="large-text">Очки: </span>20</div>
@@ -37,4 +39,6 @@ export function startSprintGame(level: number) {
       gameScreen.classList.add('hide');
       initialScreen.classList.remove('hide');
   })
+
+  countdown();
 }
