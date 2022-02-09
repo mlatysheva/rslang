@@ -1,7 +1,7 @@
 import { Word } from '../../js/types';
 import { shuffleArray } from './helper';
-
-const NUMBER_OF_ANSWERS_PER_QUESTION = 4;
+import { NUMBER_OF_ANSWERS_PER_QUESTION } from '../../js/constants';
+import { groupRoundIdGame1 } from '../gameDescribe';
 
 export class Question1 {
   isAnswered: boolean = false;
@@ -9,14 +9,16 @@ export class Question1 {
   correctAnswer: string;
   answersArray: string[];
   audioId: string;
+  word: Word;
 
   constructor(word: Word, arrayOfUniquePossibleAnswers: string[]) {
+    this.word = word;
     this.correctAnswer = word.word;
-    this.answersArray = this.getAnswers(this.correctAnswer, arrayOfUniquePossibleAnswers);
+    this.answersArray = Question1.getAnswers(this.correctAnswer, arrayOfUniquePossibleAnswers);
     this.audioId = word.audio;
   }
 
-  getAnswers(correctAnswer: string, uniqueAnswersArr: string[]) {
+  static getAnswers(correctAnswer: string, uniqueAnswersArr: string[]) {
     let resultArray = [correctAnswer];
     while (resultArray.length !== NUMBER_OF_ANSWERS_PER_QUESTION) {
       let randomAnswerIndex = Math.floor(Math.random() * uniqueAnswersArr.length);

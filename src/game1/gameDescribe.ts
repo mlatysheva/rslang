@@ -2,6 +2,8 @@ import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
 import { renderGame1Round } from './roundRender';
 
+export let groupRoundIdGame1: number = 0;
+
 export function renderGame(): any {
   //TODO: normal type
   let gameSectionDescribe = document.createElement('div');
@@ -26,11 +28,13 @@ export function renderGame(): any {
   gameSectionDescribe.appendChild(levelOfRound);
 
   const buttons = Array.from(gameSectionDescribe.getElementsByClassName('game1'));
-  console.log(`buttons ${buttons.length}`);
+
   buttons.forEach((e: Element) => {
     e.addEventListener('click', async () => {
+      groupRoundIdGame1 = +e.id.slice(-1);
+      console.log(`click on ${e.id.slice(-1)}`);
       gameSectionDescribe.innerHTML = '';
-      gameSectionDescribe.appendChild(await renderGame1Round('5e9f5ee35eb9e72bc21af4a4'));
+      gameSectionDescribe.appendChild(await renderGame1Round()); //any id from page
     });
   });
 

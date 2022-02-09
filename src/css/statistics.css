@@ -1,6 +1,5 @@
 .statistics-view {
   padding-top: 50px;
-  margin-top: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,4 +25,10 @@
   font-size: large;
   text-transform: uppercase;
   text-align: center;
+}
+
+.statistics-title {
+  text-transform: uppercase;
+  font-size: larger;
+  font-weight: 700;
 }

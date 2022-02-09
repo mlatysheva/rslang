@@ -71,8 +71,5 @@ export async function renderDifficultPage() {
     }
   });
 }
-// return cardsOnPage;
-
-// removeDifficultWord();
 
 export default { removeCard, difficultWord, renderDifficultPage };

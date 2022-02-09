@@ -101,6 +101,10 @@ a:hover {
   color: var(--amaranth);
 }
 
+.bold-text {
+  font-weight: 700;
+}
+
 .header {
   width: 100%;
   height: 120px;
@@ -250,7 +254,7 @@ a:hover {
     margin: 0;
     width: 400px;
     height: 100vh;
-    margin-top: 108px;
+    margin-top: 120px;
     padding-top: 100px;
     padding-left: 120px;
     right: -400px;
@@ -313,6 +317,15 @@ a:hover {
 @media (max-width: 400px) {
   .nav-menu {
     width: 100%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .round-game1,
+  .describtion-game1 {
+    border-radius: 5%;
+    padding: 1rem;
+    max-width: 500px;
   }
 }
 
@@ -388,7 +401,8 @@ a:hover {
   flex-direction: column;
   padding: 10px;
   border-radius: 10%;
-  opacity: 0.8;
+  /* Девочки, я это закоментировала, так как из-за этого свойства выпадающее меню просвечивает */
+  /* opacity: 0.8; */
 }
 
 .card0 {
@@ -499,9 +513,11 @@ a:hover {
   margin: 0;
 }
 
-[data-tooltip] {
-  position: relative;
-}
+/*[data-tooltip] {
+  /* Девочки, я пока это закоментировала, иначе кнопки показываются поверх выезжающего меню */
+/* position: relative; */
+/*так может уже и норм, красивенько ж стало, только как на крестик наводить мышью - сходит с ума
+}*/
 [data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -527,7 +543,7 @@ a:hover {
 .describtion-game1 {
   border-radius: 25%;
   padding: 2rem;
-  max-width: 500px;
+  max-width: 1000px;
   display: flex;
   text-align: center;
   display: flex;
@@ -535,7 +551,7 @@ a:hover {
 }
 
 .describtion-game1 {
-  margin-top: 15%;
+  margin-top: 8%;
 }
 
 .game-description {
@@ -551,6 +567,7 @@ a:hover {
 
 .unswers-game1 {
   margin: 35px 0;
+  flex-wrap: wrap;
 }
 
 .game1 {
@@ -562,12 +579,16 @@ a:hover {
 
 .next-round,
 .unswer-btn {
-  font-size: 2rem;
+  font-size: 1.3rem;
   color: var(--text-color-button);
   background: var(--june);
   border-radius: 25%;
   margin-right: 15px;
   padding: 10px;
+}
+
+.unswer-btn {
+  margin-bottom: 15px;
 }
 
 .next-round {

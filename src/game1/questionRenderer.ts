@@ -1,13 +1,15 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/constants';
 import { renderWord } from '../card/renderOne';
-
-const arrOfUnswers = ['кот', 'скот', 'крот', 'жpет'];
-export class Round {
+import { getPlayedQuestions } from './localStorageHelper';
+import { Question1 } from './data/Question1';
+export class QuestionRenderer {
   data: Word;
+  question: Question1;
 
-  constructor(cardDataObject: Word) {
-    this.data = cardDataObject;
+  constructor(cardDataObject: Question1) {
+    this.data = cardDataObject.word;
+    this.question = cardDataObject;
     /*this.dataUnswersArray = dataUnswersArray.map((d) => {
       d.answersArray = this.getAnswers(d.word, this.uniqueArtistsArr);
       d.isAnswered = false;
@@ -21,72 +23,83 @@ export class Round {
     return `game1-${this.data.id}`;
   }
 
-  renderRound(): any {
+  render(): any {
     //TODO: normal type
     const soundEnableFunction = sound(this);
-    let gameSectionRound = document.createElement('div');
+    let questionSection = document.createElement('div');
     if (this.data.group === arrGroup[0]) {
-      gameSectionRound.classList.add('card0');
+      questionSection.classList.add('card0');
     }
     if (this.data.group === arrGroup[1]) {
-      gameSectionRound.classList.add('card1');
+      questionSection.classList.add('card1');
     }
     if (this.data.group === arrGroup[2]) {
-      gameSectionRound.classList.add('card2');
+      questionSection.classList.add('card2');
     }
     if (this.data.group === arrGroup[3]) {
-      gameSectionRound.classList.add('card3');
+      questionSection.classList.add('card3');
     }
     if (this.data.group === arrGroup[4]) {
-      gameSectionRound.classList.add('card4');
+      questionSection.classList.add('card4');
     }
     if (this.data.group === arrGroup[5]) {
-      gameSectionRound.classList.add('card5');
+      questionSection.classList.add('card5');
     }
-    gameSectionRound.classList.add('round-game1');
-    let gameRound = document.createElement('h2');
-    gameRound.classList.add('round');
-    gameRound.textContent = 'Слушай и жми на правильный перевод:';
+    questionSection.classList.add('round-game1');
+    let questionTitle = document.createElement('h2');
+    questionTitle.classList.add('round');
+    questionTitle.textContent = 'Слушай и жми на правильный перевод:';
     let audio = document.createElement('button');
     audio.classList.add('play');
     audio.classList.add('player-icon');
     audio.classList.add('game1-sound');
     audio.setAttribute('id', this.getAudioId());
     audio.addEventListener('click', soundEnableFunction);
-    gameSectionRound.appendChild(gameRound);
-    gameSectionRound.appendChild(audio);
+    questionSection.appendChild(questionTitle);
+    questionSection.appendChild(audio);
 
     const unswers = document.createElement('div');
     unswers.classList.add('unswers-game1');
 
     unswers.innerHTML = `
-    <button id=unswer0-${this.data.id} class="unswer-btn">${arrOfUnswers[0]}</button>
-    <button id=unswer1-${this.data.id} class="unswer-btn">${arrOfUnswers[1]}</button>
-    <button id=unswer2-${this.data.id} class="unswer-btn">${arrOfUnswers[2]}</button>
-    <button id=unswer3-${this.data.id} class="unswer-btn">${arrOfUnswers[3]}</button>
+    <button id=unswer0-${this.data.id} class="unswer-btn">${this.question.answersArray[0]}</button>
+    <button id=unswer1-${this.data.id} class="unswer-btn">${this.question.answersArray[1]}</button>
+    <button id=unswer2-${this.data.id} class="unswer-btn">${this.question.answersArray[2]}</button>
+    <button id=unswer3-${this.data.id} class="unswer-btn">${this.question.answersArray[3]}</button>
     `;
-    gameSectionRound.appendChild(unswers);
+    questionSection.appendChild(unswers);
 
-    const nextRound = document.createElement('button');
-    nextRound.classList.add('next-round');
-    nextRound.classList.add('unswer-btn');
-    nextRound.innerText = 'Пропустить -->';
-    gameSectionRound.appendChild(nextRound);
+    const nextQuestionButton = document.createElement('button');
+    nextQuestionButton.classList.add('next-round');
+    nextQuestionButton.classList.add('unswer-btn');
+    nextQuestionButton.innerText = 'Пропустить -->';
+    questionSection.appendChild(nextQuestionButton);
 
-    const buttons = Array.from(gameSectionRound.getElementsByClassName('unswer-btn'));
-    console.log(`buttons ${buttons.length}`);
+    function nextQuestion(e: Event) {
+      // записать ответ в localStorage playedQuestions
+      // isAnswered = true
+      // isAnsweredCorrectly = false
+
+      questionSection.innerHTML = '';
+      if (getPlayedQuestions().length >= 10) {
+        // выведи статистику
+      } else {
+        // генерь новый вопрос
+      }
+    }
+
+    nextQuestionButton.addEventListener('click', nextQuestion);
+
+    const buttons = Array.from(questionSection.getElementsByClassName('unswer-btn'));
     buttons.forEach((e: Element) => {
-      e.addEventListener('click', async () => {
-        gameSectionRound.innerHTML = '';
-        gameSectionRound.appendChild(await renderWord('5e9f5ee35eb9e72bc21af4a4'));
-      });
+      e.addEventListener('click', nextQuestion);
     });
 
-    return gameSectionRound;
+    return questionSection;
   }
 }
 
-function sound(round: Round): (e: MouseEvent) => void {
+function sound(round: QuestionRenderer): (e: MouseEvent) => void {
   return function (e: MouseEvent) {
     const changeSoundBtn = document.getElementById(round.getAudioId()) as HTMLElement;
     const audio = new Audio();
