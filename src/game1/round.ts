@@ -74,7 +74,6 @@ export class Round {
     gameSectionRound.appendChild(nextRound);
 
     const buttons = Array.from(gameSectionRound.getElementsByClassName('unswer-btn'));
-    console.log(`buttons ${buttons.length}`);
     buttons.forEach((e: Element) => {
       e.addEventListener('click', async () => {
         gameSectionRound.innerHTML = '';
