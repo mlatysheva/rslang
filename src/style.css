@@ -450,7 +450,6 @@ a:hover {
 
 .textMeaning,
 .textExample {
-  font-weight: bold;
   text-align: right;
   max-width: 230px;
 }
