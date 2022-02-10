@@ -1,7 +1,6 @@
 import { Word } from '../../js/types';
 import { shuffleArray } from './helper';
 import { NUMBER_OF_ANSWERS_PER_QUESTION } from '../../js/constants';
-import { groupRoundIdGame1 } from '../gameDescribe';
 
 export class Question1 {
   isAnswered: boolean = false;

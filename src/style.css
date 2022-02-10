@@ -591,6 +591,10 @@ a:hover {
   margin-left: 5px;
 }
 
+.hide-game1 {
+  display: none;
+}
+
 .next-round,
 .unswer-btn {
   font-size: 1.3rem;
