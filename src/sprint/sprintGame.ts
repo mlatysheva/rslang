@@ -27,11 +27,11 @@ export async function startSprintGame(level: number) {
       <div class="timer" id="counter"></div>
     </div>
     
-    <div class="points"><span class="large-text">Очки: </span><span id="sprint-points">0</span></div>
+    <div class="points"><span class="sprint-text">Очки: </span><span id="sprint-points">0</span></div>
     <div class="question-wrapper">
-      <span class="english-word" id="sprint-english-word">${words[0].word}</span>
+      <span class="sprint-word english-word" id="sprint-english-word">${words[0].word}</span>
       <span class="is"> значит </span>
-      <span class="translation" id="sprint-translation">${words[0].wordTranslate}</span>?
+      <span class="sprint-word translation" id="sprint-translation">${words[0].wordTranslate}</span>?
     </div>
     <div class="sprint-controls-wrapper" id="sprint-controls">
       <div class="button sprint-answer-button sprint-correct" id="sprint-correct-btn">Верно</div>

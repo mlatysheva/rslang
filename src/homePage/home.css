@@ -5,6 +5,7 @@
   box-shadow: 5px 5px 3px 0;
   padding: 1rem;
   margin: 1rem;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
 }
 .home-view {
   height: 100%;
@@ -13,7 +14,7 @@
   padding-top: 0 !important;
 }
 .home-hero {
-  background-image: linear-gradient(rgba(108, 177, 12, 0.5), rgba(108, 177, 12, 0.5)), url(../assets/images/english-words.webp);
+  background-image: linear-gradient(rgba(132, 223, 4, 0.5), rgba(132, 223, 4, 0.5)), url(../assets/images/english-words.webp);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
