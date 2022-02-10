@@ -51,8 +51,8 @@
 }
 .levels {
   display: flex;
-  position: relative;
-  left: 0px;
+  position: fixed;
+  left: 90px;
   flex-direction: column;
   gap: 1.2em;
 }
