@@ -19,11 +19,11 @@ export class Sprint extends AbstractView {
     <div class="sprint-start-screen">
       <div class="sprint-title">
         <p class="title sprint-title">Спринт</p>
-        <p class="large-text">Угадай 20 слов за 60 секунд.</p>
-        <p class="large-text">Игра помогает закрепить выученные слова.</p>
+        <p class="sprint-text">Угадай как можно больше слов за 60 секунд</p>
+        <p class="large-text">Игра помогает закрепить выученные слова</p>
       </div>
       <div class="level-wrapper">
-        <p class="large-text">Выбери уровень:</p>
+        <p class="sprint-text">Выбери уровень:</p>
         <div class="level-range">
           <div class="sprint-level level-a1" id="group-0">A1</div>
           <div class="sprint-level level-a2" id="group-1">A2</div>
@@ -33,14 +33,17 @@ export class Sprint extends AbstractView {
           <div class="sprint-level level-c2" id="group-5">C2</div>
         </div>
       </div>
-    </div>
 
-    <div class="todo">
+      <div class="todo">
       <p>//TODO: по окончанию каждой игры выводятся результаты мини-игры</p>
       <p>//TODO: управлять игрой можно как мышкой, так и клавишами на клавиатуре</p>
       <p>//TODO: если мини-игра запускается из меню, в ней можно выбрать один из шести уровней сложности</p>
       <p>//TODO: если мини-игра запускается со страницы учебника, в ней используются слова из соответствующей страницы учебника</p>
     </div>
+
+    </div>
+
+    
     `;
     return htmlElement;
   }

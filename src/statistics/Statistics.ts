@@ -19,7 +19,7 @@ export class Statistics extends AbstractView {
     htmlElement.classList.add('view', 'statistics-view');
     let html = `
     <div class="title statistics-title">
-      Посмотрим-с на твой прогресс...
+      Посмотрим-ка на твой прогресс...
     </div>
     `
 
@@ -34,7 +34,7 @@ export class Statistics extends AbstractView {
         html += `
         
         <div class="statistics-wrapper registered-statistics">
-          <div class="large-text learned-words">
+          <div class="sprint-text learned-words">
             Ты выучил ${totalWords} слов.
           </div>
         </div>

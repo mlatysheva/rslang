@@ -124,6 +124,7 @@ export const getUserWord = async (userId: string, wordId: string) => {
   const content = await rawResponse.json();
 
   console.log(content);
+  return (content);
 };
 
 export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
@@ -180,7 +181,7 @@ export const putUserStatistics = async(data: UserStatistics) => {
   const token = getItemFromLocalStorage('token');
   try {
     const rawResponse = await fetch(`${users}/${userId}/statistics`, {
-      method: 'OUT',
+      method: 'PUT',
       // withCredentials: true,
       headers: {
         Authorization: `Bearer ${token}`,
