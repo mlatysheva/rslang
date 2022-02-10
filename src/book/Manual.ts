@@ -1,8 +1,8 @@
-import { AbstractView } from './AbstractView';
-import { renderPage, createAside, Group } from '../../book/renderPage';
-import { currentPage } from '../../book/paginationBook';
-import { addModal, toggleTranslate, toggleButtons } from '../../book/settings';
-import { renderDifficultPage } from '../../book/difficultPage';
+import { AbstractView } from '../js/views/AbstractView';
+import { renderPage, createAside, Group } from './renderPage';
+import { currentPage } from './paginationBook';
+import { addModal, toggleTranslate, toggleButtons } from './settings';
+import { renderDifficultPage } from './difficultPage';
 
 export class Manual extends AbstractView {
   constructor() {
