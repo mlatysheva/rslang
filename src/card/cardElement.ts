@@ -1,6 +1,5 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
-import { removeItalic, removeBold } from '../book/settings';
 // import { serwerGetWordById } from
 
 export class CardElement {
@@ -110,7 +109,7 @@ export class CardElement {
 
     const elemtextMeaning = document.createElement('p');
     elemtextMeaning.classList.add('textMeaning');
-    elemtextMeaning.innerText = `${removeItalic(this.data.textMeaning)}`;
+    elemtextMeaning.innerHTML = `${this.data.textMeaning}`;
     meaning.appendChild(elemtextMeaning);
     elemText.appendChild(meaning);
 
@@ -130,13 +129,13 @@ export class CardElement {
 
     const elemtextExample = document.createElement('p');
     elemtextExample.classList.add('textExample');
-    elemtextExample.innerText = `${removeBold(this.data.textExample)}`;
+    elemtextExample.innerHTML = `${this.data.textExample}`;
     example.appendChild(elemtextExample);
     elemText.appendChild(example);
 
     const elemtextExampleTranslate = document.createElement('p');
     elemtextExampleTranslate.classList.add('textExampleTranslate');
-    elemtextExampleTranslate.innerText = `${removeBold(this.data.textExampleTranslate)}`;
+    elemtextExampleTranslate.innerHTML = `${this.data.textExampleTranslate}`;
     elemText.appendChild(elemtextExampleTranslate);
 
     const difficultBtn = document.createElement('button');
@@ -170,6 +169,18 @@ export class CardElement {
     infoBtn.appendChild(correctBtn);
     infoBtn.appendChild(incorrectBtn);
     cardElement.appendChild(infoBtn);
+
+    // document.body.addEventListener('click', async (e) => {
+    //   if (e.target) {
+    //     const id = (e.target as HTMLElement).id.split('level')[1];
+    //     if (id === '6') {
+    //       console.log(difficultBtn);
+    //       if (difficultBtn) difficultBtn.remove();
+    //       deleteBtn.innerText = '';
+    //       deleteBtn.innerText = 'non difficult';
+    //     }
+    //   }
+    // });
 
     return cardElement;
   }
@@ -275,6 +286,20 @@ function soundExample(cardElement: CardElement): (e: MouseEvent) => void {
     }
     changePlayBtn();
   };
+}
+
+function changeCardForDifficultPage() {
+  document.body.addEventListener('click', async (e) => {
+    if (e.target) {
+      const id = (e.target as HTMLElement).id.split('level')[1];
+      if (id === '6') {
+        const difficultBtn = document.querySelector('difficult');
+        const deleteBtn = document.querySelector('delete');
+        if (difficultBtn) difficultBtn.remove();
+        if (deleteBtn) deleteBtn.innerHTML = 'non difficult';
+      }
+    }
+  });
 }
 
 export default CardElement;

@@ -1,7 +1,7 @@
 import { AbstractView } from './AbstractView';
 import { renderPage, createAside, Group } from '../../book/renderPage';
 import { currentPage } from '../../book/paginationBook';
-import { addModal, toggleTranslate } from '../../book/settings';
+import { addModal, toggleTranslate, toggleButtons } from '../../book/settings';
 import { renderDifficultPage } from '../../book/difficultPage';
 
 export class Manual extends AbstractView {
@@ -19,6 +19,7 @@ export class Manual extends AbstractView {
     app.appendChild(aside);
     addModal();
     toggleTranslate();
+    toggleButtons();
     renderDifficultPage();
     return renderPage(Group, currentPage);
   }

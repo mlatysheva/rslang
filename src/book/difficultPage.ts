@@ -10,6 +10,8 @@ export const deletedCards: Array<string> = [];
 export const difficultWords: Array<string> = [];
 
 const myId: string = getItemFromLocalStorage('id');
+const difficultBtn = document.querySelector('difficult');
+const deleteBtn = document.querySelector('delete');
 
 export function removeCard() {
   document.body.addEventListener('click', (e) => {
@@ -65,6 +67,8 @@ export async function renderDifficultPage() {
         diffWordsId.forEach(async (item) => {
           const diffWord = await getWord(item.wordId);
           const cardOnPage = new CardElement(diffWord).renderCard();
+          if (difficultBtn) difficultBtn.remove();
+          if (deleteBtn) deleteBtn.innerHTML = 'non difficult'
           if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
         });
       }
