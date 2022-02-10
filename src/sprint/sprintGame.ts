@@ -50,7 +50,7 @@ export async function startSprintGame(level: number) {
   const controls = document.getElementById('sprint-controls');
   
   
-  controls?.addEventListener("click", (event) => {
+  (<HTMLElement>controls).addEventListener("click", (event) => {
     index++;
     const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
     const translation = <HTMLElement>document.getElementById('sprint-translation');
