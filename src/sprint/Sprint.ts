@@ -1,4 +1,4 @@
-import { AbstractView } from "./AbstractView";
+import { AbstractView } from "../js/views/AbstractView";
 
 export class Sprint extends AbstractView {
   constructor() {
@@ -33,6 +33,13 @@ export class Sprint extends AbstractView {
           <div class="sprint-level level-c2" id="group-5">C2</div>
         </div>
       </div>
+    </div>
+
+    <div class="todo">
+      <p>//TODO: по окончанию каждой игры выводятся результаты мини-игры</p>
+      <p>//TODO: управлять игрой можно как мышкой, так и клавишами на клавиатуре</p>
+      <p>//TODO: если мини-игра запускается из меню, в ней можно выбрать один из шести уровней сложности</p>
+      <p>//TODO: если мини-игра запускается со страницы учебника, в ней используются слова из соответствующей страницы учебника</p>
     </div>
     `;
     return htmlElement;

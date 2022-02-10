@@ -1,4 +1,4 @@
-import { AbstractView } from "./AbstractView";
+import { AbstractView } from "../js/views/AbstractView";
 
 export class Login extends AbstractView {
   constructor() {
@@ -42,7 +42,11 @@ export class Login extends AbstractView {
     </form>
     <div class="sign-txt">ИЛИ</div>
     <a href="#/signup/" id="signup-btn" class="signup-btn" data-href="#/signup/">Зарегистрироваться</a>
-  </div>
+    </div>
+    </div>
+    <div class="todo">
+          <p>//TODO: электронный учебник (без раздела "Сложные слова", без отображения прогресса изучения слов и изученных слов) и мини-игры доступны без авторизации</p>
+          <p>//TODO: у авторизованных пользователей отображается раздел "Сложные слова", прогресс изучения слов, изученные слова и статистика</p>
     </div>
     `;
     return htmlElement;

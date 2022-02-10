@@ -1,4 +1,4 @@
-import { AbstractView } from "./AbstractView";
+import { AbstractView } from "../js/views/AbstractView";
 
 export class Signup extends AbstractView {
   constructor() {

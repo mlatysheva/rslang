@@ -1,5 +1,5 @@
-import { getUserStatistics } from "../api";
-import { AbstractView } from "./AbstractView";
+import { getUserStatistics } from "../js/api";
+import { AbstractView } from "../js/views/AbstractView";
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -37,6 +37,23 @@ export class Statistics extends AbstractView {
           <div class="large-text learned-words">
             Ты выучил ${totalWords} слов.
           </div>
+        </div>
+
+        <div class="todo">
+          <p>//TODO: отображается краткосрочная статистика по мини-играм и по словам за каждый день изучения</p>
+          <p>//TODO: в статистике по мини-играм указываются результаты по каждой мини-игре отдельно</p>
+              <ul>
+                <li>количество новых слов за день</li>
+                <li>процент правильных ответов</li>
+                <li>самая длинная серия правильных ответов</li>
+              </ul>
+
+          <p>//TODO: в краткосрочной статистике по словам указываются</p>
+            <ul>
+              <li>количество новых слов за день</li>
+              <li>количество изученных слов за день</li>
+              <li>процент правильных ответов за день</li>
+            </ul>
         </div>
         
       `;

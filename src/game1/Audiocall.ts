@@ -1,5 +1,5 @@
-import { AbstractView } from './AbstractView';
-import { renderGame } from '../../game1/gameDescribe';
+import { AbstractView } from '../js/views/AbstractView';
+import { renderGame } from './gameDescribe';
 
 export class Audiocall extends AbstractView {
   constructor() {
