@@ -3,6 +3,7 @@ import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/con
 import { renderWord } from '../card/renderOne';
 import { addPlayedQuestion, getPlayedQuestions } from './localStorageHelper';
 import { Question1 } from './data/Question1';
+import { renderStatic } from './statistic';
 export class QuestionRenderer {
   data: Word;
   question: Question1;
@@ -95,7 +96,9 @@ export class QuestionRenderer {
       currentSection?.classList.add('hide-game1');
 
       if (currentIndex >= allQuestionSections.length - 1) {
-        console.log('statistila');
+        const staticPage = document.querySelector('.describtion-game1') as HTMLElement;
+        console.log('5');
+        staticPage.appendChild(renderStatic());
       } else {
         allQuestionSections[currentIndex + 1].classList.remove('hide-game1');
       }
@@ -145,75 +148,3 @@ function sound(round: QuestionRenderer): (e: MouseEvent) => void {
     changePlayBtn();
   };
 }
-
-/*nextQuestion(){
-      if(this.currentQuestionInRound<this.artistQuestionArray.length-1){
-        this.currentQuestionInRound++;
-        } else{
-          this.currentQuestionInRound=0;
-        }
-    }
-
-    getCurrentQuestion() {
-      return this.artistQuestionArray[this.currentQuestionInRound];
-    }
-
-    getCorrectAnswersCount() {
-      return this.artistQuestionArray.filter(q=>q.isAnsweredCorrectly).length;
-    }
-
-    getAnsweredCount() {
-      return this.artistQuestionArray.filter(q=>q.isAnswered).length;
-    }
-
-    setAnswered(isAnsweredCorrectly) {
-      this.getCurrentQuestion().isAnswered = true;
-      this.getCurrentQuestion().isAnsweredCorrectly = isAnsweredCorrectly;
-    }
-
-    previousQuestion(){
-      if(this.currentQuestionInRound>0){
-      this.currentQuestionInRound--;
-      } else{
-        this.currentQuestionInRound=this.artistQuestionArray.length-1;
-      }
-    }
-     
-    static shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-          let j = Math.floor(Math.random() * (i + 1));
-          let temp = array[i];
-          array[i] = array[j];
-          array[j] = temp;
-      }
-      return array;
-  }*/
-
-/*
-   getAnswers(correctAnswer, uniqueArtistsArr) {
-        let arrFrom4 =[correctAnswer];
-        while (arrFrom4.length !== NUMBER_OF_ANSWERS_PER_QUESTION) {
-          let randomAnswerIndex = Math.floor(Math.random() * uniqueArtistsArr.length);
-          //uniqueArtistsArr.length
-          let randomAnswer = uniqueArtistsArr[randomAnswerIndex]
-          if (randomAnswer != correctAnswer && !arrFrom4.includes(randomAnswer)){
-            arrFrom4.push(randomAnswer);
-          }
-        }
-        
-       arrFrom4 = ArtistRound.shuffleArray(arrFrom4);
-
-        return arrFrom4;
-    }
-
-    getCorrectAnswer(){
-      return this.getCurrentQuestion().author;
-    }
-
-    clearAllAnswers() {
-      this.artistQuestionArray.forEach(q=>{
-        q.isAnswered = false;
-        q.isAnsweredCorrectly = false;
-      })
-    }
-} */
