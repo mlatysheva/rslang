@@ -68,7 +68,7 @@ export async function renderDifficultPage() {
           const diffWord = await getWord(item.wordId);
           const cardOnPage = new CardElement(diffWord).renderCard();
           if (difficultBtn) difficultBtn.remove();
-          if (deleteBtn) deleteBtn.innerHTML = 'non difficult'
+          if (deleteBtn) deleteBtn.innerHTML = 'non difficult';
           if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
         });
       }

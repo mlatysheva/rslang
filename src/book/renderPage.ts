@@ -64,7 +64,7 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
         } else {
           nextButton.classList.remove('opacity');
         }
-        counter.innerHTML = `${currentPage + 1} / ${totalPages}`;
+        counter.innerHTML = `${currentPage + 2} / ${totalPages}`;
         nextPage();
       });
     }

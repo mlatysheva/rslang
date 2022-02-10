@@ -16,6 +16,7 @@ export async function changeLevel() {
         (e.target as HTMLElement).classList.add('active-page');
         if (cardsOnPage) cardsOnPage.innerHTML = '';
         const data = await getWords(id, firstPage);
+        currentPage = firstPage;
         data.forEach((element) => {
           const cardOnPage = new CardElement(element).renderCard();
           if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
