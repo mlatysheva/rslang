@@ -1,8 +1,4 @@
-import { Word } from '../js/types';
-import { linkForCard, arrGroup } from '../js/constants';
-import { renderGame1Round } from './roundRender';
-
-export let groupRoundIdGame1: number = 0;
+import { renderGameRound } from './roundRender';
 
 export function renderGame(): any {
   //TODO: normal type
@@ -31,10 +27,11 @@ export function renderGame(): any {
 
   buttons.forEach((e: Element) => {
     e.addEventListener('click', async () => {
-      groupRoundIdGame1 = +e.id.slice(-1);
-      console.log(`click on ${e.id.slice(-1)}`);
+      let groupRoundIdGame1 = +e.id.slice(-1);
+      console.log(`click on сложность ${e.id.slice(-1)}`);
       gameSectionDescribe.innerHTML = '';
-      gameSectionDescribe.appendChild(await renderGame1Round()); //any id from page
+      const questionSectionsArray = await renderGameRound(groupRoundIdGame1);
+      questionSectionsArray.forEach((q) => gameSectionDescribe.appendChild(q));
     });
   });
 

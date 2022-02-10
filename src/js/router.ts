@@ -1,13 +1,13 @@
-import { Home } from './views/Home';
-import { Audiocall } from './views/Audiocall';
-import { Login } from './views/Login';
+import { Home } from '../homePage/Home';
+import { Audiocall } from '../game1/Audiocall';
+import { Login } from '../login/Login';
 import { Error } from './views/Error';
-import { Manual } from './views/Manual';
-import { Sprint } from './views/Sprint';
-import { Statistics } from './views/Statistics';
+import { Manual } from '../book/Manual';
+import { Sprint } from '../sprint/Sprint';
+import { Statistics } from '../statistics/Statistics';
 import { Route } from './types';
 import { listenForLogin } from '..';
-import { Signup } from './views/Signup';
+import { Signup } from '../login/Signup';
 
 function clearAllChildNodes(parent: HTMLElement): void {
   while (parent.firstChild) {

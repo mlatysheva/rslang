@@ -1,11 +1,11 @@
 @import './css/bootstrap-reboot.min.scss';
-@import './css/home.css';
-@import './css/manual.css';
-@import './css/login.css';
-@import './css/audiocall.css';
-@import './css/sprint.css';
-@import './css/statistics.css';
-@import './css/modal.css';
+@import './homePage/home.css';
+@import './book/manual.css';
+@import './login/login.css';
+@import './game1/audiocall.css';
+@import './sprint/sprint.css';
+@import './statistics/statistics.css';
+@import './book/modal.css';
 
 * {
   box-sizing: border-box;
@@ -589,6 +589,10 @@ a:hover {
   font-size: 0.8rem;
   color: var(--text-color-button);
   margin-left: 5px;
+}
+
+.hide-game1 {
+  display: none;
 }
 
 .next-round,
