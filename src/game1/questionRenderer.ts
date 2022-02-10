@@ -3,6 +3,7 @@ import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/con
 import { renderWord } from '../card/renderOne';
 import { addPlayedQuestion, getPlayedQuestions } from './localStorageHelper';
 import { Question1 } from './data/Question1';
+import { renderStatic } from './statistic';
 export class QuestionRenderer {
   data: Word;
   question: Question1;
@@ -95,7 +96,9 @@ export class QuestionRenderer {
       currentSection?.classList.add('hide-game1');
 
       if (currentIndex >= allQuestionSections.length - 1) {
-        console.log('statistila');
+        const staticPage = document.querySelector('.describtion-game1') as HTMLElement;
+        console.log('5');
+        staticPage.appendChild(renderStatic());
       } else {
         allQuestionSections[currentIndex + 1].classList.remove('hide-game1');
       }

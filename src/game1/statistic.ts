@@ -1,14 +1,48 @@
-import { Word } from '../js/types';
-import { Question1 } from './data/Question1';
+export function renderStatic() {
+  let statisticGame1 = document.createElement('div');
+  statisticGame1.classList.add('statistic-game1');
 
-export class StaticticGame1 {
-  data: Word;
-  question: Question1;
-
-  constructor(cardDataObject: Question1) {
-    this.data = cardDataObject.word;
-    this.question = cardDataObject;
-  }
-
-  statisticRender(): any {}
+  const unswers = document.createElement('div');
+  unswers.classList.add('table-game1');
+  unswers.innerHTML = `
+    <div class="results"><h2>Results</h2>
+      <table class='statistics-game1'>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Vois btn</td>
+            <td>Word</td>
+            <td>transkription</td>
+            <td>translate</td>
+            <td>Correct/uncorrect</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Vois btn</td>
+            <td>Word</td>
+            <td>transkription</td>
+            <td>translate</td>
+            <td>Correct/uncorrect</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Vois btn</td>
+            <td>Word</td>
+            <td>transkription</td>
+            <td>translate</td>
+            <td>Correct/uncorrect</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Vois btn</td>
+            <td>Word</td>
+            <td>transkription</td>
+            <td>translate</td>
+            <td>Correct/uncorrect</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>`;
+  statisticGame1.appendChild(unswers);
+  return statisticGame1;
 }
