@@ -186,7 +186,7 @@ export class CardElement {
   }
 }
 
-function sound(cardElement: CardElement): (e: MouseEvent) => void {
+export function sound(cardElement: CardElement): (e: MouseEvent) => void {
   return function (e: MouseEvent) {
     const changeSoundBtn = document.getElementById(cardElement.getSoundId()) as HTMLElement;
     const audio = new Audio();
