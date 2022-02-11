@@ -69,32 +69,30 @@ function navigation() {
 
       switch (hashClicked) {
         case ('#/'):
-          console.log('We are in home view');
+
           break;
         case ('#/login/'):
-          // listenForLogin();
-          console.log('We are in login view');
+          
           break;
         case ('#/signup/'):
-          // listenForLogin();
-          console.log('We are in signup view');
+          
           break;
         case ('#/manual/'):
           // TODO: add functions with manual
-          console.log('We are in manual view');
+          
           break;
         case '#/audiocall/':
-          // TODO: add functions with manual
-          console.log('We are in audiocall view');
+          // TODO: add functions with audiocall
+          
           break;
         case '#/sprint/':
-          // TODO: add functions with manual
-          console.log('We are in sprint view');
+          // TODO: add functions with sprint
+          
           break;
         case ('#/statistics/'):
 
-          // TODO: add functions with manual
-          console.log('We are in statistics view');
+          // TODO: add functions with statistics
+          
           break;
       }
     });

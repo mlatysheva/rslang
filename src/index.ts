@@ -1,8 +1,6 @@
 import './style.css';
 import './css/normalise.css';
 import { navigation } from './js/router';
-import { getWord, getWords } from './js/api';
-import { Word } from './js/types';
 import { toggleHamburgerMenu } from './homePage/hamburgerMenu';
 import { authenticateUser } from './login/authenticateExistingUser';
 import { Signup } from './login/Signup';
@@ -11,31 +9,26 @@ import { registerUser } from './login/registerNewUser';
 import { logout, renderUserName } from './login/loginLogout';
 import { startSprintGame } from './sprint/sprintGame';
 
-
 console.log('App is running');
 
 const app = <HTMLElement>document.getElementById('app');
+
+// global variable to store ids of learned words - correctly guessed words in mini games
+let learnedWords: string[] = [];
+
+localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
+let wordsfromSS = JSON.parse(localStorage.getItem('learnedWords') as string);
+
+// global variable to store ids of difficult words - words that the user marked as such in the text book or 
+// did not guess correctly in mini games
+let difficultWords: string[] = [];
+localStorage.setItem('difficultWords', JSON.stringify(difficultWords));
 
 navigation();
 toggleHamburgerMenu();
 renderUserName();
 logout();
 
-async function words(group: number, page: number) {
-  const items = await getWords(group, page).then((data: Word[]) => {
-    console.log(data);
-  });
-}
-words(2, 5);
-
-async function word(id: string) {
-  const word = await getWord(id).then((data: Word) => {
-    // console.log(`item is ${data.word}`);
-    // console.log(data);
-
-  });
-}
-// word('5e9f5ee35eb9e72bc21af4c9');
 
 export function listenForLogin() {
   document.body.addEventListener('click', async (e: MouseEvent) => { 
@@ -70,7 +63,6 @@ export function listenForSprint() {
       if ((e.target as HTMLElement).classList.contains('sprint-level')) {
         const element = <HTMLElement>e.target;
         const level = parseInt(element.id.split('-')[1]);
-        console.log(`level is ${level}`);
         
         startSprintGame(level);
       }
