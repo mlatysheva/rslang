@@ -1,0 +1,19 @@
+/*statistic*/
+:root {
+  --statistic-background: rgb(235, 183, 88);
+}
+
+.statistic-game1 {
+  background-color: var(--statistic-background);
+  border-radius: 25%;
+  padding: 2rem;
+}
+
+/*td {
+}*/
+
+@media (max-width: 1000px) {
+  .statistic-game1 {
+    max-width: 500px;
+  }
+}
