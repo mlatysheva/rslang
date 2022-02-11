@@ -30,10 +30,12 @@ export function removeCard() {
 export function difficultWord() {
   document.body.addEventListener('click', async (e):Promise< void> => {
     if (e.target) {
-      if ((e.target as HTMLElement).classList.contains('difficult')) {
-        const wordId = (e.target as HTMLElement).id.split('difficult')[1];
+      if ((<HTMLButtonElement>e.target).classList.contains('difficult')) {
+        const wordId = (<HTMLButtonElement>e.target).id.split('difficult')[1];
         const word = document.getElementById(`${wordId}`);
         if (word) word.classList.add('difficult-word');
+        (<HTMLButtonElement>e.target).disabled = true;
+        (<HTMLButtonElement>e.target).classList.add('opacity');
         difficultWords.push(wordId);
         setItemToLocalStorage('difficultWords', JSON.stringify(difficultWords));
         const body: UserWordParameters = {

@@ -1,4 +1,3 @@
-import { Group } from '../book/renderPage';
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
 
