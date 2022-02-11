@@ -10,10 +10,15 @@ let currentGroup = 0;
 export async function changeLevel() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
     const cardsOnPage = document.querySelector('.book-page');
+    const level = document.querySelectorAll('.level');
+    level.forEach((button) => {
+      button.classList.remove('active-page');
+    });
     if (e.target) {
-      if ((e.target as HTMLElement).classList.contains('level')) {
+      if ((<HTMLButtonElement>e.target).classList.contains('level')) {
         const id = +(e.target as HTMLElement).id.split('level')[1];
         (e.target as HTMLElement).classList.add('active-page');
+
         if (cardsOnPage) cardsOnPage.innerHTML = '';
         const data = await getWords(id, firstPage);
         currentPage = firstPage;
