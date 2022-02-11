@@ -27,6 +27,8 @@ export async function changeLevel() {
           if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
           cardsOnPage?.setAttribute('id', `${id}`);
         });
+        localStorage.removeItem('currentPage');
+        setItemToLocalStorage('currentPage', JSON.stringify(`${id}-${currentPage}`));
         return cardsOnPage;
       }
       return cardsOnPage;
