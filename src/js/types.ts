@@ -61,3 +61,10 @@ export interface UserStatistics {
   "learnedWords": number,
   "optional": {}
 }
+export interface SprintWord {
+  id: string,
+  sound: string,
+  word: string,
+  translation: string,
+  isCorrectlyAnswered: boolean,
+}
