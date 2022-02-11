@@ -1,5 +1,6 @@
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
+import { setItemToLocalStorage } from '../js/localStorage';
 
 export let currentPage = 0;
 export const firstPage = 0;
@@ -33,6 +34,8 @@ export async function prevPage() {
     const cardsOnPage = document.querySelector('.book-page');
     if (cardsOnPage) {
       currentGroup = (+cardsOnPage.id);
+      localStorage.removeItem('currentPage');
+      setItemToLocalStorage('currentPage', JSON.stringify(`${currentGroup}-${currentPage}`));
     }
 
     if (cardsOnPage) cardsOnPage.innerHTML = '';
@@ -52,6 +55,8 @@ export async function nextPage() {
     if (cardsOnPage) {
       currentGroup = (+cardsOnPage.id);
       cardsOnPage.innerHTML = '';
+      localStorage.removeItem('currentPage');
+      setItemToLocalStorage('currentPage', JSON.stringify(`${currentGroup}-${currentPage}`));
     }
 
     const data = await getWords(currentGroup, currentPage);
