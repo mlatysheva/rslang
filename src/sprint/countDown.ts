@@ -1,5 +1,7 @@
+import { renderSprintResults, replay } from "./sprintGame";
+
 export function countdown() {
-  let seconds = 60;
+  let seconds = 15;
   function tick() {
     const counter = document.getElementById("counter");
     seconds--;
@@ -7,12 +9,8 @@ export function countdown() {
     if( seconds > 0 ) {
       setTimeout(tick, 1000);
     } else {
-      // alert("Время истекло");
-      //TODO: add load to server and results
-      const initialScreen = <HTMLElement>document.querySelector('.sprint-start-screen');
-      const gameScreen = <HTMLElement>document.querySelector('.sprint-game-screen');
-      // gameScreen.classList.add('hide');
-      // initialScreen.classList.remove('hide');
+      alert("Время истекло");
+      // replay();
     }
   }
   tick();
