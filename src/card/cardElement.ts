@@ -52,6 +52,10 @@ export class CardElement {
     }
     cardElement.setAttribute('data-num', `${this.data.group}-${this.data.id}`);
 
+    const cardWrapper = document.createElement('div');
+    cardWrapper.classList.add('card-wrapper');
+    cardElement.appendChild(cardWrapper);
+
     const photoTitlSound = document.createElement('div');
     photoTitlSound.classList.add('photoTitlSound');
 
@@ -72,13 +76,16 @@ export class CardElement {
 
     photoTitlSound.appendChild(soundTitle);
 
+    const cardImg = document.createElement('div');
+    cardImg.classList.add('card-image');
+    cardElement.appendChild(cardImg);
     const elemImg = document.createElement('img');
     elemImg.classList.add('card-img');
     elemImg.setAttribute('src', `${linkForCard}${this.data.image}`);
     elemImg.setAttribute('alt', this.alt);
-    photoTitlSound?.appendChild(elemImg);
+    cardImg.appendChild(elemImg);
 
-    cardElement.appendChild(photoTitlSound);
+    cardWrapper.appendChild(photoTitlSound);
 
     const elemText = document.createElement('div');
     elemText.classList.add('card-description');
@@ -142,18 +149,18 @@ export class CardElement {
     difficultBtn.classList.add('difficult');
     difficultBtn.innerText = 'difficult';
     difficultBtn.setAttribute('id', `difficult${this.data.id}`);
-    cardElement.appendChild(elemText);
+    cardWrapper.appendChild(elemText);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
-    deleteBtn.innerText = 'delete';
+    deleteBtn.innerText = 'learned';
     deleteBtn.setAttribute('id', `delete${this.data.id}`);
 
     const containerBtns = document.createElement('div');
     containerBtns.classList.add('card-buttons');
     containerBtns.appendChild(difficultBtn);
     containerBtns.appendChild(deleteBtn);
-    cardElement.appendChild(containerBtns);
+    cardWrapper.appendChild(containerBtns);
 
     const correctBtn = document.createElement('button');
     correctBtn.classList.add('correct');
@@ -168,7 +175,7 @@ export class CardElement {
     infoBtn.classList.add('info');
     infoBtn.appendChild(correctBtn);
     infoBtn.appendChild(incorrectBtn);
-    cardElement.appendChild(infoBtn);
+    cardWrapper.appendChild(infoBtn);
 
     // document.body.addEventListener('click', async (e) => {
     //   if (e.target) {

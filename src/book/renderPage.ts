@@ -5,7 +5,7 @@ import {
   firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
 } from '../book/paginationBook';
 import { removeCard, difficultWord, removeDifficultWord } from './difficultPage';
-import { toggleTranslate, toggleButtons } from '../book/settings';
+import { pageUp } from './svg';
 
 export const Group = 0;
 
@@ -29,6 +29,7 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   counter.innerHTML = `${currentPage + 1} / ${totalPages}`;
   const paginationBtn = document.createElement('div');
   paginationBtn.classList.add('pagination');
+  paginationBtn.setAttribute('id', 'up');
 
   Page.appendChild(paginationBtn);
 
@@ -36,8 +37,14 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   paginationBtn.appendChild(counter);
   paginationBtn.appendChild(nextButton);
 
+  const up = document.createElement('div');
+  up.classList.add('pageup');
+  up.innerHTML = `${pageUp}`;
+  Page.appendChild(up);
+
   const cardsOnPage = document.createElement('div');
   cardsOnPage.classList.add('book-page');
+  
   Page.appendChild(cardsOnPage);
   const data = await getWords(group, page);
   data.forEach((element) => {

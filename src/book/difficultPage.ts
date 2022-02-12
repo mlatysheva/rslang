@@ -61,6 +61,7 @@ export async function removeDifficultWord() {
 export async function renderDifficultPage() {
   document.body.addEventListener('click', async (e) => {
     const cardsOnPage = document.querySelector('.book-page');
+    const pagination = document.querySelector('.pagination');
     if (e.target) {
       const id = (e.target as HTMLElement).id.split('level')[1];
       if (id === '6') {
@@ -69,9 +70,8 @@ export async function renderDifficultPage() {
         diffWordsId.forEach(async (item) => {
           const diffWord = await getWord(item.wordId);
           const cardOnPage = new CardElement(diffWord).renderCard();
-          if (difficultBtn) difficultBtn.remove();
-          if (deleteBtn) deleteBtn.innerHTML = 'non difficult';
           if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+          pagination?.classList.add('hide');
         });
       }
     }

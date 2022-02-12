@@ -10,7 +10,7 @@ import { Login } from './login/Login';
 import { registerUser } from './login/registerNewUser';
 import { logout, renderUserName } from './login/loginLogout';
 import { startSprintGame } from './sprint/sprintGame';
-
+import './book/pageUp';
 
 console.log('App is running');
 
