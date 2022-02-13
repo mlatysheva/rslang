@@ -49,10 +49,10 @@ export class QuestionRenderer {
 
     questionSection.classList.add('round-game1');
     questionSection.classList.add('hide-game1');
-    let questionTitle = document.createElement('h2');
+    const questionTitle = document.createElement('h2');
     questionTitle.classList.add('round');
     questionTitle.textContent = 'Слушай и жми на правильный перевод:';
-    let audio = document.createElement('button');
+    const audio = document.createElement('button');
     audio.classList.add('play');
     audio.classList.add('player-icon');
     audio.classList.add('game1-sound');
@@ -148,3 +148,4 @@ function sound(round: QuestionRenderer): (e: MouseEvent) => void {
     changePlayBtn();
   };
 }
+export default QuestionRenderer;

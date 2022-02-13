@@ -1,5 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
+import { currentGroup } from '../book/paginationBook';
 // import { serwerGetWordById } from
 
 export class CardElement {
@@ -30,7 +32,8 @@ export class CardElement {
     const soundMeaningFunction = soundMeaning(this);
     const soundExampleFunction = soundExample(this);
 
-    cardElement.setAttribute('id', `${this.data.id}`);
+    // eslint-disable-next-line no-underscore-dangle
+    cardElement.setAttribute('id', `${this.data.id || this.data._id}`);
     cardElement.classList.add('card');
     if (this.data.group === arrGroup[0]) {
       cardElement.classList.add('card0');
@@ -50,7 +53,12 @@ export class CardElement {
     if (this.data.group === arrGroup[5]) {
       cardElement.classList.add('card5');
     }
-    cardElement.setAttribute('data-num', `${this.data.group}-${this.data.id}`);
+    // eslint-disable-next-line no-underscore-dangle
+    cardElement.setAttribute('data-num', `${this.data.group}-${this.data.id || this.data._id}`);
+
+    const cardWrapper = document.createElement('div');
+    cardWrapper.classList.add('card-wrapper');
+    cardElement.appendChild(cardWrapper);
 
     const photoTitlSound = document.createElement('div');
     photoTitlSound.classList.add('photoTitlSound');
@@ -72,13 +80,16 @@ export class CardElement {
 
     photoTitlSound.appendChild(soundTitle);
 
+    const cardImg = document.createElement('div');
+    cardImg.classList.add('card-image');
+    cardElement.appendChild(cardImg);
     const elemImg = document.createElement('img');
     elemImg.classList.add('card-img');
     elemImg.setAttribute('src', `${linkForCard}${this.data.image}`);
     elemImg.setAttribute('alt', this.alt);
-    photoTitlSound?.appendChild(elemImg);
+    cardImg.appendChild(elemImg);
 
-    cardElement.appendChild(photoTitlSound);
+    cardWrapper.appendChild(photoTitlSound);
 
     const elemText = document.createElement('div');
     elemText.classList.add('card-description');
@@ -141,19 +152,19 @@ export class CardElement {
     const difficultBtn = document.createElement('button');
     difficultBtn.classList.add('difficult');
     difficultBtn.innerText = 'difficult';
-    difficultBtn.setAttribute('id', `difficult${this.data.id}`);
-    cardElement.appendChild(elemText);
+    difficultBtn.setAttribute('id', `difficult${this.data.id || this.data._id}`);
+    cardWrapper.appendChild(elemText);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
-    deleteBtn.innerText = 'delete';
-    deleteBtn.setAttribute('id', `delete${this.data.id}`);
+    deleteBtn.innerText = 'learned';
+    deleteBtn.setAttribute('id', `delete${this.data.id || this.data._id}`);
 
     const containerBtns = document.createElement('div');
     containerBtns.classList.add('card-buttons');
     containerBtns.appendChild(difficultBtn);
     containerBtns.appendChild(deleteBtn);
-    cardElement.appendChild(containerBtns);
+    cardWrapper.appendChild(containerBtns);
 
     const correctBtn = document.createElement('button');
     correctBtn.classList.add('correct');
@@ -168,7 +179,7 @@ export class CardElement {
     infoBtn.classList.add('info');
     infoBtn.appendChild(correctBtn);
     infoBtn.appendChild(incorrectBtn);
-    cardElement.appendChild(infoBtn);
+    cardWrapper.appendChild(infoBtn);
 
     // document.body.addEventListener('click', async (e) => {
     //   if (e.target) {
@@ -294,12 +305,16 @@ function changeCardForDifficultPage() {
       const id = (e.target as HTMLElement).id.split('level')[1];
       if (id === '6') {
         const difficultBtn = document.querySelector('difficult');
-        const deleteBtn = document.querySelector('delete');
         if (difficultBtn) difficultBtn.remove();
-        if (deleteBtn) deleteBtn.innerHTML = 'non difficult';
+        if (currentGroup === 6) {
+          difficultBtn?.classList.add('hide');
+          console.log(currentGroup);
+        }
       }
     }
   });
+ 
 }
+changeCardForDifficultPage();
 
 export default CardElement;

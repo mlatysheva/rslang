@@ -9,7 +9,7 @@
 
 * {
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 0;
 }
 
 :root {
@@ -90,7 +90,9 @@ h4 {
 }
 
 .card-title {
-  margin-right: 15px;
+ font-size: 25px;
+ line-height: 1;
+ letter-spacing: 1.2rem;
 }
 
 a {
@@ -411,13 +413,26 @@ a:hover {
 
 /*card styles*/
 .card {
-  max-width: 310px;
+  width: 85%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items:center;
+  padding: 0.7em;
+  border-radius: 10%;
+}
+.card-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  border-radius: 10%;
-  /* Девочки, я это закоментировала, так как из-за этого свойства выпадающее меню просвечивает */
-  /* opacity: 0.8; */
+  align-items:center;
+}
+
+.card-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  font-size: 18px;
+  line-height: 1;
 }
 
 .card0 {
@@ -450,29 +465,36 @@ a:hover {
 .transk-transl {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+}
+.soundTitle {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items:center;
+}
+.transk-transl {
+  margin-left: 10rem;
+  gap: 1em;
 }
 
-.photoTitlSound {
-  width: 300px;
+.card-image {
+  height: 100%;
 }
 
 .card-img {
-  width: 130px;
-  height: 100px;
-  border-radius: 25%;
+  object-fit: scale-down;
+  border-radius: 25%
 }
 
 .textMeaning,
 .textExample {
-  text-align: right;
-  max-width: 230px;
+  text-align: center;
 }
 
 .textMeaningTranslate,
 .textExampleTranslate {
+  margin-left: 3em;
   font-style: italic;
-  text-align: right;
+  text-align: center;
 }
 
 .player-icon {
@@ -485,9 +507,10 @@ a:hover {
 }
 
 .play {
-  width: 28px;
+  margin-right: 1em;
+  width: 55px;
   height: 33px;
-  background-size: 28px 33px;
+  background-size: 46px 33px;
   background-image: url(../src/assets/images/audio.svg);
 }
 
@@ -496,9 +519,10 @@ a:hover {
 }
 
 .pause {
-  width: 35px;
-  height: 35px;
-  background-size: 35px 35px;
+  margin-right: 1em;
+  width: 55px;
+  height: 33px;
+  background-size: 46px 33px;
   background-image: url(../src/assets/images/pause.svg);
 }
 

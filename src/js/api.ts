@@ -1,6 +1,6 @@
 import { getItemFromLocalStorage } from './localStorage';
 import {
-  ExistingUserLoginDetails, NewUserDetails, User, UserStatistics, UserWithName, UserWord, 
+  ExistingUserLoginDetails, NewUserDetails, User, UserStatistics, UserWithName, UserWord,
   Word, UserWordParameters,
 } from './types';
 
@@ -9,6 +9,7 @@ const base = 'https://rs-lang-mlatysheva.herokuapp.com';
 const words = `${base}/words`;
 const users = `${base}/users`;
 const signin = `${base}/signin`;
+// const numberDiffiicultWords = ;
 
 export async function getWords(group: number, page: number): Promise<Word[]> {
   const response = (await fetch(`${words}?group=${group}&page=${page}`));
@@ -65,6 +66,7 @@ export async function getUser(): Promise<UserWithName> {
   return user;
 }
 const token = getItemFromLocalStorage('token');
+
 export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'POST',
@@ -76,9 +78,14 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
     },
     body: JSON.stringify(body),
   });
-  const content = await rawResponse.json();
+  const content = await rawResponse.json().catch((error) => {
+    if (error) {
+      console.log('such user word already exists');
+      throw error;
+    }
+  });
 
-  console.log(content);
+  console.log(content.difficulty);
 };
 
 export const deleteUserWord = async (userId: string, wordId: string) => {
@@ -93,7 +100,6 @@ export const deleteUserWord = async (userId: string, wordId: string) => {
 
   });
 };
-// deleteUserWord('620262a55dbb20001613405b', '5e9f5ee35eb9e72bc21af518');
 
 // createUserWord({
 //   userId: "5ec993df4ca9d600178740ae",
@@ -138,13 +144,9 @@ export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
   });
   const content = await rawResponse.json();
 
-  console.log(content);
+  // console.log(content);
   return content;
 };
-// getUserWord({
-//   userId: "5ec993df4ca9d600178740ae",
-//   wordId: "5e9f5ee35eb9e72bc21af716"
-// });
 
 // Console: {
 //   "id":"5ec9a92acbbd77001736b167",
@@ -156,7 +158,7 @@ export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
 //   "wordId":"5e9f5ee35eb9e72bc21af716"
 // }
 
-export const getUserStatistics = async(): Promise<Response> => {
+export const getUserStatistics = async (): Promise<Response> => {
   const userId = getItemFromLocalStorage('id');
   const token = getItemFromLocalStorage('token');
 
@@ -168,15 +170,14 @@ export const getUserStatistics = async(): Promise<Response> => {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       },
-    });  
+    });
     return rawResponse;
+  } catch (err) {
+    throw (err);
   }
-  catch(err) {
-    throw(err);
-  }  
-}
+};
 
-export const putUserStatistics = async(data: UserStatistics) => {
+export const putUserStatistics = async (data: UserStatistics) => {
   const userId = getItemFromLocalStorage('id');
   const token = getItemFromLocalStorage('token');
   try {
@@ -189,12 +190,36 @@ export const putUserStatistics = async(data: UserStatistics) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-      });
-      console.log(`status is ${rawResponse.status}`);
-    
+    });
+    console.log(`status is ${rawResponse.status}`);
+
     return rawResponse;
+  } catch (err) {
+    throw (err);
   }
-  catch(err) {
-    throw(err);
-  }  
-}
+};
+
+export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> => {
+  const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
+    method: 'GET',
+    // withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  });
+  const content = await rawResponse.json();
+  return content;
+};
+export const getUserLearnedWords = async (userId: string):Promise<UserWord[]> => {
+  const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"learned-word"}]}`, {
+    method: 'GET',
+    // withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  });
+  const content = await rawResponse.json();
+  return content;
+};
