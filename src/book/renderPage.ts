@@ -44,7 +44,7 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
 
   const cardsOnPage = document.createElement('div');
   cardsOnPage.classList.add('book-page');
-  
+
   Page.appendChild(cardsOnPage);
   const data = await getWords(group, page);
   data.forEach((element) => {

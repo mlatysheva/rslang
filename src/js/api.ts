@@ -9,6 +9,7 @@ const base = 'https://rs-lang-mlatysheva.herokuapp.com';
 const words = `${base}/words`;
 const users = `${base}/users`;
 const signin = `${base}/signin`;
+// const numberDiffiicultWords = ;
 
 export async function getWords(group: number, page: number): Promise<Word[]> {
   const response = (await fetch(`${words}?group=${group}&page=${page}`));
@@ -199,7 +200,7 @@ export const putUserStatistics = async (data: UserStatistics) => {
 };
 
 export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> => {
-  const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
+  const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
     method: 'GET',
     // withCredentials: true,
     headers: {
