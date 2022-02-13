@@ -12,6 +12,9 @@ import { pageUp } from './svg';
 export const Group = 0;
 
 export async function renderPage(group: number, page: number) : Promise<HTMLElement> {
+  const wrapperBook = document.createElement('div');
+  wrapperBook.classList.add('wrapper-book');
+
   const Page = document.createElement('section');
   Page.classList.add('book');
 
@@ -48,11 +51,21 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   cardsOnPage.classList.add('book-page');
 
   Page.appendChild(cardsOnPage);
+
+  const aside = createAside();
+  wrapperBook.appendChild(aside);
+  wrapperBook.appendChild(Page);
   const data = await getWords(group, page);
   data.forEach((element) => {
     const cardOnPage = new CardElement(element).renderCard();
     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
   });
+
+  const difficultLevel = document.getElementById('level6');
+  if (myId) {
+    console.log(difficultLevel);
+    difficultLevel?.classList.remove('hide');
+  }
 
   function changePages() {
     if (prevButton) {
@@ -95,8 +108,9 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   learnedWord();
   difficultWord();
   removeDifficultWord();
+  
 
-  return Page;
+  return wrapperBook;
 }
 
 export function createAside() {
@@ -143,10 +157,6 @@ export function createAside() {
     </div>
   </div>
  `;
-  if (myId) {
-    const difficultLevel = document.getElementById('level6');
-    difficultLevel?.classList.remove('hide');
-  }
   return aside;
 }
 
