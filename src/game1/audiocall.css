@@ -9,11 +9,18 @@
   padding: 2rem;
 }
 
-/*td {
-}*/
+td {
+  padding-right: 10px;
+}
 
 @media (max-width: 1000px) {
   .statistic-game1 {
     max-width: 500px;
   }
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
 }
