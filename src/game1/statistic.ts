@@ -29,7 +29,7 @@ function renderTable() {
     row.classList.add('table-row');
     //TODO:before arr length
 
-    let correctWord = q.correctAnswer;
+    let correctWord = q.correctAnswer.toLowerCase();
     let correctTranskription = q.word.transcription;
     let correctTranslate = q.word.wordTranslate;
 
@@ -38,17 +38,28 @@ function renderTable() {
       isCorrect = '&#10060';
     }
 
-    row.innerHTML = `<tr>
+    /*row.innerHTML = `<tr>
             <td class='sound-btn'><button id='statistic-${q.word.id}' class='player-icon play'></button></td>
             <td class='correct-word'>${correctWord}</td>
             <td class='correct-transkription'>${correctTranskription}</td>
             <td class='correct-translate'>${correctTranslate}</td>
             <td class='correct-is'>${isCorrect}</td>
-          </tr>`;
+          </tr>`;*/
 
+    let trOne = document.createElement('tr');
+    let tdOne = document.createElement('td');
+    let tdOneBtn = document.createElement('button');
+    tdOneBtn.classList.add('player-icon');
+    tdOneBtn.classList.add('play');
+    tdOneBtn.setAttribute('id', `statistic-${q.word.id}`);
+
+    tdOne.appendChild(tdOneBtn);
+    trOne.appendChild(tdOne);
+    row.appendChild(trOne);
+
+    statistics.appendChild(row);
     let elemAudio = <HTMLElement>row.querySelector('button.player-icon');
     elemAudio?.addEventListener('click', sound(`statistic-${q.word.id}`, q.word.audio));
-    statistics.appendChild(row);
   }
 
   return statistics;
