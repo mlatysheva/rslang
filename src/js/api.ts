@@ -84,7 +84,7 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
     }
   });
 
-  console.log(content);
+  console.log(content.difficulty);
 };
 
 export const deleteUserWord = async (userId: string, wordId: string) => {
@@ -143,7 +143,7 @@ export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
   });
   const content = await rawResponse.json();
 
-  console.log(content);
+  // console.log(content);
   return content;
 };
 
@@ -196,4 +196,29 @@ export const putUserStatistics = async (data: UserStatistics) => {
   } catch (err) {
     throw (err);
   }
+};
+
+export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> => {
+  const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
+    method: 'GET',
+    // withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  });
+  const content = await rawResponse.json();
+  return content;
+};
+export const getUserLearnedWords = async (userId: string):Promise<UserWord[]> => {
+  const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"learned-word"}]}`, {
+    method: 'GET',
+    // withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  });
+  const content = await rawResponse.json();
+  return content;
 };

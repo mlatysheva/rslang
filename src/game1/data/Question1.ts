@@ -4,10 +4,15 @@ import { NUMBER_OF_ANSWERS_PER_QUESTION } from '../../js/constants';
 
 export class Question1 {
   isAnswered: boolean = false;
+
   isAnsweredCorrectly: boolean = false;
+
   correctAnswer: string;
+
   answersArray: string[];
+
   audioId: string;
+
   word: Word;
 
   constructor(word: Word, arrayOfUniquePossibleAnswers: string[]) {
@@ -20,9 +25,9 @@ export class Question1 {
   static getAnswers(correctAnswer: string, uniqueAnswersArr: string[]) {
     let resultArray = [correctAnswer];
     while (resultArray.length !== NUMBER_OF_ANSWERS_PER_QUESTION) {
-      let randomAnswerIndex = Math.floor(Math.random() * uniqueAnswersArr.length);
-      let randomAnswer = uniqueAnswersArr[randomAnswerIndex];
-      if (randomAnswer != correctAnswer && !resultArray.includes(randomAnswer)) {
+      const randomAnswerIndex = Math.floor(Math.random() * uniqueAnswersArr.length);
+      const randomAnswer = uniqueAnswersArr[randomAnswerIndex];
+      if (randomAnswer !== correctAnswer && !resultArray.includes(randomAnswer)) {
         resultArray.push(randomAnswer);
       }
     }
@@ -32,3 +37,4 @@ export class Question1 {
     return resultArray;
   }
 }
+export default Question1;

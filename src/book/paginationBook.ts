@@ -5,7 +5,7 @@ import { setItemToLocalStorage } from '../js/localStorage';
 export let currentPage = 0;
 export const firstPage = 0;
 export const totalPages = 30;
-let currentGroup = 0;
+export let currentGroup = 0;
 
 export async function changeLevel() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
