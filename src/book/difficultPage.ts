@@ -10,7 +10,6 @@ import { WORDS_PER_PAGE, NUMBER_DIFFERENT_GROUP } from '../js/constants';
 
 export const deletedCards: Array<string> = [];
 export const difficultWords: Array<string> = [];
-export const learnedWords: Array<string> = [];
 
 export const myId: string = getItemFromLocalStorage('id');
 const deleteBtn = document.querySelector<HTMLButtonElement>('delete');
@@ -18,9 +17,9 @@ const prevButton = document.querySelector<HTMLButtonElement>('prev');
 const nextButton = document.querySelector<HTMLButtonElement>('next');
 const counter = document.querySelector<HTMLDivElement>('.counter');
 const difficultGroup = NUMBER_DIFFERENT_GROUP;
-let ifDifficultGroup = true;
+const ifDifficultGroup = true;
 
-let currentDifficultPage = 0;
+const currentDifficultPage = 0;
 
 export function removeCard() {
   document.body.addEventListener('click', (e) => {
@@ -152,28 +151,6 @@ export async function renderDifficultPage() {
     }
   });
 }
-export function learnedWord() {
-  document.body.addEventListener('click', async (e):Promise< void> => {
-    if (e.target) {
-      if ((<HTMLButtonElement>e.target).classList.contains('delete')) {
-        const wordId = (<HTMLButtonElement>e.target).id.split('delete')[1];
-        const word = document.getElementById(`${wordId}`);
-        console.log(wordId, word);
-        if (word) word.classList.add('learned-word');
-        (<HTMLButtonElement>e.target).disabled = true;
-        (<HTMLButtonElement>e.target).classList.add('opacity');
-        learnedWords.push(wordId);
-        setItemToLocalStorage('learnedWords', JSON.stringify(learnedWords));
-        const body: UserWordParameters = {
-          difficulty: 'learned-word',
-          optional: { testFieldString: 'test', testFieldBoolean: true },
-        };
-        removeDifficultWord();
-        await createUserWord(myId, wordId, body);
-      }
-    }
-  });
-}
 
 // function changeDifficultPages() {
 //   if (prevButton) {
@@ -202,5 +179,5 @@ export function learnedWord() {
 // }
 
 export default {
-  removeCard, difficultWord, renderDifficultPage, learnedWord,
+  removeCard, difficultWord, renderDifficultPage,
 };

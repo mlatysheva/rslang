@@ -5,10 +5,11 @@ import {
   firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
 } from '../book/paginationBook';
 import {
-  difficultWord, removeDifficultWord, learnedWord,
+  difficultWord, removeDifficultWord,
 } from './difficultPage';
 import { pageUp } from './svg';
 import { getItemFromLocalStorage } from '../js/localStorage';
+import {learnedWord} from './learnedWords';
 
 export const Group = 0;
 
