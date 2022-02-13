@@ -21,6 +21,7 @@ export class Manual extends AbstractView {
     toggleTranslate();
     toggleButtons();
     renderDifficultPage();
+
     return renderPage(Group, currentPage);
   }
 }

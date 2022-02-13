@@ -18,17 +18,21 @@ export interface Word {
   transcription:string,
   wordTranslate:string,
   textMeaningTranslate:string,
-  textExampleTranslate:string
+  textExampleTranslate:string,
+  _id?: string,
+}
+export interface UserWordParameters {
+  difficulty: string,
+  optional: {testFieldString: 'test', testFieldBoolean: true}
 }
 export interface UserWord {
   userId: string,
   wordId: string,
-  word: UserWordParameters
-}
+  word: UserWordParameters,
+  difficulty?: string,
+  optional?: {testFieldString: 'test', testFieldBoolean: true},
+  paginatedResults?: Array<Word>, totalCount:Array<number>,
 
-export interface UserWordParameters {
-  difficulty: string,
-  optional: {testFieldString: 'test', testFieldBoolean: true}
 }
 
 export interface TestFieldParameters {

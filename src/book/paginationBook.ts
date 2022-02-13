@@ -1,19 +1,24 @@
-import { Group } from '../book/renderPage';
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
+import { setItemToLocalStorage } from '../js/localStorage';
 
 export let currentPage = 0;
 export const firstPage = 0;
 export const totalPages = 30;
-let currentGroup = 0;
+export let currentGroup = 0;
 
 export async function changeLevel() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
     const cardsOnPage = document.querySelector('.book-page');
+    const level = document.querySelectorAll('.level');
+    level.forEach((button) => {
+      button.classList.remove('active-page');
+    });
     if (e.target) {
-      if ((e.target as HTMLElement).classList.contains('level')) {
+      if ((<HTMLButtonElement>e.target).classList.contains('level')) {
         const id = +(e.target as HTMLElement).id.split('level')[1];
         (e.target as HTMLElement).classList.add('active-page');
+
         if (cardsOnPage) cardsOnPage.innerHTML = '';
         const data = await getWords(id, firstPage);
         currentPage = firstPage;
@@ -22,6 +27,8 @@ export async function changeLevel() {
           if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
           cardsOnPage?.setAttribute('id', `${id}`);
         });
+        localStorage.removeItem('currentPage');
+        setItemToLocalStorage('currentPage', JSON.stringify(`${id}-${currentPage}`));
         return cardsOnPage;
       }
       return cardsOnPage;
@@ -34,6 +41,8 @@ export async function prevPage() {
     const cardsOnPage = document.querySelector('.book-page');
     if (cardsOnPage) {
       currentGroup = (+cardsOnPage.id);
+      localStorage.removeItem('currentPage');
+      setItemToLocalStorage('currentPage', JSON.stringify(`${currentGroup}-${currentPage}`));
     }
 
     if (cardsOnPage) cardsOnPage.innerHTML = '';
@@ -53,6 +62,8 @@ export async function nextPage() {
     if (cardsOnPage) {
       currentGroup = (+cardsOnPage.id);
       cardsOnPage.innerHTML = '';
+      localStorage.removeItem('currentPage');
+      setItemToLocalStorage('currentPage', JSON.stringify(`${currentGroup}-${currentPage}`));
     }
 
     const data = await getWords(currentGroup, currentPage);
