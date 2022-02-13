@@ -1,10 +1,12 @@
 import { getWords } from '../js/api';
-import { CardElement } from '../card/cardElement';
+import { CardElement, myId } from '../card/cardElement';
 import { settings } from '../book/svg';
 import {
   firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
 } from '../book/paginationBook';
-import { removeCard, difficultWord, removeDifficultWord, learnedWord } from './difficultPage';
+import {
+  removeCard, difficultWord, removeDifficultWord, learnedWord,
+} from './difficultPage';
 import { pageUp } from './svg';
 
 export const Group = 0;
@@ -51,6 +53,7 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
     const cardOnPage = new CardElement(element).renderCard();
     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
   });
+
   function changePages() {
     if (prevButton) {
       prevButton.addEventListener('click', () => {
@@ -88,7 +91,7 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
       }
     }
   });
-  //removeCard();
+
   learnedWord();
   difficultWord();
   removeDifficultWord();
@@ -108,7 +111,7 @@ export function createAside() {
   <div id="level3" class="level level4">Chapter 4</div>
   <div id="level4" class="level level5">Chapter 5</div>
   <div id="level5" class="level level6">Chapter 6</div>
-  <div id="level6" class="level level7">Difficult words</div>
+  <div id="level6" class="level level7 hide">Difficult words</div>
   <div id="modal" class="modal">
     <div class = modal-content>
       <button class="close-button">&times;</button>
@@ -140,5 +143,11 @@ export function createAside() {
     </div>
   </div>
  `;
+  if (myId) {
+    const difficultLevel = document.getElementById('level6');
+    difficultLevel?.classList.remove('hide');
+  }
   return aside;
 }
+
+// "620262a55dbb20001613405b"
