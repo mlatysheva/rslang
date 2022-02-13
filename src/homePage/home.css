@@ -2,7 +2,6 @@
   display: block;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 5px 5px 3px 0;
   padding: 1rem;
   margin: 1rem;
   box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
@@ -21,15 +20,99 @@
   width: 100%;
   height: 400px;
 }
-.home-mission-text {
-  font-size: 40px;
-  text-transform: uppercase;
-  margin-top: 3rem;
-  text-align: center;
-}
 .home-text-large {
   font-size: x-large;
   text-transform: uppercase;
   margin-top: 2rem;
   text-align: center;
+}
+
+.mission-wrapper {
+  height: 350px;
+}
+.slogan-text {
+  margin-top: 80px;
+}
+.home-mission-text {
+  font-size: 40px;
+  text-transform: uppercase;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.advantages-wrapper {
+  width: 100%;
+  height: auto;
+  background-color: rgb(232, 250, 178);
+  display: flex;
+  flex-direction: column;
+}
+.advantages-text {
+  
+}
+.home-bold {
+  font-weight: 700;
+}
+.advantages-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.advantage-cards-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem;
+  justify-content: space-around;
+}
+.advantage-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 22%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
+  text-align: center;
+
+
+}
+.advantage-icon {
+  width: 4rem;
+  height: 4rem;
+  padding: 1rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.advantage-title {
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.mandalorian-icon {
+  background-image: url('../assets/images/mandalorian.svg');
+}
+.manual-icon {
+  background-image: url('../assets/images/favorite-site.svg');
+}
+.schwein-icon {
+  background-image: url('../assets//images/moneybox.svg');
+}
+.game-icon {
+  background-image: url('../assets/images/joystick.svg');
+}
+.advantage-link {
+  margin-top: 0.5rem;
+  display: block;
+  background-color: var(--purple);
+  border-radius: 10px;
+  cursor: pointer;
+  width: 200px;
+  text-align: center;
+  font-size: larger;
+  text-transform: uppercase;
+  line-height: 50px;
 }
