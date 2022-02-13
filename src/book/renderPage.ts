@@ -1,15 +1,74 @@
 import { getWords } from '../js/api';
-import { CardElement, myId } from '../card/cardElement';
+import { CardElement } from '../card/cardElement';
 import { settings } from '../book/svg';
 import {
   firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
 } from '../book/paginationBook';
 import {
-  removeCard, difficultWord, removeDifficultWord, learnedWord,
+  difficultWord, removeDifficultWord, learnedWord,
 } from './difficultPage';
 import { pageUp } from './svg';
+import { getItemFromLocalStorage } from '../js/localStorage';
 
 export const Group = 0;
+
+export function createAside() {
+  const aside = document.createElement('aside');
+  aside.classList.add('levels');
+  aside.innerHTML = `
+  <h2>Textbook</h2>
+  <button class="settings">${settings}</button>
+  <div id="level0" class="level level1">Chapter 1</div>
+  <div id="level1" class="level level2">Chapter 2</div>
+  <div id="level2" class="level level3">Chapter 3</div>
+  <div id="level3" class="level level4">Chapter 4</div>
+  <div id="level4" class="level level5">Chapter 5</div>
+  <div id="level5" class="level level6">Chapter 6</div>
+  <div id="modal" class="modal">
+    <div class = modal-content>
+      <button class="close-button">&times;</button>
+      <div class="switch show-translation">
+      <div class="switch-item show-translation"></div>
+      <label>
+        <span class="show-translation">show translation</span>
+        <input
+          type="checkbox"
+          id="translate"
+          class="btn-switch green tinyswitch translate"
+          checked />
+        <div><div></div></div
+      ></label>
+    </div>
+    <div class="switch show-buttons">
+      <div class="switch-item"></div>
+      <label>
+        <span >show button for words</span>
+        <input
+          type="checkbox"
+          id="difficult"
+          class="btn-switch green tinyswitch translate"
+          checked />
+        <div><div></div></div
+      ></label>
+    </div>
+      <button id="save" class="save">save</button>
+    </div>
+  </div>
+ `;
+  const difficultLevel = document.createElement('div');
+  difficultLevel.classList.add('level');
+  difficultLevel.classList.add('level7');
+  difficultLevel.setAttribute('id', 'level6');
+  difficultLevel.innerHTML = 'Difficult words';
+  difficultLevel.classList.add('hide');
+  aside.appendChild(difficultLevel);
+  const myId: string = getItemFromLocalStorage('id');
+  if (myId) {
+    difficultLevel.classList.remove('hide');
+  }
+
+  return aside;
+}
 
 export async function renderPage(group: number, page: number) : Promise<HTMLElement> {
   const wrapperBook = document.createElement('div');
@@ -61,12 +120,6 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
   });
 
-  const difficultLevel = document.getElementById('level6');
-  if (myId) {
-    console.log(difficultLevel);
-    difficultLevel?.classList.remove('hide');
-  }
-
   function changePages() {
     if (prevButton) {
       prevButton.addEventListener('click', () => {
@@ -108,56 +161,8 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   learnedWord();
   difficultWord();
   removeDifficultWord();
-  
 
   return wrapperBook;
-}
-
-export function createAside() {
-  const aside = document.createElement('aside');
-  aside.classList.add('levels');
-  aside.innerHTML = `
-  <h2>Textbook</h2>
-  <button class="settings">${settings}</button>
-  <div id="level0" class="level level1">Chapter 1</div>
-  <div id="level1" class="level level2">Chapter 2</div>
-  <div id="level2" class="level level3">Chapter 3</div>
-  <div id="level3" class="level level4">Chapter 4</div>
-  <div id="level4" class="level level5">Chapter 5</div>
-  <div id="level5" class="level level6">Chapter 6</div>
-  <div id="level6" class="level level7 hide">Difficult words</div>
-  <div id="modal" class="modal">
-    <div class = modal-content>
-      <button class="close-button">&times;</button>
-      <div class="switch show-translation">
-      <div class="switch-item show-translation"></div>
-      <label>
-        <span class="show-translation">show translation</span>
-        <input
-          type="checkbox"
-          id="translate"
-          class="btn-switch green tinyswitch translate"
-          checked />
-        <div><div></div></div
-      ></label>
-    </div>
-    <div class="switch show-buttons">
-      <div class="switch-item"></div>
-      <label>
-        <span >show button for words</span>
-        <input
-          type="checkbox"
-          id="difficult"
-          class="btn-switch green tinyswitch translate"
-          checked />
-        <div><div></div></div
-      ></label>
-    </div>
-      <button id="save" class="save">save</button>
-    </div>
-  </div>
- `;
-  return aside;
 }
 
 // "620262a55dbb20001613405b"
