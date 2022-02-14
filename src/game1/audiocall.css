@@ -15,6 +15,10 @@
   background-color: var(--statistic-background-2);
 }
 
+.from-key {
+  font-style: italic;
+}
+
 table .statistic-game1 {
   border-spacing: 0;
 }

@@ -52,12 +52,23 @@ export class QuestionRenderer {
     const questionTitle = document.createElement('h2');
     questionTitle.classList.add('round');
     questionTitle.textContent = 'Слушай и жми на правильный перевод:';
+
+    const questionKey = document.createElement('h6');
+    questionKey.classList.add('from-key');
+    questionKey.textContent = '(enter = слушать, 1..4 = варинты ответа, пробел = пропустить, можно мышкой!)';
+    questionSection.appendChild(questionKey);
+
     const audio = document.createElement('button');
     audio.classList.add('play');
     audio.classList.add('player-icon');
     audio.classList.add('game1-sound');
     audio.setAttribute('id', this.getAudioId());
     audio.addEventListener('click', soundEnableFunction);
+    audio.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        soundEnableFunction;
+      }
+    });
     questionSection.appendChild(questionTitle);
     questionSection.appendChild(audio);
 
@@ -115,8 +126,8 @@ export class QuestionRenderer {
   }
 }
 
-function sound(round: QuestionRenderer): (e: MouseEvent) => void {
-  return function (e: MouseEvent) {
+function sound(round: QuestionRenderer): (e: MouseEvent | KeyboardEvent) => void {
+  return function (e: MouseEvent | KeyboardEvent) {
     const changeSoundBtn = document.getElementById(round.getAudioId()) as HTMLElement;
     const audio = new Audio();
     const audioSrc = `${linkForCard}${round.data.audio}`;
