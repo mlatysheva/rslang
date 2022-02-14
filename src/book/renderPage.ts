@@ -5,10 +5,12 @@ import {
   firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
 } from '../book/paginationBook';
 import {
-  difficultWord, removeDifficultWord, learnedWord,
+  difficultWord, removeDifficultWord,
 } from './difficultPage';
 import { pageUp } from './svg';
 import { getItemFromLocalStorage } from '../js/localStorage';
+import { learnedWord } from './learnedWords';
+import { sprintIcon, callIcon } from '../book/svg';
 
 export const Group = 0;
 
@@ -67,6 +69,18 @@ export function createAside() {
     difficultLevel.classList.remove('hide');
   }
 
+  const sprintButton = document.createElement('button');
+  sprintButton.classList.add('sprint-btn');
+  sprintButton.setAttribute('id', 'sprint');
+  sprintButton.innerHTML = `${sprintIcon}`;
+  aside.appendChild(sprintButton);
+
+  const callButton = document.createElement('button');
+  callButton.classList.add('call-btn');
+  callButton.setAttribute('id', 'call');
+  callButton.innerHTML = `${callIcon}`;
+  aside.appendChild(callButton);
+
   return aside;
 }
 
@@ -93,7 +107,6 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   counter.innerHTML = `${currentPage + 1} / ${totalPages}`;
   const paginationBtn = document.createElement('div');
   paginationBtn.classList.add('pagination');
-  paginationBtn.setAttribute('id', 'up');
 
   Page.appendChild(paginationBtn);
 
