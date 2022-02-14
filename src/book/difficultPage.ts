@@ -29,7 +29,7 @@ export function removeCard() {
         const cardToDelete = document.getElementById(`${id}`);
         deletedCards.push(id);
         setItemToLocalStorage('deletedCards', JSON.stringify(deletedCards));
-        if (cardToDelete) cardToDelete.remove();
+        // if (cardToDelete) cardToDelete.remove();
       }
     }
   });
@@ -68,7 +68,7 @@ export async function removeDifficultWord() {
         await deleteUserWord(myId, id);
         if (ifDifficultGroup) {
           const cardToDelete = document.getElementById(`${id}`);
-          if (cardToDelete) cardToDelete.remove();
+          // if (cardToDelete) cardToDelete.remove();
         }
       }
     }

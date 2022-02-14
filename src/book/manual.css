@@ -116,11 +116,19 @@
 .incorrect {
   background-color: var(--card-level5);
 }
-.settings {
+.settings,
+.sprint-btn,
+.call-btn {
   border: none;
   outline: none;
   filter: alpha(opacity=100);
   background: transparent;
+}
+.sprint-btn {
+  width: 100px;
+}
+.call-btn {
+  width: 85px;
 }
 .hide {
   visibility: none;
@@ -133,7 +141,7 @@
   border: 2px red dotted;
 }
 .pageup {
-  /* display: none; */
+  display: none;
   position: fixed;
   bottom: 118px;
   right: 32px;

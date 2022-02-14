@@ -13,7 +13,7 @@ export function learnedWord() {
         const wordId = (<HTMLButtonElement>e.target).id.split('delete')[1];
         const word = document.getElementById(`${wordId}`);
         console.log(wordId, word);
-        if (word) word.classList.add('learned-word');
+        if (word) word.classList.add('opacity');
         (<HTMLButtonElement>e.target).disabled = true;
         (<HTMLButtonElement>e.target).classList.add('opacity');
         learnedWords.push(wordId);
