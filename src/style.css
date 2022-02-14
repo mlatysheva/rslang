@@ -73,11 +73,13 @@
 
 html {
   font-size: 18px;
+  height: 100%;
 }
 body {
   width: 100%;
   max-width: 100vw;
   height: 100%;
+  min-height: 100vh;
   font-family: 'Open Sans', 'Roboto', sans-serif;
   font-weight: 400;
   padding: 0;
@@ -97,9 +99,9 @@ h4 {
 }
 
 .card-title {
- font-size: 25px;
- line-height: 1;
- letter-spacing: 1.2rem;
+  font-size: 25px;
+  line-height: 1;
+  letter-spacing: 1.2rem;
 }
 
 a {
@@ -247,6 +249,315 @@ a:hover {
   display: none;
 }
 
+.body {
+  width: 100%;
+  font-family: 'Open Sans', 'Roboto', sans-serif;
+  font-weight: 400;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+  /* background-image: url(); */
+  background-size: cover;
+  background-position: center;
+}
+
+.hide {
+  display: none;
+}
+
+.blur {
+  backdrop-filter: blur(5px);
+}
+
+.app {
+  width: 100%;
+  height: auto;
+}
+.main-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple);
+}
+.view {
+  /* padding-top: 5rem; */
+}
+
+.footer {
+  width: 100%;
+  height: 120px;
+  margin-top: auto;
+  background: var(--gradient-top-left);
+  backdrop-filter: blur(5px);
+}
+
+.footer-container {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  width: 7rem;
+  padding: 0.5rem;
+}
+.footer a {
+  text-decoration: none;
+  color: white;
+  /* text-shadow: 1px 1px black; */
+  display: block;
+}
+
+/*card styles*/
+.card {
+  width: 85%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding: 0.7em;
+  border-radius: 10%;
+}
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.card0 {
+  background: var(--card-level0);
+}
+
+.card1 {
+  background: var(--card-level1);
+  color: beige;
+}
+
+.card2 {
+  background: var(--card-level2);
+}
+
+.card3 {
+  background: var(--card-level3);
+}
+
+.card4 {
+  background: var(--card-level4);
+}
+
+.card5 {
+  background: var(--card-level5);
+  color: beige;
+}
+
+.photoTitlSound,
+.transk-transl {
+  display: flex;
+  flex-direction: row;
+}
+.soundTitle {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.transk-transl {
+  margin-left: 10rem;
+  gap: 1em;
+}
+
+.card-image {
+  height: 100%;
+}
+
+.card-img {
+  object-fit: scale-down;
+  border-radius: 25%;
+}
+
+.textMeaning,
+.textExample {
+  text-align: center;
+}
+
+.textMeaningTranslate,
+.textExampleTranslate {
+  margin-left: 3em;
+  font-style: italic;
+  text-align: center;
+}
+
+.player-icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.play {
+  margin-right: 1em;
+  width: 55px;
+  height: 33px;
+  background-size: 46px 33px;
+  background-image: url(../src/assets/images/audio.svg);
+}
+
+.play:hover {
+  background-image: url(../src/assets/images/audioH.svg);
+}
+
+.pause {
+  margin-right: 1em;
+  width: 55px;
+  height: 33px;
+  background-size: 46px 33px;
+  background-image: url(../src/assets/images/pause.svg);
+}
+
+.pause {
+  background-image: url(../src/assets/images/pauseH.svg);
+}
+
+.meaning,
+.example {
+  display: flex;
+}
+
+.card-buttons,
+.info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+.info {
+  margin-top: 1rem;
+}
+
+.translate,
+.transcription {
+  margin: 0;
+}
+
+/*[data-tooltip] {
+  /* Девочки, я пока это закоментировала, иначе кнопки показываются поверх выезжающего меню */
+/* position: relative; */
+/*так может уже и норм, красивенько ж стало, только как на крестик наводить мышью - сходит с ума
+}*/
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  width: 150px;
+  right: 10px;
+  top: 50px;
+  background: var(--card-level1);
+  color: beige;
+  padding: 0.5em;
+  font-size: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  transition: 1s;
+}
+[data-tooltip]:hover::after {
+  opacity: 1;
+  top: 2em;
+}
+
+/*game1 Audiocall*/
+.round-game1,
+.describtion-game1 {
+  border-radius: 25%;
+  max-width: 1000px;
+  min-width: 500px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.describtion-game1 {
+  margin: 8% auto 0;
+}
+
+.round-game1 {
+  padding: 1rem;
+}
+
+.unswers-game1,
+.levelsGame1 {
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.unswers-game1 {
+  margin: 35px 0;
+  flex-wrap: wrap;
+}
+
+.game1 {
+  border-radius: 10%;
+  font-size: 1.2rem;
+  color: var(--text-color-button);
+  margin-left: 5px;
+}
+
+.hide-game1 {
+  display: none;
+}
+
+.next-round,
+.unswer-btn {
+  font-size: 1.3rem;
+  color: var(--text-color-button);
+  background: var(--june);
+  border-radius: 25%;
+  margin-right: 15px;
+  padding: 10px;
+}
+
+.unswer-btn {
+  margin-bottom: 15px;
+}
+
+.next-round {
+  font-size: 1.5rem;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.next-round:hover,
+.unswer-btn:hover {
+  color: var(--text-color-hover);
+}
+
+.game1-sound {
+  width: 50px;
+  margin: 15px auto;
+  padding: 30px;
+  border: thick double var(--text-color-button);
+  border-radius: 50%;
+}
+
+/* button(+button:hover) - section - header(=footer+id) -*/
 @media (max-width: 1200px) {
   .header-container {
     justify-content: space-around;
@@ -346,301 +657,17 @@ a:hover {
   .describtion-game1 {
     border-radius: 5%;
     padding: 1rem;
-    max-width: 500px;
   }
 }
 
-.hide {
-  display: none;
+@media (max-width: 728px) {
+  .game1 {
+    font-size: 0.8rem;
+  }
 }
 
-.blur {
-  backdrop-filter: blur(5px);
+@media (max-width: 650px) {
+  .statistic-game1 {
+    font-size: 0.8rem;
+  }
 }
-
-.app {
-  width: 100%;
-  height: 100%;
-}
-.main-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--purple);
-}
-.view {
-  /* padding-top: 5rem; */
-}
-
-.footer {
-  width: 100%;
-  height: 120px;
-  margin-top: auto;
-  background: var(--gradient-top-left);
-  backdrop-filter: blur(5px);
-}
-
-.footer-container {
-  width: 100%;
-  padding: 1rem;
-  font-size: 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.logo {
-  width: 7rem;
-  padding: 0.5rem;
-}
-.footer a {
-  text-decoration: none;
-  color: white;
-  /* text-shadow: 1px 1px black; */
-  display: block;
-}
-
-/*card styles*/
-.card {
-  width: 85%;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items:center;
-  padding: 0.7em;
-  border-radius: 10%;
-}
-.card-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items:center;
-}
-
-.card-description {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 1rem;
-  font-size: 18px;
-  line-height: 1;
-}
-
-.card0 {
-  background: var(--card-level0);
-}
-
-.card1 {
-  background: var(--card-level1);
-  color: beige;
-}
-
-.card2 {
-  background: var(--card-level2);
-}
-
-.card3 {
-  background: var(--card-level3);
-}
-
-.card4 {
-  background: var(--card-level4);
-}
-
-.card5 {
-  background: var(--card-level5);
-  color: beige;
-}
-
-.photoTitlSound,
-.transk-transl {
-  display: flex;
-  flex-direction: row;
-}
-.soundTitle {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items:center;
-}
-.transk-transl {
-  margin-left: 10rem;
-  gap: 1em;
-}
-
-.card-image {
-  height: 100%;
-}
-
-.card-img {
-  object-fit: scale-down;
-  border-radius: 25%
-}
-
-.textMeaning,
-.textExample {
-  text-align: center;
-}
-
-.textMeaningTranslate,
-.textExampleTranslate {
-  margin-left: 3em;
-  font-style: italic;
-  text-align: center;
-}
-
-.player-icon {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.play {
-  margin-right: 1em;
-  width: 55px;
-  height: 33px;
-  background-size: 46px 33px;
-  background-image: url(../src/assets/images/audio.svg);
-}
-
-.play:hover {
-  background-image: url(../src/assets/images/audioH.svg);
-}
-
-.pause {
-  margin-right: 1em;
-  width: 55px;
-  height: 33px;
-  background-size: 46px 33px;
-  background-image: url(../src/assets/images/pause.svg);
-}
-
-.pause {
-  background-image: url(../src/assets/images/pauseH.svg);
-}
-
-.meaning,
-.example {
-  display: flex;
-}
-
-.card-buttons,
-.info {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 2em;
-}
-.info {
-  margin-top: 1rem;
-}
-
-.translate,
-.transcription {
-  margin: 0;
-}
-
-/*[data-tooltip] {
-  /* Девочки, я пока это закоментировала, иначе кнопки показываются поверх выезжающего меню */
-/* position: relative; */
-/*так может уже и норм, красивенько ж стало, только как на крестик наводить мышью - сходит с ума
-}*/
-[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  width: 150px;
-  right: 10px;
-  top: 50px;
-  background: var(--card-level1);
-  color: beige;
-  padding: 0.5em;
-  font-size: 10px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  pointer-events: none;
-  opacity: 0;
-  transition: 1s;
-}
-[data-tooltip]:hover::after {
-  opacity: 1;
-  top: 2em;
-}
-
-/*game1 Audiocall*/
-.round-game1,
-.describtion-game1 {
-  border-radius: 25%;
-  padding: 2rem;
-  max-width: 1000px;
-  display: flex;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.describtion-game1 {
-  margin-top: 8%;
-}
-
-.game-description {
-  font-size: 1rem;
-}
-
-.unswers-game1,
-.levelsGame1 {
-  display: flex;
-  cursor: pointer;
-  justify-content: space-between;
-}
-
-.unswers-game1 {
-  margin: 35px 0;
-  flex-wrap: wrap;
-}
-
-.game1 {
-  border-radius: 10%;
-  font-size: 0.8rem;
-  color: var(--text-color-button);
-  margin-left: 5px;
-}
-
-.hide-game1 {
-  display: none;
-}
-
-.next-round,
-.unswer-btn {
-  font-size: 1.3rem;
-  color: var(--text-color-button);
-  background: var(--june);
-  border-radius: 25%;
-  margin-right: 15px;
-  padding: 10px;
-}
-
-.unswer-btn {
-  margin-bottom: 15px;
-}
-
-.next-round {
-  font-size: 1.5rem;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.next-round:hover,
-.unswer-btn:hover {
-  color: var(--text-color-hover);
-}
-
-.game1-sound {
-  width: 50px;
-  margin: 15px auto;
-  padding: 30px;
-  border: thick double var(--text-color-button);
-  border-radius: 50%;
-}
-
-/* button(+button:hover) - section - header(=footer+id) -*/
