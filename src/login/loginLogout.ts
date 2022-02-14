@@ -16,6 +16,7 @@ export function logout() {
       renderUserName();
       console.log(`window.location.hash is ${window.location.hash}`);
       window.history.back();
+      window.location.reload();
     }
   });
 }

@@ -123,10 +123,8 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
   cardsOnPage.classList.add('book-page');
 
   Page.appendChild(cardsOnPage);
-
-  const aside = createAside();
-  wrapperBook.appendChild(aside);
   wrapperBook.appendChild(Page);
+
   const data = await getWords(group, page);
   data.forEach((element) => {
     const cardOnPage = new CardElement(element).renderCard();

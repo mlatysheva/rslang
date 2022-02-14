@@ -77,3 +77,4 @@ export function registerUser() {
     }
   };
 }
+export default registerUser;
