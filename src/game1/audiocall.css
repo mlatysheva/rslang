@@ -11,10 +11,15 @@
   min-width: 480px;
 }
 
+.key-game1 {
+  padding-top: 15px;
+}
+
 .row-2 {
   background-color: var(--statistic-background-2);
 }
 
+.key-game1,
 .from-key {
   font-style: italic;
 }

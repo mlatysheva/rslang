@@ -63,12 +63,16 @@ export class QuestionRenderer {
     audio.classList.add('player-icon');
     audio.classList.add('game1-sound');
     audio.setAttribute('id', this.getAudioId());
+
     audio.addEventListener('click', soundEnableFunction);
-    audio.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') {
+    audio.addEventListener('keyup', function (e) {
+      if (e.key === 'Pause') {
         soundEnableFunction;
       }
     });
+
+    const audioKey = document.querySelector('button.game1-sound') as HTMLElement;
+
     questionSection.appendChild(questionTitle);
     questionSection.appendChild(audio);
 
@@ -76,10 +80,10 @@ export class QuestionRenderer {
     unswers.classList.add('unswers-game1');
 
     unswers.innerHTML = `
-    <button id=unswer0-${this.data.id} class="unswer-btn">${this.question.answersArray[0]}</button>
-    <button id=unswer1-${this.data.id} class="unswer-btn">${this.question.answersArray[1]}</button>
-    <button id=unswer2-${this.data.id} class="unswer-btn">${this.question.answersArray[2]}</button>
-    <button id=unswer3-${this.data.id} class="unswer-btn">${this.question.answersArray[3]}</button>
+    <button id=unswer0-${this.data.id} class="unswer-btn first">${this.question.answersArray[0]}</button>
+    <button id=unswer1-${this.data.id} class="unswer-btn second">${this.question.answersArray[1]}</button>
+    <button id=unswer2-${this.data.id} class="unswer-btn third">${this.question.answersArray[2]}</button>
+    <button id=unswer3-${this.data.id} class="unswer-btn fought">${this.question.answersArray[3]}</button>
     `;
     questionSection.appendChild(unswers);
 
@@ -89,7 +93,7 @@ export class QuestionRenderer {
     nextQuestionButton.innerText = 'Пропустить -->';
     questionSection.appendChild(nextQuestionButton);
 
-    let nextQuestion = (e: Event) => {
+    let nextQuestion = (e: Event | KeyboardEvent) => {
       let unswer = (<HTMLElement>e.target).innerText;
       this.question.isAnswered = true;
       this.question.isAnsweredCorrectly = unswer === this.question.correctAnswer;
@@ -126,7 +130,7 @@ export class QuestionRenderer {
   }
 }
 
-function sound(round: QuestionRenderer): (e: MouseEvent | KeyboardEvent) => void {
+export function sound(round: QuestionRenderer): (e: MouseEvent | KeyboardEvent) => void {
   return function (e: MouseEvent | KeyboardEvent) {
     const changeSoundBtn = document.getElementById(round.getAudioId()) as HTMLElement;
     const audio = new Audio();
@@ -159,4 +163,5 @@ function sound(round: QuestionRenderer): (e: MouseEvent | KeyboardEvent) => void
     changePlayBtn();
   };
 }
+
 export default QuestionRenderer;
