@@ -37,3 +37,4 @@ export function renderGame(): any {
 
   return gameSectionDescribe;
 }
+export default renderGame;

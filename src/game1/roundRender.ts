@@ -11,7 +11,7 @@ export async function renderGameRound(
 ): Promise<HTMLElement[]> {
   let words = await getWords(group, page);
 
-  const possibleAnswersArray = words.map((w) => w.word);
+  const possibleAnswersArray = words.map((w) => w.wordTranslate);
   let wordsToPlay = shuffleArray(words);
   wordsToPlay.length = UNSWERS_PER_GAME;
   let questionsSectionsArray = wordsToPlay
@@ -20,3 +20,4 @@ export async function renderGameRound(
   questionsSectionsArray[0].classList.remove('hide-game1');
   return questionsSectionsArray;
 }
+export default renderGameRound;
