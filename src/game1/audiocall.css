@@ -6,25 +6,23 @@
 .statistic-game1 {
   background-color: var(--statistic-background);
   border-radius: 25%;
-  padding: 2rem;
+  padding: 1rem;
+  min-width: 480px;
 }
 
-td {
-  padding: 5px;
+table .statistic-game1 {
+  border-spacing: 0;
 }
 
-@media (max-width: 1000px) {
-  .statistic-game1 {
-    max-width: 500px;
-  }
-}
-
-.table-row {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 5px;
+.game1-results th {
+  margin: 0.5rem;
 }
 
 .correct-word {
   margin: 50px;
+}
+
+.results-game1 {
+  display: flex;
+  justify-content: space-between;
 }

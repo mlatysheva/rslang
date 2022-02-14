@@ -486,11 +486,10 @@ a:hover {
 .round-game1,
 .describtion-game1 {
   border-radius: 25%;
-  padding: 2rem;
   max-width: 1000px;
+  min-width: 500px;
   display: flex;
   text-align: center;
-  display: flex;
   flex-direction: column;
 }
 
@@ -498,8 +497,8 @@ a:hover {
   margin: 8% auto 0;
 }
 
-.game-description {
-  font-size: 1rem;
+.round-game1 {
+  padding: 1rem;
 }
 
 .unswers-game1,
@@ -658,12 +657,17 @@ a:hover {
   .describtion-game1 {
     border-radius: 5%;
     padding: 1rem;
-    max-width: 500px;
   }
 }
 
 @media (max-width: 728px) {
   .game1 {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .statistic-game1 {
     font-size: 0.8rem;
   }
 }
