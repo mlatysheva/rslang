@@ -1,6 +1,7 @@
 /*statistic*/
 :root {
   --statistic-background: rgb(235, 183, 88);
+  --statistic-background-2: rgb(245, 213, 154);
 }
 
 .statistic-game1 {
@@ -8,6 +9,10 @@
   border-radius: 25%;
   padding: 1rem;
   min-width: 480px;
+}
+
+.row-2 {
+  background-color: var(--statistic-background-2);
 }
 
 table .statistic-game1 {
@@ -22,7 +27,7 @@ table .statistic-game1 {
   margin: 50px;
 }
 
-.results-game1 {
+.game1-results {
   display: flex;
   justify-content: space-between;
 }
