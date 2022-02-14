@@ -12,7 +12,7 @@ export const deletedCards: Array<string> = [];
 export const difficultWords: Array<string> = [];
 export const learnedWords: Array<string> = [];
 
-const myId: string = getItemFromLocalStorage('id');
+export const myId: string = getItemFromLocalStorage('id');
 const deleteBtn = document.querySelector<HTMLButtonElement>('delete');
 const prevButton = document.querySelector<HTMLButtonElement>('prev');
 const nextButton = document.querySelector<HTMLButtonElement>('next');

@@ -2,8 +2,9 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
 import { currentGroup } from '../book/paginationBook';
+import { getItemFromLocalStorage } from '../js/localStorage';
 // import { serwerGetWordById } from
-
+export const myId: string = getItemFromLocalStorage('id');
 export class CardElement {
   data: Word;
 
@@ -151,12 +152,14 @@ export class CardElement {
 
     const difficultBtn = document.createElement('button');
     difficultBtn.classList.add('difficult');
+    difficultBtn.classList.add('hide');
     difficultBtn.innerText = 'difficult';
     difficultBtn.setAttribute('id', `difficult${this.data.id || this.data._id}`);
     cardWrapper.appendChild(elemText);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
+    deleteBtn.classList.add('hide');
     deleteBtn.innerText = 'learned';
     deleteBtn.setAttribute('id', `delete${this.data.id || this.data._id}`);
 
@@ -168,30 +171,28 @@ export class CardElement {
 
     const correctBtn = document.createElement('button');
     correctBtn.classList.add('correct');
+    correctBtn.classList.add('hide');
     correctBtn.innerText = '0';
     correctBtn.setAttribute('data-tooltip', 'correct answers');
 
     const incorrectBtn = document.createElement('button');
     incorrectBtn.classList.add('incorrect');
+    incorrectBtn.classList.add('hide');
     incorrectBtn.innerText = '0';
     incorrectBtn.setAttribute('data-tooltip', 'incorrect answers');
     const infoBtn = document.createElement('div');
     infoBtn.classList.add('info');
+
     infoBtn.appendChild(correctBtn);
     infoBtn.appendChild(incorrectBtn);
     cardWrapper.appendChild(infoBtn);
-
-    // document.body.addEventListener('click', async (e) => {
-    //   if (e.target) {
-    //     const id = (e.target as HTMLElement).id.split('level')[1];
-    //     if (id === '6') {
-    //       console.log(difficultBtn);
-    //       if (difficultBtn) difficultBtn.remove();
-    //       deleteBtn.innerText = '';
-    //       deleteBtn.innerText = 'non difficult';
-    //     }
-    //   }
-    // });
+    
+    if (myId) {
+      incorrectBtn.classList.remove('hide');
+      correctBtn.classList.remove('hide');
+      deleteBtn.classList.remove('hide');
+      difficultBtn.classList.remove('hide');
+    }
 
     return cardElement;
   }

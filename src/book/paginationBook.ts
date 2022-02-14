@@ -1,6 +1,6 @@
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
-import { setItemToLocalStorage } from '../js/localStorage';
+import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
 
 export let currentPage = 0;
 export const firstPage = 0;
@@ -11,6 +11,8 @@ export async function changeLevel() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
     const cardsOnPage = document.querySelector('.book-page');
     const level = document.querySelectorAll('.level');
+    const myId: string = getItemFromLocalStorage('id');
+
     level.forEach((button) => {
       button.classList.remove('active-page');
     });
@@ -18,6 +20,10 @@ export async function changeLevel() {
       if ((<HTMLButtonElement>e.target).classList.contains('level')) {
         const id = +(e.target as HTMLElement).id.split('level')[1];
         (e.target as HTMLElement).classList.add('active-page');
+        if (!myId && id === 6) {
+          (<HTMLButtonElement>e.target).disabled = true;
+          console.log(<HTMLButtonElement>e.target);
+        }
 
         if (cardsOnPage) cardsOnPage.innerHTML = '';
         const data = await getWords(id, firstPage);
@@ -29,8 +35,18 @@ export async function changeLevel() {
         });
         localStorage.removeItem('currentPage');
         setItemToLocalStorage('currentPage', JSON.stringify(`${id}-${currentPage}`));
+        // const waitforLevel = setInterval(() => {
+        //   const myId: string = getItemFromLocalStorage('id');
+        //   const difficultLevel = document.getElementById('#level6') as HTMLButtonElement;
+        //   if (myId && difficultLevel) {
+        //     clearInterval(waitforLevel);
+        //     console.log(difficultLevel);
+        //     difficultLevel?.classList.remove('hide');
+        //   }
+        // });
         return cardsOnPage;
       }
+
       return cardsOnPage;
     }
   });

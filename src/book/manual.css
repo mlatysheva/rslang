@@ -5,15 +5,20 @@
   justify-content: flex-start;
 }
 
+.wrapper-book {
+  display:flex;
+  height: 77vh;
+  overflow-y: scroll;
+}
+
 .book {
-  margin-left: 7em;
+  margin-left: 13em;
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	align-content: space-around;
 	gap: 25px;
-	overflow-y: scroll;
 }
 .book-page {
   font-family: 'Josefin Sans', sans-serif;
@@ -53,7 +58,7 @@
 }
 .levels {
   display: flex;
-  /* position: fixed; */
+  position: fixed;
   left: 90px;
   flex-direction: column;
   gap: 1.2em;
