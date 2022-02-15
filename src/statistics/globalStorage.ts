@@ -1,10 +1,15 @@
-export let learnedWords: string[];
+import { getUserStatistics } from "../js/api";
 
-if (JSON.parse(localStorage.getItem('learnedWords') as string)) {
-  learnedWords = JSON.parse(localStorage.getItem('learnedWords') as string)
-} else {
-  learnedWords = [];
-  localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
+export let sprintLearnedWords: string[];
+
+export function updateStatistics() {
+
+  if (JSON.parse(localStorage.getItem('sprintLearnedWords') as string)) {
+    sprintLearnedWords = JSON.parse(localStorage.getItem('sprintLearnedWords') as string)
+  } else {
+    sprintLearnedWords = [];
+    localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
+  }
 }
 
 // global variable to store ids of difficult words - words that the user marked as such in the text book or
@@ -17,3 +22,5 @@ if (JSON.parse(localStorage.getItem('difficultWords') as string)) {
   difficultWords = [];
   localStorage.setItem('difficultWords', JSON.stringify(difficultWords));
 }
+
+export let sprintLongestCorrectSession: number;

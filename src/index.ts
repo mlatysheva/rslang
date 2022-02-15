@@ -8,6 +8,7 @@ import { Login } from './login/Login';
 import { registerUser } from './login/registerNewUser';
 import { logout, renderUserName } from './login/loginLogout';
 import { replay, startSprintGame } from './sprint/sprintGame';
+import { updateStatistics } from './statistics/globalStorage';
 
 console.log('App is running');
 
@@ -19,6 +20,7 @@ navigation();
 toggleHamburgerMenu();
 renderUserName();
 logout();
+updateStatistics();
 
 export function listenForLogin() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
