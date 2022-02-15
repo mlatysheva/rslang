@@ -17,7 +17,7 @@ export class Question1 {
 
   constructor(word: Word, arrayOfUniquePossibleAnswers: string[]) {
     this.word = word;
-    this.correctAnswer = word.word;
+    this.correctAnswer = word.wordTranslate;
     this.answersArray = Question1.getAnswers(this.correctAnswer, arrayOfUniquePossibleAnswers);
     this.audioId = word.audio;
   }

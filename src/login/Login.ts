@@ -11,7 +11,7 @@ export class Login extends AbstractView {
 
     // TODO: добавить манипуляции с апой
 
-    const footer = <HTMLElement>document.querySelector('.footer');    
+    const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.remove('hide');
 
     let htmlElement= document.createElement('div');
@@ -52,4 +52,4 @@ export class Login extends AbstractView {
     return htmlElement;
   }
 }
-
+export default Login;

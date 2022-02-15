@@ -61,7 +61,7 @@
   position: fixed;
   left: 90px;
   flex-direction: column;
-  gap: 1.2em;
+  gap: 1em;
 }
 .level,
 .save,
@@ -128,7 +128,7 @@
   width: 100px;
 }
 .call-btn {
-  width: 85px;
+  width: 77px;
 }
 .hide {
   visibility: none;

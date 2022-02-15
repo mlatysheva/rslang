@@ -186,7 +186,7 @@ export class CardElement {
     infoBtn.appendChild(correctBtn);
     infoBtn.appendChild(incorrectBtn);
     cardWrapper.appendChild(infoBtn);
-    
+
     if (myId) {
       incorrectBtn.classList.remove('hide');
       correctBtn.classList.remove('hide');
