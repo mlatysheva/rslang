@@ -37,3 +37,7 @@ table .statistic-game1 {
   display: flex;
   justify-content: space-between;
 }
+
+.center {
+  margin-left: 45%;
+}

@@ -1,6 +1,6 @@
 import { AbstractView } from '../js/views/AbstractView';
 import { renderGame } from './gameDescribe';
-
+import { renderGameFromBook } from './game1FromBook';
 export class Audiocall extends AbstractView {
   constructor() {
     super();
@@ -14,17 +14,8 @@ export class Audiocall extends AbstractView {
 
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.add('hide');
-    let gameDescribe = renderGame();
+    //let gameDescribe = renderGame();
+    let gameDescribe = renderGameFromBook();
     return gameDescribe;
   }
-
-  /*async renderCard() {
-    return `
-    <div class="card audiocall-card">
-      <p>This is future card with audiocall words</p>
-    </div>
-    `
-  }*/
 }
-
-//"id": "5e9f5ee35eb9e72bc21af4a4",

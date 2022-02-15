@@ -1,12 +1,8 @@
 import { getWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
 import { settings } from '../book/svg';
-import {
-  firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
-} from '../book/paginationBook';
-import {
-  difficultWord, removeDifficultWord,
-} from './difficultPage';
+import { firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel } from '../book/paginationBook';
+import { difficultWord, removeDifficultWord } from './difficultPage';
 import { pageUp } from './svg';
 import { getItemFromLocalStorage } from '../js/localStorage';
 import { learnedWord } from './learnedWords';
@@ -84,7 +80,7 @@ export function createAside() {
   return aside;
 }
 
-export async function renderPage(group: number, page: number) : Promise<HTMLElement> {
+export async function renderPage(group: number, page: number): Promise<HTMLElement> {
   const wrapperBook = document.createElement('div');
   wrapperBook.classList.add('wrapper-book');
 
@@ -175,5 +171,3 @@ export async function renderPage(group: number, page: number) : Promise<HTMLElem
 
   return wrapperBook;
 }
-
-// "620262a55dbb20001613405b"
