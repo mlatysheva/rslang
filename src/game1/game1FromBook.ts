@@ -1,9 +1,13 @@
 import { renderGameRound } from './roundRender';
+import { getLevelPage } from './localStorageHelper';
 import { sound } from './questionRenderer';
 
 export function renderGameFromBook(): any {
   //TODO: normal type
-  console.log(1111111);
+  let levelPage = getLevelPage();
+  let groupRoundIdGame1 = +levelPage.slice(1, 2);
+  let page = +levelPage.slice(3, -1);
+  console.log(page);
 
   let gameSectionDescribe = document.createElement('div');
   gameSectionDescribe.classList.add('describtion-game1');
@@ -27,9 +31,8 @@ export function renderGameFromBook(): any {
 
   buttons.forEach((e: Element) => {
     e.addEventListener('click', async () => {
-      let groupRoundIdGame1 = 0; //TODO round page from book
       gameSectionDescribe.innerHTML = '';
-      const questionSectionsArray = await renderGameRound(groupRoundIdGame1);
+      const questionSectionsArray = await renderGameRound(groupRoundIdGame1, page);
       questionSectionsArray.forEach((q) => gameSectionDescribe.appendChild(q));
     });
   });
@@ -42,10 +45,9 @@ export function renderGameFromBook(): any {
   document.addEventListener('keyup', async function (e: KeyboardEvent) {
     const levelsGame1Btn = document.querySelector('.levelsGame1');
     if (levelsGame1Btn) {
-      let groupRoundIdGame1 = 0;
       if (e.key === 'Enter') {
         gameSectionDescribe.innerHTML = '';
-        const questionSectionsArray = await renderGameRound(groupRoundIdGame1);
+        const questionSectionsArray = await renderGameRound(groupRoundIdGame1, page);
         questionSectionsArray.forEach((q) => gameSectionDescribe.appendChild(q));
       }
     }
