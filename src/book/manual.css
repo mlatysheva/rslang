@@ -127,6 +127,9 @@
 .sprint-btn {
   width: 100px;
 }
+svg {
+  pointer-events: none;
+}
 .call-btn {
   width: 77px;
 }
