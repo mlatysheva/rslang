@@ -62,8 +62,8 @@ export interface ExistingUserLoginDetails {
 }
 
 export interface UserStatistics {
-  "learnedWords": number,
-  "optional": {}
+  'learnedWords': number,
+  'optional': {}
 }
 export interface SprintWord {
   id: string,

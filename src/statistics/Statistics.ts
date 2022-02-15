@@ -1,6 +1,9 @@
-import { getUserStatistics } from "../js/api";
-import { AbstractView } from "../js/views/AbstractView";
-import { sprintLearnedWords } from "./globalStorage";
+import { getUserStatistics } from '../js/api';
+import { AbstractView } from '../js/views/AbstractView';
+import { sprintLearnedWords } from './globalStorage';
+import { numberDayLearnedWords, percentLearnedWords} from '../book/learnedWords';
+
+
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -11,31 +14,30 @@ export class Statistics extends AbstractView {
   async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
-    const footer = <HTMLElement>document.querySelector('.footer');    
+    const footer = <HTMLElement>document.querySelector('.footer');
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
 
-    let htmlElement= document.createElement('div');
+    const htmlElement = document.createElement('div');
     htmlElement.classList.add('view', 'statistics-view');
     let html = `
     <div class="title statistics-title">
       Посмотрим-ка на твой прогресс...
     </div>
 
-    `
+    `;
 
     const data = await getUserStatistics();
     if (data) {
-
       console.log(`data is ${data.status}`);
-      if (data.status == 200) {
+      if (data.status === 200) {
         const content = await data.json();
         const totalWords = content.learnedWords;
 
         let sprintWordsToday: number;
         if (sprintLearnedWords) {
-          sprintWordsToday = sprintLearnedWords.length
+          sprintWordsToday = sprintLearnedWords.length;
         } else {
           sprintWordsToday = 0;
         }
@@ -83,8 +85,8 @@ export class Statistics extends AbstractView {
             </div>
             <div class="statistics-text home-text">            
               <p>Новых слов: <span class="statistics-indicator book-new-words">0</span></p>
-              <p>Изученных слов: <span class="statistics-indicator book-learned-words">0</span> </p>
-              <p>Правильных ответов, %: <span class="statistics-indicator book-correct-answers">0</span></p>
+              <p>Изученных слов: <span class="statistics-indicator book-learned-words">${numberDayLearnedWords()}</span> </p>
+              <p>% от общего количества слов: <span class="statistics-indicator book-correct-answers">${percentLearnedWords()}</span></p>
             </div>          
           </div>
   
@@ -116,7 +118,7 @@ export class Statistics extends AbstractView {
             </div>
             <a href="#/login/" id="login-btn" class="button statistic-button login-btn" data-href="#/login/">Жми сюда</a>
           </div>
-        `
+        `;
       } else if (data.status === 404) {
         html += `
           <div class="statistics-wrapper registered-statistics">
@@ -126,9 +128,9 @@ export class Statistics extends AbstractView {
             <a href="#/manual/" class="button statistic-button login-btn" data-href="#/manual/">Хочу штудировать Учебник</a>
             <a href="#/audiocall/" class="button statistic-button login-btn" data-href="#/audiocall/">Хочу играть</a>
           </div>
-        `
-      } else {    
-        html +=  `
+        `;
+      } else {
+        html += `
           <div class="statistics-wrapper unregistered-statistics">
             <div class="large-text not-available">
               Статистика доступна только для зарегистрированных пользователей
@@ -138,10 +140,12 @@ export class Statistics extends AbstractView {
             </div>
             <a href="#/signup/" id="signup-btn" class="button statistic-button signup-btn" data-href="#/signup/">Жми сюда</a>
           </div>
-        `;    
+        `;
       }
     }
+
     htmlElement.innerHTML = html;
     return htmlElement;
   }
 }
+export default Statistics;
