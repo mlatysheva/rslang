@@ -23,16 +23,16 @@ export function renderGameFromBook(): any {
   gameSectionDescribe.appendChild(gameName);
   gameSectionDescribe.appendChild(levelOfRound);
 
-  const button = gameSectionDescribe.getElementsByClassName('game1');
+  const buttons = Array.from(gameSectionDescribe.getElementsByClassName('game1'));
 
-  /* button.addEventListener('click', async () => {
-    /*let groupRoundIdGame1 = ;
-    let groupRoundIdGame1 = ;
-    gameSectionDescribe.innerHTML = '';
-    const questionSectionsArray = await renderGameRound(groupRoundIdGame1);
-    questionSectionsArray.forEach((q) => gameSectionDescribe.appendChild(q));
+  buttons.forEach((e: Element) => {
+    e.addEventListener('click', async () => {
+      let groupRoundIdGame1 = 0; //TODO round page from book
+      gameSectionDescribe.innerHTML = '';
+      const questionSectionsArray = await renderGameRound(groupRoundIdGame1);
+      questionSectionsArray.forEach((q) => gameSectionDescribe.appendChild(q));
+    });
   });
-  };*/
 
   let gameDescriptionKey = document.createElement('h5');
   gameDescriptionKey.textContent = '(для старта нажми на кнопку или Enter)';
@@ -54,6 +54,9 @@ export function renderGameFromBook(): any {
       Array.from(document.querySelectorAll('.round-game1')).find((e) => !e.classList.contains('hide-game1'))
     );
 
+    if (!game1) {
+      return;
+    }
     const game1SoundBtn = <HTMLElement>game1.querySelector('button.game1-sound');
     const nextBtn = <HTMLElement>game1.querySelector('button.next-round');
     const firstBtn = <HTMLElement>game1.querySelector('button.first');
