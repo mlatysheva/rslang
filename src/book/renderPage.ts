@@ -79,8 +79,8 @@ export function createAside() {
 
   /**/
   const callButton = document.createElement('div');
-  callButton.innerHTML =
-    '<a href="#/audiocall-user/" data-href="#/audiocall-user/" class="level userAudioCall">Audiocall</a>';
+  callButton.classList.add('userAudioCall');
+  callButton.innerHTML = `<a href="#/audiocall-user/" data-href="#/audiocall-user/">${callIcon}</a>`;
   aside.appendChild(callButton);
 
   return aside;

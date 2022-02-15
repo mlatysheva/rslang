@@ -43,7 +43,6 @@ table .statistic-game1 {
 }
 
 .userAudioCall {
-  /*background-image: url(../assets/images/call.svg);*/
   background-repeat: no-repeat;
-  padding-left: 15px;
+  max-height: 40px;
 }
