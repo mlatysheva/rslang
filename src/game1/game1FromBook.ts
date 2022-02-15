@@ -1,6 +1,5 @@
 import { renderGameRound } from './roundRender';
 import { getLevelPage } from './localStorageHelper';
-import { sound } from './questionRenderer';
 
 export function renderGameFromBook(): any {
   //TODO: normal type
