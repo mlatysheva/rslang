@@ -14,8 +14,8 @@ export class Audiocall extends AbstractView {
 
     const footer = <HTMLElement>document.querySelector('.footer');
     footer.classList.add('hide');
-    //let gameDescribe = renderGame();
-    let gameDescribe = renderGameFromBook();
+    let gameDescribe = renderGame();
+    //let gameDescribe = renderGameFromBook();
     return gameDescribe;
   }
 }

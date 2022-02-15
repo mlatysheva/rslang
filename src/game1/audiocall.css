@@ -41,3 +41,9 @@ table .statistic-game1 {
 .center {
   margin-left: 45%;
 }
+
+.userAudioCall {
+  /*background-image: url(../assets/images/call.svg);*/
+  background-repeat: no-repeat;
+  padding-left: 15px;
+}

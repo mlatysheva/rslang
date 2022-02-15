@@ -71,10 +71,16 @@ export function createAside() {
   sprintButton.innerHTML = `${sprintIcon}`;
   aside.appendChild(sprintButton);
 
-  const callButton = document.createElement('button');
+  /* const callButton = document.createElement('button');
   callButton.classList.add('call-btn');
   callButton.setAttribute('id', 'call');
   callButton.innerHTML = `${callIcon}`;
+  aside.appendChild(callButton);*/
+
+  /**/
+  const callButton = document.createElement('div');
+  callButton.innerHTML =
+    '<a href="#/audiocall-user/" data-href="#/audiocall-user/" class="level userAudioCall">Audiocall</a>';
   aside.appendChild(callButton);
 
   return aside;

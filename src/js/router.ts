@@ -8,6 +8,7 @@ import { Statistics } from '../statistics/Statistics';
 import { Route } from './types';
 import { listenForLogin } from '..';
 import { Signup } from '../login/Signup';
+import { AudiocallUser } from '../game1/AudiocallUser';
 
 function clearAllChildNodes(parent: HTMLElement): void {
   while (parent.firstChild) {
@@ -25,6 +26,7 @@ function navigation() {
   const audiocallComponent = new Audiocall();
   const sprintComponent = new Sprint();
   const statisticsComponent = new Statistics();
+  const audiocallUserComponent = new AudiocallUser();
 
   const routes = [
     { path: '/', component: homeComponent },
@@ -34,6 +36,7 @@ function navigation() {
     { path: '/audiocall/', component: audiocallComponent },
     { path: '/sprint/', component: sprintComponent },
     { path: '/statistics/', component: statisticsComponent },
+    { path: '/audiocall-user/', component: audiocallUserComponent },
   ];
 
   // find current location by url in the browser
@@ -68,31 +71,31 @@ function navigation() {
       const hashClicked = location.hash;
 
       switch (hashClicked) {
-        case ('#/'):
-
+        case '#/':
           break;
-        case ('#/login/'):
-          
+        case '#/login/':
           break;
-        case ('#/signup/'):
-          
+        case '#/signup/':
           break;
-        case ('#/manual/'):
+        case '#/manual/':
           // TODO: add functions with manual
-          
+
           break;
         case '#/audiocall/':
           // TODO: add functions with audiocall
-          
+
           break;
         case '#/sprint/':
           // TODO: add functions with sprint
-          
-          break;
-        case ('#/statistics/'):
 
+          break;
+        case '#/statistics/':
           // TODO: add functions with statistics
-          
+
+          break;
+        case '#/audiocall-user/':
+          // TODO: add functions with audiocall
+
           break;
       }
     });
