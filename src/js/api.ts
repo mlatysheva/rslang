@@ -83,11 +83,10 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
   const content = await rawResponse.json().catch((error) => {
     if (error) {
       console.log('such user word already exists');
-      throw error;
+      updateUserWord (userId, wordId, body);
+      // throw error;
     }
   });
-
-  console.log(content.difficulty);
   return content;
 };
 
