@@ -9,7 +9,7 @@ import { Route } from './types';
 import { listenForLogin } from '..';
 import { Signup } from '../login/Signup';
 
-function clearAllChildNodes(parent: HTMLElement): void {
+export function clearAllChildNodes(parent: HTMLElement): void {
   while (parent.firstChild) {
     parent.firstChild.remove();
   }

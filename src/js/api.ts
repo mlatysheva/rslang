@@ -68,6 +68,8 @@ export async function getUser(): Promise<UserWithName> {
 const token = getItemFromLocalStorage('token');
 
 export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
+  const token = getItemFromLocalStorage('token');
+
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'POST',
     // withCredentials: true,
@@ -86,9 +88,44 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
   });
 
   console.log(content.difficulty);
+  return content;
+};
+
+export const updateUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
+  const token = getItemFromLocalStorage('token');
+
+  const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
+    method: 'PUT',
+    // withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  const content = await rawResponse.json()
+  .catch((error) => {
+    if (error) {
+      throw error;
+    }
+  });
+  if (content.status === 200) {
+    console.log('User word was successfully updated');
+  } else if (content.status === 401) {
+    console.log('User needs to login again');
+  } else if (content.status === 404) {
+    console.log('Such user word does not exist. Adding new user word');
+    await createUserWord(userId, wordId, body);
+  }
+
+  console.log(`status in updateUserWord is ${content.status}`);
+  return content.status;
 };
 
 export const deleteUserWord = async (userId: string, wordId: string) => {
+  const token = getItemFromLocalStorage('token');
+
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'DELETE',
 
@@ -97,7 +134,6 @@ export const deleteUserWord = async (userId: string, wordId: string) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-
   });
 };
 
@@ -134,6 +170,8 @@ export const getUserWord = async (userId: string, wordId: string) => {
 };
 
 export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
+  const token = getItemFromLocalStorage('token');
+
   const rawResponse = await fetch(`${users}/${userId}/words`, {
     method: 'GET',
     // withCredentials: true,
@@ -200,6 +238,8 @@ export const putUserStatistics = async (data: UserStatistics) => {
 };
 
 export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> => {
+  const token = getItemFromLocalStorage('token');
+
   const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
     method: 'GET',
     // withCredentials: true,
@@ -212,6 +252,8 @@ export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> 
   return content;
 };
 export const getUserLearnedWords = async (userId: string):Promise<UserWord[]> => {
+  const token = getItemFromLocalStorage('token');
+
   const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"learned-word"}]}`, {
     method: 'GET',
     // withCredentials: true,
