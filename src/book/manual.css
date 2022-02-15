@@ -155,4 +155,7 @@ svg {
 a.pageup:hover svg path {
   fill: var(--gold-color);
 }
+.userAudioCall {
+  width: 60px;
+}
 

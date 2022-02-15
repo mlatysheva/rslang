@@ -9,6 +9,7 @@ const base = 'https://rs-lang-mlatysheva.herokuapp.com';
 const words = `${base}/words`;
 const users = `${base}/users`;
 const signin = `${base}/signin`;
+const token = getItemFromLocalStorage('token');
 // const numberDiffiicultWords = ;
 
 export async function getWords(group: number, page: number): Promise<Word[]> {
@@ -65,11 +66,8 @@ export async function getUser(): Promise<UserWithName> {
   const user: UserWithName = await response.json();
   return user;
 }
-const token = getItemFromLocalStorage('token');
 
 export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
-  const token = getItemFromLocalStorage('token');
-
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'POST',
     // withCredentials: true,
@@ -91,8 +89,6 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
 };
 
 export const updateUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
-  const token = getItemFromLocalStorage('token');
-
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'PUT',
     // withCredentials: true,
@@ -124,8 +120,6 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
 };
 
 export const deleteUserWord = async (userId: string, wordId: string) => {
-  const token = getItemFromLocalStorage('token');
-
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'DELETE',
 
@@ -153,8 +147,6 @@ export const deleteUserWord = async (userId: string, wordId: string) => {
 // }
 
 export const getUserWord = async (userId: string, wordId: string) => {
-  const token = getItemFromLocalStorage('token');
-
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'GET',
     // withCredentials: true,
@@ -170,8 +162,6 @@ export const getUserWord = async (userId: string, wordId: string) => {
 };
 
 export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
-  const token = getItemFromLocalStorage('token');
-
   const rawResponse = await fetch(`${users}/${userId}/words`, {
     method: 'GET',
     // withCredentials: true,
@@ -198,9 +188,7 @@ export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
 
 export const getUserStatistics = async (): Promise<Response> => {
   const userId = getItemFromLocalStorage('id');
-  const token = getItemFromLocalStorage('token');
-
-  try {
+   try {
     const rawResponse = await fetch(`${users}/${userId}/statistics`, {
       method: 'GET',
       // withCredentials: true,
@@ -217,8 +205,7 @@ export const getUserStatistics = async (): Promise<Response> => {
 
 export const putUserStatistics = async (data: UserStatistics) => {
   const userId = getItemFromLocalStorage('id');
-  const token = getItemFromLocalStorage('token');
-  try {
+   try {
     const rawResponse = await fetch(`${users}/${userId}/statistics`, {
       method: 'PUT',
       // withCredentials: true,
@@ -238,8 +225,6 @@ export const putUserStatistics = async (data: UserStatistics) => {
 };
 
 export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> => {
-  const token = getItemFromLocalStorage('token');
-
   const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
     method: 'GET',
     // withCredentials: true,
@@ -252,8 +237,6 @@ export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> 
   return content;
 };
 export const getUserLearnedWords = async (userId: string):Promise<UserWord[]> => {
-  const token = getItemFromLocalStorage('token');
-
   const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"learned-word"}]}`, {
     method: 'GET',
     // withCredentials: true,
