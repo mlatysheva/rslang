@@ -1,9 +1,8 @@
-import { listenForSprint } from "..";
-import { learnedWords } from "../book/learnedWords";
-import { createUserWord, getUserWord, getWords, putUserStatistics, updateUserWord } from "../js/api";
+import { createUserWord, getWords, putUserStatistics } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { clearAllChildNodes } from "../js/router";
 import { SprintWord, UserWordParameters, Word } from "../js/types";
+import { sprintLearnedWords } from "../statistics/globalStorage";
 import { countdown } from "./countDown";
 import { Sprint } from "./Sprint";
 
@@ -160,17 +159,17 @@ export async function startSprintGame(level: number) {
         };
         const sendWordToServer = await createUserWord(userId, wordId, body);
 
-        // add new word to global learnedWords array and to LS
-        learnedWords.push(wordId);
-        localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
+        // add new word to global sprintLearnedWords array and to LS
+        sprintLearnedWords.push(wordId);
+        localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
       } else {
         results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: false});
         // remove learned word from learnedWords array and from LS
-        if (learnedWords.includes(wordId))  {
-          const index = learnedWords.indexOf(wordId);
+        if (sprintLearnedWords.includes(wordId))  {
+          const index = sprintLearnedWords.indexOf(wordId);
           if (index > -1) {
-            learnedWords.splice(index, 1);
-            localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
+            sprintLearnedWords.splice(index, 1);
+            localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
           }
         }
       }
@@ -263,7 +262,7 @@ export async function renderSprintResults(array: SprintWord[]) {
   if (localStorage.getItem('id')) {
 
     let body = {
-      "learnedWords": learnedWords.length,
+      "learnedWords": sprintLearnedWords.length,
       "optional": {}
     }
     await putUserStatistics(body);

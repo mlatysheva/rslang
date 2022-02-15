@@ -1,5 +1,6 @@
 import { getUserStatistics } from "../js/api";
 import { AbstractView } from "../js/views/AbstractView";
+import { sprintLearnedWords } from "./globalStorage";
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -21,6 +22,7 @@ export class Statistics extends AbstractView {
     <div class="title statistics-title">
       Посмотрим-ка на твой прогресс...
     </div>
+
     `
 
     const data = await getUserStatistics();
@@ -31,12 +33,61 @@ export class Statistics extends AbstractView {
         const content = await data.json();
         const totalWords = content.learnedWords;
 
+        let sprintWordsToday: number;
+        if (sprintLearnedWords) {
+          sprintWordsToday = sprintLearnedWords.length
+        } else {
+          sprintWordsToday = 0;
+        }
+
         html += `
         
         <div class="statistics-wrapper registered-statistics">
-          <div class="sprint-text learned-words">
-            Ты выучил ${totalWords} слов.
+        <div class="statistics-mission-text statistics-text">
+          Твоя статистика обучения в <span class="statistics-bold">MGIMO FINISHED</span> за сегодня:
+        </div>
+        <div class="statistics-cards-container">
+          <div class="statistics-card-wrapper">
+            <div class="statistics-icon audiocall-icon">
+            </div>
+            <div class="statistics-title">
+                Аудиовызов
+            </div>
+            <div class="statistics-text home-text">
+              
+              <p>Новых слов: <span class="statistics-indicator audiocall-new-words">0</span></p>
+              <p>Правильных ответов, %: <span class="statistics-indicator audiocall-correct-answers">0</span> </p>
+              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">0</span></p>
+            </div>          
+          </div>  
+          
+          <div class="statistics-card-wrapper">
+            <div class="statistics-icon sprint-statistics-icon">
+            </div>
+            <div class="statistics-title">
+                Спринт
+            </div>
+            <div class="statistics-text home-text">
+              
+              <p>Новых слов: <span class="statistics-indicator sprint-new-words">${sprintWordsToday}</span></p>
+              <p>Правильных ответов, %: <span class="statistics-indicator sprint-correct-answers">0</span> </p>
+              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">0</span></p>
+            </div>          
           </div>
+  
+          <div class="statistics-card-wrapper">
+            <div class="statistics-icon manual-icon">
+            </div>
+            <div class="statistics-title">
+                Учебник
+            </div>
+            <div class="statistics-text home-text">            
+              <p>Новых слов: <span class="statistics-indicator book-new-words">0</span></p>
+              <p>Изученных слов: <span class="statistics-indicator book-learned-words">0</span> </p>
+              <p>Правильных ответов, %: <span class="statistics-indicator book-correct-answers">0</span></p>
+            </div>          
+          </div>
+  
         </div>
 
         <div class="todo">
