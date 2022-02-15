@@ -80,10 +80,10 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
     },
     body: JSON.stringify(body),
   });
-  const content = await rawResponse.json().catch((error) => {
+  const content = await rawResponse.json().catch(async (error) => {
     if (error) {
       console.log('such user word already exists');
-      updateUserWord (userId, wordId, body);
+      await updateUserWord (userId, wordId, body);
       // throw error;
     }
   });
@@ -103,23 +103,24 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
     },
     body: JSON.stringify(body),
   });
-  const content = await rawResponse.json()
+  const response = await rawResponse;
+  const content = response.json()
   .catch((error) => {
     if (error) {
       throw error;
     }
   });
-  if (content.status === 200) {
+  if (response.status === 200) {
     console.log('User word was successfully updated');
-  } else if (content.status === 401) {
+  } else if (response.status === 401) {
     console.log('User needs to login again');
-  } else if (content.status === 404) {
+  } else if (response.status === 404) {
     console.log('Such user word does not exist. Adding new user word');
     await createUserWord(userId, wordId, body);
   }
 
-  console.log(`status in updateUserWord is ${content.status}`);
-  return content.status;
+  console.log(`status in updateUserWord is ${response.status}`);
+  return response.status;
 };
 
 export const deleteUserWord = async (userId: string, wordId: string) => {
@@ -165,7 +166,7 @@ export const getUserWord = async (userId: string, wordId: string) => {
   const content = await rawResponse.json();
 
   console.log(content);
-  return (content);
+  return content.body;
 };
 
 export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {

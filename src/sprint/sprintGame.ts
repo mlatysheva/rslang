@@ -1,5 +1,6 @@
 import { listenForSprint } from "..";
-import { createUserWord, getUserWord, getWords, updateUserWord } from "../js/api";
+import { learnedWords } from "../book/learnedWords";
+import { createUserWord, getUserWord, getWords, putUserStatistics, updateUserWord } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { clearAllChildNodes } from "../js/router";
 import { SprintWord, UserWordParameters, Word } from "../js/types";
@@ -143,24 +144,35 @@ export async function startSprintGame(level: number) {
     (<HTMLElement>controls).addEventListener("click", async (event) => {
 
       const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
-      const translation = <HTMLElement>document.getElementById('sprint-translation');   
+      const translation = <HTMLElement>document.getElementById('sprint-translation');  
+      const userId = JSON.parse(localStorage.getItem('id') as string);
+      const wordId = words[index].id;
           
       if ((((<HTMLElement>event.target).id === 'sprint-correct-btn') && ((<HTMLElement>translation).innerText === correctAnswer)) ||  (((<HTMLElement>event.target).id != 'sprint-correct-btn') && ((<HTMLElement>translation).innerText != correctAnswer)))  {
         points++;
         refreshPoints(points);
-        results.push({id: words[index].id, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
-        console.log(`user id is ${JSON.parse(localStorage.getItem('id') as string)}`);
-        console.log(`word id is ${words[index].id}`);
+        results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
+        // let userId = JSON.parse(localStorage.getItem('id') as string);
+        // let wordId = words[index].id;
         const body: UserWordParameters = {
           difficulty: 'learned-word',
           optional: { testFieldString: 'test', testFieldBoolean: true },
         };
-        
-        const sendWordToServer = await createUserWord(JSON.parse(localStorage.getItem('id') as string), words[index].id, body);
-        // const serverUserWord = await getUserWord(JSON.parse(localStorage.getItem('id') as string), words[index].id)
-        console.log(`serverUserWords status is ${sendWordToServer}`);
+        const sendWordToServer = await createUserWord(userId, wordId, body);
+
+        // add new word to global learnedWords array and to LS
+        learnedWords.push(wordId);
+        localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
       } else {
-        results.push({id: words[index].id, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: false});
+        results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: false});
+        // remove learned word from learnedWords array and from LS
+        if (learnedWords.includes(wordId))  {
+          const index = learnedWords.indexOf(wordId);
+          if (index > -1) {
+            learnedWords.splice(index, 1);
+            localStorage.setItem('learnedWords', JSON.stringify(learnedWords));
+          }
+        }
       }
 
       index++;
@@ -245,6 +257,17 @@ export async function renderSprintResults(array: SprintWord[]) {
        
     replay();
   })
+
+  // Send results to server statistics
+
+  if (localStorage.getItem('id')) {
+
+    let body = {
+      "learnedWords": learnedWords.length,
+      "optional": {}
+    }
+    await putUserStatistics(body);
+  }
 }
 
 export async function renderSprintRows(arrayOfResults: SprintWord[]) {
