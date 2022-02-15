@@ -94,10 +94,11 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
+  align-items: center;
 }
 .clock-image {
-  width: 2rem;
-  height: 2rem;
+  width: 4rem;
+  height: 4rem;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -111,8 +112,42 @@
 
 
 .replay-button {
-  background-image: url('../assets/images/replay_icon.svg');
+  width: 3rem;
+  height: 3rem;
+  background-image: url('/src/assets/images/replay_icon.svg');
   margin-left: auto;
+}
+
+.sprint-start-button {
+  width: 300px;
+  text-align: center;
+  font-size: larger;
+  text-transform: uppercase;
+  display: block;
+  line-height: 80px;
+  letter-spacing: 5px;
+  color: white;
+  height: 80px;
+  margin: 15px;
+  padding: 0;
+  border: none;
+  background: var(--purple);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.sprint-start-button:hover {
+  font-size: larger;
+  animation: glow 1s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px 0px rgb(158, 231, 197), 0 0 10px 3px rgb(72, 185, 132), 0px 0px 10px 0px rgb(158, 231, 197);
+}
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #07ee8e, 0 0 40px #07ee8e, 0 0 50px #07ee8e, 0 0 60px #07ee8e, 0 0 70px #07ee8e;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #173d2d, 0 0 40px #173d2d, 0 0 50px #173d2d, 0 0 60px #173d2d, 0 0 70px #173d2d, 0 0 80px #173d2d;
+  }
 }
 
 .points {

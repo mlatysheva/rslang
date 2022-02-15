@@ -32,21 +32,27 @@ logout();
 export function listenForLogin() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
     if (e.target) {
-      if ((e.target as HTMLElement).id === 'login-submit') {
-        authenticateUser();
-      }
-      if ((e.target as HTMLElement).id === 'signup-submit') {
-        registerUser();
-      }
-      if ((e.target as HTMLElement).id === 'login-btn') {
-        const loginComponent = new Login();
-        const loginHTML = await loginComponent.getHtml();
-        (<HTMLElement>app).appendChild(loginHTML);
-      }
-      if ((e.target as HTMLElement).id === 'signup-btn') {
-        const signupComponent = new Signup();
-        const signupHTML = await signupComponent.getHtml();
-        (<HTMLElement>app).appendChild(signupHTML);
+      switch ((e.target as HTMLElement).id) {
+        case "login-submit": {
+          authenticateUser();
+          break;
+        }
+        case "signup-submit": {
+          registerUser();
+          break;
+        }
+        case "login-btn": {
+          const loginComponent = new Login();
+          const loginHTML = await loginComponent.getHtml();
+          (<HTMLElement>app).appendChild(loginHTML);
+          break;
+        }
+        case "signup-btn": {
+          const signupComponent = new Signup();
+          const signupHTML = await signupComponent.getHtml();
+          (<HTMLElement>app).appendChild(signupHTML);
+          break;
+        }
       }
     }
   });
@@ -57,12 +63,21 @@ listenForLogin();
 export function listenForSprint() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
     if (e.target) {
+      let level: number = 0;
       if ((e.target as HTMLElement).classList.contains('sprint-level')) {
         const element = <HTMLElement>e.target;
-        const level = +(element.id.split('-')[1]);
-
-        startSprintGame(level);
-      }
+        level = parseInt((element.id.split('-')[1])); 
+        console.log(`level button is clicked and level is ${level}`);   
+        startSprintGame(level);    
+      }  
+      // else if ((e.target as HTMLElement).classList.contains('sprint-menu-link')) {
+      //   if (localStorage.getItem('currentPage')) {
+      //     let levelparsed = JSON.parse((localStorage.getItem('currentPage') as string)).split('-')[0];
+      //     level = levelparsed.charAt(levelparsed. length - 1);
+      //     console.log(`sprint-menu is clicked and level is ${level}`);
+      //     startSprintGame(level);
+      //   }
+      // }      
     }
   });
 }
