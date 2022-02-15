@@ -32,7 +32,7 @@ function renderTable() {
     }
     //TODO:before arr length
 
-    let correctWord = q.correctAnswer.toLowerCase();
+    let correctWord = q.correctAnswerEnglish.toLocaleLowerCase();
     let correctTranskription = q.word.transcription;
     let correctTranslate = q.word.wordTranslate;
 

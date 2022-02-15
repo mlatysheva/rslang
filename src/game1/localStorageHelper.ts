@@ -4,6 +4,7 @@ import { Round1 } from './data/Round1';
 const PLAYED_QUESTIONS = 'playedQuestions';
 const PLAYED_ROUNDS = 'playedRounds';
 const IS_RECREATE_DEFAULT = true;
+const LEVEL_PAGE = 'currentPage';
 
 let isInit = false;
 
@@ -35,6 +36,10 @@ export function addPlayedQuestion(question: Question1): void {
 
 export function getPlayedQuestions(): Question1[] {
   return JSON.parse(<string>window.localStorage.getItem(PLAYED_QUESTIONS));
+}
+
+export function getLevelPage(): string {
+  return JSON.parse(<string>window.localStorage.getItem(LEVEL_PAGE));
 }
 
 export function getPlayedRounds(): Question1[] {

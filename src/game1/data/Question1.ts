@@ -9,6 +9,8 @@ export class Question1 {
 
   correctAnswer: string;
 
+  correctAnswerEnglish: string;
+
   answersArray: string[];
 
   audioId: string;
@@ -18,6 +20,7 @@ export class Question1 {
   constructor(word: Word, arrayOfUniquePossibleAnswers: string[]) {
     this.word = word;
     this.correctAnswer = word.wordTranslate;
+    this.correctAnswerEnglish = word.word;
     this.answersArray = Question1.getAnswers(this.correctAnswer, arrayOfUniquePossibleAnswers);
     this.audioId = word.audio;
   }

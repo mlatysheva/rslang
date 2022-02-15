@@ -53,11 +53,6 @@ export class QuestionRenderer {
     questionTitle.classList.add('round');
     questionTitle.textContent = 'Слушай и жми на правильный перевод:';
 
-    const questionKey = document.createElement('h6');
-    questionKey.classList.add('from-key');
-    questionKey.textContent = '(enter = слушать, 1..4 = варинты ответа, пробел = пропустить, можно мышкой!)';
-    questionSection.appendChild(questionKey);
-
     const audio = document.createElement('button');
     audio.classList.add('play');
     audio.classList.add('player-icon');
@@ -92,6 +87,11 @@ export class QuestionRenderer {
     nextQuestionButton.classList.add('unswer-btn');
     nextQuestionButton.innerText = 'Пропустить -->';
     questionSection.appendChild(nextQuestionButton);
+
+    const questionKey = document.createElement('h6');
+    questionKey.classList.add('from-key');
+    questionKey.textContent = '(enter = слушать, 1..4 = варинты ответа, пробел = пропустить, можно мышкой!)';
+    questionSection.appendChild(questionKey);
 
     let nextQuestion = (e: Event | KeyboardEvent) => {
       let unswer = (<HTMLElement>e.target).innerText;
