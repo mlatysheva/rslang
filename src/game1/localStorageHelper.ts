@@ -4,6 +4,7 @@ import { Round1 } from './data/Round1';
 const PLAYED_QUESTIONS = 'playedQuestions';
 const PLAYED_ROUNDS = 'playedRounds';
 const IS_RECREATE_DEFAULT = true;
+
 let isInit = false;
 
 if (!isInit) {

@@ -27,6 +27,9 @@ function renderTable() {
     const q = questions[i];
     const row = document.createElement('div');
     row.classList.add('table-row');
+    if (i % 2 === 0) {
+      row.classList.add('row-2');
+    }
     //TODO:before arr length
 
     let correctWord = q.correctAnswer.toLowerCase();
@@ -56,7 +59,7 @@ function renderTable() {
     tdOneBtn.setAttribute('id', `statistic-${q.word.id}`);
     let tdTwo = document.createElement('td');
     tdTwo.classList.add('game1-results');
-    tdTwo.innerText = `${correctWord}`;
+    tdTwo.innerText = `  ${correctWord}  `;
 
     let tdThree = document.createElement('td');
     tdThree.classList.add('game1-results');
