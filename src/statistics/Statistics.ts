@@ -1,9 +1,10 @@
 import { getUserStatistics, getUserWordsAll } from '../js/api';
 import { AbstractView } from '../js/views/AbstractView';
 import { sprintNewWords } from './globalStorage';
-import { numberDayLearnedWords, percentLearnedWords} from '../book/learnedWords';
 import { getItemFromLocalStorage } from '../js/localStorage';
-
+import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords';
+import { sprintIcon, callIcon } from '../book/svg';
+import { arrAudiocall } from '../game1/statisticToServ';
 
 
 export class Statistics extends AbstractView {
@@ -12,7 +13,7 @@ export class Statistics extends AbstractView {
     // this.setTitle('Statistics');
   }
 
-  async getHtml():Promise<HTMLElement> {
+  async getHtml(): Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     const footer = <HTMLElement>document.querySelector('.footer');
@@ -58,16 +59,22 @@ export class Statistics extends AbstractView {
         </div>
         <div class="statistics-cards-container">
           <div class="statistics-card-wrapper">
-            <div class="statistics-icon audiocall-icon">
+            <div class="statistics-icon">${callIcon}
             </div>
             <div class="statistics-title">
                 Аудиовызов
             </div>
             <div class="statistics-text home-text">
               
-              <p>Новых слов: <span class="statistics-indicator audiocall-new-words">0</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator audiocall-correct-answers">0</span> </p>
-              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">0</span></p>
+              <p>Новых слов: <span class="statistics-indicator audiocall-new-words">${
+                arrAudiocall[0]['newWords']
+              }</span></p>
+              <p>Правильных ответов, %: <span class="statistics-indicator audiocall-correct-answers">${
+                arrAudiocall[1]['precentCorrectAnswers']
+              }</span> </p>
+              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
+                arrAudiocall[2]['logestTrueUnswers']
+              }</span></p>
             </div>          
           </div>  
           
@@ -157,3 +164,6 @@ export class Statistics extends AbstractView {
   }
 }
 export default Statistics;
+
+/*<div class="statistics-icon audiocall-icon">
+</div>*/

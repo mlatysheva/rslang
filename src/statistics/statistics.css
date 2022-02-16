@@ -58,7 +58,6 @@
   text-align: center;
 }
 .statistics-text {
-  
 }
 .statistics-bold {
   font-weight: 700;
@@ -112,3 +111,6 @@
   background-image: url('../assets/images/call.svg');
 }
 
+.statistics-icon {
+  padding-top: 2rem;
+}
