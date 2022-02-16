@@ -91,7 +91,7 @@ function renderTable() {
   return statistics;
 }
 
-function sound(id: string, recordPath: string): (e: MouseEvent) => void {
+export function sound(id: string, recordPath: string): (e: MouseEvent) => void {
   return function () {
     const changeSoundBtn = document.getElementById(id) as HTMLElement;
     const audio = new Audio();

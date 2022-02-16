@@ -1,3 +1,4 @@
+import { sound } from "../game1/statistic";
 import { createUserWord, getWords, putUserStatistics } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { clearAllChildNodes } from "../js/router";
@@ -69,7 +70,7 @@ export async function startSprintRound(level: number) {
 
     <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
 
-    <div class="button sprint-start-button">Начать</div>
+    <button class="button sprint-start-button">Начать</button>
 
     <div class="timer-wrapper">
       <div class="clock-image"></div>
@@ -112,8 +113,10 @@ export async function startSprintGame(level: number) {
 
   await startSprintRound(level);
 
-  const sprintStartBtn = document.querySelector('.sprint-start-button');
-  sprintStartBtn?.addEventListener('click', () => {
+  const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+  (<HTMLButtonElement>sprintStartBtn).addEventListener('click', () => {
+
+    sprintStartBtn.disabled = true;
 
     const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
     const translation = <HTMLElement>document.getElementById('sprint-translation');
@@ -217,7 +220,22 @@ function refreshPoints(points:number) {
   (<HTMLElement>pointsDiv).innerText = points.toString();
 }
 
+function playsound() {
+  const resultsTable = <HTMLElement>document.querySelector('.sprint-results');
+  const tracks = resultsTable.querySelectorAll('.player-icon');
+  Array.from(tracks).forEach((element) => {
+    const elementId = element.id;
+    const src = elementId.split('-')[1];
+   (element as HTMLElement).addEventListener('click', sound(elementId, src));
+  })
+}
+
 export async function renderSprintResults(array: SprintWord[]) {
+
+  let correctAnswers = array.filter((elem) => elem.isCorrectlyAnswered === true).length;
+  let incorrectAnswers = array.filter((elem) => elem.isCorrectlyAnswered === false).length;
+  
+  let correctAnswersPercent = (correctAnswers / array.length * 100).toFixed();
 
   let index: number = 0;
   let html = `
@@ -225,6 +243,11 @@ export async function renderSprintResults(array: SprintWord[]) {
     <div class="sprint-results">
       <div class="icon results-replay-btn replay-button" title="К выбору уровня"></div>
       <div class="title sprint-results-title">Твои результаты:</div>
+      <div class="results-wrapper">
+        <div class="results-summary results-summary-errors">Ошибок: <span class="sprint-results-span" id="sprint-errors">${incorrectAnswers}</span></div>
+        <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct">${correctAnswers}</span></div>
+        <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct-percentage">${correctAnswersPercent}%</span></div>
+      </div>
 
       <table class="table" id="sprint-results-table">
         <thead>
@@ -257,6 +280,10 @@ export async function renderSprintResults(array: SprintWord[]) {
     replay();
   })
 
+  // Add sound to words in the results table
+
+  playsound();
+
   // Send results to server statistics
 
   if (localStorage.getItem('id')) {
@@ -270,6 +297,7 @@ export async function renderSprintResults(array: SprintWord[]) {
 }
 
 export async function renderSprintRows(arrayOfResults: SprintWord[]) {
+
   let tableRowsHtml = '';
   const resultsBody = document.createElement('tbody');
   resultsBody.classList.add('results-rows');
@@ -285,9 +313,9 @@ export async function renderSprintRows(arrayOfResults: SprintWord[]) {
 
     tableRowsHtml +=
     `
-    <tr id="word-${index}">
+    <tr id="word-${word.id}">
       <td>${index + 1}</td>
-      <td class="sprint-sound-icon" src="${word.sound}"></td>
+      <td class="sprint-sound-icon player-icon play" id="sprintResult-${word.sound}"></td>
       <td>${word.word}</td>
       <td>${word.translation}</td>
       <td class="sprint-icon ${classForIcon}"></td>

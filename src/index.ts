@@ -65,7 +65,6 @@ export function listenForSprint() {
       } 
       if ((e.target as HTMLElement).id == 'sprint') {
         
-        console.log('sprint button in book is clicked');
         window.location.hash = '/sprint';
         if (localStorage.getItem('currentPage')) {
           let levelparsed = JSON.parse((localStorage.getItem('currentPage') as string)).split('-')[0];
