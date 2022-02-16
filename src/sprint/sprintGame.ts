@@ -230,12 +230,22 @@ function playsound() {
 
 export async function renderSprintResults(array: SprintWord[]) {
 
+  let correctAnswers = array.filter((elem) => elem.isCorrectlyAnswered === true).length;
+  let incorrectAnswers = array.filter((elem) => elem.isCorrectlyAnswered === false).length;
+  
+  let correctAnswersPercent = (correctAnswers / array.length * 100).toFixed();
+
   let index: number = 0;
   let html = `
     
     <div class="sprint-results">
       <div class="icon results-replay-btn replay-button" title="К выбору уровня"></div>
       <div class="title sprint-results-title">Твои результаты:</div>
+      <div class="results-wrapper">
+        <div class="results-summary results-summary-errors">Ошибок: <span class="sprint-results-span" id="sprint-errors">${incorrectAnswers}</span></div>
+        <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct">${correctAnswers}</span></div>
+        <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct-percentage">${correctAnswersPercent}%</span></div>
+      </div>
 
       <table class="table" id="sprint-results-table">
         <thead>
@@ -285,6 +295,7 @@ export async function renderSprintResults(array: SprintWord[]) {
 }
 
 export async function renderSprintRows(arrayOfResults: SprintWord[]) {
+
   let tableRowsHtml = '';
   const resultsBody = document.createElement('tbody');
   resultsBody.classList.add('results-rows');
