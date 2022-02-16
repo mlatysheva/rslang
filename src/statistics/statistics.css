@@ -114,3 +114,8 @@
 .statistics-icon {
   padding-top: 2rem;
 }
+.go-to-manual-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: max-content;
+}
