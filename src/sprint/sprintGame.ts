@@ -1,3 +1,4 @@
+import { sound } from "../game1/statistic";
 import { createUserWord, getWords, putUserStatistics } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { clearAllChildNodes } from "../js/router";
@@ -217,6 +218,16 @@ function refreshPoints(points:number) {
   (<HTMLElement>pointsDiv).innerText = points.toString();
 }
 
+function playsound() {
+  const resultsTable = <HTMLElement>document.querySelector('.sprint-results');
+  const tracks = resultsTable.querySelectorAll('.player-icon');
+  Array.from(tracks).forEach((element) => {
+    const elementId = element.id;
+    const src = elementId.split('-')[1];
+   (element as HTMLElement).addEventListener('click', sound(elementId, src));
+  })
+}
+
 export async function renderSprintResults(array: SprintWord[]) {
 
   let index: number = 0;
@@ -257,6 +268,10 @@ export async function renderSprintResults(array: SprintWord[]) {
     replay();
   })
 
+  // Add sound to words in the results table
+
+  playsound();
+
   // Send results to server statistics
 
   if (localStorage.getItem('id')) {
@@ -285,9 +300,9 @@ export async function renderSprintRows(arrayOfResults: SprintWord[]) {
 
     tableRowsHtml +=
     `
-    <tr id="word-${index}">
+    <tr id="word-${word.id}">
       <td>${index + 1}</td>
-      <td class="sprint-sound-icon" src="${word.sound}"></td>
+      <td class="sprint-sound-icon player-icon play" id="sprintResult-${word.sound}"></td>
       <td>${word.word}</td>
       <td>${word.translation}</td>
       <td class="sprint-icon ${classForIcon}"></td>
