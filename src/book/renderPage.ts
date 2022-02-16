@@ -15,7 +15,7 @@ export function createAside() {
   aside.classList.add('levels');
   aside.innerHTML = `
   <h2>Textbook</h2>
-  <button class="settings">${settings}</button>
+  <button class="settings" title="Настройки">${settings}</button>
   <div id="level0" class="level level1">Chapter 1</div>
   <div id="level1" class="level level2">Chapter 2</div>
   <div id="level2" class="level level3">Chapter 3</div>
@@ -66,6 +66,7 @@ export function createAside() {
   }
 
   const sprintButton = document.createElement('button');
+  sprintButton.setAttribute('title', 'Игра Спринт');
   sprintButton.classList.add('sprint-btn');
   sprintButton.classList.add('userSprint');
   sprintButton.setAttribute('id', 'sprint');
@@ -81,7 +82,7 @@ export function createAside() {
   /**/
   const callButton = document.createElement('div');
   callButton.classList.add('userAudioCall');
-  callButton.innerHTML = `<a href="#/audiocall-user/" data-href="#/audiocall-user/">${callIcon}</a>`;
+  callButton.innerHTML = `<a href="#/audiocall-user/" data-href="#/audiocall-user/" title="Игра Аудиовызов">${callIcon}</a>`;
   aside.appendChild(callButton);
 
   return aside;
