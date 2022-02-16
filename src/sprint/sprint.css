@@ -84,7 +84,6 @@
 }
 
 .sprint-game-screen {
-
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
@@ -287,7 +286,6 @@ table {
   background-image: url('../assets/images/Flat_cross_icon.svg');
 }
 
-
 .results-wrapper {
   width: 80%;
   margin: 1rem;
@@ -310,3 +308,6 @@ table {
   padding-left: 1rem;
 }
 
+.userSprint:hover {
+  box-shadow: 2px 5px 3px;
+}
