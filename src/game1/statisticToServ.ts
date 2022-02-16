@@ -1,17 +1,11 @@
-//lerned if true in game 2 times
-import { NUM_TRUE_UNSWERS_IN_GAME_TO_BE_LEARNED } from '../js/constants';
-import { renderLatestGameStatistics } from './statisticGame1';
+import { getLongestTrueQuestionsPerDay, getQuestionsPerDay, getTrueQuestionsPerDay } from './localStorageHelper';
 
-//TODO:изученные слова не задействуются в мини-играх, которые запускаются на страницах учебника, но задействуются в мини-играх, которые открываются по ссылке в меню
-//remember that you have 2 point of enter to the words
-//если при угадывании изученного слова в мини-игре пользователь ошибся, слово удаляется из категории изученных
+let unswersCorrect = getTrueQuestionsPerDay();
+let questions = getQuestionsPerDay();
+let newWordsPerDay = Math.ceil(Math.random() * 20); //TODO: не так должно быть
 
-let unswersCorrect = 12; //TODO: где-то взять
-let questions = 28; //TODO:
-
-let newWordsPerDay = 0; //No idea
 let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
-let longestTrueUnswersPerDay = 0;
+let longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
 
 export const arrAudiocall = [
   { newWords: `${newWordsPerDay}` },

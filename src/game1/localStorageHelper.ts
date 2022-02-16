@@ -8,6 +8,8 @@ const LEVEL_PAGE = 'currentPage';
 const QUESTIONS_PER_DAY = 'questionsPerDay';
 const TRUE_PER_DAY = 'trueUnswersPerDay';
 const LONGEST_PER_DAY = 'longestCorrectUnswersPerDay';
+const LONG_CURRENT = 'longCarrent';
+const LAST_PLAYED_DATE = 'lastPlayedDate';
 
 let isInit = false;
 
@@ -17,8 +19,32 @@ if (!isInit) {
   createQuestionsPerDay();
   createTrueQuestionsPerDay();
   createLongestTrueQuestionsPerDay();
+  createCurrentLongestTrueQuestionsPerDay();
+  createLastDay();
   isInit = true;
 }
+//Look the day
+function createLastDay(recreate = false): void {
+  const item = getLastDay();
+  if (recreate || !item) {
+    resetLastDay();
+  }
+}
+
+export function getLastDay(): string {
+  let item = window.localStorage.getItem(LAST_PLAYED_DATE);
+  if (!item) {
+    resetLastDay();
+    return new Date().toISOString().split('T')[0];
+  } else {
+    return item;
+  }
+}
+
+export function resetLastDay(): void {
+  window.localStorage.setItem(LAST_PLAYED_DATE, `${new Date().toISOString().split('T')[0]}`);
+}
+
 //make calqulator for questions all in game per day
 function createQuestionsPerDay(recreate = false): void {
   const item = getQuestionsPerDay();
@@ -80,6 +106,27 @@ export function getLongestTrueQuestionsPerDay(): number {
 
 export function setLongestTrueQuestionsPerDay(numberOfLongestTrueQuestions: number): void {
   window.localStorage.setItem(LONGEST_PER_DAY, `${numberOfLongestTrueQuestions}`);
+}
+
+//make LONGEST TRUE ANSWERS in game per day
+function createCurrentLongestTrueQuestionsPerDay(recreate = false): void {
+  const item = getCurrentLongestTrueQuestionsPerDay();
+  if (recreate || !item) {
+    setCurrentLongestTrueQuestionsPerDay(0);
+  }
+}
+
+export function getCurrentLongestTrueQuestionsPerDay(): number {
+  let item = window.localStorage.getItem(LONG_CURRENT);
+  if (!item) {
+    return 0;
+  } else {
+    return +item;
+  }
+}
+
+export function setCurrentLongestTrueQuestionsPerDay(numberOfCurrentLongestTrueQuestionsPerDay: number): void {
+  window.localStorage.setItem(LONG_CURRENT, `${numberOfCurrentLongestTrueQuestionsPerDay}`);
 }
 
 function createPlayedQuestion(recreate = IS_RECREATE_DEFAULT): void {
