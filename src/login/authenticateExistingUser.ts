@@ -49,12 +49,16 @@ export function authenticateUser() {
     if (!eField.classList.contains('error') && !pField.classList.contains('error')) {
       const user = { email: eInput.value, password: pInput.value };
       const loginDetails = await loginUser(user);
-      setItemToLocalStorage('id', loginDetails.userId);
-      setItemToLocalStorage('token', loginDetails.token);
-      setItemToLocalStorage('email', eInput.value);
-      console.log(`user token is ${loginDetails.token}`);
-      window.location.hash = '/';
-      renderUserName();
+      if (loginDetails) {
+        setItemToLocalStorage('id', loginDetails.userId);
+        setItemToLocalStorage('token', loginDetails.token);
+        setItemToLocalStorage('email', eInput.value);
+        console.log(`user token is ${loginDetails.token}`);
+        window.location.hash = '/';
+        renderUserName();
+      } else {
+        console.log('Such user does not exist. Please sign up.')
+      }
     }
     window.location.reload();
   };
