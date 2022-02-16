@@ -1,14 +1,14 @@
 import { getUserStatistics } from '../js/api';
 import { learnedWords } from '../book/learnedWords';
 
-export let sprintLearnedWords: string[];
+export let sprintNewWords: string[];
 
 export function updateStatistics() {
-  if (JSON.parse(localStorage.getItem('sprintLearnedWords') as string)) {
-    sprintLearnedWords = JSON.parse(localStorage.getItem('sprintLearnedWords') as string);
+  if (JSON.parse(localStorage.getItem('sprintNewWords') as string)) {
+    sprintNewWords = JSON.parse(localStorage.getItem('sprintNewWords') as string);
   } else {
-    sprintLearnedWords = [];
-    localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
+    sprintNewWords = [];
+    localStorage.setItem('sprintNewWords', JSON.stringify(sprintNewWords));
   }
 }
 

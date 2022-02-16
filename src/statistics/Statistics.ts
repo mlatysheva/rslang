@@ -1,7 +1,8 @@
-import { getUserStatistics } from '../js/api';
+import { getUserStatistics, getUserWordsAll } from '../js/api';
 import { AbstractView } from '../js/views/AbstractView';
-import { sprintLearnedWords } from './globalStorage';
+import { sprintNewWords } from './globalStorage';
 import { numberDayLearnedWords, percentLearnedWords} from '../book/learnedWords';
+import { getItemFromLocalStorage } from '../js/localStorage';
 
 
 
@@ -28,27 +29,32 @@ export class Statistics extends AbstractView {
 
     `;
 
+    const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
+    userWords.forEach((userWord) => {
+      console.log(userWord);
+    })
+
     const data = await getUserStatistics();
     if (data) {
       console.log(`data is ${data.status}`);
       if (data.status === 200) {
         const content = await data.json();
-        const totalWords = content.learnedWords;
+        const totalLearnedWords = content.learnedWords;
 
         let sprintWordsToday: number;
-        if (sprintLearnedWords) {
-          sprintWordsToday = sprintLearnedWords.length;
+        if (sprintNewWords) {
+          sprintWordsToday = sprintNewWords.length;
         } else {
           sprintWordsToday = 0;
         }
 
-        let today = new Date();
+        let today = new Date().toLocaleDateString();
 
         html += `
         
         <div class="statistics-wrapper registered-statistics">
         <div class="statistics-mission-text statistics-text">
-          Твоя статистика обучения в <span class="statistics-bold">MGIMO FINISHED</span> за сегодня:
+          Твоя статистика обучения в <span class="statistics-bold">MGIMO FINISHED</span> за <span class="statistics-bold">${today}</span>:
         </div>
         <div class="statistics-cards-container">
           <div class="statistics-card-wrapper">
