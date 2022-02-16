@@ -1,9 +1,8 @@
 import { getUserStatistics } from '../js/api';
 import { AbstractView } from '../js/views/AbstractView';
 import { sprintLearnedWords } from './globalStorage';
-import { numberDayLearnedWords, percentLearnedWords} from '../book/learnedWords';
-
-
+import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords';
+import { sprintIcon, callIcon } from '../book/svg';
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -11,7 +10,7 @@ export class Statistics extends AbstractView {
     // this.setTitle('Statistics');
   }
 
-  async getHtml():Promise<HTMLElement> {
+  async getHtml(): Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
     const footer = <HTMLElement>document.querySelector('.footer');
@@ -52,7 +51,7 @@ export class Statistics extends AbstractView {
         </div>
         <div class="statistics-cards-container">
           <div class="statistics-card-wrapper">
-            <div class="statistics-icon audiocall-icon">
+            <div class="statistics-icon">${callIcon}
             </div>
             <div class="statistics-title">
                 Аудиовызов
@@ -151,3 +150,6 @@ export class Statistics extends AbstractView {
   }
 }
 export default Statistics;
+
+/*<div class="statistics-icon audiocall-icon">
+</div>*/
