@@ -1,8 +1,9 @@
-import { listenForSprint } from "..";
-import { createUserWord, getUserWord, getWords, updateUserWord } from "../js/api";
+import { sound } from "../game1/statistic";
+import { createUserWord, getWords, putUserStatistics } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { clearAllChildNodes } from "../js/router";
 import { SprintWord, UserWordParameters, Word } from "../js/types";
+import { sprintLearnedWords } from "../statistics/globalStorage";
 import { countdown } from "./countDown";
 import { Sprint } from "./Sprint";
 
@@ -69,7 +70,7 @@ export async function startSprintRound(level: number) {
 
     <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
 
-    <div class="button sprint-start-button">Начать</div>
+    <button class="button sprint-start-button">Начать</button>
 
     <div class="timer-wrapper">
       <div class="clock-image"></div>
@@ -112,8 +113,10 @@ export async function startSprintGame(level: number) {
 
   await startSprintRound(level);
 
-  const sprintStartBtn = document.querySelector('.sprint-start-button');
-  sprintStartBtn?.addEventListener('click', () => {
+  const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+  (<HTMLButtonElement>sprintStartBtn).addEventListener('click', () => {
+
+    sprintStartBtn.disabled = true;
 
     const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
     const translation = <HTMLElement>document.getElementById('sprint-translation');
@@ -143,24 +146,35 @@ export async function startSprintGame(level: number) {
     (<HTMLElement>controls).addEventListener("click", async (event) => {
 
       const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
-      const translation = <HTMLElement>document.getElementById('sprint-translation');   
+      const translation = <HTMLElement>document.getElementById('sprint-translation');  
+      const userId = JSON.parse(localStorage.getItem('id') as string);
+      const wordId = words[index].id;
           
       if ((((<HTMLElement>event.target).id === 'sprint-correct-btn') && ((<HTMLElement>translation).innerText === correctAnswer)) ||  (((<HTMLElement>event.target).id != 'sprint-correct-btn') && ((<HTMLElement>translation).innerText != correctAnswer)))  {
         points++;
         refreshPoints(points);
-        results.push({id: words[index].id, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
-        console.log(`user id is ${JSON.parse(localStorage.getItem('id') as string)}`);
-        console.log(`word id is ${words[index].id}`);
+        results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
+        // let userId = JSON.parse(localStorage.getItem('id') as string);
+        // let wordId = words[index].id;
         const body: UserWordParameters = {
           difficulty: 'learned-word',
           optional: { testFieldString: 'test', testFieldBoolean: true },
         };
-        
-        const sendWordToServer = await createUserWord(JSON.parse(localStorage.getItem('id') as string), words[index].id, body);
-        // const serverUserWord = await getUserWord(JSON.parse(localStorage.getItem('id') as string), words[index].id)
-        console.log(`serverUserWords status is ${sendWordToServer}`);
+        const sendWordToServer = await createUserWord(userId, wordId, body);
+
+        // add new word to global sprintLearnedWords array and to LS
+        sprintLearnedWords.push(wordId);
+        localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
       } else {
-        results.push({id: words[index].id, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: false});
+        results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: false});
+        // remove learned word from learnedWords array and from LS
+        if (sprintLearnedWords.includes(wordId))  {
+          const index = sprintLearnedWords.indexOf(wordId);
+          if (index > -1) {
+            sprintLearnedWords.splice(index, 1);
+            localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
+          }
+        }
       }
 
       index++;
@@ -206,7 +220,22 @@ function refreshPoints(points:number) {
   (<HTMLElement>pointsDiv).innerText = points.toString();
 }
 
+function playsound() {
+  const resultsTable = <HTMLElement>document.querySelector('.sprint-results');
+  const tracks = resultsTable.querySelectorAll('.player-icon');
+  Array.from(tracks).forEach((element) => {
+    const elementId = element.id;
+    const src = elementId.split('-')[1];
+   (element as HTMLElement).addEventListener('click', sound(elementId, src));
+  })
+}
+
 export async function renderSprintResults(array: SprintWord[]) {
+
+  let correctAnswers = array.filter((elem) => elem.isCorrectlyAnswered === true).length;
+  let incorrectAnswers = array.filter((elem) => elem.isCorrectlyAnswered === false).length;
+  
+  let correctAnswersPercent = (correctAnswers / array.length * 100).toFixed();
 
   let index: number = 0;
   let html = `
@@ -214,6 +243,11 @@ export async function renderSprintResults(array: SprintWord[]) {
     <div class="sprint-results">
       <div class="icon results-replay-btn replay-button" title="К выбору уровня"></div>
       <div class="title sprint-results-title">Твои результаты:</div>
+      <div class="results-wrapper">
+        <div class="results-summary results-summary-errors">Ошибок: <span class="sprint-results-span" id="sprint-errors">${incorrectAnswers}</span></div>
+        <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct">${correctAnswers}</span></div>
+        <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct-percentage">${correctAnswersPercent}%</span></div>
+      </div>
 
       <table class="table" id="sprint-results-table">
         <thead>
@@ -245,9 +279,25 @@ export async function renderSprintResults(array: SprintWord[]) {
        
     replay();
   })
+
+  // Add sound to words in the results table
+
+  playsound();
+
+  // Send results to server statistics
+
+  if (localStorage.getItem('id')) {
+
+    let body = {
+      "learnedWords": sprintLearnedWords.length,
+      "optional": {}
+    }
+    await putUserStatistics(body);
+  }
 }
 
 export async function renderSprintRows(arrayOfResults: SprintWord[]) {
+
   let tableRowsHtml = '';
   const resultsBody = document.createElement('tbody');
   resultsBody.classList.add('results-rows');
@@ -263,9 +313,9 @@ export async function renderSprintRows(arrayOfResults: SprintWord[]) {
 
     tableRowsHtml +=
     `
-    <tr id="word-${index}">
+    <tr id="word-${word.id}">
       <td>${index + 1}</td>
-      <td class="sprint-sound-icon" src="${word.sound}"></td>
+      <td class="sprint-sound-icon player-icon play" id="sprintResult-${word.sound}"></td>
       <td>${word.word}</td>
       <td>${word.translation}</td>
       <td class="sprint-icon ${classForIcon}"></td>

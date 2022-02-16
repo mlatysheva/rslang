@@ -106,7 +106,7 @@ h4 {
 
 a {
   text-decoration: none !important;
-  color: beige !important;
+  color: beige;
   display: block;
 }
 a:hover {
@@ -611,6 +611,12 @@ a:hover {
   } */
   .nav-link {
     padding-left: 0;
+  }
+  .nav-link:hover {
+    color: var(--june);
+  }
+  .nav-link:focus {
+    color: var(--amaranth);
   }
   .login-link {
     margin-left: 0;
