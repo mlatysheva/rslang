@@ -4,7 +4,17 @@ import { sprintNewWords } from './globalStorage';
 import { getItemFromLocalStorage } from '../js/localStorage';
 import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords';
 import { sprintIcon, callIcon } from '../book/svg';
-import { arrAudiocall } from '../game1/statisticToServ';
+import {
+  getLastDay,
+  getLongestTrueQuestionsPerDay,
+  getQuestionsPerDay,
+  getTrueQuestionsPerDay,
+  resetLastDay,
+  setCurrentLongestTrueQuestionsPerDay,
+  setLongestTrueQuestionsPerDay,
+  setQuestionsPerDay,
+  setTrueQuestionsPerDay,
+} from '../game1/localStorageHelper';
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -70,6 +80,26 @@ export class Statistics extends AbstractView {
         ).toFixed();
 
         let today = new Date().toLocaleDateString();
+
+        if (getLastDay() !== new Date().toISOString().split('T')[0]) {
+          setQuestionsPerDay(0);
+          setTrueQuestionsPerDay(0);
+          setLongestTrueQuestionsPerDay(0);
+          setCurrentLongestTrueQuestionsPerDay(0);
+          resetLastDay();
+        }
+
+        let unswersCorrect = getTrueQuestionsPerDay();
+        let questions = getQuestionsPerDay();
+        let newWordsPerDay = Math.ceil(Math.random() * 20); //TODO: не так должно быть
+
+        let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
+        let longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
+        const arrAudiocall = [
+          { newWords: `${newWordsPerDay}` },
+          { precentCorrectAnswers: `${precentCorrectAnswersPerDay}` },
+          { longestTrueUnswers: `${longestTrueUnswersPerDay}` },
+        ];
 
         html += `
         
