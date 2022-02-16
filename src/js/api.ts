@@ -67,32 +67,52 @@ export async function getUser(): Promise<UserWithName> {
   return user;
 }
 
+
 export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
-  const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
-    method: 'POST',
-    // withCredentials: true,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
-  const content = await rawResponse.json().catch(async (error) => {
-    if (error) {
-      console.log('such user word already exists');
-      const response = await getUserWord(userId, wordId);
-      const existingDifficulty = response.difficulty;
-      const newBody = {
-        difficulty: existingDifficulty,
-        optional: {newWord: true}
-      }
-      await updateUserWord (userId, wordId, newBody);
-    }
-    throw error;
-  });
-  return content;
-};
+  try { 
+    const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
+      method: 'POST',
+      // withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const content = await rawResponse.json();
+    return content;
+  } catch { async (error: any) => {
+        if (error) {
+          console.log('such user word already exists');
+          const response = await getUserWord(userId, wordId);
+          // const existingDifficulty = response.difficulty;
+          const newBody = {
+            difficulty: 'learned-word',
+            optional: { newWord: false, correctlyAnswered: 1, incorrectlyAnswered: 0 }
+          }
+          await updateUserWord (userId, wordId, newBody);
+        }
+        throw error;
+      };
+  };
+}
+
+//   .catch(async (error) => {
+//     if (error) {
+//       console.log('such user word already exists');
+//       const response = await getUserWord(userId, wordId);
+//       // const existingDifficulty = response.difficulty;
+//       const newBody = {
+//         difficulty: 'learned-word',
+//         optional: { newWord: false, correctlyAnswered: 1, incorrectlyAnswered: 0 }
+//       }
+//       await updateUserWord (userId, wordId, newBody);
+//     }
+//     throw error;
+//   });
+//   return content;
+// };
 
 export const updateUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
@@ -106,12 +126,6 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
     body: JSON.stringify(body),
   });
   const response = await rawResponse;
-  const content = response.json()
-  .catch((error) => {
-    if (error) {
-      throw error;
-    }
-  });
   if (response.status === 200) {
     console.log('User word was successfully updated');
   } else if (response.status === 401) {
@@ -120,7 +134,13 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
     console.log('Such user word does not exist. Adding new user word');
     await createUserWord(userId, wordId, body);
   }
-  return response.status;
+  // return response.status;
+  return response.json()
+  .catch((error) => {
+    if (error) {
+      throw error;
+    }
+  });
 };
 
 export const deleteUserWord = async (userId: string, wordId: string) => {
@@ -136,19 +156,44 @@ export const deleteUserWord = async (userId: string, wordId: string) => {
 };
 
 export const getUserWord = async (userId: string, wordId: string) => {
-  const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
-    method: 'GET',
-    // withCredentials: true,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  });
-  const content = await rawResponse.json();
+  try {
+    const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
+      method: 'GET',
+      // withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    });
+    const response = await rawResponse;
+    const content = await response.json(); 
+    console.log(`rawresponse is ${rawResponse}`);
+    
+    if (response.status === 200) {
+      console.log('User word exists');
+    } else if (response.status === 401) {
+      console.log('User needs to login again');
+    } else if (response.status === 404) {
+      console.log('Such user word does not exist. Adding new user word');
+      const body = {
+        difficulty: 'normal',
+        optional: {},
+      }
+      await createUserWord(userId, wordId, body);
+    }
 
-  console.log(content);
-  return content.body;
+    console.log(content);
+    return content.body; 
+  } catch(err) {
+    const body = {
+      difficulty: 'normal',
+      optional: {},
+    }
+    await createUserWord(userId, wordId, body);
+    console.log(`creating new user word`);
+  }
 };
+
 
 export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
   const rawResponse = await fetch(`${users}/${userId}/words`, {
