@@ -3,6 +3,7 @@ import { AbstractView } from '../js/views/AbstractView';
 import { sprintLearnedWords } from './globalStorage';
 import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords';
 import { sprintIcon, callIcon } from '../book/svg';
+import { arrAudiocall } from '../game1/statisticToServ';
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -58,9 +59,15 @@ export class Statistics extends AbstractView {
             </div>
             <div class="statistics-text home-text">
               
-              <p>Новых слов: <span class="statistics-indicator audiocall-new-words">0</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator audiocall-correct-answers">0</span> </p>
-              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">0</span></p>
+              <p>Новых слов: <span class="statistics-indicator audiocall-new-words">${
+                arrAudiocall[0]['newWords']
+              }</span></p>
+              <p>Правильных ответов, %: <span class="statistics-indicator audiocall-correct-answers">${
+                arrAudiocall[1]['precentCorrectAnswers']
+              }</span> </p>
+              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
+                arrAudiocall[2]['logestTrueUnswers']
+              }</span></p>
             </div>          
           </div>  
           
