@@ -6,7 +6,6 @@ import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords
 import { sprintIcon, callIcon } from '../book/svg';
 import { arrAudiocall } from '../game1/statisticToServ';
 
-
 export class Statistics extends AbstractView {
   constructor() {
     super();
@@ -30,7 +29,11 @@ export class Statistics extends AbstractView {
 
     `;
 
-    
+    const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
+    userWords.forEach((userWord) => {
+      console.log(userWord);
+    });
+
     const data = await getUserStatistics();
     if (data) {
       console.log(`data is ${data.status}`);
@@ -45,7 +48,6 @@ export class Statistics extends AbstractView {
         //   sprintWordsToday = 0;
         // }
 
-
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
         let newWords = 0;
         let correctlyAnswered = 0;
@@ -53,17 +55,19 @@ export class Statistics extends AbstractView {
         userWords.forEach((userWord) => {
           if (userWord.optional?.newWord) {
             newWords++;
-          };
+          }
           if (userWord.optional?.correctlyAnswered) {
             correctlyAnswered += userWord.optional?.correctlyAnswered;
           }
           if (userWord.optional?.incorrectlyAnswered) {
             incorrectlyAnswered += userWord.optional?.incorrectlyAnswered;
           }
-        })
+        });
 
-        let correctlyAnsweredPercent = ((correctlyAnswered / (correctlyAnswered + incorrectlyAnswered) ) * 100 ).toFixed();
-
+        let correctlyAnsweredPercent = (
+          (correctlyAnswered / (correctlyAnswered + incorrectlyAnswered)) *
+          100
+        ).toFixed();
 
         let today = new Date().toLocaleDateString();
 
@@ -89,7 +93,7 @@ export class Statistics extends AbstractView {
                 arrAudiocall[1]['precentCorrectAnswers']
               }</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
-                arrAudiocall[2]['logestTrueUnswers']
+                arrAudiocall[2]['longestTrueUnswers']
               }</span></p>
             </div>          
           </div>  
