@@ -291,7 +291,7 @@ a:hover {
 
 .footer {
   width: 100%;
-  height: 120px;
+  height: 100px;
   margin-top: auto;
   background: var(--gradient-top-left);
   backdrop-filter: blur(5px);
