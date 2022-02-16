@@ -3,7 +3,7 @@ import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/con
 import { renderWord } from '../card/renderOne';
 import { addPlayedQuestion, getPlayedQuestions } from './localStorageHelper';
 import { Question1 } from './data/Question1';
-import { renderLatestGameStatistics } from './statistic';
+import { renderLatestGameStatistics } from './statisticGame1';
 export class QuestionRenderer {
   data: Word;
   question: Question1;
