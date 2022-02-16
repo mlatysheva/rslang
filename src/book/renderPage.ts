@@ -67,6 +67,7 @@ export function createAside() {
 
   const sprintButton = document.createElement('button');
   sprintButton.classList.add('sprint-btn');
+  sprintButton.classList.add('userSprint');
   sprintButton.setAttribute('id', 'sprint');
   sprintButton.innerHTML = `${sprintIcon}`;
   aside.appendChild(sprintButton);

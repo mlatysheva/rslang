@@ -51,7 +51,6 @@
   transform: scale(1);
   box-shadow: 0 0 5px 5px rgba(34, 60, 80, 0.2);
   transition: box-shadow 0.5s, transform 0.5s;
-
 }
 .sprint-level:hover {
   transform: scale(1.4);
@@ -85,8 +84,7 @@
 }
 
 .sprint-game-screen {
-  height: 100%;
-  display:flex;
+
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
@@ -110,7 +108,6 @@
   font-size: 32px;
   margin-top: 1rem;
 }
-
 
 .replay-button {
   width: 3rem;
@@ -144,10 +141,12 @@
 }
 @keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #07ee8e, 0 0 40px #07ee8e, 0 0 50px #07ee8e, 0 0 60px #07ee8e, 0 0 70px #07ee8e;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #07ee8e, 0 0 40px #07ee8e, 0 0 50px #07ee8e, 0 0 60px #07ee8e,
+      0 0 70px #07ee8e;
   }
   to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #173d2d, 0 0 40px #173d2d, 0 0 50px #173d2d, 0 0 60px #173d2d, 0 0 70px #173d2d, 0 0 80px #173d2d;
+    text-shadow: 0 0 20px #fff, 0 0 30px #173d2d, 0 0 40px #173d2d, 0 0 50px #173d2d, 0 0 60px #173d2d, 0 0 70px #173d2d,
+      0 0 80px #173d2d;
   }
 }
 
@@ -172,7 +171,7 @@
 
 .sprint-word {
   display: inline-block;
-  width:max-content;
+  width: max-content;
   min-width: 200px;
   height: 4rem;
   margin: 1rem;
@@ -194,7 +193,7 @@
   justify-content: center;
 }
 
-.sprint-answer-button {  
+.sprint-answer-button {
   width: 12rem;
   height: 4rem;
   font-size: x-large;
@@ -243,7 +242,7 @@
   background-position: center center;
 }
 
-.sprint-results-title {  
+.sprint-results-title {
   text-transform: uppercase;
   font-size: 40px;
   letter-spacing: 3px;
@@ -258,7 +257,8 @@ table {
   border-collapse: separate;
   border-spacing: 10px;
 }
-.sprint-results td, .sprint-results th {
+.sprint-results td,
+.sprint-results th {
   margin: 0.5rem;
 }
 
@@ -280,12 +280,13 @@ table {
   filter: invert(11%) sepia(54%) saturate(4173%) hue-rotate(312deg) brightness(83%) contrast(97%);
 }
 
-.sprint-result-correct {  
+.sprint-result-correct {
   background-image: url('../assets/images/Flat_tick_icon.svg');
 }
-.sprint-result-incorrect {  
+.sprint-result-incorrect {
   background-image: url('../assets/images/Flat_cross_icon.svg');
 }
+
 
 .results-wrapper {
   width: 80%;
@@ -308,3 +309,4 @@ table {
   font-weight: 700;
   padding-left: 1rem;
 }
+
