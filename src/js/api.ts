@@ -1,6 +1,6 @@
 import { getItemFromLocalStorage } from './localStorage';
 import {
-  ExistingUserLoginDetails, NewUserDetails, User, UserStatistics, UserWithName, UserWord,
+  NewUserDetails, User, UserStatistics, UserWithName, UserWord,
   Word, UserWordParameters,
 } from './types';
 
@@ -10,7 +10,6 @@ const words = `${base}/words`;
 const users = `${base}/users`;
 const signin = `${base}/signin`;
 const token = getItemFromLocalStorage('token');
-// const numberDiffiicultWords = ;
 
 export async function getWords(group: number, page: number): Promise<Word[]> {
   const response = (await fetch(`${words}?group=${group}&page=${page}`));
@@ -44,19 +43,24 @@ export const createUser = async (user: User): Promise<NewUserDetails> => {
   return content;
 };
 
-export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> => {
-  const rawResponse = await fetch(signin, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user),
-  });
-  const content = await rawResponse.json();
-  console.log(`in login user id is ${content.id}`);
+export const loginUser = async (user: User) => {
+  try {
+    const rawResponse = await fetch(signin, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    const content = await rawResponse.json();
+    console.log(`in login user id is ${content.id}`);
 
-  return content;
+    return content;
+  } catch (error) {
+    console.log(`Error ${error}: Such user does not exist. Please sign up.`);
+    return error;
+  }
 };
 
 export async function getUser(): Promise<UserWithName> {
@@ -86,9 +90,9 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
         if (error) {
           console.log('such user word already exists');
           const response = await getUserWord(userId, wordId);
-          // const existingDifficulty = response.difficulty;
+          const existingDifficulty = response.difficulty;
           const newBody = {
-            difficulty: 'learned-word',
+            difficulty: existingDifficulty,
             optional: { newWord: false, correctlyAnswered: 1, incorrectlyAnswered: 0 }
           }
           await updateUserWord (userId, wordId, newBody);
@@ -97,22 +101,6 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
       };
   };
 }
-
-//   .catch(async (error) => {
-//     if (error) {
-//       console.log('such user word already exists');
-//       const response = await getUserWord(userId, wordId);
-//       // const existingDifficulty = response.difficulty;
-//       const newBody = {
-//         difficulty: 'learned-word',
-//         optional: { newWord: false, correctlyAnswered: 1, incorrectlyAnswered: 0 }
-//       }
-//       await updateUserWord (userId, wordId, newBody);
-//     }
-//     throw error;
-//   });
-//   return content;
-// };
 
 export const updateUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
@@ -134,7 +122,6 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
     console.log('Such user word does not exist. Adding new user word');
     await createUserWord(userId, wordId, body);
   }
-  // return response.status;
   return response.json()
   .catch((error) => {
     if (error) {
@@ -167,30 +154,19 @@ export const getUserWord = async (userId: string, wordId: string) => {
     });
     const response = await rawResponse;
     const content = await response.json(); 
-    console.log(`rawresponse is ${rawResponse}`);
     
     if (response.status === 200) {
       console.log('User word exists');
-    } else if (response.status === 401) {
-      console.log('User needs to login again');
-    } else if (response.status === 404) {
-      console.log('Such user word does not exist. Adding new user word');
-      const body = {
-        difficulty: 'normal',
-        optional: {},
-      }
-      await createUserWord(userId, wordId, body);
-    }
-
-    console.log(content);
+    } 
     return content.body; 
   } catch(err) {
+    console.log(`Сreating new user word`);
     const body = {
       difficulty: 'normal',
-      optional: {},
+      optional: { newWord: true, correctlyAnswered: 1, incorrectlyAnswered: 0},
     }
     await createUserWord(userId, wordId, body);
-    console.log(`creating new user word`);
+    
   }
 };
 
