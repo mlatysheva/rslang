@@ -1,5 +1,5 @@
 import { sound } from "../game1/statisticGame1";
-import { createUserWord, getWords, putUserStatistics } from "../js/api";
+import { createUserWord, getUserDifficultWords, getWords, putUserStatistics } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { getItemFromLocalStorage } from "../js/localStorage";
 import { clearAllChildNodes } from "../js/router";
@@ -17,7 +17,9 @@ import { Sprint } from "./Sprint";
 async function getArrayOfWords(level: number) {
   let page = getRandomNumber(PAGES_PER_GROUP);
   let additionalwords: Word[] = [];
-  let items = await getWords(level, page);
+  let items;
+  items = await getWords(level, page);
+
 
   if (page > 1) {
     additionalwords = await getWords(level, page - 1);
@@ -102,6 +104,9 @@ export async function startSprintRound(level: number) {
 // main function for sprint game
 
 export async function startSprintGame(level: number) {
+  if (level == 7) {
+    level = 6;
+  }
   let points: number = 0;
   let index: number = 0;
   let words = await getArrayOfWords(level);
