@@ -81,8 +81,13 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
   const content = await rawResponse.json().catch(async (error) => {
     if (error) {
       console.log('such user word already exists');
-      await updateUserWord (userId, wordId, body);
-      // throw error;
+      const response = await getUserWord(userId, wordId);
+      const existingDifficulty = response.difficulty;
+      const newBody = {
+        difficulty: existingDifficulty,
+        optional: {newWord: true}
+      }
+      await updateUserWord (userId, wordId, newBody);
     }
   });
   return content;
@@ -114,8 +119,6 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
     console.log('Such user word does not exist. Adding new user word');
     await createUserWord(userId, wordId, body);
   }
-
-  console.log(`status in updateUserWord is ${response.status}`);
   return response.status;
 };
 

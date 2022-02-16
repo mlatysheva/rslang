@@ -157,10 +157,11 @@ export async function startSprintGame(level: number) {
         // let userId = JSON.parse(localStorage.getItem('id') as string);
         // let wordId = words[index].id;
         const body: UserWordParameters = {
-          difficulty: 'learned-word',
-          optional: { testFieldString: 'test', testFieldBoolean: true },
+          difficulty: '',
+          optional: { newWord: true },
         };
         const sendWordToServer = await createUserWord(userId, wordId, body);
+        console.log(`sendWordtoServer is ${sendWordToServer}`);
 
         // add new word to global sprintLearnedWords array and to LS
         sprintLearnedWords.push(wordId);

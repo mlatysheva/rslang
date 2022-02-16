@@ -23,7 +23,7 @@ export interface Word {
 }
 export interface UserWordParameters {
   difficulty: string,
-  optional: {testFieldString: 'test', testFieldBoolean: true}
+  optional: { newWord: boolean }
 }
 export interface UserWord {
   userId: string,

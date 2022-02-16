@@ -116,7 +116,7 @@ export class Statistics extends AbstractView {
         html += `
           <div class="statistics-wrapper registered-statistics">
             <div class="large-text">
-              Истек срок действия токена. Войди в систему заново.
+              Статистика доступна только для зарегистрированных пользователей.
             </div>
             <a href="#/login/" id="login-btn" class="button statistic-button login-btn" data-href="#/login/">Жми сюда</a>
           </div>
@@ -135,10 +135,10 @@ export class Statistics extends AbstractView {
         html += `
           <div class="statistics-wrapper unregistered-statistics">
             <div class="large-text not-available">
-              Статистика доступна только для зарегистрированных пользователей
+              Истек срок действия токена.
             </div>
             <div class="large-text">
-              Решил зарегистрироваться?
+              Войди в систему заново.
             </div>
             <a href="#/signup/" id="signup-btn" class="button statistic-button signup-btn" data-href="#/signup/">Жми сюда</a>
           </div>
