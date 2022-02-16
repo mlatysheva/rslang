@@ -23,21 +23,21 @@ export interface Word {
 }
 export interface UserWordParameters {
   difficulty: string,
-  optional: { newWord: boolean }
+  optional?: WordOptional,
 }
 export interface UserWord {
   userId: string,
   wordId: string,
   word: UserWordParameters,
   difficulty?: string,
-  optional?: {testFieldString: 'test', testFieldBoolean: true},
+  optional?: WordOptional,
   paginatedResults?: Array<Word>, totalCount:Array<number>,
 
 }
-
-export interface TestFieldParameters {
-  testFieldString: string,
-  testFieldBoolean: boolean
+export interface WordOptional {
+  newWord?: boolean | undefined,
+  correctlyAnswered?: number | undefined,
+  incorrectlyAnswered?: number | undefined,
 }
 
 export interface User {
@@ -62,8 +62,8 @@ export interface ExistingUserLoginDetails {
 }
 
 export interface UserStatistics {
-  'learnedWords': number,
-  'optional': {}
+  learnedWords: number,
+  optional: {},
 }
 export interface SprintWord {
   id: string,
