@@ -1,10 +1,16 @@
-import { UserWordParameters } from '../js/types';
-import { setItemToLocalStorage } from '../js/localStorage';
+import { UserWordParameters, UserStatistics } from '../js/types';
+import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
 import { removeDifficultWord } from './difficultPage';
-import { createUserWord } from '../js/api';
+import { createUserWord, putUserStatistics, getUserLearnedWords } from '../js/api';
 import { myId } from '../card/cardElement';
 
 export const learnedWords: Array<string> = [];
+
+export const learnedDayWords: Array<string> = [];
+
+// if (JSON.parse(localStorage.getItem('learnedWords') as string)) {
+//   learnedDayWords = JSON.parse(localStorage.getItem('learnedWords') as string);
+// }
 
 export function learnedWord() {
   document.body.addEventListener('click', async (e):Promise< void> => {
@@ -12,7 +18,6 @@ export function learnedWord() {
       if ((<HTMLButtonElement>e.target).classList.contains('delete')) {
         const wordId = (<HTMLButtonElement>e.target).id.split('delete')[1];
         const word = document.getElementById(`${wordId}`);
-        console.log(wordId, word);
         if (word) word.classList.add('opacity');
         (<HTMLButtonElement>e.target).disabled = true;
         (<HTMLButtonElement>e.target).classList.add('opacity');
@@ -24,8 +29,36 @@ export function learnedWord() {
         };
         removeDifficultWord();
         await createUserWord(myId, wordId, body);
+        const dataForStatistic = {
+          learnedWords: learnedWords.length,
+          optional: {},
+        };
+        await putUserStatistics(dataForStatistic);
       }
     }
   });
 }
-export default learnedWord;
+
+export const numberDayLearnedWords = () => {
+  if (getItemFromLocalStorage('learnedWords')) {
+    const number = getItemFromLocalStorage('learnedWords').split(',').length;
+    return number;
+  }
+  return 0;
+};
+export async function getData() {
+  const data = await getUserLearnedWords(myId).then((d) => {
+    const count = d[0].totalCount[0];
+    const numberWords = Object.values(Object.values(count))[0];
+    return numberWords;
+  });
+}
+
+export const percentLearnedWords = () => {
+  const numberLearnedWords = numberDayLearnedWords();
+  const allWords = 4000;
+  const percent = (numberLearnedWords / allWords) * 100;
+  return percent;
+};
+
+export default { learnedWord, getData, percentLearnedWords };
