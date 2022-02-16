@@ -5,21 +5,81 @@ const PLAYED_QUESTIONS = 'playedQuestions';
 const PLAYED_ROUNDS = 'playedRounds';
 const IS_RECREATE_DEFAULT = true;
 const LEVEL_PAGE = 'currentPage';
-const QUESTIONS_PER_DEY = 'questionsPerDay';
-const TRUE_PER_DAY = 'truePerDay';
+const QUESTIONS_PER_DAY = 'questionsPerDay';
+const TRUE_PER_DAY = 'trueUnswersPerDay';
+const LONGEST_PER_DAY = 'longestCorrectUnswersPerDay';
 
-let questionsPerDay = 0;
-let truePerDay = 0; //this.question.isAnsweredCorrectly = unswer === this.question.correctAnswer; +1
-//если играл значит +1 и обнулять ежедневно?
-
-//isAnsweredCorrectly: false - 0, если правда - то +1, после  неправды - число в счетчик и потом еще в псевдомассив и потом максимум
-//
 let isInit = false;
 
 if (!isInit) {
   createPlayedQuestion();
   createPlayedRounds();
+  createQuestionsPerDay();
+  createTrueQuestionsPerDay();
+  createLongestTrueQuestionsPerDay();
   isInit = true;
+}
+//make calqulator for questions all in game per day
+function createQuestionsPerDay(recreate = false): void {
+  const item = getQuestionsPerDay();
+  if (recreate || !item) {
+    setQuestionsPerDay(0);
+  }
+}
+
+export function getQuestionsPerDay(): number {
+  let item = window.localStorage.getItem(QUESTIONS_PER_DAY);
+  if (!item) {
+    return 0;
+  } else {
+    return +item;
+  }
+}
+
+export function setQuestionsPerDay(numberOfQuestions: number): void {
+  window.localStorage.setItem(QUESTIONS_PER_DAY, `${numberOfQuestions}`);
+}
+
+//make calqulator for questions TRUE in game per day
+function createTrueQuestionsPerDay(recreate = false): void {
+  const item = getTrueQuestionsPerDay();
+  if (recreate || !item) {
+    setTrueQuestionsPerDay(0);
+  }
+}
+
+export function getTrueQuestionsPerDay(): number {
+  let item = window.localStorage.getItem(TRUE_PER_DAY);
+  if (!item) {
+    return 0;
+  } else {
+    return +item;
+  }
+}
+
+export function setTrueQuestionsPerDay(numberOfTrueQuestions: number): void {
+  window.localStorage.setItem(TRUE_PER_DAY, `${numberOfTrueQuestions}`);
+}
+
+//make calqulator for longest TRUE SERIA in game per day
+function createLongestTrueQuestionsPerDay(recreate = false): void {
+  const item = getLongestTrueQuestionsPerDay();
+  if (recreate || !item) {
+    setLongestTrueQuestionsPerDay(0);
+  }
+}
+
+export function getLongestTrueQuestionsPerDay(): number {
+  let item = window.localStorage.getItem(LONGEST_PER_DAY);
+  if (!item) {
+    return 0;
+  } else {
+    return +item;
+  }
+}
+
+export function setLongestTrueQuestionsPerDay(numberOfLongestTrueQuestions: number): void {
+  window.localStorage.setItem(LONGEST_PER_DAY, `${numberOfLongestTrueQuestions}`);
 }
 
 function createPlayedQuestion(recreate = IS_RECREATE_DEFAULT): void {
@@ -44,7 +104,12 @@ export function addPlayedQuestion(question: Question1): void {
 }
 
 export function getPlayedQuestions(): Question1[] {
-  return JSON.parse(<string>window.localStorage.getItem(PLAYED_QUESTIONS));
+  const item = window.localStorage.getItem(PLAYED_QUESTIONS);
+  if (!item) {
+    return [];
+  } else {
+    return JSON.parse(<string>item);
+  }
 }
 
 export function getLevelPage(): string {
