@@ -25,7 +25,7 @@ export function learnedWord() {
         setItemToLocalStorage('learnedWords', JSON.stringify(learnedWords));
         const body: UserWordParameters = {
           difficulty: 'learned-word',
-          optional: { testFieldString: 'test', testFieldBoolean: true },
+          optional: { newWord: false },
         };
         removeDifficultWord();
         await createUserWord(myId, wordId, body);

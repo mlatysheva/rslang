@@ -50,7 +50,7 @@ export function difficultWord() {
         setItemToLocalStorage('difficultWords', JSON.stringify(difficultWords));
         const body: UserWordParameters = {
           difficulty: 'difficult-word',
-          optional: { testFieldString: 'test', testFieldBoolean: true },
+          optional: { newWord: false },
         };
         await deleteUserWord(myId, wordId);
         await createUserWord(myId, wordId, body);
