@@ -1,11 +1,11 @@
-import { getUserStatistics } from "../js/api";
+import { getUserStatistics } from '../js/api';
+import { learnedWords } from '../book/learnedWords';
 
 export let sprintLearnedWords: string[];
 
 export function updateStatistics() {
-
   if (JSON.parse(localStorage.getItem('sprintLearnedWords') as string)) {
-    sprintLearnedWords = JSON.parse(localStorage.getItem('sprintLearnedWords') as string)
+    sprintLearnedWords = JSON.parse(localStorage.getItem('sprintLearnedWords') as string);
   } else {
     sprintLearnedWords = [];
     localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
@@ -17,7 +17,7 @@ export function updateStatistics() {
 export let difficultWords: string[];
 
 if (JSON.parse(localStorage.getItem('difficultWords') as string)) {
-  difficultWords = JSON.parse(localStorage.getItem('difficultWords') as string)
+  difficultWords = JSON.parse(localStorage.getItem('difficultWords') as string);
 } else {
   difficultWords = [];
   localStorage.setItem('difficultWords', JSON.stringify(difficultWords));
