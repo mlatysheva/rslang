@@ -1,11 +1,13 @@
-import { sound } from '../game1/statisticGame1';
-import { createUserWord, getWords, putUserStatistics } from '../js/api';
-import { PAGES_PER_GROUP, WORDS_PER_PAGE } from '../js/constants';
-import { clearAllChildNodes } from '../js/router';
-import { SprintWord, UserWordParameters, Word } from '../js/types';
-import { sprintLearnedWords } from '../statistics/globalStorage';
-import { countdown } from './countDown';
-import { Sprint } from './Sprint';
+import { sound } from "../game1/statistic";
+import { createUserWord, getWords, putUserStatistics } from "../js/api";
+import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
+import { getItemFromLocalStorage } from "../js/localStorage";
+import { clearAllChildNodes } from "../js/router";
+import { SprintWord, UserWordParameters, Word } from "../js/types";
+import { sprintNewWords } from "../statistics/globalStorage";
+import { countdown } from "./countDown";
+import { Sprint } from "./Sprint";
+
 
 /* return array of 80 words containing of a random page from the chosen level
   and words from previous pages of the same level or
@@ -62,7 +64,7 @@ export async function startSprintRound(level: number) {
   gameScreen.classList.add('sprint-game-screen');
 
   let html = `    
-    <div class="icon replay-button" title="К выбору уровня"></div>
+    <div class="replay-button" title="К выбору уровня"></div>
 
     <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
 
@@ -73,7 +75,7 @@ export async function startSprintRound(level: number) {
       <div class="timer" id="counter"></div>
     </div>
     
-    <div class="points"><span class="sprint-text">Очки: </span><span id="sprint-points">0</span></div>
+    <div class="sprint-points"><span class="sprint-text">Очки: </span><span id="sprint-points">0</span></div>
     <div class="question-wrapper">
       <span class="sprint-word english-word" id="sprint-english-word"></span>
       <span class="is"> значит </span>
@@ -149,25 +151,21 @@ export async function startSprintGame(level: number) {
       ) {
         points++;
         refreshPoints(points);
-        results.push({
-          id: wordId,
-          sound: words[index].audio,
-          word: words[index].word,
-          translation: words[index].wordTranslate,
-          isCorrectlyAnswered: true,
-        });
-        // let userId = JSON.parse(localStorage.getItem('id') as string);
-        // let wordId = words[index].id;
-        const body: UserWordParameters = {
-          difficulty: '',
-          optional: { newWord: true },
-        };
-        const sendWordToServer = await createUserWord(userId, wordId, body);
-        console.log(`sendWordtoServer is ${sendWordToServer}`);
+
+        results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
+        if (getItemFromLocalStorage('token')) {
+          const body: UserWordParameters = {
+            difficulty: 'normal',
+            optional: { newWord: true },
+          };
+          const sendWordToServer = await createUserWord(userId, wordId, body);
+          console.log(`sendWordtoServer is ${sendWordToServer}`);
+        }
+
 
         // add new word to global sprintLearnedWords array and to LS
-        sprintLearnedWords.push(wordId);
-        localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
+        sprintNewWords.push(wordId);
+        localStorage.setItem('sprintNewWords', JSON.stringify(sprintNewWords));
       } else {
         results.push({
           id: wordId,
@@ -177,11 +175,13 @@ export async function startSprintGame(level: number) {
           isCorrectlyAnswered: false,
         });
         // remove learned word from learnedWords array and from LS
-        if (sprintLearnedWords.includes(wordId)) {
-          const index = sprintLearnedWords.indexOf(wordId);
+
+        if (sprintNewWords.includes(wordId))  {
+          const index = sprintNewWords.indexOf(wordId);
+
           if (index > -1) {
-            sprintLearnedWords.splice(index, 1);
-            localStorage.setItem('sprintLearnedWords', JSON.stringify(sprintLearnedWords));
+            sprintNewWords.splice(index, 1);
+            localStorage.setItem('sprintNewWords', JSON.stringify(sprintNewWords));
           }
         }
       }
@@ -249,7 +249,7 @@ export async function renderSprintResults(array: SprintWord[]) {
   let html = `
     
     <div class="sprint-results">
-      <div class="icon results-replay-btn replay-button" title="К выбору уровня"></div>
+      <div class="results-replay-btn replay-button" title="К выбору уровня"></div>
       <div class="title sprint-results-title">Твои результаты:</div>
       <div class="results-wrapper">
         <div class="results-summary results-summary-errors">Ошибок: <span class="sprint-results-span" id="sprint-errors">${incorrectAnswers}</span></div>
@@ -293,11 +293,14 @@ export async function renderSprintResults(array: SprintWord[]) {
 
   // Send results to server statistics
 
-  if (localStorage.getItem('id')) {
+
+  if (localStorage.getItem('token')) {
+
     let body = {
-      learnedWords: sprintLearnedWords.length,
-      optional: {},
-    };
+      "learnedWords": 0,
+      "optional": { "sprintNewWords": sprintNewWords.length}
+    }
+
     await putUserStatistics(body);
   }
 }

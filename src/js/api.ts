@@ -89,6 +89,7 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
       }
       await updateUserWord (userId, wordId, newBody);
     }
+    throw error;
   });
   return content;
 };
@@ -134,21 +135,6 @@ export const deleteUserWord = async (userId: string, wordId: string) => {
   });
 };
 
-// createUserWord({
-//   userId: "5ec993df4ca9d600178740ae",
-//   wordId: "5e9f5ee35eb9e72bc21af716",
-//   word: { "difficulty": "weak", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-// });
-// Console: {
-//   "id":"5ec9a92acbbd77001736b167",
-//   "difficulty":"weak",
-//   "optional":{
-//     "testFieldString":"test",
-//     "testFieldBoolean":true
-//   },
-//   "wordId":"5e9f5ee35eb9e72bc21af716"
-// }
-
 export const getUserWord = async (userId: string, wordId: string) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'GET',
@@ -175,19 +161,9 @@ export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
   });
   const content = await rawResponse.json();
 
-  // console.log(content);
   return content;
 };
 
-// Console: {
-//   "id":"5ec9a92acbbd77001736b167",
-//   "difficulty":"weak",
-//   "optional":{
-//     "testFieldString":"test",
-//     "testFieldBoolean":true
-//   },
-//   "wordId":"5e9f5ee35eb9e72bc21af716"
-// }
 
 export const getUserStatistics = async (): Promise<Response> => {
   const userId = getItemFromLocalStorage('id');
