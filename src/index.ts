@@ -69,6 +69,9 @@ export function listenForSprint() {
         if (localStorage.getItem('currentPage')) {
           let levelparsed = JSON.parse((localStorage.getItem('currentPage') as string)).split('-')[0];
           level = parseInt(levelparsed.charAt(levelparsed.length - 1));
+          if (level == 7) {
+            level = 6;
+          }
         } else {
           level = 0;
         }

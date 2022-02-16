@@ -1,5 +1,5 @@
 import { sound } from "../game1/statisticGame1";
-import { createUserWord, getUserDifficultWords, getWords, putUserStatistics } from "../js/api";
+import { createUserWord, getUserDifficultWords, getUserWord, getWords, putUserStatistics } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { getItemFromLocalStorage } from "../js/localStorage";
 import { clearAllChildNodes } from "../js/router";
@@ -15,11 +15,11 @@ import { Sprint } from "./Sprint";
 */
 
 async function getArrayOfWords(level: number) {
+  console.log(`in array of words level is ${level}`);
   let page = getRandomNumber(PAGES_PER_GROUP);
   let additionalwords: Word[] = [];
   let items;
   items = await getWords(level, page);
-
 
   if (page > 1) {
     additionalwords = await getWords(level, page - 1);
@@ -107,6 +107,7 @@ export async function startSprintGame(level: number) {
   if (level == 7) {
     level = 6;
   }
+  console.log( `in startsprintgame level is ${level}`);
   let points: number = 0;
   let index: number = 0;
   let words = await getArrayOfWords(level);
@@ -138,14 +139,14 @@ export async function startSprintGame(level: number) {
 
   function game() {
     const controls = document.getElementById('sprint-controls');
+    const userId = JSON.parse(localStorage.getItem('id') as string);
 
     // to make the first word work
     let correctAnswer = words[index].wordTranslate;
 
     (<HTMLElement>controls).addEventListener('click', async (event) => {
       const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
-      const translation = <HTMLElement>document.getElementById('sprint-translation');
-      const userId = JSON.parse(localStorage.getItem('id') as string);
+      const translation = <HTMLElement>document.getElementById('sprint-translation');      
       const wordId = words[index].id;
 
       if (
@@ -158,6 +159,11 @@ export async function startSprintGame(level: number) {
         refreshPoints(points);
 
         results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
+
+        // interact with the server
+
+        const serverWord = await getUserWord(userId, wordId);
+        let isNewWord;
         if (getItemFromLocalStorage('token')) {
           const body: UserWordParameters = {
             difficulty: 'normal',
@@ -166,7 +172,6 @@ export async function startSprintGame(level: number) {
           const sendWordToServer = await createUserWord(userId, wordId, body);
           console.log(`sendWordtoServer is ${sendWordToServer}`);
         }
-
 
         // add new word to global sprintLearnedWords array and to LS
         sprintNewWords.push(wordId);

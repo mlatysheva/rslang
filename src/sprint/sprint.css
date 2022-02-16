@@ -224,7 +224,6 @@
   box-shadow: 2px 3px 5px white;
   border-radius: 50px;
   cursor: pointer;
-  transform: scale(1);
   box-shadow: 0 0 10px 10px rgba(34, 60, 80, 0.2);
   transition: box-shadow 0.5s, transform 0.5s;
 }
