@@ -1,4 +1,4 @@
-import { sound } from "../game1/statistic";
+import { sound } from "../game1/statisticGame1";
 import { createUserWord, getWords, putUserStatistics } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { getItemFromLocalStorage } from "../js/localStorage";
