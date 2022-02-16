@@ -70,7 +70,7 @@ export async function startSprintRound(level: number) {
 
     <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
 
-    <div class="button sprint-start-button">Начать</div>
+    <button class="button sprint-start-button">Начать</button>
 
     <div class="timer-wrapper">
       <div class="clock-image"></div>
@@ -113,8 +113,10 @@ export async function startSprintGame(level: number) {
 
   await startSprintRound(level);
 
-  const sprintStartBtn = document.querySelector('.sprint-start-button');
-  sprintStartBtn?.addEventListener('click', () => {
+  const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+  (<HTMLButtonElement>sprintStartBtn).addEventListener('click', () => {
+
+    sprintStartBtn.disabled = true;
 
     const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
     const translation = <HTMLElement>document.getElementById('sprint-translation');
