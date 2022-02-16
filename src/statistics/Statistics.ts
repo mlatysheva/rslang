@@ -40,6 +40,8 @@ export class Statistics extends AbstractView {
           sprintWordsToday = 0;
         }
 
+        let today = new Date();
+
         html += `
         
         <div class="statistics-wrapper registered-statistics">

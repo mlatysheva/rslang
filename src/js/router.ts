@@ -78,7 +78,8 @@ function navigation() {
         case '#/signup/':
           break;
         case '#/manual/':
-          // TODO: add functions with manual
+          const manualMenu = <HTMLElement>document.querySelector("[data-href='#/manual/']");
+          manualMenu.classList.add('active');
 
           break;
         case '#/audiocall/':

@@ -251,6 +251,7 @@ export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> 
   const content = await rawResponse.json();
   return content;
 };
+
 export const getUserLearnedWords = async (userId: string):Promise<UserWord[]> => {
   const token = getItemFromLocalStorage('token');
 

@@ -28,15 +28,16 @@
 }
 
 .mission-wrapper {
-  height: 350px;
+  padding-bottom: 100px;
+  /* height: 350px; */
 }
 .slogan-text {
-  margin-top: 80px;
+  /* margin-top: 80px; */
 }
 .home-mission-text {
   font-size: 40px;
   text-transform: uppercase;
-  margin-top: 100px;
+  margin-top: 50px;
   text-align: center;
 }
 

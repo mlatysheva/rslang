@@ -36,7 +36,7 @@
 }
 
 .statistics-title {
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   text-transform: uppercase;
   font-size: xx-large;
   letter-spacing: 3px;
@@ -53,7 +53,7 @@
 }
 .statistics-mission-text {
   width: 100%;
-  font-size: xx-large;
+  font-size: x-large;
   text-transform: uppercase;
   text-align: center;
 }
@@ -90,9 +90,9 @@
   text-align: center;
 }
 .statistics-icon {
-  width: 10rem;
-  height: 10rem;
-  padding: 1rem;
+  width: 8rem;
+  height: 8rem;
+  /* padding: 1rem; */
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
