@@ -1,12 +1,14 @@
-import { getWords } from '../js/api';
-import { CardElement } from '../card/cardElement';
-import { settings } from '../book/svg';
-import { firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel } from '../book/paginationBook';
+/* eslint-disable no-underscore-dangle */
+import { getWords, getUserLearnedWords } from '../js/api';
+import { CardElement, myId } from '../card/cardElement';
+import { settings, sprintIcon, callIcon } from '../book/svg';
+import {
+  firstPage, currentPage, totalPages, prevPage, nextPage, changeLevel,
+} from '../book/paginationBook';
 import { difficultWord, removeDifficultWord } from './difficultPage';
 import { pageUp } from './svg';
 import { getItemFromLocalStorage } from '../js/localStorage';
 import { learnedWord } from './learnedWords';
-import { sprintIcon, callIcon } from '../book/svg';
 
 export const Group = 0;
 
@@ -77,7 +79,7 @@ export function createAside() {
   callButton.classList.add('call-btn');
   callButton.setAttribute('id', 'call');
   callButton.innerHTML = `${callIcon}`;
-  aside.appendChild(callButton);*/
+  aside.appendChild(callButton); */
 
   /**/
   const callButton = document.createElement('div');
@@ -129,12 +131,94 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
   Page.appendChild(cardsOnPage);
   wrapperBook.appendChild(Page);
 
+  const learnedWords = await getUserLearnedWords(myId);
+  const dataLearnedWords = learnedWords[0].paginatedResults;
   const data = await getWords(group, page);
-  data.forEach((element) => {
-    const cardOnPage = new CardElement(element).renderCard();
-    if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+
+  if (dataLearnedWords) {
+    const ln1 = dataLearnedWords.length;
+    const ln2 = data.length;
+
+    //const diff = (data, dataLearnedWords) => data.filter((data.i) => dataLearnedWords.includes(i));
+
+    let cache;
+
+    for (let i = 0; i < ln1; i += 1) {
+      cache = (dataLearnedWords[i]._id);
+      console.log(cache);
+
+      for (let j = 0; j < ln2; ++j) {
+        // console.log(data[j].id)
+        const cardOnPage = new CardElement(data[j]).renderCard();
+        if (cache === data[j].id) {
+          console.log(`найдено совпадение: ${cache}`);
+          cardOnPage.classList.add('opacity');
+        } else {
+          cardOnPage.classList.remove('opacity');
+          // console.log(dataLearnedWords[0]._id, data[0].id);
+          // data.filter((a) => dataLearnedWords[0]._id?.indexOf(a.id) === 1);
+          // console.log(data.filter((a) => dataLearnedWords[0]._id?.indexOf(a.id) === 1));
+        }
+        if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+        return cardsOnPage;
+      }
+    }
+  }
+
+  //   for (let i = 0; i < ln1; i+=1) {
+  //     cache = dataLearnedWords[i]._id;
+  //     //console.log(cache)
+  //     for (let j = 0; j < ln2; ++j) {
+  //       //console.log(data[j].id)
+  //       if (cache === data[j].id) {
+
+  //         console.log('найдено совпадение: ' + cache);
+  //         //break;
+  //       }
+  //     }
+  //   }
+
+  // }
+
+  // if (dataLearnedWords) {
+  //   dataLearnedWords.forEach(async (item) => {
+  //     const id = item._id;
+
+  //     // console.log(data);
+  //     data.map((word) => {
+  // console.log(word.id);
+  // const cardOnPage = new CardElement(word).renderCard();
+
+  //  });
+  //   dataLearnedWords.map((word) => {
+  //    const cardOnPage = new CardElement(data).renderCard();
+  //    if (cardsOnPage){
+  //    word._id === data.id ? cardOnPage.classList.add('opacity'):cardOnPage.classList.remove('opacity')
+  //    cardOnPage.classList.add('opacity');
+  //    if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);}
+
+  //    )
+
+  // }
+  // }
+
+  document.addEventListener('onload', async () => {
+    // getItemFromLocalStorage('currentPage');
+    if (getItemFromLocalStorage('currentPage')) {
+      const currentPageUser = getItemFromLocalStorage('currentPage');
+      const userLevel = +currentPageUser.charAt(1);
+      const userPage = +currentPageUser.charAt(3);
+      if (currentPageUser) {
+        renderPage(userLevel, userPage);
+      }
+    }
   });
 
+  // const data = await getWords(group, page);
+  // data.forEach((element) => {
+  //   const cardOnPage = new CardElement(element).renderCard();
+  //   if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+  // });
   function changePages() {
     if (prevButton) {
       prevButton.addEventListener('click', () => {
@@ -162,6 +246,8 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
   }
   changeLevel();
   changePages();
+  // addModal();
+
   document.body.addEventListener('click', (e) => {
     if (e.target) {
       if ((e.target as HTMLElement).classList.contains('level')) {
