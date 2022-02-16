@@ -62,7 +62,6 @@ export function createAside() {
   difficultLevel.innerHTML = 'Difficult words';
   difficultLevel.classList.add('hide');
   aside.appendChild(difficultLevel);
-  const myId: string = getItemFromLocalStorage('id');
   if (myId) {
     difficultLevel.classList.remove('hide');
   }
@@ -133,74 +132,23 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
 
   const learnedWords = await getUserLearnedWords(myId);
   const dataLearnedWords = learnedWords[0].paginatedResults;
+  console.log(dataLearnedWords);
   const data = await getWords(group, page);
+  const filterLearned = data.filter((e) => dataLearnedWords?.findIndex((i) => i._id !== e.id));
+  const filterNonLearned = data.filter((e) => dataLearnedWords?.findIndex((i) => i._id === e.id));
+  // console.log(filter);
+  filterLearned.forEach((card) => {
+    const cardOnPage = new CardElement(card).renderCard();
+    if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+    cardOnPage.classList.add('opacity');
+    return cardsOnPage;
+  });
+  filterNonLearned.forEach((card) => {
+    const cardOnPage = new CardElement(card).renderCard();
+    if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
 
-  if (dataLearnedWords) {
-    const ln1 = dataLearnedWords.length;
-    const ln2 = data.length;
-
-    //const diff = (data, dataLearnedWords) => data.filter((data.i) => dataLearnedWords.includes(i));
-
-    let cache;
-
-    for (let i = 0; i < ln1; i += 1) {
-      cache = (dataLearnedWords[i]._id);
-      console.log(cache);
-
-      for (let j = 0; j < ln2; ++j) {
-        // console.log(data[j].id)
-        const cardOnPage = new CardElement(data[j]).renderCard();
-        if (cache === data[j].id) {
-          console.log(`найдено совпадение: ${cache}`);
-          cardOnPage.classList.add('opacity');
-        } else {
-          cardOnPage.classList.remove('opacity');
-          // console.log(dataLearnedWords[0]._id, data[0].id);
-          // data.filter((a) => dataLearnedWords[0]._id?.indexOf(a.id) === 1);
-          // console.log(data.filter((a) => dataLearnedWords[0]._id?.indexOf(a.id) === 1));
-        }
-        if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-        return cardsOnPage;
-      }
-    }
-  }
-
-  //   for (let i = 0; i < ln1; i+=1) {
-  //     cache = dataLearnedWords[i]._id;
-  //     //console.log(cache)
-  //     for (let j = 0; j < ln2; ++j) {
-  //       //console.log(data[j].id)
-  //       if (cache === data[j].id) {
-
-  //         console.log('найдено совпадение: ' + cache);
-  //         //break;
-  //       }
-  //     }
-  //   }
-
-  // }
-
-  // if (dataLearnedWords) {
-  //   dataLearnedWords.forEach(async (item) => {
-  //     const id = item._id;
-
-  //     // console.log(data);
-  //     data.map((word) => {
-  // console.log(word.id);
-  // const cardOnPage = new CardElement(word).renderCard();
-
-  //  });
-  //   dataLearnedWords.map((word) => {
-  //    const cardOnPage = new CardElement(data).renderCard();
-  //    if (cardsOnPage){
-  //    word._id === data.id ? cardOnPage.classList.add('opacity'):cardOnPage.classList.remove('opacity')
-  //    cardOnPage.classList.add('opacity');
-  //    if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);}
-
-  //    )
-
-  // }
-  // }
+    return cardsOnPage;
+  });
 
   document.addEventListener('onload', async () => {
     // getItemFromLocalStorage('currentPage');
