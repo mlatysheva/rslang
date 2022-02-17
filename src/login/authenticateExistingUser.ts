@@ -53,14 +53,14 @@ export function authenticateUser() {
         setItemToLocalStorage('id', loginDetails.userId);
         setItemToLocalStorage('token', loginDetails.token);
         setItemToLocalStorage('email', eInput.value);
-        console.log(`user token is ${loginDetails.token}`);
+        setItemToLocalStorage('refreshToken', loginDetails.refreshToken); 
+        
         window.location.hash = '/';
         renderUserName();
       } else {
         console.log('Such user does not exist. Please sign up.')
       }
     }
-    window.location.reload();
   };
 }
 export default authenticateUser;

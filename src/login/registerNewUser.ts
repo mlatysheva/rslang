@@ -1,5 +1,5 @@
-import { createUser } from '../js/api';
-import { setItemToLocalStorage } from '../js/localStorage';
+import { createUser, getTokens, loginUser } from '../js/api';
+import { getItemFromLocalStorage, setItemToLocalStorage } from '../js/localStorage';
 import { renderUserName } from './loginLogout';
 
 export function registerUser() {
@@ -70,6 +70,21 @@ export function registerUser() {
       setItemToLocalStorage('name', nInput.value);
       setItemToLocalStorage('email', newUserdetails.email);
       setItemToLocalStorage('id', newUserdetails.id);
+
+      const user = {
+        email: getItemFromLocalStorage('email'),
+        password: pInput.value,
+      }
+
+      const loginDetails = await loginUser(user);
+
+      
+      const userToken = loginDetails.token;
+      const refreshToken = loginDetails.refreshToken;
+      
+      setItemToLocalStorage('token', userToken);
+
+      setItemToLocalStorage('refreshToken', refreshToken);
       const app = document.getElementById('app');
       (<HTMLElement>app).innerHTML = '';
       (<HTMLElement>app).innerText = 'Вы успешно зарегистрированы!';
