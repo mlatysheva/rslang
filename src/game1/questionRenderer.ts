@@ -1,7 +1,19 @@
 import { Word } from '../js/types';
 import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/constants';
-import { renderWord } from '../card/renderOne';
-import { addPlayedQuestion, getPlayedQuestions } from './localStorageHelper';
+import {
+  addPlayedQuestion,
+  getCurrentLongestTrueQuestionsPerDay,
+  getLastDay,
+  getLongestTrueQuestionsPerDay,
+  getPlayedQuestions,
+  getQuestionsPerDay,
+  getTrueQuestionsPerDay,
+  resetLastDay,
+  setCurrentLongestTrueQuestionsPerDay,
+  setLongestTrueQuestionsPerDay,
+  setQuestionsPerDay,
+  setTrueQuestionsPerDay,
+} from './localStorageHelper';
 import { Question1 } from './data/Question1';
 import { renderLatestGameStatistics } from './statisticGame1';
 export class QuestionRenderer {
@@ -11,13 +23,6 @@ export class QuestionRenderer {
   constructor(cardDataObject: Question1) {
     this.data = cardDataObject.word;
     this.question = cardDataObject;
-    /*this.dataUnswersArray = dataUnswersArray.map((d) => {
-      d.answersArray = this.getAnswers(d.word, this.uniqueArtistsArr);
-      d.isAnswered = false;
-      d.isAnsweredCorrectly = false;
-      return d;
-    });
-    this.currentQuestionInRound = 0;*/
   }
 
   getAudioId(): string {
@@ -97,6 +102,36 @@ export class QuestionRenderer {
       let unswer = (<HTMLElement>e.target).innerText;
       this.question.isAnswered = true;
       this.question.isAnsweredCorrectly = unswer === this.question.correctAnswer;
+      if (getLastDay() !== new Date().toISOString().split('T')[0]) {
+        setQuestionsPerDay(0);
+        setTrueQuestionsPerDay(0);
+        setLongestTrueQuestionsPerDay(0);
+        setCurrentLongestTrueQuestionsPerDay(0);
+        resetLastDay();
+      }
+
+      let q = getQuestionsPerDay();
+      q += 1;
+      setQuestionsPerDay(q);
+
+      let p = getTrueQuestionsPerDay();
+      if (this.question.isAnsweredCorrectly) {
+        p += 1;
+        setTrueQuestionsPerDay(p);
+      }
+
+      let longest = getLongestTrueQuestionsPerDay();
+      let current = getCurrentLongestTrueQuestionsPerDay();
+      if (this.question.isAnsweredCorrectly) {
+        current += 1;
+        setCurrentLongestTrueQuestionsPerDay(current);
+      } else {
+        setCurrentLongestTrueQuestionsPerDay(0);
+      }
+      if (current > longest) {
+        setLongestTrueQuestionsPerDay(current);
+      }
+
       addPlayedQuestion(this.question);
 
       questionSection.innerHTML = '';

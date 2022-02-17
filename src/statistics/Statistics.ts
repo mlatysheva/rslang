@@ -4,8 +4,17 @@ import { sprintNewWords } from './globalStorage';
 import { getItemFromLocalStorage } from '../js/localStorage';
 import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords';
 import { sprintIcon, callIcon } from '../book/svg';
-import { arrAudiocall } from '../game1/statisticToServ';
-
+import {
+  getLastDay,
+  getLongestTrueQuestionsPerDay,
+  getQuestionsPerDay,
+  getTrueQuestionsPerDay,
+  resetLastDay,
+  setCurrentLongestTrueQuestionsPerDay,
+  setLongestTrueQuestionsPerDay,
+  setQuestionsPerDay,
+  setTrueQuestionsPerDay,
+} from '../game1/localStorageHelper';
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -30,7 +39,11 @@ export class Statistics extends AbstractView {
 
     `;
 
-    
+    const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
+    userWords.forEach((userWord) => {
+      console.log(userWord);
+    });
+
     const data = await getUserStatistics();
     if (data) {
       console.log(`data is ${data.status}`);
@@ -45,7 +58,6 @@ export class Statistics extends AbstractView {
         //   sprintWordsToday = 0;
         // }
 
-
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
         let newWords = 0;
         let correctlyAnswered = 0;
@@ -53,19 +65,41 @@ export class Statistics extends AbstractView {
         userWords.forEach((userWord) => {
           if (userWord.optional?.newWord) {
             newWords++;
-          };
+          }
           if (userWord.optional?.correctlyAnswered) {
             correctlyAnswered += userWord.optional?.correctlyAnswered;
           }
           if (userWord.optional?.incorrectlyAnswered) {
             incorrectlyAnswered += userWord.optional?.incorrectlyAnswered;
           }
-        })
+        });
 
-        let correctlyAnsweredPercent = ((correctlyAnswered / (correctlyAnswered + incorrectlyAnswered) ) * 100 ).toFixed();
-
+        let correctlyAnsweredPercent = (
+          (correctlyAnswered / (correctlyAnswered + incorrectlyAnswered)) *
+          100
+        ).toFixed();
 
         let today = new Date().toLocaleDateString();
+
+        if (getLastDay() !== new Date().toISOString().split('T')[0]) {
+          setQuestionsPerDay(0);
+          setTrueQuestionsPerDay(0);
+          setLongestTrueQuestionsPerDay(0);
+          setCurrentLongestTrueQuestionsPerDay(0);
+          resetLastDay();
+        }
+
+        let unswersCorrect = getTrueQuestionsPerDay();
+        let questions = getQuestionsPerDay();
+        let newWordsPerDay = Math.ceil(Math.random() * 20); //TODO: не так должно быть
+
+        let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
+        let longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
+        const arrAudiocall = [
+          { newWords: `${newWordsPerDay}` },
+          { precentCorrectAnswers: `${precentCorrectAnswersPerDay}` },
+          { longestTrueUnswers: `${longestTrueUnswersPerDay}` },
+        ];
 
         html += `
         
@@ -89,7 +123,7 @@ export class Statistics extends AbstractView {
                 arrAudiocall[1]['precentCorrectAnswers']
               }</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
-                arrAudiocall[2]['logestTrueUnswers']
+                arrAudiocall[2]['longestTrueUnswers']
               }</span></p>
             </div>          
           </div>  
