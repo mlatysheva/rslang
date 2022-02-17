@@ -179,6 +179,15 @@ export async function startSprintGame(level: number) {
           translation: words[index].wordTranslate,
           isCorrectlyAnswered: false,
         });
+
+        // interact with the server for a registered user
+
+        if (getItemFromLocalStorage('token')) {
+
+          postWordToServer(userId, wordId, 0);  
+
+        }
+
         // remove learned word from learnedWords array and from LS
 
         if (sprintNewWords.includes(wordId))  {

@@ -41,45 +41,29 @@ export class Statistics extends AbstractView {
 
     const data = await getUserStatistics();
     if (data) {
-      console.log(`data is ${data.status}`);
+      console.log(`status is ${data.status}`);
       if (data.status === 200) {
         const content = await data.json();
         const totalLearnedWords = content.learnedWords;
-
-        // let sprintWordsToday: number;
-        // if (sprintNewWords) {
-        //   sprintWordsToday = sprintNewWords.length;
-        // } else {
-        //   sprintWordsToday = 0;
-        // }
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
         let sprintNewWords = 0;
         let sprintCorrectlyAnswered = 0;
         let sprintTotalAnswers = 0;
-        // if (getItemFromLocalStorage('sprintNewWords')) {
-
-        // }
         
         userWords.forEach((userWord) => {
-          console.log(userWord);
           if (userWord.optional?.sprintNewWord) {
-            console.log(`word with ${userWord.wordId} is ${userWord.optional?.sprintNewWord}`);
             sprintNewWords++;
-            console.log(`sprintNewWords are ${sprintNewWords}`);
           };
           if (userWord.optional?.sprintCorrectlyAnswered) {
             sprintCorrectlyAnswered += userWord.optional?.sprintCorrectlyAnswered;
-            console.log(`sprintCorrectlyAnswered are ${sprintCorrectlyAnswered}`);
           }
           if (userWord.optional?.sprintTotalAnswers) {
             sprintTotalAnswers += userWord.optional?.sprintTotalAnswers;
-            console.log(`sprintTotalAnswers are ${sprintTotalAnswers}`);
           }
         })
 
-        let correctlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
-        console.log(`correctlyAnsweredPercent is ${correctlyAnsweredPercent}`);
+        let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
 
 
         let today = new Date().toLocaleDateString();
@@ -140,7 +124,7 @@ export class Statistics extends AbstractView {
             <div class="statistics-text home-text">
               
               <p>Новых слов: <span class="statistics-indicator sprint-new-words">${sprintNewWords}</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator sprint-correct-answers">${correctlyAnsweredPercent}</span> </p>
+              <p>Правильных ответов, %: <span class="statistics-indicator sprint-correct-answers">${sprintCorrectlyAnsweredPercent}</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">0</span></p>
             </div>          
           </div>

@@ -1,5 +1,5 @@
 import { sound } from "../game1/statisticGame1";
-import { createUserWord, getUserWord, getWords } from "../js/api";
+import { createUserWord, getUserWord, getWords, updateUserWord } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { clearAllChildNodes } from "../js/router";
 import { UserWordParameters, Word } from "../js/types";
@@ -87,80 +87,43 @@ export function playsound() {
 
 export async function postWordToServer(userId: string, wordId: string, correctlyAnswered: number) {
 
+  // correctlyAnswered is 1 for true and 0 for false
+  // this body will be used for posting a new word
   let body: UserWordParameters = {
     difficulty: 'normal',
     optional: { sprintNewWord: true, sprintCorrectlyAnswered: correctlyAnswered, sprintTotalAnswers: 1}
   }
+  // the word is new and does not exist
 
   const serverWord = await createUserWord(userId, wordId, body);
 
-  // case where such user word already exists
-  if (serverWord) {
-    let isNewWord = serverWord.optional?.newWord;
-    if (isNewWord) {
-      isNewWord = false;
-    }
-    let serverCorrectlyAnswered = serverWord.optional?.sprintCorrectlyAnswered;
-    if (serverCorrectlyAnswered) {
-      serverCorrectlyAnswered++;
-    } else serverCorrectlyAnswered = 1;
+  if (!serverWord) {
+    console.log('such user word already exists');
+    const body = await getUserWord(userId, wordId);
     
-    let serverTotalAnswers = serverWord.optional?.sprintTotalAnswers;
-    if (serverTotalAnswers) {
-      serverTotalAnswers++;
+    let existingDifficulty;
+    if (body.difficulty) {
+      existingDifficulty = body.difficulty;
+      console.log(`existing difficulty is ${existingDifficulty}`);
+    } else existingDifficulty = 'normal';
+
+    let existingSprintCorrectAnswers;
+    if (body.sprintCorrectlyAnswered) {
+      existingSprintCorrectAnswers = body.sprintCorrectlyAnswered;
+    } else {
+      existingSprintCorrectAnswers = 0;
     }
-
-    let existingDifficulty = serverWord.difficulty;
-
-    const body: UserWordParameters = {
-      difficulty: existingDifficulty,
-      optional: { sprintNewWord: isNewWord, sprintCorrectlyAnswered: serverCorrectlyAnswered, sprintTotalAnswers: serverTotalAnswers},
-    };
-    const sendWordToServer = await createUserWord(userId, wordId, body);
-    console.log(`sendWordtoServer is ${sendWordToServer}`);
-  } else { // case where such user word does not exist
-
-    let body: UserWordParameters = {
-      difficulty: 'normal',
-      optional: { sprintNewWord: true, sprintCorrectlyAnswered: 1, sprintTotalAnswers: 1}
-    }
-    await createUserWord(userId, wordId, body);
-  }
-}
-
-async function postWordToServer2(userId: string, wordId: string) {
-  const serverWord = await getUserWord(userId, wordId);
-
-  // case where such user word already exists
-  if (serverWord) {
-    let isNewWord = serverWord.optional?.newWord;
-    if (isNewWord) {
-      isNewWord = false;
-    }
-    let serverCorrectlyAnswered = serverWord.optional?.sprintCorrectlyAnswered;
-    if (serverCorrectlyAnswered) {
-      serverCorrectlyAnswered++;
-    } else serverCorrectlyAnswered = 1;
+    let existingSprintTotalAnswers;
+    if (body.sprintTotalAnswers) {
+      existingSprintTotalAnswers = body.sprintTotalAnswers;
+    } else {
+      existingSprintTotalAnswers = 0;
+    }        
     
-    let serverTotalAnswers = serverWord.optional?.sprintTotalAnswers;
-    if (serverTotalAnswers) {
-      serverTotalAnswers++;
-    }
-
-    let existingDifficulty = serverWord.difficulty;
-
-    const body: UserWordParameters = {
+    const newBody = {
       difficulty: existingDifficulty,
-      optional: { sprintNewWord: isNewWord, sprintCorrectlyAnswered: serverCorrectlyAnswered, sprintTotalAnswers: serverTotalAnswers},
-    };
-    const sendWordToServer = await createUserWord(userId, wordId, body);
-    console.log(`sendWordtoServer is ${sendWordToServer}`);
-  } else { // case where such user word does not exist
-
-    let body: UserWordParameters = {
-      difficulty: 'normal',
-      optional: { sprintNewWord: true, sprintCorrectlyAnswered: 1, sprintTotalAnswers: 1}
+      optional: { sprintNewWord: false, sprintCorrectlyAnswered: existingSprintCorrectAnswers + correctlyAnswered, sprintTotalAnswers: existingSprintTotalAnswers++ }
     }
-    await createUserWord(userId, wordId, body);
+    await updateUserWord (userId, wordId, newBody);
   }
 }
