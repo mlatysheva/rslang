@@ -106,9 +106,9 @@ export class Statistics extends AbstractView {
               <p>Новых слов: <span class="statistics-indicator audiocall-new-words">${
                 arrAudiocall[0]['newWords']
               }</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator audiocall-correct-answers">${
+              <p>Правильных ответов: <span class="statistics-indicator audiocall-correct-answers">${
                 arrAudiocall[1]['precentCorrectAnswers']
-              }</span> </p>
+              } %</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
                 arrAudiocall[2]['longestTrueUnswers']
               }</span></p>
@@ -124,7 +124,7 @@ export class Statistics extends AbstractView {
             <div class="statistics-text home-text">
               
               <p>Новых слов: <span class="statistics-indicator sprint-new-words">${sprintNewWords}</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator sprint-correct-answers">${sprintCorrectlyAnsweredPercent}</span> </p>
+              <p>Правильных ответов: <span class="statistics-indicator sprint-correct-answers">${sprintCorrectlyAnsweredPercent} %</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">0</span></p>
             </div>          
           </div>
