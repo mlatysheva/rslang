@@ -71,9 +71,8 @@ export async function getUser(): Promise<UserWithName> {
   return user;
 }
 
-
 export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
-  try { 
+  try {
     const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
       method: 'POST',
       // withCredentials: true,
@@ -86,21 +85,21 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
     });
     const content = await rawResponse.json();
     return content;
-  } catch { async (error: any) => {
-        if (error) {
-          console.log('such user word already exists');
-          const response = await getUserWord(userId, wordId);
-          const existingDifficulty = response.difficulty;
-          const newBody = {
-            difficulty: existingDifficulty,
-            optional: { newWord: false, correctlyAnswered: 1, incorrectlyAnswered: 0 }
-          }
-          await updateUserWord (userId, wordId, newBody);
-        }
-        throw error;
+  } catch {
+    if (Error()) {
+      console.log('such user word already exists');
+      const response = await getUserWord(userId, wordId);
+      const existingDifficulty = response.difficulty;
+      const newBody = {
+        difficulty: existingDifficulty,
+        optional: { newWord: false, correctlyAnswered: 1, incorrectlyAnswered: 0 },
       };
-  };
-}
+      await updateUserWord(userId, wordId, newBody);
+
+      throw Error;
+    }
+  }
+};
 
 export const updateUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
@@ -123,11 +122,11 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
     await createUserWord(userId, wordId, body);
   }
   return response.json()
-  .catch((error) => {
-    if (error) {
-      throw error;
-    }
-  });
+    .catch((error) => {
+      if (error) {
+        throw error;
+      }
+    });
 };
 
 export const deleteUserWord = async (userId: string, wordId: string) => {
@@ -153,23 +152,21 @@ export const getUserWord = async (userId: string, wordId: string) => {
       },
     });
     const response = await rawResponse;
-    const content = await response.json(); 
-    
+    const content = await response.json();
+
     if (response.status === 200) {
       console.log('User word exists');
-    } 
-    return content.body; 
-  } catch(err) {
-    console.log(`Сreating new user word`);
+    }
+    return content.body;
+  } catch (err) {
+    console.log('Сreating new user word');
     const body = {
       difficulty: 'normal',
-      optional: { newWord: true, correctlyAnswered: 1, incorrectlyAnswered: 0},
-    }
+      optional: { newWord: true, correctlyAnswered: 1, incorrectlyAnswered: 0 },
+    };
     await createUserWord(userId, wordId, body);
-    
   }
 };
-
 
 export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
   const rawResponse = await fetch(`${users}/${userId}/words`, {
@@ -185,10 +182,9 @@ export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
   return content;
 };
 
-
 export const getUserStatistics = async (): Promise<Response> => {
   const userId = getItemFromLocalStorage('id');
-   try {
+  try {
     const rawResponse = await fetch(`${users}/${userId}/statistics`, {
       method: 'GET',
       // withCredentials: true,
@@ -205,7 +201,7 @@ export const getUserStatistics = async (): Promise<Response> => {
 
 export const putUserStatistics = async (data: UserStatistics) => {
   const userId = getItemFromLocalStorage('id');
-   try {
+  try {
     const rawResponse = await fetch(`${users}/${userId}/statistics`, {
       method: 'PUT',
       // withCredentials: true,
@@ -225,7 +221,7 @@ export const putUserStatistics = async (data: UserStatistics) => {
 };
 
 export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> => {
-  const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
+  const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
     method: 'GET',
     // withCredentials: true,
     headers: {

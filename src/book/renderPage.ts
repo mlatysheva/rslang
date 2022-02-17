@@ -1,5 +1,8 @@
+/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
-import { getWords, getUserLearnedWords } from '../js/api';
+import {
+  getWords, getUserLearnedWords, getUserDifficultWords, getUserWordsAll,
+} from '../js/api';
 import { CardElement, myId } from '../card/cardElement';
 import { settings, sprintIcon, callIcon } from '../book/svg';
 import {
@@ -130,28 +133,53 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
   Page.appendChild(cardsOnPage);
   wrapperBook.appendChild(Page);
 
-  const learnedWords = await getUserLearnedWords(myId);
-  const dataLearnedWords = learnedWords[0].paginatedResults;
-  console.log(dataLearnedWords);
   const data = await getWords(group, page);
-  const filterLearned = data.filter((e) => dataLearnedWords?.findIndex((i) => i._id !== e.id));
-  const filterNonLearned = data.filter((e) => dataLearnedWords?.findIndex((i) => i._id === e.id));
-  // console.log(filter);
-  filterLearned.forEach((card) => {
-    const cardOnPage = new CardElement(card).renderCard();
-    if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-    cardOnPage.classList.add('opacity');
-    return cardsOnPage;
-  });
-  filterNonLearned.forEach((card) => {
-    const cardOnPage = new CardElement(card).renderCard();
-    if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
 
-    return cardsOnPage;
-  });
+  if (myId) {
 
+    data.forEach((element) => {
+      const cardOnPage = new CardElement(element).renderCard();
+      if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+    });
+    const difficultWords = await getUserDifficultWords(myId);
+    const dataDifficultWords = difficultWords[0].paginatedResults;
+
+    const learnedWords = await getUserLearnedWords(myId);
+    const dataLearnedWords = learnedWords[0].paginatedResults;
+    console.log(learnedWords);
+
+    // const filterLearned = data.filter((e) => dataLearnedWords?.findIndex((i) => i._id !== e.id) === -1);
+    // const filterDifficult = data.filter((e) => dataDifficultWords?.findIndex((i) => i._id !== e.id) === -1);
+    // // const filterNonLearned = data.filter((e) => dataLearnedWords?.findIndex((i) => i._id === e.id));
+    // const filterNonDifficult = data.filter((e) => dataDifficultWords?.findIndex((i) => i._id === e.id));
+    // console.log(filterLearned);
+    // console.log(learnedWords);
+
+    // filterDifficult.forEach((card) => {
+    //   const cardOnPage = new CardElement(card).renderCard();
+    //   if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+    //   cardOnPage.classList.add('difficult-word');
+    //   return cardsOnPage;
+    // });
+
+    // filterLearned.forEach((card) => {
+    //   const cardOnPage = new CardElement(card).renderCard();
+    //   if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+    //   cardOnPage.classList.add('opacity');
+    //   return cardsOnPage;
+    // });
+    // filterNonDifficult.forEach((card) => {
+    //   const cardOnPage = new CardElement(card).renderCard();
+    //   if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+    //   return cardsOnPage;
+    // });
+  } else {
+    data.forEach((element) => {
+      const cardOnPage = new CardElement(element).renderCard();
+      if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+    });
+  }
   document.addEventListener('onload', async () => {
-    // getItemFromLocalStorage('currentPage');
     if (getItemFromLocalStorage('currentPage')) {
       const currentPageUser = getItemFromLocalStorage('currentPage');
       const userLevel = +currentPageUser.charAt(1);
@@ -162,11 +190,6 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
     }
   });
 
-  // const data = await getWords(group, page);
-  // data.forEach((element) => {
-  //   const cardOnPage = new CardElement(element).renderCard();
-  //   if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-  // });
   function changePages() {
     if (prevButton) {
       prevButton.addEventListener('click', () => {
