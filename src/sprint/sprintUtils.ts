@@ -1,6 +1,7 @@
 import { sound } from "../game1/statisticGame1";
 import { createUserWord, getUserWord, getWords, updateUserWord } from "../js/api";
 import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
+import { getItemFromLocalStorage, setItemToLocalStorage } from "../js/localStorage";
 import { clearAllChildNodes } from "../js/router";
 import { UserWordParameters, Word } from "../js/types";
 import { Sprint } from "./Sprint";
@@ -127,3 +128,38 @@ export async function postWordToServer(userId: string, wordId: string, correctly
     await updateUserWord (userId, wordId, newBody);
   }
 }
+
+export function findSprintLongestSeries(array: number[] ) {
+  let longestSeries: number;
+  if (getItemFromLocalStorage('sprintLongestSeries')) {
+    longestSeries = getItemFromLocalStorage('sprintLongestSeries');
+    console.log(`longestSeries from LS is ${longestSeries}`);
+  } else {
+    longestSeries = 0;
+  }
+
+
+  let maxTimes = 0, currentTimes = 1;
+
+  array.reduce( (prev, current) => {
+    if (prev === current && current === 1) {
+      currentTimes = currentTimes + 1;
+      console.log(`prev is ${prev}, current is ${current}, currentTimes is ${currentTimes}`);
+
+      if (currentTimes > maxTimes) {
+        maxTimes = currentTimes;
+        console.log(`maxTimes is ${maxTimes}`);
+        // item = current;
+      }
+    } else {
+      currentTimes = 1;
+    }
+    console.log(`maxTimes is ${maxTimes}`);
+    return current;
+  }, maxTimes);
+  console.log(`currentLongest is ${maxTimes}`);
+  let currentlongestSeries = maxTimes;
+  if (currentlongestSeries > longestSeries) {
+    setItemToLocalStorage('sprintLongestSeries', currentlongestSeries);
+  }
+};

@@ -41,7 +41,7 @@ export class Statistics extends AbstractView {
 
     const data = await getUserStatistics();
     if (data) {
-      console.log(`status is ${data.status}`);
+      console.log(`Statistics successfully received from the server`);
       if (data.status === 200) {
         const content = await data.json();
         const totalLearnedWords = content.learnedWords;
@@ -64,6 +64,8 @@ export class Statistics extends AbstractView {
         })
 
         let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
+
+        const spintLongestSeries = getItemFromLocalStorage('sprintLongestSeries');
 
 
         let today = new Date().toLocaleDateString();
@@ -125,7 +127,7 @@ export class Statistics extends AbstractView {
               
               <p>Новых слов: <span class="statistics-indicator sprint-new-words">${sprintNewWords}</span></p>
               <p>Правильных ответов: <span class="statistics-indicator sprint-correct-answers">${sprintCorrectlyAnsweredPercent} %</span> </p>
-              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">0</span></p>
+              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">${spintLongestSeries}</span></p>
             </div>          
           </div>
   

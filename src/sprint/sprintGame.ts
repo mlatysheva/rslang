@@ -7,52 +7,8 @@ import { SprintWord, UserWordParameters, Word } from "../js/types";
 import { sprintNewWords } from "../statistics/globalStorage";
 import { countdown } from "./countDown";
 import { Sprint } from "./Sprint";
-import { getRandomAnswers, getRandomNumber, playsound, postWordToServer, refreshPoints, renderLevel } from "./sprintUtils";
+import { findSprintLongestSeries, getArrayOfWords, getRandomAnswers, getRandomNumber, playsound, postWordToServer, refreshPoints, renderLevel, replay } from "./sprintUtils";
 
-
-/* return array of 80 words containing of a random page from the chosen level
-  and words from previous pages of the same level or
-  words from the previous level 
-*/
-
-async function getArrayOfWords(level: number) {
-  let page = getRandomNumber(PAGES_PER_GROUP);
-  let additionalwords: Word[] = [];
-  let items;
-  items = await getWords(level, page);
-
-  if (page > 1) {
-    additionalwords = await getWords(level, page - 1);
-    items = items.concat(additionalwords);
-    if (page > 2) {
-      additionalwords = await getWords(level, page - 2);
-      items = items.concat(additionalwords);
-      if (page > 3) {
-        additionalwords = await getWords(level, page - 3);
-        items = items.concat(additionalwords);
-      }
-    }
-  } else {
-    if (level > 1) {
-      additionalwords = await getWords(level - 1, 5);
-      items = items.concat(additionalwords);
-      additionalwords = await getWords(level - 1, 4);
-      items = items.concat(additionalwords);
-    }
-  }
-
-  return items;
-}
-
-// toggle level-selection screen and main game screen
-
-export async function replay() {
-  const newSprint = new Sprint();
-  const app = <HTMLElement>document.getElementById('app');
-
-  clearAllChildNodes(app);
-  app.appendChild(await newSprint.getHtml());
-}
 
 // render main sprint game screen depending on the level chosen
 
@@ -111,6 +67,7 @@ export async function startSprintGame(level: number) {
   let index: number = 0;
   let words = await getArrayOfWords(level);
   let results: SprintWord[] = [];
+  let arrayof1and0: number[] = [];
 
   await startSprintRound(level);
 
@@ -132,6 +89,7 @@ export async function startSprintGame(level: number) {
       if (counter == '0:00') {
         clearInterval(watching);
         renderSprintResults(results);
+        findSprintLongestSeries(arrayof1and0);
       }
     }, 1000);
   });
@@ -159,13 +117,14 @@ export async function startSprintGame(level: number) {
         refreshPoints(points);
 
         results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
-
+        
+        arrayof1and0.push(1);
+        console.log(`arrayof1and 0 is ${arrayof1and0}`);
+        
         // interact with the server for a registered user
 
         if (getItemFromLocalStorage('token')) {
-
-          postWordToServer(userId, wordId, 1);  
-
+          postWordToServer(userId, wordId, 1); 
         }
 
         // add new word to global sprintLearnedWords array and to LS
@@ -180,12 +139,13 @@ export async function startSprintGame(level: number) {
           isCorrectlyAnswered: false,
         });
 
+        arrayof1and0.push(0);
+        console.log(`arrayof1and 0 is ${arrayof1and0}`);
+
         // interact with the server for a registered user
 
         if (getItemFromLocalStorage('token')) {
-
           postWordToServer(userId, wordId, 0);  
-
         }
 
         // remove learned word from learnedWords array and from LS
@@ -272,15 +232,15 @@ export async function renderSprintResults(array: SprintWord[]) {
   // Send results to server statistics
 
 
-  if (localStorage.getItem('token')) {
+  // if (localStorage.getItem('token')) {
 
-    let body = {
-      "learnedWords": 0,
-      // "optional": { "sprintNewWords": sprintNewWords.length}
-    }
+  //   let body = {
+  //     "learnedWords": 0,
+  //     // "optional": { "sprintNewWords": sprintNewWords.length}
+  //   }
 
-    await putUserStatistics(body);
-  }
+  //   await putUserStatistics(body);
+  // }
 }
 
 export async function renderSprintRows(arrayOfResults: SprintWord[]) {

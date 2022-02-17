@@ -1,5 +1,3 @@
-import { renderSprintResults, replay } from "./sprintGame";
-
 export function countdown() {
   let seconds = 15;
   function tick() {
