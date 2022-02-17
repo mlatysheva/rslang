@@ -7,10 +7,11 @@ import { Signup } from './login/Signup';
 import { Login } from './login/Login';
 import { registerUser } from './login/registerNewUser';
 import { logout, renderUserName } from './login/loginLogout';
-import { replay, startSprintGame } from './sprint/sprintGame';
+import { startSprintGame } from './sprint/sprintGame';
 import { updateStatistics } from './statistics/globalStorage';
+import { replay } from './sprint/sprintUtils';
 
-console.log('App is running');
+console.log('App is running');     
 
 const app = <HTMLElement>document.getElementById('app');
 

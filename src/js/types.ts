@@ -36,9 +36,12 @@ export interface UserWord {
 
 }
 export interface WordOptional {
-  newWord?: boolean | undefined,
-  correctlyAnswered?: number | undefined,
-  incorrectlyAnswered?: number | undefined,
+  sprintNewWord?: boolean | undefined,
+  sprintCorrectlyAnswered?: number | undefined,
+  sprintTotalAnswers?: number | undefined,
+  audiocallNewWord?: boolean | undefined,
+  audiocallCorrectlyAnswered?: number | undefined,
+  audiocallTotalAnswers?: number | undefined,
 }
 
 export interface User {
@@ -59,12 +62,14 @@ export interface NewUserDetails {
 export interface ExistingUserLoginDetails {
   message: string,
   token: string,
-  userId: string
+  refreshToken: string,
+  userId: string,
+  name: string,
 }
 
 export interface UserStatistics {
   learnedWords: number,
-  optional: {},
+  optional?: {sprintLongestSeries: number, audiocallLongestSeries: number},
 }
 export interface SprintWord {
   id: string,

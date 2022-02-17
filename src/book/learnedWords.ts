@@ -22,13 +22,13 @@ export function learnedWord() {
         setItemToLocalStorage('learnedWords', JSON.stringify(learnedWords));
         const body: UserWordParameters = {
           difficulty: 'learned-word',
-          optional: {},
+          // optional: { newWord: false },
         };
         await removeDifficultWord();
         await createUserWord(myId, wordId, body);
         const dataForStatistic = {
           learnedWords: learnedWords.length,
-          optional: {},
+          // optional: {},
         };
         await putUserStatistics(dataForStatistic);
       }

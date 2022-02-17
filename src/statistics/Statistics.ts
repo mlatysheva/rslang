@@ -4,8 +4,17 @@ import { sprintNewWords } from './globalStorage';
 import { getItemFromLocalStorage } from '../js/localStorage';
 import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords';
 import { sprintIcon, callIcon } from '../book/svg';
-import { arrAudiocall } from '../game1/statisticToServ';
-
+import {
+  getLastDay,
+  getLongestTrueQuestionsPerDay,
+  getQuestionsPerDay,
+  getTrueQuestionsPerDay,
+  resetLastDay,
+  setCurrentLongestTrueQuestionsPerDay,
+  setLongestTrueQuestionsPerDay,
+  setQuestionsPerDay,
+  setTrueQuestionsPerDay,
+} from '../game1/localStorageHelper';
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -30,42 +39,56 @@ export class Statistics extends AbstractView {
 
     `;
 
-    
     const data = await getUserStatistics();
     if (data) {
-      console.log(`data is ${data.status}`);
+      console.log(`Statistics successfully received from the server`);
       if (data.status === 200) {
         const content = await data.json();
-        // const totalLearnedWords = content.learnedWords;
-
-        // let sprintWordsToday: number;
-        // if (sprintNewWords) {
-        //   sprintWordsToday = sprintNewWords.length;
-        // } else {
-        //   sprintWordsToday = 0;
-        // }
-
+        const totalLearnedWords = content.learnedWords;
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
-        let newWords = 0;
-        let correctlyAnswered = 0;
-        let incorrectlyAnswered = 0;
+        let sprintNewWords = 0;
+        let sprintCorrectlyAnswered = 0;
+        let sprintTotalAnswers = 0;
+        
         userWords.forEach((userWord) => {
-          if (userWord.optional?.newWord) {
-            newWords++;
+          if (userWord.optional?.sprintNewWord) {
+            sprintNewWords++;
           };
-          if (userWord.optional?.correctlyAnswered) {
-            correctlyAnswered += userWord.optional?.correctlyAnswered;
+          if (userWord.optional?.sprintCorrectlyAnswered) {
+            sprintCorrectlyAnswered += userWord.optional?.sprintCorrectlyAnswered;
           }
-          if (userWord.optional?.incorrectlyAnswered) {
-            incorrectlyAnswered += userWord.optional?.incorrectlyAnswered;
+          if (userWord.optional?.sprintTotalAnswers) {
+            sprintTotalAnswers += userWord.optional?.sprintTotalAnswers;
           }
         })
 
-        let correctlyAnsweredPercent = ((correctlyAnswered / (correctlyAnswered + incorrectlyAnswered) ) * 100 ).toFixed();
+        let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
+
+        const spintLongestSeries = getItemFromLocalStorage('sprintLongestSeries');
 
 
         let today = new Date().toLocaleDateString();
+
+        if (getLastDay() !== new Date().toISOString().split('T')[0]) {
+          setQuestionsPerDay(0);
+          setTrueQuestionsPerDay(0);
+          setLongestTrueQuestionsPerDay(0);
+          setCurrentLongestTrueQuestionsPerDay(0);
+          resetLastDay();
+        }
+
+        let unswersCorrect = getTrueQuestionsPerDay();
+        let questions = getQuestionsPerDay();
+        let newWordsPerDay = Math.ceil(Math.random() * 20); //TODO: не так должно быть
+
+        let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
+        let longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
+        const arrAudiocall = [
+          { newWords: `${newWordsPerDay}` },
+          { precentCorrectAnswers: `${precentCorrectAnswersPerDay}` },
+          { longestTrueUnswers: `${longestTrueUnswersPerDay}` },
+        ];
 
         html += `
         
@@ -85,11 +108,11 @@ export class Statistics extends AbstractView {
               <p>Новых слов: <span class="statistics-indicator audiocall-new-words">${
                 arrAudiocall[0]['newWords']
               }</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator audiocall-correct-answers">${
+              <p>Правильных ответов: <span class="statistics-indicator audiocall-correct-answers">${
                 arrAudiocall[1]['precentCorrectAnswers']
-              }</span> </p>
+              } %</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
-                arrAudiocall[2]['logestTrueUnswers']
+                arrAudiocall[2]['longestTrueUnswers']
               }</span></p>
             </div>          
           </div>  
@@ -102,9 +125,9 @@ export class Statistics extends AbstractView {
             </div>
             <div class="statistics-text home-text">
               
-              <p>Новых слов: <span class="statistics-indicator sprint-new-words">${newWords}</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator sprint-correct-answers">${correctlyAnsweredPercent}</span> </p>
-              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">0</span></p>
+              <p>Новых слов: <span class="statistics-indicator sprint-new-words">${sprintNewWords}</span></p>
+              <p>Правильных ответов: <span class="statistics-indicator sprint-correct-answers">${sprintCorrectlyAnsweredPercent} %</span> </p>
+              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">${spintLongestSeries}</span></p>
             </div>          
           </div>
   
@@ -147,7 +170,7 @@ export class Statistics extends AbstractView {
             <div class="large-text">
               Статистика доступна только для зарегистрированных пользователей.
             </div>
-            <a href="#/login/" id="login-btn" class="button statistic-button login-btn" data-href="#/login/">Жми сюда</a>
+            <a href="#/signup/" id="login-btn" class="button statistic-button login-btn" data-href="#/signup/">Жми сюда</a>
           </div>
         `;
       } else if (data.status === 404) {
