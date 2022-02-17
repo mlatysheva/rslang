@@ -163,35 +163,8 @@ export async function startSprintGame(level: number) {
 
         if (getItemFromLocalStorage('token')) {
 
-          const serverWord = await getUserWord(userId, wordId);
+          postWordToServer(userId, wordId);  
 
-          // case where such user word already exists
-          if (serverWord) {
-            let isNewWord = serverWord.optional?.newWord;
-            if (isNewWord) {
-              isNewWord = false;
-            }
-            let serverCorrectlyAnswered = serverWord.optional?.correctlyAnswered;
-            if (serverCorrectlyAnswered) {
-              serverCorrectlyAnswered++;
-            } else serverCorrectlyAnswered = 1;
-
-            let existingDifficulty = serverWord.difficulty;
-
-            const body: UserWordParameters = {
-              difficulty: existingDifficulty,
-              optional: { newWord: isNewWord, correctlyAnswered: serverCorrectlyAnswered, },
-            };
-            const sendWordToServer = await createUserWord(userId, wordId, body);
-            console.log(`sendWordtoServer is ${sendWordToServer}`);
-          } else { // case where such user word does not exist
-
-            let body: UserWordParameters = {
-              difficulty: 'normal',
-              optional: { newWord: true, correctlyAnswered: 1}
-            }
-            const sendWordToServer = await createUserWord(userId, wordId, body);
-          }
         }
 
         // add new word to global sprintLearnedWords array and to LS
@@ -231,6 +204,43 @@ export async function startSprintGame(level: number) {
         (<HTMLElement>translation).innerText = randomAnswers[getRandomNumber(2)];
       }
     });
+  }
+}
+
+async function postWordToServer(userId: string, wordId: string) {
+  const serverWord = await getUserWord(userId, wordId);
+
+  // case where such user word already exists
+  if (serverWord) {
+    let isNewWord = serverWord.optional?.newWord;
+    if (isNewWord) {
+      isNewWord = false;
+    }
+    let serverCorrectlyAnswered = serverWord.optional?.sprintCorrectlyAnswered;
+    if (serverCorrectlyAnswered) {
+      serverCorrectlyAnswered++;
+    } else serverCorrectlyAnswered = 1;
+    
+    let serverTotalAnswers = serverWord.optional?.sprintTotalAnswers;
+    if (serverTotalAnswers) {
+      serverTotalAnswers++;
+    }
+
+    let existingDifficulty = serverWord.difficulty;
+
+    const body: UserWordParameters = {
+      difficulty: existingDifficulty,
+      optional: { sprintNewWord: isNewWord, sprintCorrectlyAnswered: serverCorrectlyAnswered, sprintTotalAnswers: serverTotalAnswers},
+    };
+    const sendWordToServer = await createUserWord(userId, wordId, body);
+    console.log(`sendWordtoServer is ${sendWordToServer}`);
+  } else { // case where such user word does not exist
+
+    let body: UserWordParameters = {
+      difficulty: 'normal',
+      optional: { sprintNewWord: true, sprintCorrectlyAnswered: 1, sprintTotalAnswers: 1}
+    }
+    const sendWordToServer = await createUserWord(userId, wordId, body);
   }
 }
 
@@ -329,7 +339,7 @@ export async function renderSprintResults(array: SprintWord[]) {
 
     let body = {
       "learnedWords": 0,
-      "optional": { "sprintNewWords": sprintNewWords.length}
+      // "optional": { "sprintNewWords": sprintNewWords.length}
     }
 
     await putUserStatistics(body);

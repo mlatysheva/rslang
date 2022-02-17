@@ -12,6 +12,16 @@ import { updateStatistics } from './statistics/globalStorage';
 
 console.log('App is running');
 
+const timestamp = 1645171764914
+let date = new Date(timestamp);
+
+console.log("token expires on "+date.getDate()+
+          "/"+(date.getMonth()+1)+
+          "/"+date.getFullYear()+
+          " "+date.getHours()+
+          ":"+date.getMinutes()+
+          ":"+date.getSeconds());         
+
 const app = <HTMLElement>document.getElementById('app');
 
 // global variable to store ids of learned words - correctly guessed words in mini games

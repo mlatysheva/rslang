@@ -60,24 +60,24 @@ export class Statistics extends AbstractView {
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
         let newWords = 0;
-        let correctlyAnswered = 0;
-        let incorrectlyAnswered = 0;
+        let sprintCorrectlyAnswered = 0;
+        let sprintTotalAnswers = 0;
         userWords.forEach((userWord) => {
-          if (userWord.optional?.newWord) {
+          if (userWord.optional?.sprintNewWord) {
             newWords++;
-          }
-          if (userWord.optional?.correctlyAnswered) {
-            correctlyAnswered += userWord.optional?.correctlyAnswered;
-          }
-          if (userWord.optional?.incorrectlyAnswered) {
-            incorrectlyAnswered += userWord.optional?.incorrectlyAnswered;
-          }
-        });
 
-        let correctlyAnsweredPercent = (
-          (correctlyAnswered / (correctlyAnswered + incorrectlyAnswered)) *
-          100
-        ).toFixed();
+          };
+          if (userWord.optional?.sprintCorrectlyAnswered) {
+            sprintCorrectlyAnswered += userWord.optional?.sprintCorrectlyAnswered;
+
+          }
+          if (userWord.optional?.sprintTotalAnswers) {
+            sprintTotalAnswers += userWord.optional?.sprintTotalAnswers;
+          }
+        })
+
+        let correctlyAnsweredPercent = ((sprintCorrectlyAnswered / (sprintTotalAnswers) ) * 100 ).toFixed();
+
 
         let today = new Date().toLocaleDateString();
 
@@ -181,7 +181,7 @@ export class Statistics extends AbstractView {
             <div class="large-text">
               Статистика доступна только для зарегистрированных пользователей.
             </div>
-            <a href="#/login/" id="login-btn" class="button statistic-button login-btn" data-href="#/login/">Жми сюда</a>
+            <a href="#/signup/" id="login-btn" class="button statistic-button login-btn" data-href="#/signup/">Жми сюда</a>
           </div>
         `;
       } else if (data.status === 404) {
