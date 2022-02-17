@@ -49,43 +49,6 @@ export async function replay() {
   app.appendChild(await newSprint.getHtml());
 }
 
-export async function postWordToServer(userId: string, wordId: string) {
-  const serverWord = await getUserWord(userId, wordId);
-
-  // case where such user word already exists
-  if (serverWord) {
-    let isNewWord = serverWord.optional?.newWord;
-    if (isNewWord) {
-      isNewWord = false;
-    }
-    let serverCorrectlyAnswered = serverWord.optional?.sprintCorrectlyAnswered;
-    if (serverCorrectlyAnswered) {
-      serverCorrectlyAnswered++;
-    } else serverCorrectlyAnswered = 1;
-    
-    let serverTotalAnswers = serverWord.optional?.sprintTotalAnswers;
-    if (serverTotalAnswers) {
-      serverTotalAnswers++;
-    }
-
-    let existingDifficulty = serverWord.difficulty;
-
-    const body: UserWordParameters = {
-      difficulty: existingDifficulty,
-      optional: { sprintNewWord: isNewWord, sprintCorrectlyAnswered: serverCorrectlyAnswered, sprintTotalAnswers: serverTotalAnswers},
-    };
-    const sendWordToServer = await createUserWord(userId, wordId, body);
-    console.log(`sendWordtoServer is ${sendWordToServer}`);
-  } else { // case where such user word does not exist
-
-    let body: UserWordParameters = {
-      difficulty: 'normal',
-      optional: { sprintNewWord: true, sprintCorrectlyAnswered: 1, sprintTotalAnswers: 1}
-    }
-    const sendWordToServer = await createUserWord(userId, wordId, body);
-  }
-}
-
 export function getRandomNumber(num: number) {
   return Math.floor(Math.random() * num);
 }
@@ -120,4 +83,84 @@ export function playsound() {
     const src = elementId.split('-')[1];
     (element as HTMLElement).addEventListener('click', sound(elementId, src));
   });
+}
+
+export async function postWordToServer(userId: string, wordId: string, correctlyAnswered: number) {
+
+  let body: UserWordParameters = {
+    difficulty: 'normal',
+    optional: { sprintNewWord: true, sprintCorrectlyAnswered: correctlyAnswered, sprintTotalAnswers: 1}
+  }
+
+  const serverWord = await createUserWord(userId, wordId, body);
+
+  // case where such user word already exists
+  if (serverWord) {
+    let isNewWord = serverWord.optional?.newWord;
+    if (isNewWord) {
+      isNewWord = false;
+    }
+    let serverCorrectlyAnswered = serverWord.optional?.sprintCorrectlyAnswered;
+    if (serverCorrectlyAnswered) {
+      serverCorrectlyAnswered++;
+    } else serverCorrectlyAnswered = 1;
+    
+    let serverTotalAnswers = serverWord.optional?.sprintTotalAnswers;
+    if (serverTotalAnswers) {
+      serverTotalAnswers++;
+    }
+
+    let existingDifficulty = serverWord.difficulty;
+
+    const body: UserWordParameters = {
+      difficulty: existingDifficulty,
+      optional: { sprintNewWord: isNewWord, sprintCorrectlyAnswered: serverCorrectlyAnswered, sprintTotalAnswers: serverTotalAnswers},
+    };
+    const sendWordToServer = await createUserWord(userId, wordId, body);
+    console.log(`sendWordtoServer is ${sendWordToServer}`);
+  } else { // case where such user word does not exist
+
+    let body: UserWordParameters = {
+      difficulty: 'normal',
+      optional: { sprintNewWord: true, sprintCorrectlyAnswered: 1, sprintTotalAnswers: 1}
+    }
+    await createUserWord(userId, wordId, body);
+  }
+}
+
+async function postWordToServer2(userId: string, wordId: string) {
+  const serverWord = await getUserWord(userId, wordId);
+
+  // case where such user word already exists
+  if (serverWord) {
+    let isNewWord = serverWord.optional?.newWord;
+    if (isNewWord) {
+      isNewWord = false;
+    }
+    let serverCorrectlyAnswered = serverWord.optional?.sprintCorrectlyAnswered;
+    if (serverCorrectlyAnswered) {
+      serverCorrectlyAnswered++;
+    } else serverCorrectlyAnswered = 1;
+    
+    let serverTotalAnswers = serverWord.optional?.sprintTotalAnswers;
+    if (serverTotalAnswers) {
+      serverTotalAnswers++;
+    }
+
+    let existingDifficulty = serverWord.difficulty;
+
+    const body: UserWordParameters = {
+      difficulty: existingDifficulty,
+      optional: { sprintNewWord: isNewWord, sprintCorrectlyAnswered: serverCorrectlyAnswered, sprintTotalAnswers: serverTotalAnswers},
+    };
+    const sendWordToServer = await createUserWord(userId, wordId, body);
+    console.log(`sendWordtoServer is ${sendWordToServer}`);
+  } else { // case where such user word does not exist
+
+    let body: UserWordParameters = {
+      difficulty: 'normal',
+      optional: { sprintNewWord: true, sprintCorrectlyAnswered: 1, sprintTotalAnswers: 1}
+    }
+    await createUserWord(userId, wordId, body);
+  }
 }

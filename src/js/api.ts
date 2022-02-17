@@ -103,6 +103,9 @@ export async function getUser(): Promise<UserWithName> {
 
 
 export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
+
+  // variable to add to correct answers if such userWord already exists
+  let correctlyAnswered = body.optional?.sprintCorrectlyAnswered;
   try { 
     const token = getItemFromLocalStorage('token');
 
@@ -123,13 +126,15 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
           console.log('such user word already exists');
           const response = await getUserWord(userId, wordId);
           const existingDifficulty = response.difficulty;
+          let existingSprintCorrectAnswers = response.sprintCorrectlyAnswered;
+          let existingSprintTotalAnswers = response.sprintTotalAnswers;
           const newBody = {
             difficulty: existingDifficulty,
-            // optional: { sprintNewWord: false, sprintCorrectlyAnswered: 1, sprintIncorrectlyAnswered: 0 }
+            optional: { sprintNewWord: false, sprintCorrectlyAnswered: existingSprintCorrectAnswers + correctlyAnswered, sprintTotalAnswers: existingSprintTotalAnswers++ }
           }
           await updateUserWord (userId, wordId, newBody);
         }
-        throw error;
+        // throw error;
       };
   };
 }

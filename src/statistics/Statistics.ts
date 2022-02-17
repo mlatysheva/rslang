@@ -62,6 +62,7 @@ export class Statistics extends AbstractView {
         // }
         
         userWords.forEach((userWord) => {
+          console.log(userWord);
           if (userWord.optional?.sprintNewWord) {
             console.log(`word with ${userWord.wordId} is ${userWord.optional?.sprintNewWord}`);
             sprintNewWords++;
