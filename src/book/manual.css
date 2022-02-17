@@ -28,6 +28,7 @@
 	grid-template-columns: repeat(2, 1fr);
   row-gap: 3em;
 	align-items:center;
+  justify-items: center;
   justify-content: space-around;
 }
 .pagination {
@@ -59,7 +60,7 @@
 .levels {
   display: flex;
   position: fixed;
-  left: 90px;
+  left: 2em;
   flex-direction: column;
   gap: 1em;
 }

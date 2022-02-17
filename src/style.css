@@ -384,6 +384,8 @@ a:hover {
 
 .card-image {
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .card-img {
@@ -662,13 +664,92 @@ a:hover {
   }
 }
 
+@media (max-width: 1400px) {
+  .card-img {
+    width: 85%;
+  }
+  .card-title{
+    font-size: 22px;
+  }
+  .transk-transl {
+    margin-left: 6rem;
+  }
+}
+
 @media (max-width: 1100px) {
   .round-game1,
   .describtion-game1 {
     border-radius: 5%;
     padding: 1rem;
   }
+  .book-page {
+    grid-template-columns: 1fr;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  .settings svg {
+    width: 35px;
+  }
+  .card {
+    width: 65%;
+  }
+  .card-img {
+    width: 60%;
+  }
+  .card-description {
+    font-size: 14px;
+  }
+  .play,
+  .pause {
+    width: 46px;
+    height: 33px;
+    background-size: 46px 27px;
 }
+ .levels {
+   display: grid;
+   top: 12em;
+   grid-template-columns: repeat(2, 118px);
+ }
+ .level7 {
+   grid-area: 6/1;
+ }
+  .level, 
+  .save,
+  .difficult,
+  .delete {
+    font-size: 16px;
+    padding: 4px 5px;
+    text-align: center;
+  }
+  .difficult,
+  .delete {
+    font-size: 13px;
+  }
+  .sprint-btn svg {
+   width: 54px;
+  }
+  .userAudioCall svg {
+    width: 48px;
+  }
+  
+  .correct,
+  .incorrect {
+    font-size: 12px;
+    padding: 4px 14px;
+  }
+  .sprint-btn {
+    width: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    width: 18em;
+    gap: 0;
+  }
+}
+
 
 @media (max-width: 728px) {
   .game1 {
