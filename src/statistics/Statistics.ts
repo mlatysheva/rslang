@@ -39,17 +39,12 @@ export class Statistics extends AbstractView {
 
     `;
 
-    const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
-    userWords.forEach((userWord) => {
-      console.log(userWord);
-    });
-
     const data = await getUserStatistics();
     if (data) {
       console.log(`data is ${data.status}`);
       if (data.status === 200) {
         const content = await data.json();
-        // const totalLearnedWords = content.learnedWords;
+        const totalLearnedWords = content.learnedWords;
 
         // let sprintWordsToday: number;
         // if (sprintNewWords) {
@@ -59,24 +54,31 @@ export class Statistics extends AbstractView {
         // }
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
-        let newWords = 0;
+        let sprintNewWords = 0;
         let sprintCorrectlyAnswered = 0;
         let sprintTotalAnswers = 0;
+        // if (getItemFromLocalStorage('sprintNewWords')) {
+
+        // }
+        
         userWords.forEach((userWord) => {
           if (userWord.optional?.sprintNewWord) {
-            newWords++;
-
+            console.log(`word with ${userWord.wordId} is ${userWord.optional?.sprintNewWord}`);
+            sprintNewWords++;
+            console.log(`sprintNewWords are ${sprintNewWords}`);
           };
           if (userWord.optional?.sprintCorrectlyAnswered) {
             sprintCorrectlyAnswered += userWord.optional?.sprintCorrectlyAnswered;
-
+            console.log(`sprintCorrectlyAnswered are ${sprintCorrectlyAnswered}`);
           }
           if (userWord.optional?.sprintTotalAnswers) {
             sprintTotalAnswers += userWord.optional?.sprintTotalAnswers;
+            console.log(`sprintTotalAnswers are ${sprintTotalAnswers}`);
           }
         })
 
-        let correctlyAnsweredPercent = ((sprintCorrectlyAnswered / (sprintTotalAnswers) ) * 100 ).toFixed();
+        let correctlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
+        console.log(`correctlyAnsweredPercent is ${correctlyAnsweredPercent}`);
 
 
         let today = new Date().toLocaleDateString();
@@ -136,7 +138,7 @@ export class Statistics extends AbstractView {
             </div>
             <div class="statistics-text home-text">
               
-              <p>Новых слов: <span class="statistics-indicator sprint-new-words">${newWords}</span></p>
+              <p>Новых слов: <span class="statistics-indicator sprint-new-words">${sprintNewWords}</span></p>
               <p>Правильных ответов, %: <span class="statistics-indicator sprint-correct-answers">${correctlyAnsweredPercent}</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">0</span></p>
             </div>          
