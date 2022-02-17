@@ -7,6 +7,7 @@ import { SprintWord, UserWordParameters, Word } from "../js/types";
 import { sprintNewWords } from "../statistics/globalStorage";
 import { countdown } from "./countDown";
 import { Sprint } from "./Sprint";
+import { getRandomAnswers, getRandomNumber, playsound, postWordToServer, refreshPoints, renderLevel } from "./sprintUtils";
 
 
 /* return array of 80 words containing of a random page from the chosen level
@@ -163,7 +164,7 @@ export async function startSprintGame(level: number) {
 
         if (getItemFromLocalStorage('token')) {
 
-          postWordToServer(userId, wordId);  
+          postWordToServer(userId, wordId, 1);  
 
         }
 
@@ -178,6 +179,15 @@ export async function startSprintGame(level: number) {
           translation: words[index].wordTranslate,
           isCorrectlyAnswered: false,
         });
+
+        // interact with the server for a registered user
+
+        if (getItemFromLocalStorage('token')) {
+
+          postWordToServer(userId, wordId, 0);  
+
+        }
+
         // remove learned word from learnedWords array and from LS
 
         if (sprintNewWords.includes(wordId))  {
@@ -205,79 +215,6 @@ export async function startSprintGame(level: number) {
       }
     });
   }
-}
-
-async function postWordToServer(userId: string, wordId: string) {
-  const serverWord = await getUserWord(userId, wordId);
-
-  // case where such user word already exists
-  if (serverWord) {
-    let isNewWord = serverWord.optional?.newWord;
-    if (isNewWord) {
-      isNewWord = false;
-    }
-    let serverCorrectlyAnswered = serverWord.optional?.sprintCorrectlyAnswered;
-    if (serverCorrectlyAnswered) {
-      serverCorrectlyAnswered++;
-    } else serverCorrectlyAnswered = 1;
-    
-    let serverTotalAnswers = serverWord.optional?.sprintTotalAnswers;
-    if (serverTotalAnswers) {
-      serverTotalAnswers++;
-    }
-
-    let existingDifficulty = serverWord.difficulty;
-
-    const body: UserWordParameters = {
-      difficulty: existingDifficulty,
-      optional: { sprintNewWord: isNewWord, sprintCorrectlyAnswered: serverCorrectlyAnswered, sprintTotalAnswers: serverTotalAnswers},
-    };
-    const sendWordToServer = await createUserWord(userId, wordId, body);
-    console.log(`sendWordtoServer is ${sendWordToServer}`);
-  } else { // case where such user word does not exist
-
-    let body: UserWordParameters = {
-      difficulty: 'normal',
-      optional: { sprintNewWord: true, sprintCorrectlyAnswered: 1, sprintTotalAnswers: 1}
-    }
-    const sendWordToServer = await createUserWord(userId, wordId, body);
-  }
-}
-
-export function getRandomNumber(num: number) {
-  return Math.floor(Math.random() * num);
-}
-
-// create an array of random answers
-export function getRandomAnswers(num: number, words: Word[]) {
-  let arrayOfAnswers: string[] = [];
-
-  for (let i = 0; i < num; i++) {
-    arrayOfAnswers.push(words[getRandomNumber(WORDS_PER_PAGE)].wordTranslate);
-  }
-  return arrayOfAnswers;
-}
-
-// show number of level on the main sprint game screen
-function renderLevel(level: number) {
-  const levelSpan = document.getElementById('sprint-level');
-  (<HTMLElement>levelSpan).innerText = (level + 1).toString();
-}
-
-// update points if the answer is correct
-function refreshPoints(points: number) {
-  const pointsDiv = document.getElementById('sprint-points');
-  (<HTMLElement>pointsDiv).innerText = points.toString();
-}
-
-function playsound() {
-  const resultsTable = <HTMLElement>document.querySelector('.sprint-results');
-  const tracks = resultsTable.querySelectorAll('.player-icon');
-  Array.from(tracks).forEach((element) => {
-    const elementId = element.id;
-    const src = elementId.split('-')[1];
-    (element as HTMLElement).addEventListener('click', sound(elementId, src));
-  });
 }
 
 export async function renderSprintResults(array: SprintWord[]) {

@@ -103,6 +103,9 @@ export async function getUser(): Promise<UserWithName> {
 
 
 export const createUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
+
+  // variable to add to correct answers if such userWord already exists
+  let correctlyAnswered = body.optional?.sprintCorrectlyAnswered;
   try { 
     const token = getItemFromLocalStorage('token');
 
@@ -119,16 +122,18 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
     const content = await rawResponse.json();
     return content;
   } catch { async (error: any) => {
-        if (error) {
-          console.log('such user word already exists');
-          const response = await getUserWord(userId, wordId);
-          const existingDifficulty = response.difficulty;
-          const newBody = {
-            difficulty: existingDifficulty,
-            // optional: { sprintNewWord: false, sprintCorrectlyAnswered: 1, sprintIncorrectlyAnswered: 0 }
-          }
-          await updateUserWord (userId, wordId, newBody);
-        }
+        // if (error) {
+        //   console.log('such user word already exists');
+          // const response = await getUserWord(userId, wordId);
+          // const existingDifficulty = response.difficulty;
+          // let existingSprintCorrectAnswers = response.sprintCorrectlyAnswered;
+          // let existingSprintTotalAnswers = response.sprintTotalAnswers;
+          // const newBody = {
+          //   difficulty: existingDifficulty,
+          //   optional: { sprintNewWord: false, sprintCorrectlyAnswered: existingSprintCorrectAnswers + correctlyAnswered, sprintTotalAnswers: existingSprintTotalAnswers++ }
+          // }
+          // await updateUserWord (userId, wordId, newBody);
+        // }
         throw error;
       };
   };
@@ -191,20 +196,16 @@ export const getUserWord = async (userId: string, wordId: string) => {
         Accept: 'application/json',
       },
     });
-    const response = await rawResponse;
-    const content = await response.json(); 
-    
-    if (response.status === 200) {
-      console.log('User word exists');
-    } 
-    return content.body; 
+
+    const response = await rawResponse.json();
+    return response;
   } catch(err) {
-    console.log(`Сreating new user word`);
-    const body = {
-      difficulty: 'normal',
-      // optional: { newWord: true, correctlyAnswered: 1, incorrectlyAnswered: 0},
-    }
-    await createUserWord(userId, wordId, body);
+    console.log(`Such user word does not exist`);
+    // const body = {
+    //   difficulty: 'normal',
+    //   // optional: { newWord: true, correctlyAnswered: 1, incorrectlyAnswered: 0},
+    // }
+    // await createUserWord(userId, wordId, body);
     
   }
 };

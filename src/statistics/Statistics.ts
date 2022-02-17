@@ -39,44 +39,31 @@ export class Statistics extends AbstractView {
 
     `;
 
-    const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
-    userWords.forEach((userWord) => {
-      console.log(userWord);
-    });
-
     const data = await getUserStatistics();
     if (data) {
-      console.log(`data is ${data.status}`);
+      console.log(`status is ${data.status}`);
       if (data.status === 200) {
         const content = await data.json();
-        // const totalLearnedWords = content.learnedWords;
-
-        // let sprintWordsToday: number;
-        // if (sprintNewWords) {
-        //   sprintWordsToday = sprintNewWords.length;
-        // } else {
-        //   sprintWordsToday = 0;
-        // }
+        const totalLearnedWords = content.learnedWords;
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
-        let newWords = 0;
+        let sprintNewWords = 0;
         let sprintCorrectlyAnswered = 0;
         let sprintTotalAnswers = 0;
+        
         userWords.forEach((userWord) => {
           if (userWord.optional?.sprintNewWord) {
-            newWords++;
-
+            sprintNewWords++;
           };
           if (userWord.optional?.sprintCorrectlyAnswered) {
             sprintCorrectlyAnswered += userWord.optional?.sprintCorrectlyAnswered;
-
           }
           if (userWord.optional?.sprintTotalAnswers) {
             sprintTotalAnswers += userWord.optional?.sprintTotalAnswers;
           }
         })
 
-        let correctlyAnsweredPercent = ((sprintCorrectlyAnswered / (sprintTotalAnswers) ) * 100 ).toFixed();
+        let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
 
 
         let today = new Date().toLocaleDateString();
@@ -119,9 +106,9 @@ export class Statistics extends AbstractView {
               <p>Новых слов: <span class="statistics-indicator audiocall-new-words">${
                 arrAudiocall[0]['newWords']
               }</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator audiocall-correct-answers">${
+              <p>Правильных ответов: <span class="statistics-indicator audiocall-correct-answers">${
                 arrAudiocall[1]['precentCorrectAnswers']
-              }</span> </p>
+              } %</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
                 arrAudiocall[2]['longestTrueUnswers']
               }</span></p>
@@ -136,8 +123,8 @@ export class Statistics extends AbstractView {
             </div>
             <div class="statistics-text home-text">
               
-              <p>Новых слов: <span class="statistics-indicator sprint-new-words">${newWords}</span></p>
-              <p>Правильных ответов, %: <span class="statistics-indicator sprint-correct-answers">${correctlyAnsweredPercent}</span> </p>
+              <p>Новых слов: <span class="statistics-indicator sprint-new-words">${sprintNewWords}</span></p>
+              <p>Правильных ответов: <span class="statistics-indicator sprint-correct-answers">${sprintCorrectlyAnsweredPercent} %</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">0</span></p>
             </div>          
           </div>
