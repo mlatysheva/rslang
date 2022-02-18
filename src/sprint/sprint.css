@@ -17,15 +17,20 @@
 }
 .sprint-title {
   font-size: 40px;
-  margin-top: 2rem;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: 700;
   margin-bottom: 2rem;
 }
+
+.sprint-icon-initial-screen {
+  margin: 0 auto;
+  width: 6rem;
+  height: 6rem;
+}
 .level-wrapper {
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 .sprint-text {

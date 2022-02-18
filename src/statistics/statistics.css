@@ -57,8 +57,7 @@
   text-transform: uppercase;
   text-align: center;
 }
-.statistics-text {
-}
+
 .statistics-bold {
   font-weight: 700;
 }
@@ -96,6 +95,17 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
+.sprint-statistics-icon {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.svg-sprint-statistics {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 6rem;
+  height: 6rem;
+}
 .statistics-indicator {
   font-weight: 700;
   font-size: 32px;
@@ -104,9 +114,9 @@
 .manual-icon {
   background-image: url('../assets/images/favorite-site.svg');
 }
-.sprint-statistics-icon {
+/* .sprint-statistics-icon {
   background-image: url('../assets//images/stopwatch.svg');
-}
+} */
 .audiocall-icon {
   background-image: url('../assets/images/call.svg');
 }
