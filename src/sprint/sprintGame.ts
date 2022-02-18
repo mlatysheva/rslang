@@ -1,12 +1,7 @@
-import { sound } from "../game1/statisticGame1";
-import { createUserWord, getUserDifficultWords, getUserWord, getWords, putUserStatistics, updateUserWord } from "../js/api";
-import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { getItemFromLocalStorage } from "../js/localStorage";
-import { clearAllChildNodes } from "../js/router";
-import { SprintWord, UserWordParameters, Word } from "../js/types";
+import { SprintWord } from "../js/types";
 import { sprintNewWords } from "../statistics/globalStorage";
 import { countdown } from "./countDown";
-import { Sprint } from "./Sprint";
 import { findSprintLongestSeries, getArrayOfWords, getRandomAnswers, getRandomNumber, playsound, postWordToServer, refreshPoints, renderLevel, replay } from "./sprintUtils";
 
 
@@ -21,10 +16,12 @@ export async function startSprintRound(level: number) {
   const gameScreen = <HTMLElement>document.createElement('div');
   gameScreen.classList.add('sprint-game-screen');
 
-  let html = `    
-    <div class="replay-button" title="К выбору уровня"></div>
-
-    <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
+  let html = `
+    <div class="first-line-wrapper sprint-wrapper">   
+      <button class="replay-button" id="sprint-replay-button" title="К выбору уровня"></button>
+      <div class="sprint-points"><span class="sprint-text">Очки: </span><span id="sprint-points">0</span></div>
+      <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
+    </div>
 
     <button class="button sprint-start-button">Начать</button>
 
@@ -33,7 +30,6 @@ export async function startSprintRound(level: number) {
       <div class="timer" id="counter"></div>
     </div>
     
-    <div class="sprint-points"><span class="sprint-text">Очки: </span><span id="sprint-points">0</span></div>
     <div class="question-wrapper">
       <span class="sprint-word english-word" id="sprint-english-word"></span>
       <span class="is"> значит </span>
@@ -42,7 +38,13 @@ export async function startSprintRound(level: number) {
     <div class="sprint-controls-wrapper" id="sprint-controls">
       <div class="button sprint-answer-button sprint-correct" id="sprint-correct-btn">Верно</div>
       <div class="button sprint-answer-button sprint-incorrect" id="sprint-incorrect-btn">Неверно</div>
-    </div>    
+    </div> 
+    <div class="text-box">      
+      <p class="text-message"><span class="uppercase-text bold-text">Для игры с клавиатуры жми:</span> 
+        <br><span class="uppercase-text bold-text">Enter</span> - "Начать", <span class="uppercase-text bold-text">Backspace</span> или <span class="uppercase-text bold-text">Delete</span> - "Возврат к выбору уровня"
+        <br><span class="uppercase-text bold-text">Левая стрелка</span> - "Верно", <span class="uppercase-text bold-text">Правая стрелка</span> - "Неверно"
+      </p>
+    </div>   
   `;
 
   gameScreen.innerHTML = html;
@@ -72,8 +74,17 @@ export async function startSprintGame(level: number) {
   await startSprintRound(level);
 
   const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+  const replayBtn = <HTMLButtonElement>document.getElementById('sprint-replay-button');
+
+  // manipulate start and replay by mouse click
+
   (<HTMLButtonElement>sprintStartBtn).addEventListener('click', () => {
+
+    const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+    const replayBtn = <HTMLButtonElement>document.getElementById('sprint-replay-button');
+  
     sprintStartBtn.disabled = true;
+    replayBtn.disabled = true;
 
     const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
     const translation = <HTMLElement>document.getElementById('sprint-translation');
@@ -92,6 +103,18 @@ export async function startSprintGame(level: number) {
         findSprintLongestSeries(arrayof1and0);
       }
     }, 1000);
+  });
+
+  // manipulate start and replay from keyboard
+
+  document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
+
+    if (e.key === 'Enter') {
+      sprintStartBtn.click();
+    }
+    if (e.key === 'Backspace') {
+      replayBtn.click();
+    }
   });
 
   function game() {
@@ -119,7 +142,6 @@ export async function startSprintGame(level: number) {
         results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
         
         arrayof1and0.push(1);
-        console.log(`arrayof1and 0 is ${arrayof1and0}`);
         
         // interact with the server for a registered user
 
@@ -140,7 +162,6 @@ export async function startSprintGame(level: number) {
         });
 
         arrayof1and0.push(0);
-        console.log(`arrayof1and 0 is ${arrayof1and0}`);
 
         // interact with the server for a registered user
 
@@ -174,6 +195,19 @@ export async function startSprintGame(level: number) {
         (<HTMLElement>translation).innerText = randomAnswers[getRandomNumber(2)];
       }
     });
+
+    // play from keyboard
+    const sprintCorrectBtn = document.getElementById('sprint-correct-btn');
+    const sprintIncorrectBtn = <HTMLElement>document.getElementById('sprint-incorrect-btn');
+
+    document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {   
+        (<HTMLElement>sprintCorrectBtn).click();
+      }
+      if (e.key === 'ArrowRight') { 
+        (<HTMLElement>sprintIncorrectBtn).click();
+      }
+    });
   }
 }
 
@@ -187,12 +221,15 @@ export async function renderSprintResults(array: SprintWord[]) {
   let html = `
     
     <div class="sprint-results">
-      <div class="results-replay-btn replay-button" title="К выбору уровня"></div>
+      <button class="results-replay-btn replay-button" title="К выбору уровня"></button>
       <div class="title sprint-results-title">Твои результаты:</div>
       <div class="results-wrapper">
         <div class="results-summary results-summary-errors">Ошибок: <span class="sprint-results-span" id="sprint-errors">${incorrectAnswers}</span></div>
         <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct">${correctAnswers}</span></div>
         <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct-percentage">${correctAnswersPercent}%</span></div>
+        <div class="results-summary text-message">Для возврата к выбору уровня с клавиатуры жми: 
+          <span class="uppercase-text bold-text">Backspace</span> или <span class="uppercase-text bold-text">Delete</span> 
+        </div>
       </div>
 
       <table class="table" id="sprint-results-table">
@@ -219,10 +256,17 @@ export async function renderSprintResults(array: SprintWord[]) {
   const parentDiv = <HTMLElement>document.querySelector('.sprint-view');
   parentDiv.appendChild(resultsView);
 
-  // Toggle screens
+  // Toggle screens by mouse click
   const replayBtn = resultsView.querySelector('.replay-button');
   (<HTMLElement>replayBtn).addEventListener('click', () => {
     replay();
+  });
+
+  // Toggle screens by keyboard
+  document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
+    if (e.key === 'Backspace') {
+      (<HTMLElement>replayBtn).click();
+    }
   });
 
   // Add sound to words in the results table

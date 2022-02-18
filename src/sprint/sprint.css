@@ -3,14 +3,14 @@
   max-width: 1200px;
   height: 100%;
   overflow-y: scroll;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: white;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 5px;
   background-color: rgb(232, 250, 178);
   box-shadow: 0 0 5px 5px rgba(34, 60, 80, 0.2);
@@ -21,7 +21,6 @@
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: 700;
-  margin-bottom: 2rem;
 }
 
 .sprint-icon-initial-screen {
@@ -38,7 +37,7 @@
   text-align: center;
 }
 
-.level-range {
+.sprint-level-range {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -98,10 +97,19 @@
   align-items: center;
   align-content: center;
 }
+
+.sprint-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
 .timer-wrapper {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
   align-items: center;
 }
 .clock-image {
@@ -121,15 +129,22 @@
 .replay-button {
   width: 3rem;
   height: 3rem;
+  display: block;
   background-image: url('/src/assets/images/replay_icon.svg');
   margin: 1rem;
+  background-color: transparent;
+  border: none;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
   filter: invert(11%) sepia(54%) saturate(4173%) hue-rotate(312deg) brightness(83%) contrast(97%);
   cursor: pointer;
+}
+
+.replay-button:disabled {
+  filter: invert(55%) sepia(3%) saturate(7%) hue-rotate(319deg) brightness(91%) contrast(95%);
 }
 
 .sprint-start-button {
@@ -174,17 +189,21 @@
   background-color: gray;
 }
 
+
 .sprint-points {
   font-size: xx-large;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
+#sprint-points {
+  padding-left: 2rem;
+}
 
 .question-wrapper {
   font-size: xx-large;
-  margin-bottom: 3rem;
+  /* margin-bottom: 2rem; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
