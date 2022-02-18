@@ -101,29 +101,9 @@ export async function startSprintGame(level: number) {
 
     if (e.key === 'Enter') {
 
-    const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');    
-  
-    sprintStartBtn.disabled = true;
-
-    const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
-    const translation = <HTMLElement>document.getElementById('sprint-translation');
-    englishWord.innerHTML = words[0].word;
-    translation.innerHTML = words[0].wordTranslate;
-
-    game();
-
-    countdown();
-
-    let watching = setInterval(() => {
-      const counter = (<HTMLElement>document.getElementById('counter')).innerText;
-      if (counter == '0:00') {
-        clearInterval(watching);
-        renderSprintResults(results);
-        findSprintLongestSeries(arrayof1and0);
-      }
-    }, 1000);
-  }
-});
+      sprintStartBtn.click();
+    }
+  });
 
   function game() {
     const controls = document.getElementById('sprint-controls');
@@ -205,6 +185,18 @@ export async function startSprintGame(level: number) {
         (<HTMLElement>translation).innerText = randomAnswers[getRandomNumber(2)];
       }
     });
+    const sprintCorrectBtn = document.getElementById('sprint-correct-btn');
+      const sprintIncorrectBtn = <HTMLElement>document.getElementById('sprint-incorrect-btn');
+
+      document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
+        console.log(`e.key is ${e.key}`); 
+        if (e.key === 'ArrowLeft') {   
+          (<HTMLElement>sprintCorrectBtn).click();
+        }
+        if (e.key === 'ArrowRight') { 
+          (<HTMLElement>sprintIncorrectBtn).click();
+        }
+      });
   }
 }
 

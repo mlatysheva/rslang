@@ -151,11 +151,11 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
   });
   const response = await rawResponse;
   if (response.status === 200) {
-    console.log('User word was successfully updated');
+    console.log('user word was successfully updated');
   } else if (response.status === 401) {
-    console.log('User needs to login again');
+    console.log('user needs to login again');
   } else if (response.status === 404) {
-    console.log('Such user word does not exist. Adding new user word');
+    console.log('User word does not exist. Adding new user word');
     await createUserWord(userId, wordId, body);
   }
   return response.json()

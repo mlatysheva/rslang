@@ -33,38 +33,31 @@ export function listenForSprint() {
 export  function listenForSprintKeyboard() {
   let level: number;
   document.body.addEventListener('keyup', async (e) => {
-    console.log('keyboard is clicked!');
     const levelsDiv = document.querySelector('.sprint-level-range');
     if (levelsDiv != null) {
       switch (e.key) {
         case ('1'): {          
-          level = 0;
-          await startSprintGame(level);
+          await startSprintGame(0);
           break;
         }
         case ('2'): {
-          level = 1;
-          await startSprintGame(level);
+          await startSprintGame(1);
           break;
         }
         case ('3'): {
-          level = 2;
-          await startSprintGame(level);
+          await startSprintGame(2);
           break;
         }
         case ('4'): {
-          level = 3;
-          await startSprintGame(level);
+          await startSprintGame(3);
           break;
         }
         case ('5'): {
-          level = 4;
-          await startSprintGame(level);
+          await startSprintGame(4);
           break;
         }
         case ('6'): {
-          level = 5;
-          await startSprintGame(level);
+          await startSprintGame(5);
           break;
         }        
       }             

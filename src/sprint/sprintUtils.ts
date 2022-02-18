@@ -105,7 +105,6 @@ export async function postWordToServer(userId: string, wordId: string, correctly
     let existingDifficulty;
     if (body.difficulty) {
       existingDifficulty = body.difficulty;
-      console.log(`existing difficulty is ${existingDifficulty}`);
     } else existingDifficulty = 'normal';
 
     let existingSprintCorrectAnswers;
@@ -133,7 +132,6 @@ export function findSprintLongestSeries(array: number[] ) {
   let longestSeries: number;
   if (getItemFromLocalStorage('sprintLongestSeries')) {
     longestSeries = getItemFromLocalStorage('sprintLongestSeries');
-    console.log(`longestSeries from LS is ${longestSeries}`);
   } else {
     longestSeries = 0;
   }
@@ -144,20 +142,16 @@ export function findSprintLongestSeries(array: number[] ) {
   array.reduce( (prev, current) => {
     if (prev === current && current === 1) {
       currentTimes = currentTimes + 1;
-      console.log(`prev is ${prev}, current is ${current}, currentTimes is ${currentTimes}`);
 
       if (currentTimes > maxTimes) {
         maxTimes = currentTimes;
-        console.log(`maxTimes is ${maxTimes}`);
         // item = current;
       }
     } else {
       currentTimes = 1;
     }
-    console.log(`maxTimes is ${maxTimes}`);
     return current;
   }, maxTimes);
-  console.log(`currentLongest is ${maxTimes}`);
   let currentlongestSeries = maxTimes;
   if (currentlongestSeries > longestSeries) {
     setItemToLocalStorage('sprintLongestSeries', currentlongestSeries);
