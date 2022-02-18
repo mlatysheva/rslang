@@ -17,7 +17,7 @@ export async function startSprintRound(level: number) {
   gameScreen.classList.add('sprint-game-screen');
 
   let html = `    
-    <div class="replay-button" title="К выбору уровня"></div>
+    <button class="replay-button" id="sprint-replay-button" title="К выбору уровня"></button>
 
     <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
 
@@ -67,14 +67,17 @@ export async function startSprintGame(level: number) {
   await startSprintRound(level);
 
   const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+  const replayBtn = <HTMLButtonElement>document.getElementById('sprint-replay-button');
 
-  // if started by clicking on the start button
+  // manipulate start and replay by mouse click
 
   (<HTMLButtonElement>sprintStartBtn).addEventListener('click', () => {
 
     const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+    const replayBtn = <HTMLButtonElement>document.getElementById('sprint-replay-button');
   
     sprintStartBtn.disabled = true;
+    replayBtn.disabled = true;
 
     const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
     const translation = <HTMLElement>document.getElementById('sprint-translation');
@@ -95,13 +98,15 @@ export async function startSprintGame(level: number) {
     }, 1000);
   });
 
-  // if started by hitting Enter
+  // manipulate start and replay from keyboard
 
   document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
 
     if (e.key === 'Enter') {
-
       sprintStartBtn.click();
+    }
+    if (e.key === 'Backspace') {
+      replayBtn.click();
     }
   });
 
@@ -185,18 +190,20 @@ export async function startSprintGame(level: number) {
         (<HTMLElement>translation).innerText = randomAnswers[getRandomNumber(2)];
       }
     });
-    const sprintCorrectBtn = document.getElementById('sprint-correct-btn');
-      const sprintIncorrectBtn = <HTMLElement>document.getElementById('sprint-incorrect-btn');
 
-      document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
-        console.log(`e.key is ${e.key}`); 
-        if (e.key === 'ArrowLeft') {   
-          (<HTMLElement>sprintCorrectBtn).click();
-        }
-        if (e.key === 'ArrowRight') { 
-          (<HTMLElement>sprintIncorrectBtn).click();
-        }
-      });
+    // play from keyboard
+    const sprintCorrectBtn = document.getElementById('sprint-correct-btn');
+    const sprintIncorrectBtn = <HTMLElement>document.getElementById('sprint-incorrect-btn');
+
+    document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
+      console.log(`e.key is ${e.key}`); 
+      if (e.key === 'ArrowLeft') {   
+        (<HTMLElement>sprintCorrectBtn).click();
+      }
+      if (e.key === 'ArrowRight') { 
+        (<HTMLElement>sprintIncorrectBtn).click();
+      }
+    });
   }
 }
 
@@ -210,7 +217,7 @@ export async function renderSprintResults(array: SprintWord[]) {
   let html = `
     
     <div class="sprint-results">
-      <div class="results-replay-btn replay-button" title="К выбору уровня"></div>
+      <button class="results-replay-btn replay-button" title="К выбору уровня"></button>
       <div class="title sprint-results-title">Твои результаты:</div>
       <div class="results-wrapper">
         <div class="results-summary results-summary-errors">Ошибок: <span class="sprint-results-span" id="sprint-errors">${incorrectAnswers}</span></div>
@@ -242,10 +249,17 @@ export async function renderSprintResults(array: SprintWord[]) {
   const parentDiv = <HTMLElement>document.querySelector('.sprint-view');
   parentDiv.appendChild(resultsView);
 
-  // Toggle screens
+  // Toggle screens by mouse click
   const replayBtn = resultsView.querySelector('.replay-button');
   (<HTMLElement>replayBtn).addEventListener('click', () => {
     replay();
+  });
+
+  // Toggle screens by keyboard
+  document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
+    if (e.key === 'Backspace') {
+      (<HTMLElement>replayBtn).click();
+    }
   });
 
   // Add sound to words in the results table

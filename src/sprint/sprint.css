@@ -121,8 +121,11 @@
 .replay-button {
   width: 3rem;
   height: 3rem;
+  display: block;
   background-image: url('/src/assets/images/replay_icon.svg');
   margin: 1rem;
+  background-color: transparent;
+  border: none;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -130,6 +133,10 @@
   margin-right: auto;
   filter: invert(11%) sepia(54%) saturate(4173%) hue-rotate(312deg) brightness(83%) contrast(97%);
   cursor: pointer;
+}
+
+.replay-button:disabled {
+  filter: invert(55%) sepia(3%) saturate(7%) hue-rotate(319deg) brightness(91%) contrast(95%);
 }
 
 .sprint-start-button {
@@ -173,6 +180,7 @@
 .sprint-start-button:disabled {
   background-color: gray;
 }
+
 
 .sprint-points {
   font-size: xx-large;
