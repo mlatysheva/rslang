@@ -74,14 +74,13 @@ export function registerUser() {
       const user = {
         email: getItemFromLocalStorage('email'),
         password: pInput.value,
-      }
+      };
 
       const loginDetails = await loginUser(user);
 
-      
       const userToken = loginDetails.token;
-      const refreshToken = loginDetails.refreshToken;
-      
+      const { refreshToken } = loginDetails;
+
       setItemToLocalStorage('token', userToken);
 
       setItemToLocalStorage('refreshToken', refreshToken);
@@ -89,6 +88,7 @@ export function registerUser() {
       (<HTMLElement>app).innerHTML = '';
       (<HTMLElement>app).innerText = 'Вы успешно зарегистрированы!';
       renderUserName();
+      window.location.reload();
     }
   };
 }

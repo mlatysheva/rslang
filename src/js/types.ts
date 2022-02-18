@@ -24,6 +24,7 @@ export interface Word {
 export interface UserWordParameters {
   difficulty: string,
   optional?: WordOptional,
+  newWord?: boolean | undefined,
 }
 export interface UserWord {
   userId: string,

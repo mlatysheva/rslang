@@ -8,10 +8,6 @@ export const learnedWords: Array<string> = [];
 
 export const learnedDayWords: Array<string> = [];
 
-// if (JSON.parse(localStorage.getItem('learnedWords') as string)) {
-//   learnedDayWords = JSON.parse(localStorage.getItem('learnedWords') as string);
-// }
-
 export function learnedWord() {
   document.body.addEventListener('click', async (e):Promise< void> => {
     if (e.target) {
@@ -19,6 +15,7 @@ export function learnedWord() {
         const wordId = (<HTMLButtonElement>e.target).id.split('delete')[1];
         const word = document.getElementById(`${wordId}`);
         if (word) word.classList.add('opacity');
+        word?.classList.remove('difficult-word');
         (<HTMLButtonElement>e.target).disabled = true;
         (<HTMLButtonElement>e.target).classList.add('opacity');
         learnedWords.push(wordId);
@@ -27,7 +24,7 @@ export function learnedWord() {
           difficulty: 'learned-word',
           // optional: { newWord: false },
         };
-        removeDifficultWord();
+        await removeDifficultWord();
         await createUserWord(myId, wordId, body);
         const dataForStatistic = {
           learnedWords: learnedWords.length,

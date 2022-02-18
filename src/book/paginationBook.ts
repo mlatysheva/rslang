@@ -12,9 +12,11 @@ export async function changeLevel() {
     const cardsOnPage = document.querySelector('.book-page');
     const level = document.querySelectorAll('.level');
     const myId: string = getItemFromLocalStorage('id');
+    const pagination = document.querySelector('.pagination');
 
     level.forEach((button) => {
       button.classList.remove('active-page');
+      pagination?.classList.remove('hide');
     });
     if (e.target) {
       if ((<HTMLButtonElement>e.target).classList.contains('level')) {
