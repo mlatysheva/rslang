@@ -6,7 +6,6 @@ export function renderGameFromBook(): any {
   let levelPage = getLevelPage();
   let groupRoundIdGame1 = +levelPage.slice(1, 2);
   let page = +levelPage.slice(3, -1);
-  console.log(page);
 
   let gameSectionDescribe = document.createElement('div');
   gameSectionDescribe.classList.add('describtion-game1');

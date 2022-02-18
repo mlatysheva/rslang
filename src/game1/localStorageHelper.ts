@@ -168,7 +168,7 @@ export function getPlayedRounds(): Question1[] {
 }
 
 export function clearPlayedQuestions(): void {
-  createPlayedQuestion();
+  createPlayedQuestion(true);
 }
 
 export function finishRound(groupId: number) {

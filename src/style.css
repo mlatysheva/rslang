@@ -668,7 +668,7 @@ a:hover {
   .card-img {
     width: 85%;
   }
-  .card-title{
+  .card-title {
     font-size: 22px;
   }
   .transk-transl {
@@ -705,16 +705,16 @@ a:hover {
     width: 46px;
     height: 33px;
     background-size: 46px 27px;
-}
- .levels {
-   display: grid;
-   top: 12em;
-   grid-template-columns: repeat(2, 118px);
- }
- .level7 {
-   grid-area: 6/1;
- }
-  .level, 
+  }
+  .levels {
+    display: grid;
+    top: 12em;
+    grid-template-columns: repeat(2, 118px);
+  }
+  .level7 {
+    grid-area: 6/1;
+  }
+  .level,
   .save,
   .difficult,
   .delete {
@@ -727,12 +727,12 @@ a:hover {
     font-size: 13px;
   }
   .sprint-btn svg {
-   width: 54px;
+    width: 54px;
   }
   .userAudioCall svg {
     width: 48px;
   }
-  
+
   .correct,
   .incorrect {
     font-size: 12px;
@@ -747,18 +747,5 @@ a:hover {
   .pagination {
     width: 18em;
     gap: 0;
-  }
-}
-
-
-@media (max-width: 728px) {
-  .game1 {
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 650px) {
-  .statistic-game1 {
-    font-size: 0.8rem;
   }
 }
