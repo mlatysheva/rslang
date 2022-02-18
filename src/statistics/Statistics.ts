@@ -41,8 +41,9 @@ export class Statistics extends AbstractView {
 
     const data = await getUserStatistics();
     if (data) {
-      console.log(`Statistics successfully received from the server`);
+      
       if (data.status === 200) {
+        console.log(`Statistics successfully received from the server`);
         const content = await data.json();
         const totalLearnedWords = content.learnedWords;
 

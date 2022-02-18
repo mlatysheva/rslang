@@ -154,7 +154,7 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
     const lernAndDifficult = await getUserLearnDiffWords(myId);
     const dataLearAndDifficult = lernAndDifficult[0].paginatedResults;
     const filterAllToStyle = data.filter((e) => dataLearAndDifficult?.findIndex((i) => i._id !== e.id));
-    console.log(filterAllToStyle[0].id, data[0].id);
+    // console.log(filterAllToStyle[0].id, data[0].id);
 
     // for (let i = 0; i < filterAllToStyle.length; i += 1) {
     //   const hash = filterAllToStyle[i].id;

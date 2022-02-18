@@ -41,7 +41,6 @@ export const createUser = async (user: User) => {
       body: JSON.stringify(user),
     });
     const content = await rawResponse.json();
-    console.log(`in create user content.id is ${content.id}`);
     signupTimestamp = Date.now();
     return content;
   } catch (error) {
@@ -61,7 +60,6 @@ export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> =
     body: JSON.stringify(user),
   });
   const content = await rawResponse.json();
-  console.log(`in login user id is ${content.userId}`);
   loginTimestamp = Date.now();
   return content;
 };
@@ -252,7 +250,6 @@ export const putUserStatistics = async (data: UserStatistics) => {
       },
       body: JSON.stringify(data),
     });
-    console.log(`status is ${rawResponse.status}`);
 
     return rawResponse;
   } catch (err) {

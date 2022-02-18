@@ -50,6 +50,7 @@
 
 .advantages-wrapper {
   width: 100%;
+  padding: 1.5rem;
   padding-bottom: 50px;
   height: auto;
   background-color: rgb(232, 250, 178);
@@ -82,14 +83,14 @@
   flex-direction: column;
   align-items: center;
   width: 22%;
+  min-width: 300px;
   background-color: white;
   border-radius: 10px;
   padding: 1rem;
   gap: 1rem;
   box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
   text-align: center;
-
-
+  margin: 1rem;
 }
 .advantage-icon {
   width: 6rem;
@@ -198,5 +199,28 @@
 }
 .lena-photo {
   background-image: url('../assets//images/Lena.jpg');
+}
+
+@media (max-width: 1450px) {
+  .advantage-cards-container {
+    column: 2;
+  }
+  .advantage-card-wrapper {
+    width: 45%;
+  }
+}
+@media (max-width: 1000px) {
+  
+  .about-card-wrapper {
+    width: 85%;
+    margin: 1rem;
+  }
+}
+@media (max-width: 830px) {
+  
+  .advantage-card-wrapper {
+    width: 85%;
+    margin: 1rem;
+  }
 }
 
