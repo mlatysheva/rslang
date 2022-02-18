@@ -85,15 +85,13 @@ export async function renderDifficultPage() {
         if (cardsOnPage) cardsOnPage.innerHTML = '';
         const diffWordsId = await getUserDifficultWords(myId);
         const diffWords = diffWordsId[0].paginatedResults;
-        // const count = diffWordsId[0].totalCount[0];
-        // const numberWords = Object.values(Object.values(count))[0];
-        // const totalDifficultPages = Math.round(numberWords / WORDS_PER_PAGE);
         pagination?.classList.toggle('hide');
 
         if (diffWords) {
           diffWords.forEach(async (item) => {
             const cardOnPage = new CardElement(item).renderCard();
             if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+            cardOnPage.classList.add('difficult-word');
           });
         }
         const difficultBtn = document.querySelectorAll('difficult');
@@ -154,32 +152,6 @@ export async function renderDifficultPage() {
     }
   });
 }
-
-// function changeDifficultPages() {
-//   if (prevButton) {
-//     prevButton.addEventListener('click', () => {
-//       if (currentDifficultPage === 0) {
-//         prevButton.classList.add('opacity');
-//       } else if (currentDifficultPage > 0) {
-//         prevButton.classList.remove('opacity');
-//       }
-//       prevPage();
-//       counter.innerHTML = `${currentDifficultPage + 1} / ${totalDifficultPages}`;
-//     });
-//   }
-//   if (nextButton && prevButton) {
-//     nextButton.addEventListener('click', () => {
-//       prevButton.classList.remove('opacity');
-//       if (currentDifficultPage === totalDifficultPages) {
-//         nextButton.classList.add('opacity');
-//       } else {
-//         nextButton.classList.remove('opacity');
-//       }
-//       counter.innerHTML = `${currentDifficultPage + 2} / ${totalDifficultPages}`;
-//       nextPage();
-//     });
-//   }
-// }
 
 export default {
   removeCard, difficultWord, renderDifficultPage,
