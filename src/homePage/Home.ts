@@ -10,8 +10,6 @@ export class Home extends AbstractView {
   async getHtml():Promise<HTMLElement> {
     const app = <HTMLElement>document.getElementById('app');
 
-    // TODO: добавить апе классы или еще какие манипуляции
-
     const footer = <HTMLElement>document.querySelector('.footer');
     if(footer.classList.contains('hide')) {
       footer.classList.remove('hide');
@@ -91,7 +89,62 @@ export class Home extends AbstractView {
 
         </div>
       </div>
-      <div class="todo">//TODO: раздел "О команде" с фото или аватарками и ссылками на гитхабы всех участников команды, описанием вклада в разработку приложения каждого из них.
+      <div class="about-wrapper">
+        <div class="home-mission-text about-text">
+          О команде
+        </div>
+        <div class="about-title home-text-large">
+          Приложение <span class="home-bold">MGIMO FINISHED</span> разработали для тебя мы - <br>дружная команда из трех девчонок - 
+          <br>студенток замечательного курса <span class="home-bold">Front-End/JS</span> от школы <span class="home-bold">Rolling Slopes School</span>.
+        </div>
+        <div class="about-cards-container">
+
+          <div class="about-card-wrapper">
+            <div class="about-photo maria-photo">
+            </div>
+            <div class="about-title">
+              <span class="home-bold">Мария Латышева</span> <br>Team Lead
+            </div>
+            <div class="about-text home-text">              
+              <p>Развернула сервер, разработала авторизацию пользователей и роутер. 
+                <br>Сверстала главную страницу и страницу статистики.
+                <br>Разработала игру Спринт.
+                <br>Участвовала в разработке Статистики.
+              </p>
+            </div>          
+          </div>
+
+          <div class="about-card-wrapper">
+            <div class="about-photo julia-photo">
+            </div>
+            <div class="about-title">
+              <span class="home-bold">Юлия Миронова</span> <br>Разработчик
+            </div>
+            <div class="about-text home-text">              
+              <p>Разработала игру Аудиовызов. 
+                <br>Доработала роутер.
+                <br>Участвовала в разработке Статистики.
+              </p>
+            </div>          
+          </div>
+
+          <div class="about-card-wrapper">
+            <div class="about-photo lena-photo">
+            </div>
+            <div class="about-title">
+              <span class="home-bold">Елена Гончарук</span> <br>Разработчик
+            </div>
+            <div class="about-text home-text">              
+              <p>Разработала Учебник и список слов. 
+                <br>Придумала основной дизайн.
+                <br>Участвовала в разработке Статистики.
+              </p>
+            </div>          
+          </div>
+
+          
+
+        </div>
       </div>
     `;
     return htmlElement;
