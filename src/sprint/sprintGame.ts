@@ -1,12 +1,7 @@
-import { sound } from "../game1/statisticGame1";
-import { createUserWord, getUserDifficultWords, getUserWord, getWords, putUserStatistics, updateUserWord } from "../js/api";
-import { PAGES_PER_GROUP, WORDS_PER_PAGE } from "../js/constants";
 import { getItemFromLocalStorage } from "../js/localStorage";
-import { clearAllChildNodes } from "../js/router";
-import { SprintWord, UserWordParameters, Word } from "../js/types";
+import { SprintWord } from "../js/types";
 import { sprintNewWords } from "../statistics/globalStorage";
 import { countdown } from "./countDown";
-import { Sprint } from "./Sprint";
 import { findSprintLongestSeries, getArrayOfWords, getRandomAnswers, getRandomNumber, playsound, postWordToServer, refreshPoints, renderLevel, replay } from "./sprintUtils";
 
 
@@ -72,7 +67,13 @@ export async function startSprintGame(level: number) {
   await startSprintRound(level);
 
   const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+
+  // if started by clicking on the start button
+
   (<HTMLButtonElement>sprintStartBtn).addEventListener('click', () => {
+
+    const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
+  
     sprintStartBtn.disabled = true;
 
     const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
@@ -93,6 +94,36 @@ export async function startSprintGame(level: number) {
       }
     }, 1000);
   });
+
+  // if started by hitting Enter
+
+  document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
+
+    if (e.key === 'Enter') {
+
+    const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');    
+  
+    sprintStartBtn.disabled = true;
+
+    const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
+    const translation = <HTMLElement>document.getElementById('sprint-translation');
+    englishWord.innerHTML = words[0].word;
+    translation.innerHTML = words[0].wordTranslate;
+
+    game();
+
+    countdown();
+
+    let watching = setInterval(() => {
+      const counter = (<HTMLElement>document.getElementById('counter')).innerText;
+      if (counter == '0:00') {
+        clearInterval(watching);
+        renderSprintResults(results);
+        findSprintLongestSeries(arrayof1and0);
+      }
+    }, 1000);
+  }
+});
 
   function game() {
     const controls = document.getElementById('sprint-controls');

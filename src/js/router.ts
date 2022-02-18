@@ -6,7 +6,6 @@ import { Manual } from '../book/Manual';
 import { Sprint } from '../sprint/Sprint';
 import { Statistics } from '../statistics/Statistics';
 import { Route } from './types';
-import { listenForLogin } from '..';
 import { Signup } from '../login/Signup';
 import { AudiocallUser } from '../game1/AudiocallUser';
 

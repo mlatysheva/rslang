@@ -38,7 +38,7 @@
   text-align: center;
 }
 
-.level-range {
+.sprint-level-range {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

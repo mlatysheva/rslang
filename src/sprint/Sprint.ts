@@ -31,13 +31,13 @@ export class Sprint extends AbstractView {
       </div>
       <div class="level-wrapper">
         <p class="sprint-text">Выбери уровень:</p>
-        <div class="level-range">
-          <div class="sprint-level level-a1" id="group-0">1</div>
-          <div class="sprint-level level-a2" id="group-1">2</div>
-          <div class="sprint-level level-b1" id="group-2">3</div>
-          <div class="sprint-level level-b2" id="group-3">4</div>
-          <div class="sprint-level level-c1" id="group-4">5</div>
-          <div class="sprint-level level-c2" id="group-5">6</div>
+        <div class="sprint-level-range">
+          <div class="sprint-level" id="group-0">1</div>
+          <div class="sprint-level" id="group-1">2</div>
+          <div class="sprint-level" id="group-2">3</div>
+          <div class="sprint-level" id="group-3">4</div>
+          <div class="sprint-level" id="group-4">5</div>
+          <div class="sprint-level" id="group-5">6</div>
         </div>
       </div>
 
