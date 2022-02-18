@@ -15,9 +15,9 @@ export class Login extends AbstractView {
     footer.classList.remove('hide');
 
     let htmlElement= document.createElement('div');
+    htmlElement.classList.add('view', 'login-view');
     htmlElement.innerHTML = `
-    <div class="view login-view">
-
+    
     <div class="login-wrapper">
     <div class="login-header"></div>
     <form id="login-form" action="#">
@@ -43,10 +43,6 @@ export class Login extends AbstractView {
     <div class="sign-txt">ИЛИ</div>
     <a href="#/signup/" id="signup-btn" class="signup-btn" data-href="#/signup/">Зарегистрироваться</a>
     </div>
-    </div>
-    <div class="todo">
-          <p>//TODO: электронный учебник (без раздела "Сложные слова", без отображения прогресса изучения слов и изученных слов) и мини-игры доступны без авторизации</p>
-          <p>//TODO: у авторизованных пользователей отображается раздел "Сложные слова", прогресс изучения слов, изученные слова и статистика</p>
     </div>
     `;
     return htmlElement;

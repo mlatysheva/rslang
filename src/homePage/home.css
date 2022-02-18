@@ -15,10 +15,13 @@
   width: 100%;
   background-color: white;
   padding-top: 0 !important;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
 }
 .home-hero {
-  background-image: linear-gradient(rgba(132, 223, 4, 0.5), rgba(132, 223, 4, 0.5)), url(../assets/images/english-words.webp);
-  background-size: contain;
+  /* background-image: linear-gradient(rgba(132, 223, 4, 0.5), rgba(132, 223, 4, 0.5)), url(../assets/images/english-words.webp); */
+  background-image: url(../assets/images/mgimo-hero1.jpg);
+  /* background-size: contain; */
+  background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
