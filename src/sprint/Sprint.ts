@@ -41,9 +41,9 @@ export class Sprint extends AbstractView {
         </div>
       </div>
 
-      <div class="todo">      
-      <p>//TODO: управлять игрой можно как мышкой, так и клавишами на клавиатуре</p>
-    </div>
+      <div class="text-box">      
+        <p>Выбери уровень мышкой или с клавиатуры (<span class="bold-text">Клавиши 1 .. 6</span>)</p>
+      </div>
 
     </div>
 

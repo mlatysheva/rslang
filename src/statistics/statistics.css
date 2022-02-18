@@ -1,6 +1,6 @@
 .statistics-view {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,7 @@
 }
 
 .large-text {
-  padding: 2rem;
+  padding-top: 1rem;
   font-size: large;
   text-transform: uppercase;
   text-align: center;

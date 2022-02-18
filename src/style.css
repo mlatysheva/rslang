@@ -116,6 +116,9 @@ a:hover {
 .bold-text {
   font-weight: 700;
 }
+.uppercase-text {
+  text-transform: uppercase;
+}
 
 .icon {
   width: 2rem;
@@ -285,8 +288,8 @@ a:hover {
   justify-content: center;
   color: var(--purple);
 }
-.view {
-  /* padding-top: 5rem; */
+.text-message {
+  font-size: large;
 }
 
 .footer {

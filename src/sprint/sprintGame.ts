@@ -16,10 +16,12 @@ export async function startSprintRound(level: number) {
   const gameScreen = <HTMLElement>document.createElement('div');
   gameScreen.classList.add('sprint-game-screen');
 
-  let html = `    
-    <button class="replay-button" id="sprint-replay-button" title="К выбору уровня"></button>
-
-    <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
+  let html = `
+    <div class="first-line-wrapper sprint-wrapper">   
+      <button class="replay-button" id="sprint-replay-button" title="К выбору уровня"></button>
+      <div class="sprint-points"><span class="sprint-text">Очки: </span><span id="sprint-points">0</span></div>
+      <div class="sprint-text">Уровень <span id="sprint-level"></span></div>
+    </div>
 
     <button class="button sprint-start-button">Начать</button>
 
@@ -28,7 +30,6 @@ export async function startSprintRound(level: number) {
       <div class="timer" id="counter"></div>
     </div>
     
-    <div class="sprint-points"><span class="sprint-text">Очки: </span><span id="sprint-points">0</span></div>
     <div class="question-wrapper">
       <span class="sprint-word english-word" id="sprint-english-word"></span>
       <span class="is"> значит </span>
@@ -37,7 +38,13 @@ export async function startSprintRound(level: number) {
     <div class="sprint-controls-wrapper" id="sprint-controls">
       <div class="button sprint-answer-button sprint-correct" id="sprint-correct-btn">Верно</div>
       <div class="button sprint-answer-button sprint-incorrect" id="sprint-incorrect-btn">Неверно</div>
-    </div>    
+    </div> 
+    <div class="text-box">      
+      <p class="text-message"><span class="uppercase-text bold-text">Для игры с клавиатуры жми:</span> 
+        <br><span class="uppercase-text bold-text">Enter</span> - "Начать", <span class="uppercase-text bold-text">Backspace</span> или <span class="uppercase-text bold-text">Delete</span> - "Возврат к выбору уровня"
+        <br><span class="uppercase-text bold-text">Левая стрелка</span> - "Верно", <span class="uppercase-text bold-text">Правая стрелка</span> - "Неверно"
+      </p>
+    </div>   
   `;
 
   gameScreen.innerHTML = html;
@@ -135,7 +142,6 @@ export async function startSprintGame(level: number) {
         results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
         
         arrayof1and0.push(1);
-        console.log(`arrayof1and 0 is ${arrayof1and0}`);
         
         // interact with the server for a registered user
 
@@ -156,7 +162,6 @@ export async function startSprintGame(level: number) {
         });
 
         arrayof1and0.push(0);
-        console.log(`arrayof1and 0 is ${arrayof1and0}`);
 
         // interact with the server for a registered user
 
@@ -196,7 +201,6 @@ export async function startSprintGame(level: number) {
     const sprintIncorrectBtn = <HTMLElement>document.getElementById('sprint-incorrect-btn');
 
     document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
-      console.log(`e.key is ${e.key}`); 
       if (e.key === 'ArrowLeft') {   
         (<HTMLElement>sprintCorrectBtn).click();
       }
@@ -223,6 +227,9 @@ export async function renderSprintResults(array: SprintWord[]) {
         <div class="results-summary results-summary-errors">Ошибок: <span class="sprint-results-span" id="sprint-errors">${incorrectAnswers}</span></div>
         <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct">${correctAnswers}</span></div>
         <div class="results-summary results-summary-correct">Правильных ответов: <span class="sprint-results-span" id="sprint-correct-percentage">${correctAnswersPercent}%</span></div>
+        <div class="results-summary text-message">Для возврата к выбору уровня с клавиатуры жми: 
+          <span class="uppercase-text bold-text">Backspace</span> или <span class="uppercase-text bold-text">Delete</span> 
+        </div>
       </div>
 
       <table class="table" id="sprint-results-table">
