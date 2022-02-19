@@ -203,7 +203,7 @@ a:hover {
 
 .nav-menu {
   width: 100%;
-  display: none;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
