@@ -41,7 +41,6 @@ export class Statistics extends AbstractView {
 
     const data = await getUserStatistics();
     if (data) {
-      
       if (data.status === 200) {
         console.log(`Statistics successfully received from the server`);
         const content = await data.json();
@@ -51,23 +50,22 @@ export class Statistics extends AbstractView {
         let sprintNewWords = 0;
         let sprintCorrectlyAnswered = 0;
         let sprintTotalAnswers = 0;
-        
+
         userWords.forEach((userWord) => {
           if (userWord.optional?.sprintNewWord) {
             sprintNewWords++;
-          };
+          }
           if (userWord.optional?.sprintCorrectlyAnswered) {
             sprintCorrectlyAnswered += userWord.optional?.sprintCorrectlyAnswered;
           }
           if (userWord.optional?.sprintTotalAnswers) {
             sprintTotalAnswers += userWord.optional?.sprintTotalAnswers;
           }
-        })
+        });
 
-        let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
+        let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers) * 100).toFixed();
 
         const spintLongestSeries = getItemFromLocalStorage('sprintLongestSeries');
-
 
         let today = new Date().toLocaleDateString();
 
@@ -81,7 +79,13 @@ export class Statistics extends AbstractView {
 
         let unswersCorrect = getTrueQuestionsPerDay();
         let questions = getQuestionsPerDay();
-        let newWordsPerDay = Math.ceil(Math.random() * 20); //TODO: не так должно быть
+        let newWordsPerDay = Math.ceil(Math.random() * 20); //TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже
+        if (newWordsPerDay >= questions) {
+          newWordsPerDay = questions - Math.ceil(Math.random() * 20);
+          if (newWordsPerDay < 0) {
+            newWordsPerDay = 0;
+          }
+        }
 
         let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
         let longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
