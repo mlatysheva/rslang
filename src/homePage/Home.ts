@@ -95,7 +95,7 @@ export class Home extends AbstractView {
         </div>
         <div class=" home-text-large">
           Приложение <span class="home-bold">MGIMO FINISHED</span> разработали для тебя мы - <br>дружная команда из трех девчонок - 
-          <br>студенток замечательного курса <span class="home-bold">Front-End/JS</span> от школы <span class="home-bold">Rolling Slopes School</span>.
+          <br>студенток замечательного курса <span class="home-bold">Front-End/JS</span> от школы <span class="home-bold">Rolling Scopes School</span>.
         </div>
         <div class="about-cards-container">
 
