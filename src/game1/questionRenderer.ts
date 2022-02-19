@@ -147,7 +147,6 @@ export class QuestionRenderer {
 
       if (currentIndex >= allQuestionSections.length - 1) {
         const staticPage = document.querySelector('.describtion-game1') as HTMLElement;
-        console.log('5');
         staticPage.appendChild(renderLatestGameStatistics());
       } else {
         allQuestionSections[currentIndex + 1].classList.remove('hide-game1');

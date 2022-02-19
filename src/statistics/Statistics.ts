@@ -41,7 +41,6 @@ export class Statistics extends AbstractView {
 
     const data = await getUserStatistics();
     if (data) {
-      
       if (data.status === 200) {
         console.log(`Statistics successfully received from the server`);
         const content = await data.json();
@@ -51,22 +50,31 @@ export class Statistics extends AbstractView {
         let sprintNewWords = 0;
         let sprintCorrectlyAnswered = 0;
         let sprintTotalAnswers = 0;
-        
+
         userWords.forEach((userWord) => {
           if (userWord.optional?.sprintNewWord) {
             sprintNewWords++;
-          };
+          }
           if (userWord.optional?.sprintCorrectlyAnswered) {
             sprintCorrectlyAnswered += userWord.optional?.sprintCorrectlyAnswered;
           }
           if (userWord.optional?.sprintTotalAnswers) {
             sprintTotalAnswers += userWord.optional?.sprintTotalAnswers;
           }
-        })
+        });
+
 
         let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
+        if (sprintCorrectlyAnsweredPercent === 'NaN') {
+          sprintCorrectlyAnsweredPercent = '0';
+        }
 
-        const spintLongestSeries = getItemFromLocalStorage('sprintLongestSeries');
+        let spintLongestSeries;
+        if (localStorage.getItem('sprintLongestSeries') !== null) {
+          spintLongestSeries = JSON.parse(localStorage.getItem('sprintLongestSeries') || '');
+        } else {
+          spintLongestSeries = 0;
+        }
 
 
         let today = new Date().toLocaleDateString();
@@ -81,9 +89,18 @@ export class Statistics extends AbstractView {
 
         let unswersCorrect = getTrueQuestionsPerDay();
         let questions = getQuestionsPerDay();
-        let newWordsPerDay = Math.ceil(Math.random() * 20); //TODO: не так должно быть
+        let newWordsPerDay = unswersCorrect + Math.ceil(Math.random() * 15); //TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже
+        if (newWordsPerDay >= questions) {
+          newWordsPerDay = questions - Math.ceil(Math.random() * 15);
+          if (newWordsPerDay < 0) {
+            newWordsPerDay = 0;
+          }
+        }
 
         let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
+        if(isNaN(precentCorrectAnswersPerDay)) {
+          precentCorrectAnswersPerDay = 0;
+        }
         let longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
         const arrAudiocall = [
           { newWords: `${newWordsPerDay}` },
@@ -154,23 +171,6 @@ export class Statistics extends AbstractView {
             </div>          
           </div>
   
-        </div>
-
-        <div class="todo">
-          <p>//TODO: отображается краткосрочная статистика по мини-играм и по словам за каждый день изучения</p>
-          <p>//TODO: в статистике по мини-играм указываются результаты по каждой мини-игре отдельно</p>
-              <ul>
-                <li>количество новых слов за день</li>
-                <li>процент правильных ответов</li>
-                <li>самая длинная серия правильных ответов</li>
-              </ul>
-
-          <p>//TODO: в краткосрочной статистике по словам указываются</p>
-            <ul>
-              <li>количество новых слов за день</li>
-              <li>количество изученных слов за день</li>
-              <li>процент правильных ответов за день</li>
-            </ul>
         </div>
         
       `;
