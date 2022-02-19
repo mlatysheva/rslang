@@ -5,7 +5,7 @@ MGIMO FINISHED – приложение для изучения английск
 
 Коллекция "3600 essential english words" содержит 3600 часто употребляемых английских слов. Слова в коллекции отсортированы от более простых и известных к более сложным. Вся коллекция разбита на шесть разделов, в каждом разделе 30 страниц, на каждой странице 20 слов для изучения.
 
-![](https://raw.githubusercontent.com/mlatysheva/rslang/main/screenshots/screemshot-homepage.png?token=GHSAT0AAAAAABNAWL4GXPJRH3REXAKSJNV4YQREGIQ)
+![](screenshots/screemshot-homepage.png)
 ## Структура приложения
 
 - главная страница приложения
@@ -29,7 +29,7 @@ MGIMO FINISHED – приложение для изучения английск
   - у авторизованных пользователей отображается раздел "Сложные слова", прогресс изучения слов, изученные слова и статистика
   - при логауте данные пользователя и токен удаляются из localStorage, а пользователь становится анонимным
 
-![](https://raw.githubusercontent.com/mlatysheva/rslang/main/screenshots/screenshot-signup.png?token=GHSAT0AAAAAABNAWL4GAAVCT5HCREVZYZ3UYQREJCQ)
+![](screenshots/screenshot-signup.png)
 ### Электронный учебник
   - электронный учебник генерируется на основе коллекции исходных данных и состоит из шести разделов, в каждом разделе 30 страниц, на каждой странице 20 слов для изучения
   - седьмой раздел учебника - "Сложные слова" изначально пустой. Этот раздел состоит из слов, которые пользователь отметил как сложные. Все слова в этом разделе размещаются на одной странице.
@@ -40,7 +40,7 @@ MGIMO FINISHED – приложение для изучения английск
     - навигация по страницам учебника
     - реализована навигация по семи разделам учебника и предусмотрены небольшие различия в оформлении каждого раздела
     - при перезагрузке страницы открывается последняя открытая страница приложения
-![](https://raw.githubusercontent.com/mlatysheva/rslang/main/screenshots/screenshot-book.png?token=GHSAT0AAAAAABNAWL4GOJV5W6ITOFXDUSVIYQREJRA)
+![](screenshots/screenshot-book.png)
 ### Список слов
   - для каждого слова отображается:
     - само слово, транскрипция, перевод
@@ -66,10 +66,10 @@ MGIMO FINISHED – приложение для изучения английск
 
 #### Игра Аудиовызов
 
-![](https://raw.githubusercontent.com/mlatysheva/rslang/main/screenshots/screenshot-audiocall.png?token=GHSAT0AAAAAABNAWL4GCVY54OOM4QESMGR4YQREKQA)
+![](screenshots/screenshot-audiocall.png)
 
 #### Игра Спринт
-![](https://raw.githubusercontent.com/mlatysheva/rslang/main/screenshots/screenshot-sprint.png?token=GHSAT0AAAAAABNAWL4HWZ76YNRT425Z3GRKYQRELCA)
+![](screenshots/screenshot-sprint.png)
 ###  Прогресс изучения
 
 - Новые слова - это слова, которые впервые использовались в мини-играх вне зависимости от того, открывались мини-игры на странице учебника или по ссылке в меню
@@ -94,7 +94,7 @@ MGIMO FINISHED – приложение для изучения английск
   - количество новых слов за день
   - количество изученных слов за день
   - процент правильных ответов за день
-![](https://raw.githubusercontent.com/mlatysheva/rslang/main/screenshots/screenshot-statistics.png?token=GHSAT0AAAAAABNAWL4GVOEZULAEKJZTEY5AYQRELOQ)
+![](screenshots/screenshot-statistics.png)
 ## Бекенд
 
 - создан [репозиторий с бекендом](https://github.com/mlatysheva/react-rslang-be) и размещен на heroku
