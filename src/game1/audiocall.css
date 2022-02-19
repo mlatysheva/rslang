@@ -7,8 +7,11 @@
 .statistic-game1 {
   background-color: var(--statistic-background);
   border-radius: 25%;
-  padding: 1rem;
-  min-width: 480px;
+  padding: 2rem;
+}
+
+.statistic-table {
+  width: 600px;
 }
 
 .row-2 {
@@ -23,6 +26,34 @@
 
 table .statistic-game1 {
   border-spacing: 0;
+}
+
+td .row-results:nth-child(1) {
+  width: 10%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 20%;
+}
+
+thead th:nth-child(4) {
+  width: 20%;
+}
+
+thead th:nth-child(5) {
+  width: 10%;
+}
+
+table .play {
+  padding: 0;
+}
+
+td.row-results {
+  padding: 0, 5px;
 }
 
 .game1-results th {
@@ -49,4 +80,19 @@ table .statistic-game1 {
 
 .userAudioCall:hover {
   box-shadow: 2px 5px 3px;
+}
+
+@media (max-width: 728px) {
+  .game1 {
+    font-size: 0.8rem;
+  }
+  .statistic-table {
+    width: 410px;
+    padding: 0.5rem;
+  }
+  .statistic-game1 {
+    font-size: 0.8rem;
+    border-radius: 10%;
+    padding: 1rem;
+  }
 }
