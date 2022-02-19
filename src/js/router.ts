@@ -21,7 +21,6 @@ export function toggleActiveMenu() {
 
   (<HTMLElement>navMenu).addEventListener('click', (e) => {
     menuItems.forEach((item) => {
-      console.log(  `typeof element is ${typeof(item)}`);
       if ((<HTMLElement>item).classList.contains('active')) {
         (<HTMLElement>item).classList.remove('active');
       }
