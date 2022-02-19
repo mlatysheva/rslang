@@ -85,101 +85,23 @@ export async function renderDifficultPage() {
         if (cardsOnPage) cardsOnPage.innerHTML = '';
         const diffWordsId = await getUserDifficultWords(myId);
         const diffWords = diffWordsId[0].paginatedResults;
-        // const count = diffWordsId[0].totalCount[0];
-        // const numberWords = Object.values(Object.values(count))[0];
-        // const totalDifficultPages = Math.round(numberWords / WORDS_PER_PAGE);
         pagination?.classList.toggle('hide');
 
         if (diffWords) {
           diffWords.forEach(async (item) => {
             const cardOnPage = new CardElement(item).renderCard();
             if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+            cardOnPage.classList.add('difficult-word');
           });
         }
         const difficultBtn = document.querySelectorAll('difficult');
         difficultBtn.forEach((btn) => {
           btn.classList.add('hide');
         });
-        // async function nextDifficultPage() {
-        //   if (currentDifficultPage < totalDifficultPages) {
-        //     currentDifficultPage += 1;
-        //     if (cardsOnPage) {
-        //       cardsOnPage.innerHTML = '';
-        //       localStorage.removeItem('currentPage');
-        // eslint-disable-next-line max-len
-        //       setItemToLocalStorage('currentPage', JSON.stringify(`${difficultGroup}-${currentDifficultPage}`));
-        //     }
-        //     if (diffWords) {
-        //       diffWords.splice(0, 19);
-        //       diffWords.forEach(async (item) => {
-        //         console.log(item);
-        //         // const difficultBtn = document.querySelector('difficult');
-        //         const cardOnPage = new CardElement(item).renderCard();
-        //         if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-        //         return cardsOnPage;
-        //       });
-        //     }
-        //   }
-        // }
-        // function changeDifficultPages() {
-        //   if (difficultGroup) {
-        //     if (prevButton) {
-        //       prevButton.addEventListener('click', () => {
-        //         if (currentDifficultPage === 0) {
-        //           prevButton.classList.add('opacity');
-        //         } else if (currentDifficultPage > 0) {
-        //           prevButton.classList.remove('opacity');
-        //         }
-        //         // prevPage();
-        //         if (counter) counter.innerHTML = `${currentDifficultPage + 1} / ${totalDifficultPages}`;
-        //       });
-        //     }
-        //     if (nextButton && prevButton) {
-        //       nextButton.addEventListener('click', () => {
-        //         console.log('click');
-        //         prevButton.classList.remove('opacity');
-        //         if (currentDifficultPage === totalDifficultPages) {
-        //           nextButton.classList.add('opacity');
-        //         } else {
-        //           nextButton.classList.remove('opacity');
-        //         }
-        //         if (counter) counter.innerHTML = `${currentDifficultPage + 2} / ${totalDifficultPages}`;
-        //         nextDifficultPage();
-        //       });
-        //     }
-        //   }
-        // }
-        // changeDifficultPages();
       }
     }
   });
 }
-
-// function changeDifficultPages() {
-//   if (prevButton) {
-//     prevButton.addEventListener('click', () => {
-//       if (currentDifficultPage === 0) {
-//         prevButton.classList.add('opacity');
-//       } else if (currentDifficultPage > 0) {
-//         prevButton.classList.remove('opacity');
-//       }
-//       prevPage();
-//       counter.innerHTML = `${currentDifficultPage + 1} / ${totalDifficultPages}`;
-//     });
-//   }
-//   if (nextButton && prevButton) {
-//     nextButton.addEventListener('click', () => {
-//       prevButton.classList.remove('opacity');
-//       if (currentDifficultPage === totalDifficultPages) {
-//         nextButton.classList.add('opacity');
-//       } else {
-//         nextButton.classList.remove('opacity');
-//       }
-//       counter.innerHTML = `${currentDifficultPage + 2} / ${totalDifficultPages}`;
-//       nextPage();
-//     });
-//   }
-// }
 
 export default {
   removeCard, difficultWord, renderDifficultPage,

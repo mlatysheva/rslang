@@ -1,7 +1,7 @@
-import { UserWordParameters, UserStatistics } from '../js/types';
+import { UserWordParameters} from '../js/types';
 import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
 import { removeDifficultWord } from './difficultPage';
-import { createUserWord, putUserStatistics, getUserLearnedWords } from '../js/api';
+import { createUserWord, putUserStatistics, getUserLearnedWords, deleteUserWord, getUserStatistics } from '../js/api';
 import { myId } from '../card/cardElement';
 
 export const learnedWords: Array<string> = [];
@@ -22,15 +22,18 @@ export function learnedWord() {
         setItemToLocalStorage('learnedWords', JSON.stringify(learnedWords));
         const body: UserWordParameters = {
           difficulty: 'learned-word',
+          // newWord: false,
           // optional: { newWord: false },
         };
-        await removeDifficultWord();
+        await deleteUserWord(myId, wordId);
+        // await removeDifficultWord();
         await createUserWord(myId, wordId, body);
         const dataForStatistic = {
           learnedWords: learnedWords.length,
           // optional: {},
         };
         await putUserStatistics(dataForStatistic);
+        const dataForBook = await getUserStatistics();
       }
     }
   });
@@ -43,19 +46,24 @@ export const numberDayLearnedWords = () => {
   }
   return 0;
 };
-export async function getData() {
+export async function getDataFromBook() {
+  let numberWords;
   const data = await getUserLearnedWords(myId).then((d) => {
     const count = d[0].totalCount[0];
-    const numberWords = Object.values(Object.values(count))[0];
+    numberWords = Object.values(Object.values(count))[0];
+    //console.log(numberWords);
     return numberWords;
   });
+  return numberWords;
 }
+const number = getDataFromBook();
+console.log(number);
 
 export const percentLearnedWords = () => {
   const numberLearnedWords = numberDayLearnedWords();
   const allWords = 4000;
   const percent = (numberLearnedWords / allWords) * 100;
-  return percent;
+  return percent.toFixed(2);
 };
 
-export default { learnedWord, getData, percentLearnedWords };
+export default { learnedWord, getDataFromBook, percentLearnedWords };

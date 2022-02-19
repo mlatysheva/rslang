@@ -92,6 +92,38 @@ export function createAside() {
   return aside;
 }
 
+export async function renderUserWords() {
+  const data = await getWords(Group, currentPage);
+  const cardsOnPage = document.querySelector('.book-page');
+
+  if (myId) {
+    const difficultWords = await getUserDifficultWords(myId);
+    const diffWords = difficultWords[0].paginatedResults;
+    const diffWordsId = diffWords?.map((word) => word._id);
+
+    const learnedWords = await getUserLearnedWords(myId);
+    const dataLearnedWords = learnedWords[0].paginatedResults;
+    const learnedWordsId = dataLearnedWords?.map((word) => word._id);
+
+    for (let i = 0; i < data.length; ++i) {
+      const cardOnPage = new CardElement(data[i]).renderCard();
+      if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+
+      if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
+        cardOnPage.classList.add('difficult-word');
+      }
+      if (learnedWordsId?.includes(data[i].id) && cardsOnPage) {
+        cardOnPage.classList.add('opacity');
+      }
+    }
+  } else {
+    data.forEach((element) => {
+      const cardOnPage = new CardElement(element).renderCard();
+      if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+    });
+  }
+}
+
 export async function renderPage(group: number, page: number): Promise<HTMLElement> {
   const wrapperBook = document.createElement('div');
   wrapperBook.classList.add('wrapper-book');
@@ -133,77 +165,31 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
   Page.appendChild(cardsOnPage);
   wrapperBook.appendChild(Page);
 
-  const data = await getWords(group, page);
+  renderUserWords();
 
-  // TODO : for logined user we need to style difficult and learned words
-  // we have arrays with all data, learned words and difficult words
+  // const data = await getWords(group, page);
 
-  if (myId) {
-    data.forEach((element) => {
-      const cardOnPage = new CardElement(element).renderCard();
-      if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-    });
-    // from 148 till 185 doesn't work correctly
+  // if (myId) {
+  //   const difficultWords = await getUserDifficultWords(myId);
+  //   const diffWords = difficultWords[0].paginatedResults;
+  //   const diffWordsId = diffWords?.map((word) => word._id);
 
-    const difficultWords = await getUserDifficultWords(myId);
-    const dataDifficultWords = difficultWords[0].paginatedResults;
+  //   const learnedWords = await getUserLearnedWords(myId);
+  //   const dataLearnedWords = learnedWords[0].paginatedResults;
+  //   const learnedWordsId = dataLearnedWords?.map((word) => word._id);
 
-    const learnedWords = await getUserLearnedWords(myId);
-    const dataLearnedWords = learnedWords[0].paginatedResults;
-
-    const lernAndDifficult = await getUserLearnDiffWords(myId);
-    const dataLearAndDifficult = lernAndDifficult[0].paginatedResults;
-    const filterAllToStyle = data.filter((e) => dataLearAndDifficult?.findIndex((i) => i._id !== e.id));
-    // console.log(filterAllToStyle[0].id, data[0].id);
-
-    // for (let i = 0; i < filterAllToStyle.length; i += 1) {
-    //   const hash = filterAllToStyle[i].id;
-    //   for (let j = 0; j < data.length; ++j) {
-    //     if (hash === data[j].id) {
-    //       console.log(`found id = ${data[j].id}`);
-    //       const cardOnPage = new CardElement(data[j]).renderCard();
-    //       if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-    //       cardOnPage.classList.add('difficult-word');
-    //       return cardsOnPage;
-    //     }
-
-    //     data.forEach((element) => {
-    //       const cardOnPage = new CardElement(element).renderCard();
-    //       if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-    //     });
-    //   }
-    //   return cardsOnPage;
-    // }
-
-    //   const filterLearned = data.filter((e) => dataLearnedWords?.findIndex((i) => i._id !== e.id));
-    //   const filterDifficult = data.filter((e) => dataDifficultWords?.findIndex((i) => i._id !== e.id));
-    //   const filterNonLearned = data.filter((e) => dataLearnedWords?.findIndex((i) => i._id === e.id));
-    //   const filterNonDifficult = data.filter((e) => dataDifficultWords?.findIndex((i) => i._id === e.id));
-
-    //   filterDifficult.forEach((card) => {
-    //     const cardOnPage = new CardElement(card).renderCard();
-    //     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-    //     cardOnPage.classList.add('difficult-word');
-    //     return cardsOnPage;
-    //   });
-
-  //   filterLearned.forEach((card) => {
-  //     const cardOnPage = new CardElement(card).renderCard();
+  //   for (let i = 0; i < data.length; ++i) {
+  //     const cardOnPage = new CardElement(data[i]).renderCard();
   //     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-  //     cardOnPage.classList.add('opacity');
-  //     return cardsOnPage;
-  //   });
-  //   filterNonDifficult.forEach((card) => {
-  //     const cardOnPage = new CardElement(card).renderCard();
-  //     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-  //     return cardsOnPage;
-  //   });
-  // } else {
-  //   data.forEach((element) => {
-  //     const cardOnPage = new CardElement(element).renderCard();
-  //     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-  //   });
-  }
+
+  //     if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
+  //       cardOnPage.classList.add('difficult-word');
+  //     }
+  //     if (learnedWordsId?.includes(data[i].id) && cardsOnPage) {
+  //       cardOnPage.classList.add('opacity');
+  //     }
+  //   }
+  // }
 
   document.addEventListener('onload', async () => {
     if (getItemFromLocalStorage('currentPage')) {

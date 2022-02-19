@@ -1,4 +1,5 @@
-import { getWords } from '../js/api';
+/* eslint-disable no-underscore-dangle */
+import { getWords, getUserDifficultWords, getUserLearnedWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
 import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
 
@@ -7,11 +8,13 @@ export const firstPage = 0;
 export const totalPages = 30;
 export let currentGroup = 0;
 
+const myId: string = getItemFromLocalStorage('id');
+
 export async function changeLevel() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
     const cardsOnPage = document.querySelector('.book-page');
     const level = document.querySelectorAll('.level');
-    const myId: string = getItemFromLocalStorage('id');
+    
     const pagination = document.querySelector('.pagination');
 
     level.forEach((button) => {
@@ -30,22 +33,36 @@ export async function changeLevel() {
         if (cardsOnPage) cardsOnPage.innerHTML = '';
         const data = await getWords(id, firstPage);
         currentPage = firstPage;
-        data.forEach((element) => {
-          const cardOnPage = new CardElement(element).renderCard();
-          if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-          cardsOnPage?.setAttribute('id', `${id}`);
-        });
+        if (myId) {
+          const difficultWords = await getUserDifficultWords(myId);
+          const diffWords = difficultWords[0].paginatedResults;
+          const diffWordsId = diffWords?.map((word) => word._id);
+      
+          const learnedWords = await getUserLearnedWords(myId);
+          const dataLearnedWords = learnedWords[0].paginatedResults;
+          const learnedWordsId = dataLearnedWords?.map((word) => word._id);
+      
+          for (let i = 0; i < data.length; ++i) {
+            const cardOnPage = new CardElement(data[i]).renderCard();
+            if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+      
+            if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
+              cardOnPage.classList.add('difficult-word');
+            }
+            if (learnedWordsId?.includes(data[i].id) && cardsOnPage) {
+              cardOnPage.classList.add('opacity');
+            }
+          }
+        } else {
+          data.forEach((element) => {
+            const cardOnPage = new CardElement(element).renderCard();
+            if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+          });
+        }
+        cardsOnPage?.setAttribute('id', `${id}`);
         localStorage.removeItem('currentPage');
         setItemToLocalStorage('currentPage', JSON.stringify(`${id}-${currentPage}`));
-        // const waitforLevel = setInterval(() => {
-        //   const myId: string = getItemFromLocalStorage('id');
-        //   const difficultLevel = document.getElementById('#level6') as HTMLButtonElement;
-        //   if (myId && difficultLevel) {
-        //     clearInterval(waitforLevel);
-        //     console.log(difficultLevel);
-        //     difficultLevel?.classList.remove('hide');
-        //   }
-        // });
+
         return cardsOnPage;
       }
 
@@ -65,10 +82,32 @@ export async function prevPage() {
 
     if (cardsOnPage) cardsOnPage.innerHTML = '';
     const data = await getWords(currentGroup, currentPage);
-    data.forEach((element) => {
-      const cardOnPage = new CardElement(element).renderCard();
-      if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-    });
+    if (myId) {
+      const difficultWords = await getUserDifficultWords(myId);
+      const diffWords = difficultWords[0].paginatedResults;
+      const diffWordsId = diffWords?.map((word) => word._id);
+  
+      const learnedWords = await getUserLearnedWords(myId);
+      const dataLearnedWords = learnedWords[0].paginatedResults;
+      const learnedWordsId = dataLearnedWords?.map((word) => word._id);
+  
+      for (let i = 0; i < data.length; ++i) {
+        const cardOnPage = new CardElement(data[i]).renderCard();
+        if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+  
+        if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
+          cardOnPage.classList.add('difficult-word');
+        }
+        if (learnedWordsId?.includes(data[i].id) && cardsOnPage) {
+          cardOnPage.classList.add('opacity');
+        }
+      }
+    } else {
+      data.forEach((element) => {
+        const cardOnPage = new CardElement(element).renderCard();
+        if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+      });
+    }
     return cardsOnPage;
   }
 }
@@ -85,10 +124,32 @@ export async function nextPage() {
     }
 
     const data = await getWords(currentGroup, currentPage);
-    data.forEach((element) => {
-      const cardOnPage = new CardElement(element).renderCard();
-      if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-    });
+    if (myId) {
+      const difficultWords = await getUserDifficultWords(myId);
+      const diffWords = difficultWords[0].paginatedResults;
+      const diffWordsId = diffWords?.map((word) => word._id);
+
+      const learnedWords = await getUserLearnedWords(myId);
+      const dataLearnedWords = learnedWords[0].paginatedResults;
+      const learnedWordsId = dataLearnedWords?.map((word) => word._id);
+
+      for (let i = 0; i < data.length; ++i) {
+        const cardOnPage = new CardElement(data[i]).renderCard();
+        if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+  
+        if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
+          cardOnPage.classList.add('difficult-word');
+        }
+        if (learnedWordsId?.includes(data[i].id) && cardsOnPage) {
+          cardOnPage.classList.add('opacity');
+        }
+      }
+    } else {
+      data.forEach((element) => {
+        const cardOnPage = new CardElement(element).renderCard();
+        if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+      });
+    }
     return cardsOnPage;
   }
 }

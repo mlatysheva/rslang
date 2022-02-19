@@ -1,6 +1,3 @@
-import { getUserStatistics } from '../js/api';
-import { learnedWords } from '../book/learnedWords';
-
 export let sprintNewWords: string[];
 
 export function updateStatistics() {
