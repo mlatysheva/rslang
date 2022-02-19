@@ -25,7 +25,8 @@ export class Sprint extends AbstractView {
             <path fill="#FF9800" d="M11.7,23.1l3.4-5.1l4.6,0.6l1.5-3.1c0.4-0.9,1.2-1.4,2.1-1.5c-0.1,0-0.2,0-0.2,0h-9c-0.7,0-1.3,0.3-1.7,0.9 l-4,6c-0.6,0.9-0.4,2.2,0.6,2.8C9.2,23.9,9.6,24,10,24C10.6,24,11.3,23.7,11.7,23.1z"></path>
           </svg>
         </div>
-        <p class="title sprint-title">Спринт</p>
+        
+        <p class="sprint-title uppercase-text">Спринт</p>
         <p class="sprint-text">Угадай как можно больше слов за 15 секунд</p>
         <p class="large-text">Игра помогает закрепить выученные слова</p>
       </div>

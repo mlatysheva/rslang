@@ -15,6 +15,20 @@ export function clearAllChildNodes(parent: HTMLElement): void {
   }
 }
 
+export function toggleActiveMenu() {
+  const navMenu = document.querySelector('.nav-menu');
+  const menuItems = document.querySelectorAll('.nav-link');
+
+  (<HTMLElement>navMenu).addEventListener('click', (e) => {
+    menuItems.forEach((item) => {
+      console.log(  `typeof element is ${typeof(item)}`);
+      if ((<HTMLElement>item).classList.contains('active')) {
+        (<HTMLElement>item).classList.remove('active');
+      }
+    });
+    (<HTMLElement>e.target).classList.add('active');
+  })
+}
 function navigation() {
   const app = <HTMLElement>document.getElementById('app');
 
@@ -77,24 +91,24 @@ function navigation() {
         case '#/signup/':
           break;
         case '#/manual/':
-          const manualMenu = <HTMLElement>document.querySelector("[data-href='#/manual/']");
-          manualMenu.classList.add('active');
-
+          // const manualMenu = <HTMLElement>document.querySelector("[data-href='#/manual/']");
+          // manualMenu.classList.add('active');
+          toggleActiveMenu();
           break;
         case '#/audiocall/':
-          // TODO: add functions with audiocall
+          toggleActiveMenu();
 
           break;
         case '#/sprint/':
-          // TODO: add functions with sprint
+          toggleActiveMenu();
 
           break;
         case '#/statistics/':
-          // TODO: add functions with statistics
+          toggleActiveMenu();
 
           break;
         case '#/audiocall-user/':
-          // TODO: add functions with audiocall
+          toggleActiveMenu();
 
           break;
       }

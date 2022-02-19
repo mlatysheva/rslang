@@ -181,6 +181,11 @@ a:hover {
   margin: 1rem;
 }
 
+.nav-link.active {
+  color: var(--june);
+  font-size: x-large;
+}
+
 .home {
   display: block;
   width: 2rem;
@@ -290,7 +295,7 @@ a:hover {
   color: var(--purple);
 }
 .text-message {
-  font-size: large;
+  font-size: x-large;
 }
 
 .footer {

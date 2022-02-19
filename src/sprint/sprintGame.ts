@@ -40,7 +40,7 @@ export async function startSprintRound(level: number) {
       <div class="button sprint-answer-button sprint-incorrect" id="sprint-incorrect-btn">Неверно</div>
     </div> 
     <div class="text-box">      
-      <p class="text-message"><span class="uppercase-text bold-text">Для игры с клавиатуры жми:</span> 
+      <p class="text-message"><span class="bold-text">Для игры с клавиатуры жми:</span> 
         <br><span class="uppercase-text bold-text">Enter</span> - "Начать", <span class="uppercase-text bold-text">Backspace</span> или <span class="uppercase-text bold-text">Delete</span> - "Возврат к выбору уровня"
         <br><span class="uppercase-text bold-text">Левая стрелка</span> - "Верно", <span class="uppercase-text bold-text">Правая стрелка</span> - "Неверно"
       </p>

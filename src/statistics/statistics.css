@@ -54,7 +54,7 @@
 .statistics-mission-text {
   width: 100%;
   font-size: x-large;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   text-align: center;
 }
 
