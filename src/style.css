@@ -203,7 +203,7 @@ a:hover {
 
 .nav-menu {
   width: 100%;
-  display: flex;
+  display: none;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -601,7 +601,7 @@ a:hover {
     padding-left: 120px;
     right: -450px;
     top: 0;
-    display: flex;
+    display: none;
     flex-direction: column;
     background-color: var(--purple);
     /* opacity: 0.9; */
@@ -634,7 +634,8 @@ a:hover {
 
   .nav-menu.active {
     right: 0;
-    
+    display: flex;
+    flex-direction: column;
   }
 
   .hidden.active {
@@ -665,6 +666,7 @@ a:hover {
 @media (max-width: 400px) {
   .nav-menu {
     width: 100%;
+    display: none;
   }
 }
 
