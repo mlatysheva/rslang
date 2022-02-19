@@ -69,6 +69,9 @@ export function renderGame(): any {
     const game1 = <HTMLElement>(
       Array.from(document.querySelectorAll('.round-game1')).find((e) => !e.classList.contains('hide-game1'))
     );
+    if (!game1) {
+      return;
+    }
 
     const game1SoundBtn = <HTMLElement>game1.querySelector('button.game1-sound');
     const nextBtn = <HTMLElement>game1.querySelector('button.next-round');
