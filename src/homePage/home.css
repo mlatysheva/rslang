@@ -29,7 +29,8 @@
 }
 .home-text-large {
   font-size: x-large;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
+  letter-spacing: 2px;
   margin-top: 2rem;
   text-align: center;
 }
@@ -44,8 +45,12 @@
 .home-mission-text {
   font-size: 40px;
   text-transform: uppercase;
-  margin-top: 50px;
+  margin-top: 70px;
   text-align: center;
+}
+
+.top-margin-text {
+  margin-top: 90px;
 }
 
 .advantages-wrapper {
@@ -87,14 +92,13 @@
   background-color: white;
   border-radius: 10px;
   padding: 1rem;
-  gap: 1rem;
   box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
   text-align: center;
   margin: 1rem;
 }
 .advantage-icon {
-  width: 6rem;
-  height: 6rem;
+  width: 8rem;
+  height: 8rem;
   padding: 1rem;
   background-position: center;
   background-size: contain;
