@@ -20,8 +20,8 @@ export class Home extends AbstractView {
       <div class="home-hero">  
       </div>
       <div class="mission-wrapper">
-        <p class="home-mission-text bold-text">Решил наконец-то взяться за английский?</p>
-        <p class="home-text-large slogan-text">Наше приложение <span class="home-bold">MGIMO FINISHED</span> поможет тебе выучить в игровой форме наиболее <br>распространенные 4000 слов английского языка</p>
+        <p class="home-mission-text top-margin-text bold-text">Решил наконец-то взяться за английский?</p>
+        <p class="home-text-large ">Наше приложение <span class="home-bold">MGIMO FINISHED</span> поможет тебе в игровой форме выучить наиболее <br>распространенные 3600 слов английского языка</p>
       </div>
       <div class="advantages-wrapper">
         <div class="home-mission-text advantages-text">
@@ -93,7 +93,7 @@ export class Home extends AbstractView {
         <div class="home-mission-text about-text">
           О команде
         </div>
-        <div class="about-title home-text-large">
+        <div class=" home-text-large">
           Приложение <span class="home-bold">MGIMO FINISHED</span> разработали для тебя мы - <br>дружная команда из трех девчонок - 
           <br>студенток замечательного курса <span class="home-bold">Front-End/JS</span> от школы <span class="home-bold">Rolling Slopes School</span>.
         </div>

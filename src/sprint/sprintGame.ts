@@ -133,11 +133,12 @@ export async function startSprintGame(level: number) {
       if (
         ((<HTMLElement>event.target).id === 'sprint-correct-btn' &&
           (<HTMLElement>translation).innerText === correctAnswer) ||
-        ((<HTMLElement>event.target).id != 'sprint-correct-btn' &&
+        ((<HTMLElement>event.target).id === 'sprint-incorrect-btn' &&
           (<HTMLElement>translation).innerText != correctAnswer)
       ) {
         points++;
         refreshPoints(points);
+        console.log(`the answer is correct`);
 
         results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
         
@@ -161,6 +162,7 @@ export async function startSprintGame(level: number) {
           isCorrectlyAnswered: false,
         });
 
+        console.log(`the answer is incorrect`);
         arrayof1and0.push(0);
 
         // interact with the server for a registered user
@@ -203,9 +205,11 @@ export async function startSprintGame(level: number) {
     document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {   
         (<HTMLElement>sprintCorrectBtn).click();
+        console.log('This is correct')
       }
       if (e.key === 'ArrowRight') { 
         (<HTMLElement>sprintIncorrectBtn).click();
+        console.log('This is incorrect');
       }
     });
   }
