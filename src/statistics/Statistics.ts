@@ -79,9 +79,9 @@ export class Statistics extends AbstractView {
 
         let unswersCorrect = getTrueQuestionsPerDay();
         let questions = getQuestionsPerDay();
-        let newWordsPerDay = Math.ceil(Math.random() * 20); //TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже
+        let newWordsPerDay = unswersCorrect + Math.ceil(Math.random() * 15); //TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже
         if (newWordsPerDay >= questions) {
-          newWordsPerDay = questions - Math.ceil(Math.random() * 20);
+          newWordsPerDay = questions - Math.ceil(Math.random() * 15);
           if (newWordsPerDay < 0) {
             newWordsPerDay = 0;
           }
