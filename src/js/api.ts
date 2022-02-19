@@ -41,7 +41,6 @@ export const createUser = async (user: User) => {
       body: JSON.stringify(user),
     });
     const content = await rawResponse.json();
-    console.log(`in create user content.id is ${content.id}`);
     signupTimestamp = Date.now();
     return content;
   } catch (error) {
@@ -61,7 +60,6 @@ export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> =
     body: JSON.stringify(user),
   });
   const content = await rawResponse.json();
-  console.log(`in login user id is ${content.userId}`);
   loginTimestamp = Date.now();
   return content;
 };
@@ -151,11 +149,11 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
   });
   const response = await rawResponse;
   if (response.status === 200) {
-    console.log('User word was successfully updated');
+    console.log('user word was successfully updated');
   } else if (response.status === 401) {
-    console.log('User needs to login again');
+    console.log('user needs to login again');
   } else if (response.status === 404) {
-    console.log('Such user word does not exist. Adding new user word');
+    console.log('User word does not exist. Adding new user word');
     await createUserWord(userId, wordId, body);
   }
   return response.json()
@@ -252,7 +250,6 @@ export const putUserStatistics = async (data: UserStatistics) => {
       },
       body: JSON.stringify(data),
     });
-    console.log(`status is ${rawResponse.status}`);
 
     return rawResponse;
   } catch (err) {

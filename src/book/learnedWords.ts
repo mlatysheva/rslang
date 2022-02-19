@@ -1,7 +1,7 @@
 import { UserWordParameters, UserStatistics } from '../js/types';
 import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
 import { removeDifficultWord } from './difficultPage';
-import { createUserWord, putUserStatistics, getUserLearnedWords } from '../js/api';
+import { createUserWord, putUserStatistics, getUserLearnedWords, deleteUserWord } from '../js/api';
 import { myId } from '../card/cardElement';
 
 export const learnedWords: Array<string> = [];
@@ -22,9 +22,11 @@ export function learnedWord() {
         setItemToLocalStorage('learnedWords', JSON.stringify(learnedWords));
         const body: UserWordParameters = {
           difficulty: 'learned-word',
+          // newWord: false,
           // optional: { newWord: false },
         };
-        await removeDifficultWord();
+        await deleteUserWord(myId, wordId);
+        // await removeDifficultWord();
         await createUserWord(myId, wordId, body);
         const dataForStatistic = {
           learnedWords: learnedWords.length,

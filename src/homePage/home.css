@@ -1,8 +1,12 @@
-.todo {
+.text-box, .todo {
   display: block;
   background-color: white;
   border-radius: 10px;
-  padding: 1rem;
+  font-size: x-large;
+  text-align: center;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   margin: 1rem;
   box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
 }
@@ -11,10 +15,13 @@
   width: 100%;
   background-color: white;
   padding-top: 0 !important;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
 }
 .home-hero {
-  background-image: linear-gradient(rgba(132, 223, 4, 0.5), rgba(132, 223, 4, 0.5)), url(../assets/images/english-words.webp);
-  background-size: contain;
+  /* background-image: linear-gradient(rgba(132, 223, 4, 0.5), rgba(132, 223, 4, 0.5)), url(../assets/images/english-words.webp); */
+  background-image: url(../assets/images/mgimo-hero1.jpg);
+  /* background-size: contain; */
+  background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
@@ -43,6 +50,8 @@
 
 .advantages-wrapper {
   width: 100%;
+  padding: 1.5rem;
+  padding-bottom: 50px;
   height: auto;
   background-color: rgb(232, 250, 178);
   display: flex;
@@ -74,14 +83,14 @@
   flex-direction: column;
   align-items: center;
   width: 22%;
+  min-width: 300px;
   background-color: white;
   border-radius: 10px;
   padding: 1rem;
   gap: 1rem;
   box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
   text-align: center;
-
-
+  margin: 1rem;
 }
 .advantage-icon {
   width: 6rem;
@@ -121,3 +130,97 @@
   text-transform: uppercase;
   line-height: 50px;
 }
+
+/* About the team */
+
+.about-wrapper {
+  width: 100%;
+  padding-bottom: 50px;
+  height: auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+.about-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.about-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.about-cards-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem;
+  margin-top: 2rem;
+  justify-content: space-around;
+}
+.about-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 28%;
+  background-color: rgb(232, 250, 178);
+  border-radius: 10px;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
+  text-align: center;
+
+}
+.about-photo {
+  width: 10rem;
+  height: 10rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: white;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
+}
+.about-title {
+  text-transform: uppercase;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.maria-photo {
+  background-image: url('../assets/images/Maria.JPG');
+}
+.julia-photo {
+  background-image: url('../assets/images/Julia.jpg');
+}
+.lena-photo {
+  background-image: url('../assets//images/Lena.jpg');
+}
+
+@media (max-width: 1450px) {
+  .advantage-cards-container {
+    column: 2;
+  }
+  .advantage-card-wrapper {
+    width: 45%;
+  }
+}
+@media (max-width: 1000px) {
+  
+  .about-card-wrapper {
+    width: 85%;
+    margin: 1rem;
+  }
+}
+@media (max-width: 830px) {
+  
+  .advantage-card-wrapper {
+    width: 85%;
+    margin: 1rem;
+  }
+}
+

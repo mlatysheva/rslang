@@ -148,37 +148,23 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
     const difficultWords = await getUserDifficultWords(myId);
     const diffWords = difficultWords[0].paginatedResults;
     const diffWordsId = diffWords?.map((word) => word._id);
-    // console.log(diffWordsId);
+    console.log(diffWordsId);
 
 
     const learnedWords = await getUserLearnedWords(myId);
     const dataLearnedWords = learnedWords[0].paginatedResults;
     const learnedWordsId = dataLearnedWords?.map((word) => word._id);
-    console.log(learnedWordsId);
-
-  //   const lernAndDifficult = await getUserLearnDiffWords(myId);
-  //   const dataLearAndDifficult = lernAndDifficult[0].paginatedResults;
-  //   const filterAllToStyle = data.filter((e) => dataLearAndDifficult?.findIndex((i) => i._id !== e.id));
-  //  //  console.log(filterAllToStyle);
-  //   const nonfilterAllToStyle = data.filter((e) => dataLearAndDifficult?.findIndex((i) => i._id !== e.id) === -1);
-    // console.log(filterAllToStyle[0].id, data[0].id);
-
-    // const hash = filterAllToStyle[i].id;
-
-    // const hashArray = filterAllToStyle.map((word) => word.id);
-    // const hashLearned = dataLearnedWords?.map((word) => word.id);
 
     for (let i = 0; i < data.length; ++i) {
-      // console.log(data.length);
       const cardOnPage = new CardElement(data[i]).renderCard();
       if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+
       if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
-        // console.log(`found id = ${data[i].id}`);
         cardOnPage.classList.add('difficult-word');
       }
       if (learnedWordsId?.includes(data[i].id) && cardsOnPage) {
-        // console.log(`found id = ${data[i].id}`);
-        cardOnPage.classList.add('learned-word');
+        
+        cardOnPage.classList.add('opacity');
       }
       // if (hashLearned?.includes(data[j].id) && cardsOnPage) {
       //   console.log(`found id = ${data[j].id}`);

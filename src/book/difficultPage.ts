@@ -98,56 +98,6 @@ export async function renderDifficultPage() {
         difficultBtn.forEach((btn) => {
           btn.classList.add('hide');
         });
-        // async function nextDifficultPage() {
-        //   if (currentDifficultPage < totalDifficultPages) {
-        //     currentDifficultPage += 1;
-        //     if (cardsOnPage) {
-        //       cardsOnPage.innerHTML = '';
-        //       localStorage.removeItem('currentPage');
-        // eslint-disable-next-line max-len
-        //       setItemToLocalStorage('currentPage', JSON.stringify(`${difficultGroup}-${currentDifficultPage}`));
-        //     }
-        //     if (diffWords) {
-        //       diffWords.splice(0, 19);
-        //       diffWords.forEach(async (item) => {
-        //         console.log(item);
-        //         // const difficultBtn = document.querySelector('difficult');
-        //         const cardOnPage = new CardElement(item).renderCard();
-        //         if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-        //         return cardsOnPage;
-        //       });
-        //     }
-        //   }
-        // }
-        // function changeDifficultPages() {
-        //   if (difficultGroup) {
-        //     if (prevButton) {
-        //       prevButton.addEventListener('click', () => {
-        //         if (currentDifficultPage === 0) {
-        //           prevButton.classList.add('opacity');
-        //         } else if (currentDifficultPage > 0) {
-        //           prevButton.classList.remove('opacity');
-        //         }
-        //         // prevPage();
-        //         if (counter) counter.innerHTML = `${currentDifficultPage + 1} / ${totalDifficultPages}`;
-        //       });
-        //     }
-        //     if (nextButton && prevButton) {
-        //       nextButton.addEventListener('click', () => {
-        //         console.log('click');
-        //         prevButton.classList.remove('opacity');
-        //         if (currentDifficultPage === totalDifficultPages) {
-        //           nextButton.classList.add('opacity');
-        //         } else {
-        //           nextButton.classList.remove('opacity');
-        //         }
-        //         if (counter) counter.innerHTML = `${currentDifficultPage + 2} / ${totalDifficultPages}`;
-        //         nextDifficultPage();
-        //       });
-        //     }
-        //   }
-        // }
-        // changeDifficultPages();
       }
     }
   });
