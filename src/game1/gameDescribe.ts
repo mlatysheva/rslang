@@ -30,7 +30,7 @@ export function renderGame(): any {
   buttons.forEach((e: Element) => {
     e.addEventListener('click', async () => {
       let groupRoundIdGame1 = +e.id.slice(-1);
-      console.log(`click on сложность ${e.id.slice(-1)}`);
+      //console.log(`click on сложность ${e.id.slice(-1)}`);
       gameSectionDescribe.innerHTML = '';
       const questionSectionsArray = await renderGameRound(groupRoundIdGame1);
       questionSectionsArray.forEach((q) => gameSectionDescribe.appendChild(q));
@@ -115,4 +115,3 @@ export function renderGame(): any {
 
   return gameSectionDescribe;
 }
-

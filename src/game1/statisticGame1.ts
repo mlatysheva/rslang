@@ -1,5 +1,5 @@
 import { linkForCard } from '../js/constants';
-import { getPlayedQuestions } from './localStorageHelper';
+import { getPlayedQuestions, clearPlayedQuestions } from './localStorageHelper';
 
 export function renderLatestGameStatistics() {
   let statisticGame1 = document.createElement('div');
@@ -16,12 +16,14 @@ export function renderLatestGameStatistics() {
           `;
   unswers.querySelector(`.statistics-game1 tbody`)?.appendChild(table);
   statisticGame1.appendChild(unswers);
+  clearPlayedQuestions();
   return statisticGame1;
 }
 
 function renderTable() {
   const questions = getPlayedQuestions();
   const statistics = document.createElement('div');
+  statistics.classList.add('statistic-table');
 
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
@@ -52,25 +54,26 @@ function renderTable() {
     let trOne = document.createElement('tr');
     trOne.classList.add('game1-results');
     let tdOne = document.createElement('td');
-    tdOne.classList.add('game1-results');
+    tdOne.classList.add('row-results');
     let tdOneBtn = document.createElement('button');
     tdOneBtn.classList.add('player-icon');
     tdOneBtn.classList.add('play');
     tdOneBtn.setAttribute('id', `statistic-${q.word.id}`);
+
     let tdTwo = document.createElement('td');
-    tdTwo.classList.add('game1-results');
+    tdTwo.classList.add('row-results');
     tdTwo.innerText = `  ${correctWord}  `;
 
     let tdThree = document.createElement('td');
-    tdThree.classList.add('game1-results');
+    tdThree.classList.add('row-results');
     tdThree.innerText = `${correctTranskription}`;
 
     let tdFour = document.createElement('td');
-    tdFour.classList.add('game1-results');
+    tdFour.classList.add('row-results');
     tdFour.innerText = `${correctTranslate}`;
 
     let tdFive = document.createElement('td');
-    tdFive.classList.add('game1-results');
+    tdFive.classList.add('row-results');
     tdFive.classList.add('sprint-icon');
     tdFive.classList.add('sprint-size');
     tdFive.classList.add(`${isCorrect}`);
