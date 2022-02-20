@@ -54,8 +54,11 @@ export function authenticateUser() {
         setItemToLocalStorage('token', loginDetails.token);
         setItemToLocalStorage('email', eInput.value);
         setItemToLocalStorage('refreshToken', loginDetails.refreshToken); 
+        let loginTimestamp = Date.now();
+        setItemToLocalStorage('loginTimestamp', JSON.stringify(loginTimestamp));
         
         window.location.hash = '/';
+        window.location.reload();
         renderUserName();
       } else {
         console.log('Such user does not exist. Please sign up.')

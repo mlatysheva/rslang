@@ -1,3 +1,4 @@
+import { logout } from '../login/loginLogout';
 import { getItemFromLocalStorage, setItemToLocalStorage } from './localStorage';
 import {
   NewUserDetails, User, UserStatistics, UserWithName, UserWord,
@@ -9,9 +10,6 @@ const base = 'https://rs-lang-mlatysheva.herokuapp.com';
 const words = `${base}/words`;
 const users = `${base}/users`;
 const signin = `${base}/signin`;
-
-export let loginTimestamp: number;
-export let signupTimestamp: number;
 
 export async function getWords(group: number, page: number): Promise<Word[]> {
   const response = (await fetch(`${words}?group=${group}&page=${page}`));
@@ -41,7 +39,6 @@ export const createUser = async (user: User) => {
       body: JSON.stringify(user),
     });
     const content = await rawResponse.json();
-    signupTimestamp = Date.now();
     return content;
   } catch (error) {
     console.log('User with such email already exists. Please signin.');
@@ -60,7 +57,6 @@ export const loginUser = async (user: User): Promise<ExistingUserLoginDetails> =
     body: JSON.stringify(user),
   });
   const content = await rawResponse.json();
-  loginTimestamp = Date.now();
   return content;
 };
 
@@ -71,22 +67,24 @@ export async function getTokens(userId:string) {
 }
 
 export async function getToken(userId: string) {
-  console.log(loginTimestamp);
-  console.log(signupTimestamp);
-  console.log(loginTimestamp + (3600 * 1000 * 24));
-
-  console.log(signupTimestamp + (3600 * 1000 * 24));
-  console.log(Date.now());
-
-  if (((loginTimestamp + (3600 * 1000 * 24)) > Date.now()) || ((signupTimestamp + (3600 * 1000 * 24)) > Date.now())) {
-    console.log(`token is ${getItemFromLocalStorage('token')}`);
-    return getItemFromLocalStorage('token');
-  }
-  console.log('we are in else');
-  const tokens = await getTokens(getItemFromLocalStorage('id'));
-  setItemToLocalStorage('token', tokens.token);
-  console.log(`token is ${getItemFromLocalStorage('token')}`);
-  return tokens.token;
+  let loginTimestamp;
+  if (localStorage.getItem('loginTimestamp')) {
+    loginTimestamp = parseInt(JSON.parse(localStorage.getItem('loginTimestamp') || ''));
+  
+    if (((loginTimestamp + (3600 * 1000 * 24)) > Date.now())) {
+      return getItemFromLocalStorage('token');
+    } else {
+      const tokens = await getTokens(userId);
+      if (tokens == null) {
+        logout();
+      } else {
+        setItemToLocalStorage('token', tokens.token);
+        setItemToLocalStorage('refreshToken', tokens.refreshToken);
+        console.log(`token from server is ${getItemFromLocalStorage('token')}`);
+        return tokens.token;
+      }
+    }
+  }  
 }
 
 export async function getUser(): Promise<UserWithName> {
@@ -102,6 +100,7 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
   const correctlyAnswered = body.optional?.sprintCorrectlyAnswered;
   try {
     const token = getItemFromLocalStorage('token');
+    // const token = getToken(userId);
 
     const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
       method: 'POST',
@@ -136,6 +135,7 @@ export const createUserWord = async (userId: string, wordId: string, body: UserW
 
 export const updateUserWord = async (userId: string, wordId: string, body: UserWordParameters) => {
   const token = getItemFromLocalStorage('token');
+  // const token = getToken(userId);
 
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'PUT',
@@ -166,6 +166,7 @@ export const updateUserWord = async (userId: string, wordId: string, body: UserW
 
 export const deleteUserWord = async (userId: string, wordId: string) => {
   const token = getItemFromLocalStorage('token');
+  // const token = getToken(userId);
 
   const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
     method: 'DELETE',
@@ -181,6 +182,7 @@ export const deleteUserWord = async (userId: string, wordId: string) => {
 export const getUserWord = async (userId: string, wordId: string) => {
   try {
     const token = getItemFromLocalStorage('token');
+    // const token = getToken(userId);
 
     const rawResponse = await fetch(`${users}/${userId}/words/${wordId}`, {
       method: 'GET',
@@ -205,6 +207,7 @@ export const getUserWord = async (userId: string, wordId: string) => {
 
 export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
   const token = getItemFromLocalStorage('token');
+  // const token = getToken(userId);
   const rawResponse = await fetch(`${users}/${userId}/words`, {
     method: 'GET',
     // withCredentials: true,
@@ -220,7 +223,8 @@ export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
 
 export const getUserStatistics = async (): Promise<Response> => {
   const userId = getItemFromLocalStorage('id');
-  const token = getItemFromLocalStorage('token');
+  // const token = getItemFromLocalStorage('token');
+  const token = await getToken(userId);
   try {
     const rawResponse = await fetch(`${users}/${userId}/statistics`, {
       method: 'GET',
@@ -241,6 +245,7 @@ export const getUserStatistics = async (): Promise<Response> => {
 export const putUserStatistics = async (data: UserStatistics) => {
   const userId = getItemFromLocalStorage('id');
   const token = getItemFromLocalStorage('token');
+  // const token = getToken(userId);
   try {
     const rawResponse = await fetch(`${users}/${userId}/statistics`, {
       method: 'PUT',
@@ -260,6 +265,7 @@ export const putUserStatistics = async (data: UserStatistics) => {
 
 export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> => {
   const token = getItemFromLocalStorage('token');
+  // const token = getToken(userId);
 
   const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?wordsPerPage=20&filter={"$or":[{"userWord.difficulty":"difficult-word"}]}`, {
     method: 'GET',
@@ -275,6 +281,7 @@ export const getUserDifficultWords = async (userId: string):Promise<UserWord[]> 
 
 export const getUserLearnedWords = async (userId: string):Promise<UserWord[]> => {
   const token = getItemFromLocalStorage('token');
+  // const token = getToken(userId);
 
   const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"learned-word"}]}`, {
     method: 'GET',
@@ -290,6 +297,7 @@ export const getUserLearnedWords = async (userId: string):Promise<UserWord[]> =>
 
 export const getUserLearnDiffWords = async (userId: string):Promise<UserWord[]> => {
   const token = getItemFromLocalStorage('token');
+  // const token = getToken(userId);
 
   const rawResponse = await fetch(`${users}/${userId}/aggregatedWords?filter={"$or":[{"userWord.difficulty":"learned-word"}, {"userWord.difficulty":"difficult-word"}]}`, {
     method: 'GET',
