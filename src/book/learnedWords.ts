@@ -46,18 +46,19 @@ export const numberDayLearnedWords = () => {
   }
   return 0;
 };
-export async function getDataFromBook() {
-  let numberWords;
-  const data = await getUserLearnedWords(myId).then((d) => {
-    const count = d[0].totalCount[0];
-    numberWords = Object.values(Object.values(count))[0];
-    //console.log(numberWords);
-    return numberWords;
-  });
-  return numberWords;
-}
-const number = getDataFromBook();
-console.log(number);
+
+// export async function getDataFromBook() {
+//   let numberWords;
+//   const data = await getUserLearnedWords(myId).then((d) => {
+//     const count = d[0].totalCount[0];
+//     numberWords = Object.values(Object.values(count))[0];
+//     //console.log(numberWords);
+//     return numberWords;
+//   });
+//   return numberWords;
+// }
+// const number = getDataFromBook();
+// console.log(number);
 
 export const percentLearnedWords = () => {
   const numberLearnedWords = numberDayLearnedWords();
@@ -66,4 +67,4 @@ export const percentLearnedWords = () => {
   return percent.toFixed(2);
 };
 
-export default { learnedWord, getDataFromBook, percentLearnedWords };
+export default { learnedWord, percentLearnedWords };

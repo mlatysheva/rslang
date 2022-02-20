@@ -84,7 +84,7 @@ body {
   font-weight: 400;
   padding: 0;
   margin: 0 auto;
-  background-color: var(--june);
+  background-color: rgb(232, 250, 178);
   color: beige;
   overflow-x: hidden;
   overflow-y: show;
@@ -498,10 +498,11 @@ a:hover {
 .describtion-game1 {
   border-radius: 25%;
   max-width: 1000px;
-  min-width: 500px;
+  min-width: 340px;
   display: flex;
   text-align: center;
   flex-direction: column;
+  align-items: center;
 }
 
 .describtion-game1 {
@@ -690,12 +691,11 @@ a:hover {
 @media (max-width: 1100px) {
   .round-game1,
   .describtion-game1 {
+    width: 90%;
     border-radius: 5%;
     padding: 1rem;
   }
-  .book-page {
-    grid-template-columns: 1fr;
-  }
+  
   h2 {
     font-size: 24px;
   }
@@ -703,7 +703,7 @@ a:hover {
     width: 35px;
   }
   .card {
-    width: 65%;
+    width: 77%;
   }
   .card-img {
     width: 60%;
@@ -718,9 +718,7 @@ a:hover {
     background-size: 46px 27px;
   }
   .levels {
-    display: grid;
     top: 12em;
-    grid-template-columns: repeat(2, 118px);
   }
   .level7 {
     grid-area: 6/1;
@@ -754,9 +752,89 @@ a:hover {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 786px) {
   .pagination {
-    width: 18em;
+    width: 16em;
     gap: 0;
   }
+  .levels {
+    grid-template-columns: 92px;
+    column-gap: 0;
+  }
+  .book {
+    margin-left: 10em;
+    align-items:flex-start;
+  }
+  .book-page {
+    grid-template-columns: 340px;
+    justify-items: flex-start;
+  }
+  
+  .card {
+    width: 85%;
+  }
+  .card-title {
+    letter-spacing: 0;
+  }
+  .transk-transl {
+    margin-left: 2rem;
 }
+}
+
+@media (max-width: 540px) {
+  .wrapper-book {
+    flex-direction: column-reverse;
+  }
+  .levels {
+    position: unset;
+    top: 116px;
+    margin-left: 3em;
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    column-gap: 4em;
+  }
+  .book {
+    margin-left: 3em;
+  }
+}
+@media (max-width: 520px) {
+  .levels {
+    position: unset;
+  }
+  .user-name {
+    font-size: 12px;
+  }
+}
+@media (max-width: 440px) {
+  .book {
+    margin-left: 3em;
+  }
+  .header__logo {
+    font-size: 16px;
+  }
+  .unswers-game1, 
+  .levelsGame1 {
+    width: 365px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items:center;
+    align-content: center;
+  }
+  .round-choose {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+  }
+  .key-game1,
+  .from-key {
+    display: flex;
+  }
+  .statistic-table {
+    width: 330px;
+  }
+  .user-name {
+    font-size: 12px;
+  }
+}
+
