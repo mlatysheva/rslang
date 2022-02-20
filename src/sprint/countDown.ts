@@ -1,5 +1,5 @@
 export function countdown() {
-  let seconds = 15;
+  let seconds = 60;
   
   function tick() {
     const counter = document.getElementById("counter");
