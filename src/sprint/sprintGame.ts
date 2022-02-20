@@ -95,9 +95,7 @@ export async function startSprintGame(level: number) {
 
     game();
 
-    countdown();
-
-    
+    countdown();    
 
     let watching = setInterval(async () => {
       const counterDiv = (<HTMLElement>document.getElementById('counter'));      

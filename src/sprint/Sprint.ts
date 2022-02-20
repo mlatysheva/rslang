@@ -53,11 +53,4 @@ export class Sprint extends AbstractView {
     return htmlElement;
   }
 
-  async renderCard() {
-    return `
-    <div class="card sprint-card">
-      <p>This is future card with words for sprint game</p>
-    </div>
-    `
-  }
 }

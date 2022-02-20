@@ -16,10 +16,10 @@ export function clearAllChildNodes(parent: HTMLElement): void {
 }
 
 export function toggleActiveMenu() {
-  const navMenu = document.querySelector('.nav-menu');
+  const nav = document.querySelector('.header-container');
   const menuItems = document.querySelectorAll('.nav-link');
 
-  (<HTMLElement>navMenu).addEventListener('click', (e) => {
+  (<HTMLElement>nav).addEventListener('click', (e) => {
     menuItems.forEach((item) => {
       if ((<HTMLElement>item).classList.contains('active')) {
         (<HTMLElement>item).classList.remove('active');
@@ -84,10 +84,13 @@ function navigation() {
 
       switch (hashClicked) {
         case '#/':
+          toggleActiveMenu();
           break;
         case '#/login/':
+          toggleActiveMenu();
           break;
         case '#/signup/':
+          toggleActiveMenu();
           break;
         case '#/manual/':
           // const manualMenu = <HTMLElement>document.querySelector("[data-href='#/manual/']");
