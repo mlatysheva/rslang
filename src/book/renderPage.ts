@@ -164,32 +164,11 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
 
   Page.appendChild(cardsOnPage);
   wrapperBook.appendChild(Page);
+  const aside = createAside();
+  wrapperBook.appendChild(aside);
 
   renderUserWords();
 
-  // const data = await getWords(group, page);
-
-  // if (myId) {
-  //   const difficultWords = await getUserDifficultWords(myId);
-  //   const diffWords = difficultWords[0].paginatedResults;
-  //   const diffWordsId = diffWords?.map((word) => word._id);
-
-  //   const learnedWords = await getUserLearnedWords(myId);
-  //   const dataLearnedWords = learnedWords[0].paginatedResults;
-  //   const learnedWordsId = dataLearnedWords?.map((word) => word._id);
-
-  //   for (let i = 0; i < data.length; ++i) {
-  //     const cardOnPage = new CardElement(data[i]).renderCard();
-  //     if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-
-  //     if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
-  //       cardOnPage.classList.add('difficult-word');
-  //     }
-  //     if (learnedWordsId?.includes(data[i].id) && cardsOnPage) {
-  //       cardOnPage.classList.add('opacity');
-  //     }
-  //   }
-  // }
 
   document.addEventListener('onload', async () => {
     if (getItemFromLocalStorage('currentPage')) {
