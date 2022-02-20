@@ -68,8 +68,11 @@ export interface ExistingUserLoginDetails {
 }
 
 export interface UserStatistics {
-  learnedWords: number,
-  optional?: {sprintLongestSeries: number, audiocallLongestSeries: number},
+  learnedWords?: number,
+  optional?: {
+    sprintLongestSeries?: number, 
+    audiocallLongestSeries?: number
+  },
 }
 export interface SprintWord {
   id: string,

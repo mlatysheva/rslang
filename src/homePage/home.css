@@ -204,6 +204,26 @@
 .lena-photo {
   background-image: url('../assets//images/Lena.jpg');
 }
+.about-link {
+  color: var(--purple);
+}
+.github-link-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.github-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.5rem;
+  margin-right: 1rem;
+  background-image: url('../assets/images/GitHub-Mark-32px.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 @media (max-width: 1450px) {
   .advantage-cards-container {

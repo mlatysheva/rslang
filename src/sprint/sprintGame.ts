@@ -1,3 +1,4 @@
+import { putUserStatistics } from "../js/api";
 import { getItemFromLocalStorage } from "../js/localStorage";
 import { SprintWord } from "../js/types";
 import { sprintNewWords } from "../statistics/globalStorage";
@@ -40,7 +41,7 @@ export async function startSprintRound(level: number) {
       <div class="button sprint-answer-button sprint-incorrect" id="sprint-incorrect-btn">Неверно</div>
     </div> 
     <div class="text-box">      
-      <p class="text-message"><span class="uppercase-text bold-text">Для игры с клавиатуры жми:</span> 
+      <p class="text-message"><span class="bold-text">Для игры с клавиатуры жми:</span> 
         <br><span class="uppercase-text bold-text">Enter</span> - "Начать", <span class="uppercase-text bold-text">Backspace</span> или <span class="uppercase-text bold-text">Delete</span> - "Возврат к выбору уровня"
         <br><span class="uppercase-text bold-text">Левая стрелка</span> - "Верно", <span class="uppercase-text bold-text">Правая стрелка</span> - "Неверно"
       </p>
@@ -62,14 +63,17 @@ export async function startSprintRound(level: number) {
 // main function for sprint game
 
 export async function startSprintGame(level: number) {
-  if (level == 7) {
-    level = 6;
+  if (level == 6) {
+    console.log(`level is ${level}`);
+    level = 5;
   }
+  console.log( `in startsprintgaem level is ${level}`);
   let points: number = 0;
   let index: number = 0;
   let words = await getArrayOfWords(level);
   let results: SprintWord[] = [];
   let arrayof1and0: number[] = [];
+  let sprintLongest: number;
 
   await startSprintRound(level);
 
@@ -93,16 +97,33 @@ export async function startSprintGame(level: number) {
 
     game();
 
-    countdown();
+    countdown();    
 
-    let watching = setInterval(() => {
-      const counter = (<HTMLElement>document.getElementById('counter')).innerText;
-      if (counter == '0:00') {
-        clearInterval(watching);
-        renderSprintResults(results);
-        findSprintLongestSeries(arrayof1and0);
+    let watching = setInterval(async () => {
+      const counterDiv = (<HTMLElement>document.getElementById('counter'));      
+      if(!counterDiv) {
+        return false;
+      } else {
+        const counter = counterDiv.innerText;
+        if (counter == '0:00' || window.location.hash != "#/sprint/") {
+          clearInterval(watching);
+          renderSprintResults(results);
+          sprintLongest = findSprintLongestSeries(arrayof1and0);
+
+          // Send results to server statistics
+
+          if (localStorage.getItem('token')) {
+            
+            let body = {
+              optional: { sprintLongestSeries: sprintLongest}
+            }
+            await putUserStatistics(body);
+          }
+        }
       }
+ 
     }, 1000);
+
   });
 
   // manipulate start and replay from keyboard
@@ -138,7 +159,6 @@ export async function startSprintGame(level: number) {
       ) {
         points++;
         refreshPoints(points);
-        console.log(`the answer is correct`);
 
         results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
         
@@ -162,7 +182,6 @@ export async function startSprintGame(level: number) {
           isCorrectlyAnswered: false,
         });
 
-        console.log(`the answer is incorrect`);
         arrayof1and0.push(0);
 
         // interact with the server for a registered user
@@ -205,11 +224,9 @@ export async function startSprintGame(level: number) {
     document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {   
         (<HTMLElement>sprintCorrectBtn).click();
-        console.log('This is correct')
       }
       if (e.key === 'ArrowRight') { 
         (<HTMLElement>sprintIncorrectBtn).click();
-        console.log('This is incorrect');
       }
     });
   }
@@ -277,18 +294,6 @@ export async function renderSprintResults(array: SprintWord[]) {
 
   playsound();
 
-  // Send results to server statistics
-
-
-  // if (localStorage.getItem('token')) {
-
-  //   let body = {
-  //     "learnedWords": 0,
-  //     // "optional": { "sprintNewWords": sprintNewWords.length}
-  //   }
-
-  //   await putUserStatistics(body);
-  // }
 }
 
 export async function renderSprintRows(arrayOfResults: SprintWord[]) {

@@ -95,7 +95,7 @@ export class Home extends AbstractView {
         </div>
         <div class=" home-text-large">
           Приложение <span class="home-bold">MGIMO FINISHED</span> разработали для тебя мы - <br>дружная команда из трех девчонок - 
-          <br>студенток замечательного курса <span class="home-bold">Front-End/JS</span> от школы <span class="home-bold">Rolling Slopes School</span>.
+          <br>студенток замечательного курса <span class="home-bold">Front-End/JS</span> от школы <span class="home-bold">Rolling Scopes School</span>.
         </div>
         <div class="about-cards-container">
 
@@ -105,12 +105,19 @@ export class Home extends AbstractView {
             <div class="about-title">
               <span class="home-bold">Мария Латышева</span> <br>Team Lead
             </div>
+            <div class="github-link-wrapper">
+              <div class="github-logo">
+              </div>
+              <a href="https://github.com/mlatysheva" class="git-link about-link bold-text">mlatysheva</a>
+            </div>
             <div class="about-text home-text">              
               <p>Развернула сервер, разработала авторизацию пользователей и роутинг. 
                 <br>Сделала дизайн и верстку главной страницы и страницы статистики.
                 <br>Разработала игру Спринт.
                 <br>Участвовала в разработке Статистики.
               </p>
+              
+        
             </div>          
           </div>
 
@@ -120,11 +127,16 @@ export class Home extends AbstractView {
             <div class="about-title">
               <span class="home-bold">Юлия Миронова</span> <br>Разработчик
             </div>
+            <div class="github-link-wrapper">
+              <div class="github-logo">
+              </div>
+              <a href="https://github.com/julia-mironova" class="git-link about-link bold-text">julia-mironova</a>
+            </div>
             <div class="about-text home-text">              
               <p>Разработала игру Аудиовызов. 
                 <br>Доработала роутинг.
                 <br>Участвовала в разработке Статистики.
-              </p>
+              </p>       
             </div>          
           </div>
 
@@ -133,6 +145,11 @@ export class Home extends AbstractView {
             </div>
             <div class="about-title">
               <span class="home-bold">Елена Гончарук</span> <br>Разработчик
+            </div>
+            <div class="github-link-wrapper">
+              <div class="github-logo">
+              </div>
+              <a href="https://github.com/olena-web" class="git-link about-link bold-text">olena-web</a>
             </div>
             <div class="about-text home-text">              
               <p>Разработала Учебник и список слов. 

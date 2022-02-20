@@ -15,6 +15,19 @@ export function clearAllChildNodes(parent: HTMLElement): void {
   }
 }
 
+export function toggleActiveMenu() {
+  const nav = document.querySelector('.header-container');
+  const menuItems = document.querySelectorAll('.nav-link');
+
+  (<HTMLElement>nav).addEventListener('click', (e) => {
+    menuItems.forEach((item) => {
+      if ((<HTMLElement>item).classList.contains('active')) {
+        (<HTMLElement>item).classList.remove('active');
+      }
+    });
+    (<HTMLElement>e.target).classList.add('active');
+  })
+}
 function navigation() {
   const app = <HTMLElement>document.getElementById('app');
 
@@ -71,30 +84,33 @@ function navigation() {
 
       switch (hashClicked) {
         case '#/':
+          toggleActiveMenu();
           break;
         case '#/login/':
+          toggleActiveMenu();
           break;
         case '#/signup/':
+          toggleActiveMenu();
           break;
         case '#/manual/':
-          const manualMenu = <HTMLElement>document.querySelector("[data-href='#/manual/']");
-          manualMenu.classList.add('active');
-
+          // const manualMenu = <HTMLElement>document.querySelector("[data-href='#/manual/']");
+          // manualMenu.classList.add('active');
+          toggleActiveMenu();
           break;
         case '#/audiocall/':
-          // TODO: add functions with audiocall
+          toggleActiveMenu();
 
           break;
         case '#/sprint/':
-          // TODO: add functions with sprint
+          toggleActiveMenu();
 
           break;
         case '#/statistics/':
-          // TODO: add functions with statistics
+          toggleActiveMenu();
 
           break;
         case '#/audiocall-user/':
-          // TODO: add functions with audiocall
+          toggleActiveMenu();
 
           break;
       }
