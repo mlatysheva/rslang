@@ -1,8 +1,11 @@
-import { UserWordParameters} from '../js/types';
+import { UserWordParameters } from '../js/types';
 import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
 import { removeDifficultWord } from './difficultPage';
-import { createUserWord, putUserStatistics, getUserLearnedWords, deleteUserWord, getUserStatistics } from '../js/api';
+import {
+  createUserWord, putUserStatistics, getUserLearnedWords, deleteUserWord, getUserStatistics,
+} from '../js/api';
 import { myId } from '../card/cardElement';
+import { ALL_WORDS } from '../js/constants';
 
 export const learnedWords: Array<string> = [];
 
@@ -22,15 +25,14 @@ export function learnedWord() {
         setItemToLocalStorage('learnedWords', JSON.stringify(learnedWords));
         const body: UserWordParameters = {
           difficulty: 'learned-word',
-          // newWord: false,
-          // optional: { newWord: false },
+
         };
         await deleteUserWord(myId, wordId);
         // await removeDifficultWord();
         await createUserWord(myId, wordId, body);
         const dataForStatistic = {
           learnedWords: learnedWords.length,
-          // optional: {},
+
         };
         await putUserStatistics(dataForStatistic);
         const dataForBook = await getUserStatistics();
@@ -46,25 +48,21 @@ export const numberDayLearnedWords = () => {
   }
   return 0;
 };
+export const numberLearnedWords: Array<number> = [];
+export const getNumberLernedWords = async () => {
+  const diffWordsId = await getUserLearnedWords(myId);
+  const count = diffWordsId[0].totalCount[0];
+  const numberWords = Object.values(count)[0];
+  numberLearnedWords.push(numberWords);
+  return numberWords;
+};
+getNumberLernedWords();
 
-// export async function getDataFromBook() {
-//   let numberWords;
-//   const data = await getUserLearnedWords(myId).then((d) => {
-//     const count = d[0].totalCount[0];
-//     numberWords = Object.values(Object.values(count))[0];
-//     //console.log(numberWords);
-//     return numberWords;
-//   });
-//   return numberWords;
-// }
-// const number = getDataFromBook();
-// console.log(number);
-
-export const percentLearnedWords = () => {
-  const numberLearnedWords = numberDayLearnedWords();
-  const allWords = 4000;
-  const percent = (numberLearnedWords / allWords) * 100;
+export const percentLearnedWords = (numberWords: number) => {
+  const allWords = ALL_WORDS;
+  const percent = (numberWords / allWords) * 100;
   return percent.toFixed(2);
 };
+export const dayWords = numberDayLearnedWords();
 
 export default { learnedWord, percentLearnedWords };

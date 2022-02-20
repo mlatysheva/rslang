@@ -14,7 +14,7 @@ export async function changeLevel() {
   document.body.addEventListener('click', async (e: MouseEvent) => {
     const cardsOnPage = document.querySelector('.book-page');
     const level = document.querySelectorAll('.level');
-    
+
     const pagination = document.querySelector('.pagination');
 
     level.forEach((button) => {
@@ -37,15 +37,15 @@ export async function changeLevel() {
           const difficultWords = await getUserDifficultWords(myId);
           const diffWords = difficultWords[0].paginatedResults;
           const diffWordsId = diffWords?.map((word) => word._id);
-      
+
           const learnedWords = await getUserLearnedWords(myId);
           const dataLearnedWords = learnedWords[0].paginatedResults;
           const learnedWordsId = dataLearnedWords?.map((word) => word._id);
-      
+
           for (let i = 0; i < data.length; ++i) {
             const cardOnPage = new CardElement(data[i]).renderCard();
             if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-      
+
             if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
               cardOnPage.classList.add('difficult-word');
             }
@@ -86,15 +86,15 @@ export async function prevPage() {
       const difficultWords = await getUserDifficultWords(myId);
       const diffWords = difficultWords[0].paginatedResults;
       const diffWordsId = diffWords?.map((word) => word._id);
-  
+
       const learnedWords = await getUserLearnedWords(myId);
       const dataLearnedWords = learnedWords[0].paginatedResults;
       const learnedWordsId = dataLearnedWords?.map((word) => word._id);
-  
+
       for (let i = 0; i < data.length; ++i) {
         const cardOnPage = new CardElement(data[i]).renderCard();
         if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-  
+
         if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
           cardOnPage.classList.add('difficult-word');
         }
@@ -136,7 +136,7 @@ export async function nextPage() {
       for (let i = 0; i < data.length; ++i) {
         const cardOnPage = new CardElement(data[i]).renderCard();
         if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
-  
+
         if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
           cardOnPage.classList.add('difficult-word');
         }
