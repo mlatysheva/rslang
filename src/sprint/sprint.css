@@ -15,6 +15,9 @@
   background-color: rgb(232, 250, 178);
   box-shadow: 0 0 5px 5px rgba(34, 60, 80, 0.2);
 }
+.sprint-start-screen {
+  width: 90%;
+}
 .sprint-title {
   font-size: 40px;
   text-align: center;

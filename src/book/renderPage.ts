@@ -77,13 +77,6 @@ export function createAside() {
   sprintButton.innerHTML = `${sprintIcon}`;
   aside.appendChild(sprintButton);
 
-  /* const callButton = document.createElement('button');
-  callButton.classList.add('call-btn');
-  callButton.setAttribute('id', 'call');
-  callButton.innerHTML = `${callIcon}`;
-  aside.appendChild(callButton); */
-
-  /**/
   const callButton = document.createElement('div');
   callButton.classList.add('userAudioCall');
   callButton.innerHTML = `<a href="#/audiocall-user/" data-href="#/audiocall-user/" title="Игра Аудиовызов">${callIcon}</a>`;
@@ -105,17 +98,17 @@ export async function renderUserWords() {
     const dataLearnedWords = learnedWords[0].paginatedResults;
     const learnedWordsId = dataLearnedWords?.map((word) => word._id);
 
-    for (let i = 0; i < data.length; ++i) {
-      const cardOnPage = new CardElement(data[i]).renderCard();
+    data.forEach((element) => {
+      const cardOnPage = new CardElement(element).renderCard();
       if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
 
-      if (diffWordsId?.includes(data[i].id) && cardsOnPage) {
+      if (diffWordsId?.includes(element.id) && cardsOnPage) {
         cardOnPage.classList.add('difficult-word');
       }
-      if (learnedWordsId?.includes(data[i].id) && cardsOnPage) {
+      if (learnedWordsId?.includes(element.id) && cardsOnPage) {
         cardOnPage.classList.add('opacity');
       }
-    }
+    });
   } else {
     data.forEach((element) => {
       const cardOnPage = new CardElement(element).renderCard();

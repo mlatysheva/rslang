@@ -16,7 +16,6 @@ export class Manual extends AbstractView {
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
-    
 
     addModal();
     toggleTranslate();
