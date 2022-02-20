@@ -46,9 +46,12 @@ export class Statistics extends AbstractView {
         const content = await data.json();
         const totalLearnedWords = content.learnedWords;
         let sprintLongestSeries;
-        sprintLongestSeries = content.optional.sprintLongestSeries;
-        if (!sprintLongestSeries) {
+        if (content.optional == null) {
           sprintLongestSeries = 0;
+        } else if (content.optional.sprintLongestSeries == null) {
+            sprintLongestSeries = 0;
+        } else {
+          sprintLongestSeries = content.optional.sprintLongestSeries;          
         }
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
@@ -72,6 +75,9 @@ export class Statistics extends AbstractView {
         let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
         if (sprintCorrectlyAnsweredPercent === 'NaN') {
           sprintCorrectlyAnsweredPercent = '0';
+        }
+        if (parseInt(sprintCorrectlyAnsweredPercent) > 100) {
+          sprintCorrectlyAnsweredPercent = '100';
         }
 
         // if (sprintLongestSeries != null) {

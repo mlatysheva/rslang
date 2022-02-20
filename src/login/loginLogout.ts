@@ -15,9 +15,9 @@ export function logout() {
       localStorage.removeItem('id');
       localStorage.removeItem('email');
       localStorage.removeItem('token');
-      renderUserName();
-      window.history.back();
-      window.location.reload();
+      localStorage.removeItem('refreshToken');
+      renderUserName();        
+      window.location.hash = '#/login/';
     }
   });
 }
