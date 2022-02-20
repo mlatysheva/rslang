@@ -75,23 +75,27 @@
 }
 
 .sprint-level:nth-child(1) {
-  background: radial-gradient(rgb(193, 164, 168), rgb(125, 99, 104));
+  background-color: #70db19;
 }
 
 .sprint-level:nth-child(2) {
-  background: radial-gradient(rgb(179, 133, 140), rgb(103, 69, 75));
+  background-color: #316d15;
 }
 .sprint-level:nth-child(3) {
-  background: radial-gradient(rgb(191, 109, 121), rgb(99, 49, 59));
+  
+  background-color: #ebd93c;
 }
 .sprint-level:nth-child(4) {
-  background: radial-gradient(rgb(174, 76, 91), rgb(97, 31, 44));
+  
+  background-color: #a19f10;
 }
 .sprint-level:nth-child(5) {
-  background: radial-gradient(rgb(148, 40, 56), rgb(85, 16, 27));
+  
+  background-color: #d4a5d4;
 }
 .sprint-level:nth-child(6) {
-  background: radial-gradient(rgb(131, 10, 28), rgb(70, 2, 14));
+   
+  background-color: #9b2363;
 }
 
 .sprint-game-screen {

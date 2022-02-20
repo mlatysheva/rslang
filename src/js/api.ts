@@ -74,14 +74,14 @@ export async function getToken(userId: string) {
     if (((loginTimestamp + (3600 * 1000 * 24)) > Date.now())) {
       return getItemFromLocalStorage('token');
     } else {
-      const tokens = await getTokens(userId);
-      if (tokens == null) {
-        logout();
-      } else {
+      try {
+        const tokens = await getTokens(userId);
         setItemToLocalStorage('token', tokens.token);
         setItemToLocalStorage('refreshToken', tokens.refreshToken);
         console.log(`token from server is ${getItemFromLocalStorage('token')}`);
         return tokens.token;
+      } catch(err) {
+        logout();
       }
     }
   }  
