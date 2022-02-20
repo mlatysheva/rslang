@@ -6,3 +6,4 @@ export const WORDS_PER_PAGE = 20;
 export const NUMBER_DIFFERENT_GROUP = 6;
 export const UNSWERS_PER_GAME = 10;
 export const NUM_TRUE_UNSWERS_IN_GAME_TO_BE_LEARNED = 2;
+export const ALL_WORDS = 4000;

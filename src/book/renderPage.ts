@@ -157,11 +157,10 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
 
   Page.appendChild(cardsOnPage);
   wrapperBook.appendChild(Page);
-  const aside = createAside();
-  wrapperBook.appendChild(aside);
+  // const aside = createAside();
+  // wrapperBook.appendChild(aside);
 
   renderUserWords();
-
 
   document.addEventListener('onload', async () => {
     if (getItemFromLocalStorage('currentPage')) {

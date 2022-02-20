@@ -2,8 +2,9 @@ import { getUserStatistics, getUserWordsAll } from '../js/api';
 import { AbstractView } from '../js/views/AbstractView';
 import { sprintNewWords } from './globalStorage';
 import { getItemFromLocalStorage } from '../js/localStorage';
-import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords';
-import { sprintIcon, callIcon } from '../book/svg';
+import { numberDayLearnedWords, percentLearnedWords, dayWords } from '../book/learnedWords';
+import { numberLearnedWords } from '../book/difficultPage';
+import { callIcon } from '../book/svg';
 import {
   getLastDay,
   getLongestTrueQuestionsPerDay,
@@ -15,6 +16,7 @@ import {
   setQuestionsPerDay,
   setTrueQuestionsPerDay,
 } from '../game1/localStorageHelper';
+import { numberForStatistic } from '../book/difficultPage';
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -42,16 +44,16 @@ export class Statistics extends AbstractView {
     const data = await getUserStatistics();
     if (data) {
       if (data.status === 200) {
-        console.log(`Statistics successfully received from the server`);
+        console.log('Statistics successfully received from the server');
         const content = await data.json();
         const totalLearnedWords = content.learnedWords;
         let sprintLongestSeries;
         if (content.optional == null) {
           sprintLongestSeries = 0;
         } else if (content.optional.sprintLongestSeries == null) {
-            sprintLongestSeries = 0;
+          sprintLongestSeries = 0;
         } else {
-          sprintLongestSeries = content.optional.sprintLongestSeries;          
+          sprintLongestSeries = content.optional.sprintLongestSeries;
         }
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
@@ -71,8 +73,7 @@ export class Statistics extends AbstractView {
           }
         });
 
-
-        let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers ) * 100 ).toFixed();
+        let sprintCorrectlyAnsweredPercent = ((sprintCorrectlyAnswered / sprintTotalAnswers) * 100).toFixed();
         if (sprintCorrectlyAnsweredPercent === 'NaN') {
           sprintCorrectlyAnsweredPercent = '0';
         }
@@ -92,8 +93,7 @@ export class Statistics extends AbstractView {
         //   sprintLongestSeries = 0;
         // }
 
-
-        let today = new Date().toLocaleDateString();
+        const today = new Date().toLocaleDateString();
 
         if (getLastDay() !== new Date().toISOString().split('T')[0]) {
           setQuestionsPerDay(0);
@@ -103,9 +103,9 @@ export class Statistics extends AbstractView {
           resetLastDay();
         }
 
-        let unswersCorrect = getTrueQuestionsPerDay();
-        let questions = getQuestionsPerDay();
-        let newWordsPerDay = unswersCorrect + Math.ceil(Math.random() * 15); //TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже
+        const unswersCorrect = getTrueQuestionsPerDay();
+        const questions = getQuestionsPerDay();
+        let newWordsPerDay = unswersCorrect + Math.ceil(Math.random() * 15); // TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже
         if (newWordsPerDay >= questions) {
           newWordsPerDay = questions - Math.ceil(Math.random() * 15);
           if (newWordsPerDay < 0) {
@@ -114,10 +114,10 @@ export class Statistics extends AbstractView {
         }
 
         let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
-        if(isNaN(precentCorrectAnswersPerDay)) {
+        if (isNaN(precentCorrectAnswersPerDay)) {
           precentCorrectAnswersPerDay = 0;
         }
-        let longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
+        const longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
         const arrAudiocall = [
           { newWords: `${newWordsPerDay}` },
           { precentCorrectAnswers: `${precentCorrectAnswersPerDay}` },
@@ -140,14 +140,14 @@ export class Statistics extends AbstractView {
             <div class="statistics-text home-text">
               
               <p>Новых слов: <span class="statistics-indicator audiocall-new-words">${
-                arrAudiocall[0]['newWords']
-              }</span></p>
+  arrAudiocall[0].newWords
+}</span></p>
               <p>Правильных ответов: <span class="statistics-indicator audiocall-correct-answers">${
-                arrAudiocall[1]['precentCorrectAnswers']
-              } %</span> </p>
+  arrAudiocall[1].precentCorrectAnswers
+} %</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
-                arrAudiocall[2]['longestTrueUnswers']
-              }</span></p>
+  arrAudiocall[2].longestTrueUnswers
+}</span></p>
             </div>          
           </div>  
           
@@ -181,9 +181,10 @@ export class Statistics extends AbstractView {
                 Учебник
             </div>
             <div class="statistics-text home-text">            
-              <p>Новых слов: <span class="statistics-indicator book-new-words">0</span></p>
-              <p>Изученных слов: <span class="statistics-indicator book-learned-words">${numberDayLearnedWords()}</span> </p>
-              <p>% от общего количества слов: <span class="statistics-indicator book-correct-answers">${percentLearnedWords()}</span></p>
+              <p>Трудных слов: <span class="statistics-indicator book-new-words">${numberForStatistic}</span></p>
+              <p>Изученных слов за день: <span class="statistics-indicator book-learned-words">${numberDayLearnedWords()}</span> </p>
+              <p>Изученных слов всего: <span class="statistics-indicator book-learned-words">${numberLearnedWords}</span> </p>
+              <p>% от общего количества слов <br>(за день / всего):<br> <span class="statistics-indicator book-correct-answers">${percentLearnedWords(dayWords)} / ${percentLearnedWords(numberLearnedWords[0])} </span></p>
             </div>          
           </div>
   
@@ -230,5 +231,5 @@ export class Statistics extends AbstractView {
 }
 export default Statistics;
 
-/*<div class="statistics-icon audiocall-icon">
-</div>*/
+/* <div class="statistics-icon audiocall-icon">
+</div> */

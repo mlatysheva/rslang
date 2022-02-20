@@ -2,7 +2,7 @@
 import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
 
 import {
-  getWord, createUserWord, getUserWord, getUserWordsAll, deleteUserWord, getUserDifficultWords,
+  createUserWord, getUserLearnedWords, deleteUserWord, getUserDifficultWords,
 } from '../js/api';
 import { CardElement } from '../card/cardElement';
 import { UserWordParameters } from '../js/types';
@@ -18,8 +18,6 @@ const nextButton = document.querySelector<HTMLButtonElement>('next');
 const counter = document.querySelector<HTMLDivElement>('.counter');
 const difficultGroup = NUMBER_DIFFERENT_GROUP;
 const ifDifficultGroup = true;
-
-const currentDifficultPage = 0;
 
 export function removeCard() {
   document.body.addEventListener('click', (e) => {
@@ -41,7 +39,6 @@ export function difficultWord() {
       if ((<HTMLButtonElement>e.target).classList.contains('difficult')) {
         const wordId = (<HTMLButtonElement>e.target).id.split('difficult')[1];
         const word = document.getElementById(`${wordId}`);
-        // const deleteBtnId = (<HTMLButtonElement>deleteBtn).id.split('delete')[1];
         if (word) word.classList.add('difficult-word');
         (<HTMLButtonElement>e.target).disabled = true;
         // if (deleteBtn && deleteBtnId === wordId) deleteBtn.disabled = true;
@@ -83,9 +80,17 @@ export async function renderDifficultPage() {
       const id = (e.target as HTMLElement).id.split('level')[1];
       if (id === difficultGroup.toString()) {
         if (cardsOnPage) cardsOnPage.innerHTML = '';
+
         const diffWordsId = await getUserDifficultWords(myId);
         const diffWords = diffWordsId[0].paginatedResults;
+        const count = diffWordsId[0].totalCount[0];
+        const numberWords = Object.values(Object.values(count))[0];
+        console.log(numberWords);
         pagination?.classList.toggle('hide');
+        const difficultBtn = document.querySelectorAll('difficult');
+        difficultBtn.forEach((btn) => {
+          btn.classList.add('hide');
+        });
 
         if (diffWords) {
           diffWords.forEach(async (item) => {
@@ -94,15 +99,37 @@ export async function renderDifficultPage() {
             cardOnPage.classList.add('difficult-word');
           });
         }
-        const difficultBtn = document.querySelectorAll('difficult');
-        difficultBtn.forEach((btn) => {
-          btn.classList.add('hide');
-        });
       }
     }
   });
 }
 
+export const numberForStatistic:Array<number> = [];
+export const numberLearnedWords: Array<number> = [];
+
+export const getNumberDiffWords = async () => {
+  const diffWordsId = await getUserDifficultWords(myId);
+  const count = diffWordsId[0].totalCount[0];
+  const numberWords = Object.values(count)[0];
+  numberForStatistic.push(numberWords);
+  return numberWords;
+};
+getNumberDiffWords();
+
+export const getNumberLernedWords = async () => {
+  const diffWordsId = await getUserLearnedWords(myId);
+  const count = diffWordsId[0].totalCount[0];
+  const numberWords = Object.values(count)[0];
+  numberLearnedWords.push(numberWords);
+  return numberWords;
+};
+getNumberLernedWords();
+
 export default {
-  removeCard, difficultWord, renderDifficultPage,
+  removeCard,
+  difficultWord,
+  renderDifficultPage,
+  getNumberDiffWords,
+  numberForStatistic,
+  numberLearnedWords,
 };
