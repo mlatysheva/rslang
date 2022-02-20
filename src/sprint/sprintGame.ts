@@ -100,22 +100,28 @@ export async function startSprintGame(level: number) {
     
 
     let watching = setInterval(async () => {
-      const counter = (<HTMLElement>document.getElementById('counter')).innerText;
-      if (counter == '0:00') {
-        clearInterval(watching);
-        renderSprintResults(results);
-        sprintLongest = findSprintLongestSeries(arrayof1and0);
+      const counterDiv = (<HTMLElement>document.getElementById('counter'));      
+      if(!counterDiv) {
+        return false;
+      } else {
+        const counter = counterDiv.innerText;
+        if (counter == '0:00' || window.location.hash != "#/sprint/") {
+          clearInterval(watching);
+          renderSprintResults(results);
+          sprintLongest = findSprintLongestSeries(arrayof1and0);
 
-        // Send results to server statistics
+          // Send results to server statistics
 
-        if (localStorage.getItem('token')) {
-          
-          let body = {
-            optional: { sprintLongestSeries: sprintLongest}
+          if (localStorage.getItem('token')) {
+            
+            let body = {
+              optional: { sprintLongestSeries: sprintLongest}
+            }
+            await putUserStatistics(body);
           }
-          await putUserStatistics(body);
         }
       }
+ 
     }, 1000);
 
   });

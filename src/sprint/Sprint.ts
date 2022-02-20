@@ -27,7 +27,7 @@ export class Sprint extends AbstractView {
         </div>
         
         <p class="sprint-title uppercase-text">Спринт</p>
-        <p class="sprint-text">Угадай как можно больше слов за 15 секунд</p>
+        <p class="sprint-text">Угадай как можно больше слов за 1 минуту</p>
         <p class="large-text">Игра помогает закрепить выученные слова</p>
       </div>
       <div class="level-wrapper">
