@@ -13,17 +13,19 @@ export function listenForSprint() {
       } 
       if ((e.target as HTMLElement).id == 'sprint') {
         
-        window.location.hash = '/sprint';
+        window.location.hash = '#/sprint/';
         if (localStorage.getItem('currentPage')) {
           let levelparsed = JSON.parse((localStorage.getItem('currentPage') as string)).split('-')[0];
           level = parseInt(levelparsed.charAt(levelparsed.length - 1));
-          if (level == 7) {
-            level = 6;
+          if (level == 6) {
+            level = 5;
+            console.log(`level is ${level}`);
           }
         } else {
           level = 0;
         }
         replay();
+        console.log(`in startSprintGame level is ${level}`);
         await startSprintGame(level);
       }
     }

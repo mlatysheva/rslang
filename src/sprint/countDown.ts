@@ -10,7 +10,7 @@ export function countdown() {
     (<HTMLElement>counter).innerHTML = "0:" + (seconds < 10 ? "0" : "") + String(seconds);
     let interval;
     // console.log(`window.location.hash is ${window.location.hash}`);
-    if (window.location.hash === "#/sprint/") {
+    if (window.location.hash === "#/sprint/" || window.location.hash === "#/sprint" || window.location.hash === "/sprint") {
       
       if( seconds > 0) {
         interval = setTimeout(tick, 1000);

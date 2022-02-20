@@ -63,9 +63,11 @@ export async function startSprintRound(level: number) {
 // main function for sprint game
 
 export async function startSprintGame(level: number) {
-  if (level == 7) {
-    level = 6;
+  if (level == 6) {
+    console.log(`level is ${level}`);
+    level = 5;
   }
+  console.log( `in startsprintgaem level is ${level}`);
   let points: number = 0;
   let index: number = 0;
   let words = await getArrayOfWords(level);
