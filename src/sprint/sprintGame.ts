@@ -1,3 +1,4 @@
+import { putUserStatistics } from "../js/api";
 import { getItemFromLocalStorage } from "../js/localStorage";
 import { SprintWord } from "../js/types";
 import { sprintNewWords } from "../statistics/globalStorage";
@@ -70,6 +71,7 @@ export async function startSprintGame(level: number) {
   let words = await getArrayOfWords(level);
   let results: SprintWord[] = [];
   let arrayof1and0: number[] = [];
+  let sprintLongest: number;
 
   await startSprintRound(level);
 
@@ -95,14 +97,27 @@ export async function startSprintGame(level: number) {
 
     countdown();
 
-    let watching = setInterval(() => {
+    
+
+    let watching = setInterval(async () => {
       const counter = (<HTMLElement>document.getElementById('counter')).innerText;
       if (counter == '0:00') {
         clearInterval(watching);
         renderSprintResults(results);
-        findSprintLongestSeries(arrayof1and0);
+        sprintLongest = findSprintLongestSeries(arrayof1and0);
+
+        // Send results to server statistics
+
+        if (localStorage.getItem('token')) {
+          
+          let body = {
+            optional: { sprintLongestSeries: sprintLongest}
+          }
+          await putUserStatistics(body);
+        }
       }
     }, 1000);
+
   });
 
   // manipulate start and replay from keyboard
@@ -273,18 +288,6 @@ export async function renderSprintResults(array: SprintWord[]) {
 
   playsound();
 
-  // Send results to server statistics
-
-
-  // if (localStorage.getItem('token')) {
-
-  //   let body = {
-  //     "learnedWords": 0,
-  //     // "optional": { "sprintNewWords": sprintNewWords.length}
-  //   }
-
-  //   await putUserStatistics(body);
-  // }
 }
 
 export async function renderSprintRows(arrayOfResults: SprintWord[]) {

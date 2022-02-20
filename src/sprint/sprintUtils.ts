@@ -154,5 +154,7 @@ export function findSprintLongestSeries(array: number[] ) {
   let currentlongestSeries = maxTimes;
   if (currentlongestSeries > longestSeries) {
     setItemToLocalStorage('sprintLongestSeries', currentlongestSeries);
-  }
+    longestSeries = currentlongestSeries;
+  } 
+  return longestSeries;
 };
