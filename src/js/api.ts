@@ -231,6 +231,7 @@ export const getUserStatistics = async (): Promise<Response> => {
       },
     });
     return rawResponse;
+    
   } catch (err) {
     console.log('User is not authenticated. Please login or signup.')
     throw (err);
@@ -251,7 +252,6 @@ export const putUserStatistics = async (data: UserStatistics) => {
       },
       body: JSON.stringify(data),
     });
-
     return rawResponse;
   } catch (err) {
     throw (err);

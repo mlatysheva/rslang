@@ -88,7 +88,9 @@ export function registerUser() {
       (<HTMLElement>app).innerHTML = '';
       (<HTMLElement>app).innerText = 'Вы успешно зарегистрированы!';
       renderUserName();
+      window.location.hash = '/';
       window.location.reload();
+      
     }
   };
 }

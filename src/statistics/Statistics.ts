@@ -45,6 +45,11 @@ export class Statistics extends AbstractView {
         console.log(`Statistics successfully received from the server`);
         const content = await data.json();
         const totalLearnedWords = content.learnedWords;
+        let sprintLongestSeries;
+        sprintLongestSeries = content.optional.sprintLongestSeries;
+        if (!sprintLongestSeries) {
+          sprintLongestSeries = 0;
+        }
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));
         let sprintNewWords = 0;
@@ -69,12 +74,17 @@ export class Statistics extends AbstractView {
           sprintCorrectlyAnsweredPercent = '0';
         }
 
-        let spintLongestSeries;
-        if (localStorage.getItem('sprintLongestSeries') !== null) {
-          spintLongestSeries = JSON.parse(localStorage.getItem('sprintLongestSeries') || '');
-        } else {
-          spintLongestSeries = 0;
-        }
+        // if (sprintLongestSeries != null) {
+        //   localStorage.setItem('sprintLongestSeries', sprintLongestSeries)
+        // } else {
+        //   sprintLongestSeries = 0;
+        //   localStorage.setItem('sprintLongestSeries', JSON.stringify(sprintLongestSeries));
+        // }
+        // if (localStorage.getItem('sprintLongestSeries') !== null) {
+        //   sprintLongestSeries = JSON.parse(localStorage.getItem('sprintLongestSeries') || '');
+        // } else {
+        //   sprintLongestSeries = 0;
+        // }
 
 
         let today = new Date().toLocaleDateString();
@@ -154,7 +164,7 @@ export class Statistics extends AbstractView {
               
               <p>Новых слов: <span class="statistics-indicator sprint-new-words">${sprintNewWords}</span></p>
               <p>Правильных ответов: <span class="statistics-indicator sprint-correct-answers">${sprintCorrectlyAnsweredPercent} %</span> </p>
-              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">${spintLongestSeries}</span></p>
+              <p>Самая длинная серия правильных ответов: <span class="statistics-indicator sprint-longest-series">${sprintLongestSeries}</span></p>
             </div>          
           </div>
   
