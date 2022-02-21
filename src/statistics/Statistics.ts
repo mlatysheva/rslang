@@ -86,20 +86,20 @@ export class Statistics extends AbstractView {
 
         let today = new Date().toLocaleDateString();
 
-        if ((await audiocallApiHelper.getLastVisitedDate()) !== getTodayDate()) {
-          // localStorage
-          /**setQuestionsPerDay(0);
+        let arrAudiocall = [{ newWords: `${0}` }, { precentCorrectAnswers: `${0}` }, { longestTrueUnswers: `${0}` }];
+
+        //TODO: if user has id { all stat if (getItemFromLocalStorage('id') !== null) {}
+        if (getItemFromLocalStorage('id')) {
+          if ((await audiocallApiHelper.getLastVisitedDate()) !== getTodayDate()) {
+            // localStorage
+            /**setQuestionsPerDay(0);
           setTrueQuestionsPerDay(0);
           setLongestTrueQuestionsPerDay(0);
           setCurrentLongestTrueQuestionsPerDay(0);
           resetLastDay();*/
 
-          await audiocallApiHelper.resetStatistics();
-        }
-        let arrAudiocall = [{ newWords: `${0}` }, { precentCorrectAnswers: `${0}` }, { longestTrueUnswers: `${0}` }];
-
-        //TODO: if user has id { all stat if (getItemFromLocalStorage('id') !== null) {}
-        if (getItemFromLocalStorage('id')) {
+            await audiocallApiHelper.resetStatistics();
+          }
           let unswersCorrect = await audiocallApiHelper.getTrueQuestionsPerDay();
           let questions = await audiocallApiHelper.getQuestionsPerDay();
           let newWordsPerDay = unswersCorrect + Math.ceil(Math.random() * 15); //TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже

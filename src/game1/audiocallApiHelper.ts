@@ -3,6 +3,12 @@ import { UserStatistics } from '../js/types';
 import { DEFAULT_STATISTICS } from '../login/registerNewUser';
 import { getTodayDate } from './localStorageHelper';
 
+async function getStatistics(): Promise<UserStatistics> {
+  const res = await getUserStatistics();
+  const statistics = await res.json();
+  return <UserStatistics>statistics;
+}
+
 export async function resetStatistics(): Promise<void> {
   // api
   await putUserStatistics(DEFAULT_STATISTICS);
@@ -31,12 +37,6 @@ export async function getCurrentLongestTrueQuestionsPerDay(): Promise<number> {
 export async function getLastVisitedDate(): Promise<string> {
   const statistics: UserStatistics = await getStatistics();
   return statistics.optional!.lastVisitDate || '';
-}
-
-async function getStatistics(): Promise<UserStatistics> {
-  const res = await getUserStatistics();
-  const statistics = await res.json();
-  return <UserStatistics>statistics;
 }
 
 export async function setTrueQuestionsPerDay(q: number): Promise<void> {

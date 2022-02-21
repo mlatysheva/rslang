@@ -1,9 +1,7 @@
 /* eslint-disable no-inner-declarations */
 import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
 
-import {
-  createUserWord, getUserLearnedWords, deleteUserWord, getUserDifficultWords,
-} from '../js/api';
+import { createUserWord, getUserLearnedWords, deleteUserWord, getUserDifficultWords } from '../js/api';
 import { CardElement } from '../card/cardElement';
 import { UserWordParameters } from '../js/types';
 import { WORDS_PER_PAGE, NUMBER_DIFFERENT_GROUP } from '../js/constants';
@@ -34,26 +32,29 @@ export function removeCard() {
 }
 
 export function difficultWord() {
-  document.body.addEventListener('click', async (e):Promise< void> => {
-    if (e.target) {
-      if ((<HTMLButtonElement>e.target).classList.contains('difficult')) {
-        const wordId = (<HTMLButtonElement>e.target).id.split('difficult')[1];
-        const word = document.getElementById(`${wordId}`);
-        if (word) word.classList.add('difficult-word');
-        (<HTMLButtonElement>e.target).disabled = true;
-        // if (deleteBtn && deleteBtnId === wordId) deleteBtn.disabled = true;
-        (<HTMLButtonElement>e.target).classList.add('opacity');
-        difficultWords.push(wordId);
-        setItemToLocalStorage('difficultWords', JSON.stringify(difficultWords));
-        const body: UserWordParameters = {
-          difficulty: 'difficult-word',
-          // optional: {  },
-        };
-        await deleteUserWord(myId, wordId);
-        await createUserWord(myId, wordId, body);
+  document.body.addEventListener(
+    'click',
+    async (e): Promise<void> => {
+      if (e.target) {
+        if ((<HTMLButtonElement>e.target).classList.contains('difficult')) {
+          const wordId = (<HTMLButtonElement>e.target).id.split('difficult')[1];
+          const word = document.getElementById(`${wordId}`);
+          if (word) word.classList.add('difficult-word');
+          (<HTMLButtonElement>e.target).disabled = true;
+          // if (deleteBtn && deleteBtnId === wordId) deleteBtn.disabled = true;
+          (<HTMLButtonElement>e.target).classList.add('opacity');
+          difficultWords.push(wordId);
+          setItemToLocalStorage('difficultWords', JSON.stringify(difficultWords));
+          const body: UserWordParameters = {
+            difficulty: 'difficult-word',
+            // optional: {  },
+          };
+          await deleteUserWord(myId, wordId);
+          await createUserWord(myId, wordId, body);
+        }
       }
     }
-  });
+  );
 }
 
 export async function removeDifficultWord() {
@@ -104,25 +105,39 @@ export async function renderDifficultPage() {
   });
 }
 
-export const numberForStatistic:Array<number> = [];
+export const numberForStatistic: Array<number> = [];
 export const numberLearnedWords: Array<number> = [];
 
 export const getNumberDiffWords = async () => {
+  if (!getItemFromLocalStorage('id')) {
+    return;
+  }
   const diffWordsId = await getUserDifficultWords(myId);
   const count = diffWordsId[0].totalCount[0];
+  if (!count) {
+    return;
+  }
   const numberWords = Object.values(count)[0];
   numberForStatistic.push(numberWords);
   return numberWords;
 };
+
 getNumberDiffWords();
 
 export const getNumberLernedWords = async () => {
+  if (!getItemFromLocalStorage('id')) {
+    return;
+  }
   const diffWordsId = await getUserLearnedWords(myId);
   const count = diffWordsId[0].totalCount[0];
+  if (!count) {
+    return;
+  }
   const numberWords = Object.values(count)[0];
   numberLearnedWords.push(numberWords);
   return numberWords;
 };
+
 getNumberLernedWords();
 
 export default {
