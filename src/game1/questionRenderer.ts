@@ -4,6 +4,7 @@ import { addPlayedQuestion, getLastDay, getTodayDate } from './localStorageHelpe
 import { Question1 } from './data/Question1';
 import { renderLatestGameStatistics } from './statisticGame1';
 import * as audiocallApiHelper from './audiocallApiHelper';
+import { getItemFromLocalStorage } from '../js/localStorage';
 export class QuestionRenderer {
   data: Word;
   question: Question1;
@@ -90,39 +91,40 @@ export class QuestionRenderer {
       let unswer = (<HTMLElement>e.target).innerText;
       this.question.isAnswered = true;
       this.question.isAnsweredCorrectly = unswer === this.question.correctAnswer;
-      if ((await audiocallApiHelper.getLastVisitedDate()) !== getTodayDate()) {
-        /**setQuestionsPerDay(0);
-        setTrueQuestionsPerDay(0);
-        setLongestTrueQuestionsPerDay(0);
-        setCurrentLongestTrueQuestionsPerDay(0);
-        resetLastDay();*/
+      if (getItemFromLocalStorage('id')) {
+        if ((await audiocallApiHelper.getLastVisitedDate()) !== getTodayDate()) {
+          /**setQuestionsPerDay(0);
+          setTrueQuestionsPerDay(0);
+          setLongestTrueQuestionsPerDay(0);
+          setCurrentLongestTrueQuestionsPerDay(0);
+          resetLastDay();*/
 
-        await audiocallApiHelper.resetStatistics();
+          await audiocallApiHelper.resetStatistics();
+        }
+
+        let q = await audiocallApiHelper.getQuestionsPerDay();
+        q += 1;
+        //setQuestionsPerDay(q);
+        await audiocallApiHelper.setQuestionsPerDay(q);
+
+        let p = await audiocallApiHelper.getTrueQuestionsPerDay();
+        if (this.question.isAnsweredCorrectly) {
+          p += 1;
+          await audiocallApiHelper.setTrueQuestionsPerDay(p);
+        }
+
+        let longest = await audiocallApiHelper.getLongestTrueQuestionsPerDay();
+        let current = await audiocallApiHelper.getCurrentLongestTrueQuestionsPerDay();
+        if (this.question.isAnsweredCorrectly) {
+          current += 1;
+          await audiocallApiHelper.setCurrentLongestTrueQuestionsPerDay(current);
+        } else {
+          await audiocallApiHelper.setCurrentLongestTrueQuestionsPerDay(0);
+        }
+        if (current > longest) {
+          await audiocallApiHelper.setLongestTrueQuestionsPerDay(current);
+        }
       }
-
-      let q = await audiocallApiHelper.getQuestionsPerDay();
-      q += 1;
-      //setQuestionsPerDay(q);
-      await audiocallApiHelper.setQuestionsPerDay(q);
-
-      let p = await audiocallApiHelper.getTrueQuestionsPerDay();
-      if (this.question.isAnsweredCorrectly) {
-        p += 1;
-        await audiocallApiHelper.setTrueQuestionsPerDay(p);
-      }
-
-      let longest = await audiocallApiHelper.getLongestTrueQuestionsPerDay();
-      let current = await audiocallApiHelper.getCurrentLongestTrueQuestionsPerDay();
-      if (this.question.isAnsweredCorrectly) {
-        current += 1;
-        await audiocallApiHelper.setCurrentLongestTrueQuestionsPerDay(current);
-      } else {
-        await audiocallApiHelper.setCurrentLongestTrueQuestionsPerDay(0);
-      }
-      if (current > longest) {
-        await audiocallApiHelper.setLongestTrueQuestionsPerDay(current);
-      }
-
       addPlayedQuestion(this.question);
 
       questionSection.innerHTML = '';
