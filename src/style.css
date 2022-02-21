@@ -299,7 +299,7 @@ a:hover {
 }
 
 .footer {
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   left: 0;
   width: 100%;
@@ -325,7 +325,6 @@ a:hover {
 .footer a {
   text-decoration: none;
   color: white;
-  /* text-shadow: 1px 1px black; */
   display: block;
 }
 
