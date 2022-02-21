@@ -3,7 +3,7 @@ import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/con
 import { addPlayedQuestion, getLastDay, getTodayDate } from './localStorageHelper';
 import { Question1 } from './data/Question1';
 import { renderLatestGameStatistics } from './statisticGame1';
-import * as audiocallApiHelper from './audiocallApiHelper';
+import * as audiocallApiHelper from './statisticsApiHelper';
 import { getItemFromLocalStorage } from '../js/localStorage';
 export class QuestionRenderer {
   data: Word;

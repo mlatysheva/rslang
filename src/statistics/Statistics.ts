@@ -1,20 +1,11 @@
 import { getUserStatistics, getUserWordsAll } from '../js/api';
 import { AbstractView } from '../js/views/AbstractView';
-import { sprintNewWords } from './globalStorage';
 import { getItemFromLocalStorage } from '../js/localStorage';
-import { numberDayLearnedWords, percentLearnedWords } from '../book/learnedWords';
-import { sprintIcon, callIcon } from '../book/svg';
-import {
-  getLastDay,
-  getLongestTrueQuestionsPerDay,
-  getQuestionsPerDay,
-  getTrueQuestionsPerDay,
-  resetLastDay,
-  setCurrentLongestTrueQuestionsPerDay,
-  setLongestTrueQuestionsPerDay,
-  setQuestionsPerDay,
-  setTrueQuestionsPerDay,
-} from '../game1/localStorageHelper';
+import { numberDayLearnedWords, percentLearnedWords, dayWords } from '../book/learnedWords';
+import { callIcon } from '../book/svg';
+import { getTodayDate } from '../game1/localStorageHelper';
+import * as audiocallApiHelper from '../game1/statisticsApiHelper';
+import { numberForStatistic, numberLearnedWords } from '../book/difficultPage';
 
 export class Statistics extends AbstractView {
   constructor() {

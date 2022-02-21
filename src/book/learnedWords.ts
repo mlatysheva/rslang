@@ -1,9 +1,9 @@
 import { UserWordParameters } from '../js/types';
 import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
-import { removeDifficultWord } from './difficultPage';
-import { createUserWord, putUserStatistics, getUserLearnedWords, deleteUserWord, getUserStatistics } from '../js/api';
+import { createUserWord, getUserLearnedWords, deleteUserWord, getUserStatistics } from '../js/api';
 import { myId } from '../card/cardElement';
 import { ALL_WORDS } from '../js/constants';
+import { setLearnedWords } from '../game1/statisticsApiHelper';
 
 export const learnedWords: Array<string> = [];
 
@@ -29,10 +29,7 @@ export function learnedWord() {
           await deleteUserWord(myId, wordId);
           // await removeDifficultWord();
           await createUserWord(myId, wordId, body);
-          const dataForStatistic = {
-            learnedWords: learnedWords.length,
-          };
-          await putUserStatistics(dataForStatistic);
+          await setLearnedWords(learnedWords.length);
           const dataForBook = await getUserStatistics();
         }
       }
