@@ -1,5 +1,6 @@
 import { getTodayDate } from '../game1/localStorageHelper';
-import { createUser, getTokens, loginUser, putUserStatistics } from '../js/api';
+import { resetStatistics } from '../game1/statisticsApiHelper';
+import { createUser, loginUser } from '../js/api';
 import { getItemFromLocalStorage, setItemToLocalStorage } from '../js/localStorage';
 import { UserStatistics } from '../js/types';
 import { renderUserName } from './loginLogout';
@@ -113,7 +114,7 @@ export function registerUser() {
 
       setItemToLocalStorage('refreshToken', refreshToken);
 
-      await putUserStatistics(DEFAULT_STATISTICS);
+      await resetStatistics();
       const app = document.getElementById('app');
       (<HTMLElement>app).innerHTML = '';
       (<HTMLElement>app).innerText = 'Вы успешно зарегистрированы!';

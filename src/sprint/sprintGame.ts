@@ -1,10 +1,19 @@
-import { putUserStatistics } from "../js/api";
-import { getItemFromLocalStorage } from "../js/localStorage";
-import { SprintWord } from "../js/types";
-import { sprintNewWords } from "../statistics/globalStorage";
-import { countdown } from "./countDown";
-import { findSprintLongestSeries, getArrayOfWords, getRandomAnswers, getRandomNumber, playsound, postWordToServer, refreshPoints, renderLevel, replay } from "./sprintUtils";
-
+import { setSprintLongestSeries } from '../game1/statisticsApiHelper';
+import { getItemFromLocalStorage } from '../js/localStorage';
+import { SprintWord } from '../js/types';
+import { sprintNewWords } from '../statistics/globalStorage';
+import { countdown } from './countDown';
+import {
+  findSprintLongestSeries,
+  getArrayOfWords,
+  getRandomAnswers,
+  getRandomNumber,
+  playsound,
+  postWordToServer,
+  refreshPoints,
+  renderLevel,
+  replay,
+} from './sprintUtils';
 
 // render main sprint game screen depending on the level chosen
 
@@ -81,10 +90,9 @@ export async function startSprintGame(level: number) {
   // manipulate start and replay by mouse click
 
   (<HTMLButtonElement>sprintStartBtn).addEventListener('click', () => {
-
     const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
     const replayBtn = <HTMLButtonElement>document.getElementById('sprint-replay-button');
-  
+
     sprintStartBtn.disabled = true;
     replayBtn.disabled = true;
 
@@ -95,15 +103,15 @@ export async function startSprintGame(level: number) {
 
     game();
 
-    countdown();    
+    countdown();
 
     let watching = setInterval(async () => {
-      const counterDiv = (<HTMLElement>document.getElementById('counter'));      
-      if(!counterDiv) {
+      const counterDiv = <HTMLElement>document.getElementById('counter');
+      if (!counterDiv) {
         return false;
       } else {
         const counter = counterDiv.innerText;
-        if (counter == '0:00' || window.location.hash != "#/sprint/") {
+        if (counter == '0:00' || window.location.hash != '#/sprint/') {
           clearInterval(watching);
           renderSprintResults(results);
           sprintLongest = findSprintLongestSeries(arrayof1and0);
@@ -111,23 +119,16 @@ export async function startSprintGame(level: number) {
           // Send results to server statistics
 
           if (localStorage.getItem('token')) {
-            
-            let body = {
-              optional: { sprintLongestSeries: sprintLongest}
-            }
-            await putUserStatistics(body);
+            await setSprintLongestSeries(sprintLongest);
           }
         }
       }
- 
     }, 1000);
-
   });
 
   // manipulate start and replay from keyboard
 
   document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
-
     if (e.key === 'Enter') {
       sprintStartBtn.click();
     }
@@ -145,7 +146,7 @@ export async function startSprintGame(level: number) {
 
     (<HTMLElement>controls).addEventListener('click', async (event) => {
       const englishWord = <HTMLElement>document.getElementById('sprint-english-word');
-      const translation = <HTMLElement>document.getElementById('sprint-translation');      
+      const translation = <HTMLElement>document.getElementById('sprint-translation');
       const wordId = words[index].id;
 
       // case where the answer is correct
@@ -158,14 +159,20 @@ export async function startSprintGame(level: number) {
         points++;
         refreshPoints(points);
 
-        results.push({id: wordId, sound: words[index].audio, word: words[index].word, translation: words[index].wordTranslate, isCorrectlyAnswered: true});
-        
+        results.push({
+          id: wordId,
+          sound: words[index].audio,
+          word: words[index].word,
+          translation: words[index].wordTranslate,
+          isCorrectlyAnswered: true,
+        });
+
         arrayof1and0.push(1);
-        
+
         // interact with the server for a registered user
 
         if (getItemFromLocalStorage('token')) {
-          postWordToServer(userId, wordId, 1); 
+          postWordToServer(userId, wordId, 1);
         }
 
         // add new word to global sprintLearnedWords array and to LS
@@ -185,12 +192,12 @@ export async function startSprintGame(level: number) {
         // interact with the server for a registered user
 
         if (getItemFromLocalStorage('token')) {
-          postWordToServer(userId, wordId, 0);  
+          postWordToServer(userId, wordId, 0);
         }
 
         // remove learned word from learnedWords array and from LS
 
-        if (sprintNewWords.includes(wordId))  {
+        if (sprintNewWords.includes(wordId)) {
           const index = sprintNewWords.indexOf(wordId);
 
           if (index > -1) {
@@ -220,10 +227,10 @@ export async function startSprintGame(level: number) {
     const sprintIncorrectBtn = <HTMLElement>document.getElementById('sprint-incorrect-btn');
 
     document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {   
+      if (e.key === 'ArrowLeft') {
         (<HTMLElement>sprintCorrectBtn).click();
       }
-      if (e.key === 'ArrowRight') { 
+      if (e.key === 'ArrowRight') {
         (<HTMLElement>sprintIncorrectBtn).click();
       }
     });
@@ -291,7 +298,6 @@ export async function renderSprintResults(array: SprintWord[]) {
   // Add sound to words in the results table
 
   playsound();
-
 }
 
 export async function renderSprintRows(arrayOfResults: SprintWord[]) {
