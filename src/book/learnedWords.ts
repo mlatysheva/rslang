@@ -1,6 +1,8 @@
 import { UserWordParameters } from '../js/types';
 import { setItemToLocalStorage, getItemFromLocalStorage } from '../js/localStorage';
-import { createUserWord, getUserLearnedWords, deleteUserWord, getUserStatistics } from '../js/api';
+import {
+  createUserWord, getUserLearnedWords, deleteUserWord,
+} from '../js/api';
 import { myId } from '../card/cardElement';
 import { ALL_WORDS } from '../js/constants';
 import { setLearnedWords } from '../game1/statisticsApiHelper';
@@ -27,13 +29,11 @@ export function learnedWord() {
             difficulty: 'learned-word',
           };
           await deleteUserWord(myId, wordId);
-          // await removeDifficultWord();
           await createUserWord(myId, wordId, body);
           await setLearnedWords(learnedWords.length);
-          const dataForBook = await getUserStatistics();
         }
       }
-    }
+    },
   );
 }
 
@@ -44,6 +44,7 @@ export const numberDayLearnedWords = () => {
   }
   return 0;
 };
+
 export const numberLearnedWords: Array<number> = [];
 export const getNumberLernedWords = async () => {
   if (!getItemFromLocalStorage('id')) {
@@ -54,15 +55,20 @@ export const getNumberLernedWords = async () => {
   if (!count) {
     return;
   }
-  const numberWords = Object.values(count)[0];
+  const numberWords: number = Object.values(count)[0];
   numberLearnedWords.push(numberWords);
-  return numberWords;
+  if (isNaN(numberWords)) {
+    numberLearnedWords.push(0);
+  }
 };
 getNumberLernedWords();
 
 export const percentLearnedWords = (numberWords: number) => {
   const allWords = ALL_WORDS;
-  const percent = (numberWords / allWords) * 100;
+  let percent = (numberWords / allWords) * 100;
+  if (isNaN(percent)) {
+    percent = 0;
+  }
   return percent.toFixed(2);
 };
 export const dayWords = numberDayLearnedWords();

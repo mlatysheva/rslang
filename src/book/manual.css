@@ -160,4 +160,7 @@ a.pageup:hover svg path {
 .userAudioCall {
   width: 60px;
 }
+.settings {
+  display: none;
+}
 
