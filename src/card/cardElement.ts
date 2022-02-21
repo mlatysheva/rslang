@@ -3,6 +3,7 @@ import { Word } from '../js/types';
 import { linkForCard, arrGroup } from '../js/constants';
 import { currentGroup } from '../book/paginationBook';
 import { getItemFromLocalStorage } from '../js/localStorage';
+import { getUserWord } from '../js/api';
 // import { serwerGetWordById } from
 export const myId: string = getItemFromLocalStorage('id');
 export class CardElement {
@@ -174,15 +175,18 @@ export class CardElement {
 
     const correctBtn = document.createElement('button');
     correctBtn.classList.add('correct');
+    correctBtn.id = `correct-btn-${this.data.id}`;
     correctBtn.classList.add('hide');
     correctBtn.innerText = '0';
     correctBtn.setAttribute('data-tooltip', 'correct answers');
 
     const incorrectBtn = document.createElement('button');
     incorrectBtn.classList.add('incorrect');
+    incorrectBtn.id = `incorrect-btn-${this.data.id}`;
     incorrectBtn.classList.add('hide');
     incorrectBtn.innerText = '0';
     incorrectBtn.setAttribute('data-tooltip', 'incorrect answers');
+
     const infoBtn = document.createElement('div');
     infoBtn.classList.add('info');
 

@@ -90,8 +90,6 @@ export async function startSprintGame(level: number) {
   // manipulate start and replay by mouse click
 
   (<HTMLButtonElement>sprintStartBtn).addEventListener('click', () => {
-    const sprintStartBtn = <HTMLButtonElement>document.querySelector('.sprint-start-button');
-    const replayBtn = <HTMLButtonElement>document.getElementById('sprint-replay-button');
 
     sprintStartBtn.disabled = true;
     replayBtn.disabled = true;

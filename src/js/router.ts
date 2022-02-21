@@ -28,6 +28,7 @@ export function toggleActiveMenu() {
     (<HTMLElement>e.target).classList.add('active');
   })
 }
+
 function navigation() {
   const app = <HTMLElement>document.getElementById('app');
 
@@ -76,8 +77,11 @@ function navigation() {
   };
 
   window.addEventListener('hashchange', router);
+
   window.addEventListener('load', router);
+
   const events = ['load', 'hashchange'];
+
   [...events].forEach((event) => {
     window.addEventListener(event, (e) => {
       const hashClicked = location.hash;
@@ -93,8 +97,6 @@ function navigation() {
           toggleActiveMenu();
           break;
         case '#/manual/':
-          // const manualMenu = <HTMLElement>document.querySelector("[data-href='#/manual/']");
-          // manualMenu.classList.add('active');
           toggleActiveMenu();
           break;
         case '#/audiocall/':
