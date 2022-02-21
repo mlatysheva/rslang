@@ -1,9 +1,9 @@
 # MGIMO FINISHED
 MGIMO FINISHED – приложение для изучения английского языка. Включает электронный учебник с базой из 3600 слов, мини-игры "Аудиовызов" и "Спринт" для повторения слов, страницу статистики для отслеживания индивидуального прогресса.
 Это приложение разработали для вас три студентки 2-го этапа курса [Front-End/Javascript](https://rs.school/js/) школы Rolling Scopes School:
-- Мария Латышева [](https://github.com/mlatysheva)
-- Юлия Миронова [](https://github.com/julia-mironova)
-- Елена Гончарук [](https://github.com/olena-web)
+- Мария Латышева [mlatysheva](https://github.com/mlatysheva)
+- Юлия Миронова [julia-mironova](https://github.com/julia-mironova)
+- Елена Гончарук [olena-web](https://github.com/olena-web)
 
 ## Использованные технологии
 
