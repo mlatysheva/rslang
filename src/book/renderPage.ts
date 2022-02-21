@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
 import {
-  getWords, getUserLearnedWords, getUserDifficultWords, getUserLearnDiffWords,
+  getWords, getUserLearnedWords, getUserDifficultWords, getUserLearnDiffWords, getUserWord,
 } from '../js/api';
 import { CardElement, myId } from '../card/cardElement';
 import { settings, sprintIcon, callIcon } from '../book/svg';
@@ -98,7 +98,8 @@ export async function renderUserWords() {
     const dataLearnedWords = learnedWords[0].paginatedResults;
     const learnedWordsId = dataLearnedWords?.map((word) => word._id);
 
-    data.forEach((element) => {
+    data.forEach(async (element) => {
+
       const cardOnPage = new CardElement(element).renderCard();
       if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
 
@@ -108,6 +109,28 @@ export async function renderUserWords() {
       if (learnedWordsId?.includes(element.id) && cardsOnPage) {
         cardOnPage.classList.add('opacity');
       }
+
+      // add correct/incorrect answers from Sprint
+      // const wordId = element.id;
+      // const correctBtn = document.getElementById(`correct-btn-${wordId}`);
+      // const incorrectBtn = document.getElementById(`incorrect-btn-${wordId}`);
+      // (<HTMLElement>correctBtn).innerText = '0';
+      // (<HTMLElement>incorrectBtn).innerText = '0';
+      // try {        
+      //   const answersData = await getUserWord(myId, wordId);
+
+      //   if (answersData) {
+      //     console.dir(answersData);
+      //     if (correctBtn != null && answersData.optional.sprintCorrectlyAnswered != null) {
+      //       correctBtn.innerText = answersData.optional.sprintCorrectlyAnswered;
+      //     } else (<HTMLElement>correctBtn).innerText = '0';
+      //     if (correctBtn != null && answersData.optional.sprintTotalAnswers != null) {
+      //       (<HTMLElement>incorrectBtn).innerText = (answersData.optional.sprintTotalAnswers - answersData.optional.sprintCorrectlyAnswered).toString();
+      //     } else (<HTMLElement>incorrectBtn).innerText = '0';
+      //   }
+      // } catch(err) {
+      //   throw(err);        
+      // }
     });
   } else {
     data.forEach((element) => {
