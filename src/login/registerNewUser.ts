@@ -1,6 +1,20 @@
-import { createUser, getTokens, loginUser } from '../js/api';
+import { getTodayDate } from '../game1/localStorageHelper';
+import { createUser, getTokens, loginUser, putUserStatistics } from '../js/api';
 import { getItemFromLocalStorage, setItemToLocalStorage } from '../js/localStorage';
+import { UserStatistics } from '../js/types';
 import { renderUserName } from './loginLogout';
+
+export const DEFAULT_STATISTICS: UserStatistics = {
+  learnedWords: 0,
+  optional: {
+    sprintLongestSeries: 0,
+    audiocallLongestSeries: 0,
+    audiocallCurrentLongestSeries: 0,
+    audiocallQuestionsPerDay: 0,
+    audiocallTrueQuestionsPerDay: 0,
+    lastVisitDate: getTodayDate(),
+  },
+};
 
 export function registerUser() {
   const form = <HTMLElement>document.getElementById('signup-form');
@@ -14,17 +28,23 @@ export function registerUser() {
   form.onsubmit = async (e) => {
     e.preventDefault(); // preventing form from submitting
 
-    ((<HTMLInputElement>nInput).value === '') ? nField.classList.add('shake', 'error') : checkName();
-    ((<HTMLInputElement>eInput).value === '') ? eField.classList.add('shake', 'error') : checkEmail();
-    ((<HTMLInputElement>pInput).value === '') ? pField.classList.add('shake', 'error') : checkPass();
+    (<HTMLInputElement>nInput).value === '' ? nField.classList.add('shake', 'error') : checkName();
+    (<HTMLInputElement>eInput).value === '' ? eField.classList.add('shake', 'error') : checkEmail();
+    (<HTMLInputElement>pInput).value === '' ? pField.classList.add('shake', 'error') : checkPass();
     setTimeout(() => {
       nField.classList.remove('shake');
       eField.classList.remove('shake');
       pField.classList.remove('shake');
     }, 500);
-    nInput.onkeyup = () => { checkName(); };
-    eInput.onkeyup = () => { checkEmail(); };
-    pInput.onkeyup = () => { checkPass(); };
+    nInput.onkeyup = () => {
+      checkName();
+    };
+    eInput.onkeyup = () => {
+      checkEmail();
+    };
+    pInput.onkeyup = () => {
+      checkPass();
+    };
 
     function checkName() {
       const pattern = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
@@ -32,7 +52,9 @@ export function registerUser() {
         nField.classList.add('error');
         nField.classList.remove('valid');
         const errorTxt = <HTMLElement>nField.querySelector('.error-txt');
-        (nInput.value !== '') ? errorTxt.innerText = 'Введите правильное имя' : errorTxt.innerText = 'Имя не может быть пустым';
+        nInput.value !== ''
+          ? (errorTxt.innerText = 'Введите правильное имя')
+          : (errorTxt.innerText = 'Имя не может быть пустым');
       } else {
         nField.classList.remove('error');
         nField.classList.add('valid');
@@ -45,7 +67,9 @@ export function registerUser() {
         eField.classList.add('error');
         eField.classList.remove('valid');
         const errorTxt = <HTMLElement>eField.querySelector('.error-txt');
-        (eInput.value !== '') ? errorTxt.innerText = 'Введите правильный Email' : errorTxt.innerText = 'Email не может быть пустым';
+        eInput.value !== ''
+          ? (errorTxt.innerText = 'Введите правильный Email')
+          : (errorTxt.innerText = 'Email не может быть пустым');
       } else {
         eField.classList.remove('error');
         eField.classList.add('valid');
@@ -64,7 +88,11 @@ export function registerUser() {
       }
     }
 
-    if (!nField.classList.contains('error') && !eField.classList.contains('error') && !pField.classList.contains('error')) {
+    if (
+      !nField.classList.contains('error') &&
+      !eField.classList.contains('error') &&
+      !pField.classList.contains('error')
+    ) {
       const newUser = { email: eInput.value, password: pInput.value };
       const newUserdetails = await createUser(newUser);
       setItemToLocalStorage('name', nInput.value);
@@ -84,13 +112,14 @@ export function registerUser() {
       setItemToLocalStorage('token', userToken);
 
       setItemToLocalStorage('refreshToken', refreshToken);
+
+      await putUserStatistics(DEFAULT_STATISTICS);
       const app = document.getElementById('app');
       (<HTMLElement>app).innerHTML = '';
       (<HTMLElement>app).innerText = 'Вы успешно зарегистрированы!';
       renderUserName();
       window.location.hash = '/';
       window.location.reload();
-      
     }
   };
 }

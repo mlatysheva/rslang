@@ -17,6 +17,7 @@ export async function renderGameRound(
   let questionsSectionsArray = wordsToPlay
     .map((w: Word) => new Question1(w, possibleAnswersArray))
     .map((q: Question1) => new QuestionRenderer(q).render());
+
   questionsSectionsArray[0].classList.remove('hide-game1');
   return questionsSectionsArray;
 }

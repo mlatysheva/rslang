@@ -1,21 +1,9 @@
-import { Word } from '../js/types';
+import { UserStatistics, Word } from '../js/types';
 import { linkForCard, arrGroup, NUMBER_OF_ANSWERS_PER_QUESTION } from '../js/constants';
-import {
-  addPlayedQuestion,
-  getCurrentLongestTrueQuestionsPerDay,
-  getLastDay,
-  getLongestTrueQuestionsPerDay,
-  getPlayedQuestions,
-  getQuestionsPerDay,
-  getTrueQuestionsPerDay,
-  resetLastDay,
-  setCurrentLongestTrueQuestionsPerDay,
-  setLongestTrueQuestionsPerDay,
-  setQuestionsPerDay,
-  setTrueQuestionsPerDay,
-} from './localStorageHelper';
+import { addPlayedQuestion, getLastDay, getTodayDate } from './localStorageHelper';
 import { Question1 } from './data/Question1';
 import { renderLatestGameStatistics } from './statisticGame1';
+import * as audiocallApiHelper from './audiocallApiHelper';
 export class QuestionRenderer {
   data: Word;
   question: Question1;
@@ -98,38 +86,41 @@ export class QuestionRenderer {
     questionKey.textContent = '(enter = слушать, 1..4 = варинты ответа, пробел = пропустить, можно мышкой!)';
     questionSection.appendChild(questionKey);
 
-    let nextQuestion = (e: Event | KeyboardEvent) => {
+    let nextQuestion = async (e: Event | KeyboardEvent) => {
       let unswer = (<HTMLElement>e.target).innerText;
       this.question.isAnswered = true;
       this.question.isAnsweredCorrectly = unswer === this.question.correctAnswer;
-      if (getLastDay() !== new Date().toISOString().split('T')[0]) {
-        setQuestionsPerDay(0);
+      if ((await audiocallApiHelper.getLastVisitedDate()) !== getTodayDate()) {
+        /**setQuestionsPerDay(0);
         setTrueQuestionsPerDay(0);
         setLongestTrueQuestionsPerDay(0);
         setCurrentLongestTrueQuestionsPerDay(0);
-        resetLastDay();
+        resetLastDay();*/
+
+        await audiocallApiHelper.resetStatistics();
       }
 
-      let q = getQuestionsPerDay();
+      let q = await audiocallApiHelper.getQuestionsPerDay();
       q += 1;
-      setQuestionsPerDay(q);
+      //setQuestionsPerDay(q);
+      await audiocallApiHelper.setQuestionsPerDay(q);
 
-      let p = getTrueQuestionsPerDay();
+      let p = await audiocallApiHelper.getTrueQuestionsPerDay();
       if (this.question.isAnsweredCorrectly) {
         p += 1;
-        setTrueQuestionsPerDay(p);
+        await audiocallApiHelper.setTrueQuestionsPerDay(p);
       }
 
-      let longest = getLongestTrueQuestionsPerDay();
-      let current = getCurrentLongestTrueQuestionsPerDay();
+      let longest = await audiocallApiHelper.getLongestTrueQuestionsPerDay();
+      let current = await audiocallApiHelper.getCurrentLongestTrueQuestionsPerDay();
       if (this.question.isAnsweredCorrectly) {
         current += 1;
-        setCurrentLongestTrueQuestionsPerDay(current);
+        await audiocallApiHelper.setCurrentLongestTrueQuestionsPerDay(current);
       } else {
-        setCurrentLongestTrueQuestionsPerDay(0);
+        await audiocallApiHelper.setCurrentLongestTrueQuestionsPerDay(0);
       }
       if (current > longest) {
-        setLongestTrueQuestionsPerDay(current);
+        await audiocallApiHelper.setLongestTrueQuestionsPerDay(current);
       }
 
       addPlayedQuestion(this.question);
