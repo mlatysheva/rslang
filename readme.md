@@ -5,7 +5,7 @@ MGIMO FINISHED – приложение для изучения английск
 
 Коллекция "3600 essential english words" содержит 3600 часто употребляемых английских слов. Слова в коллекции отсортированы от более простых и известных к более сложным. Вся коллекция разбита на шесть разделов, в каждом разделе 30 страниц, на каждой странице 20 слов для изучения.
 
-![](screenshots/screemshot-homepage.png)
+![](screenshots/screenshot-home.png)
 ## Структура приложения
 
 - главная страница приложения
@@ -98,7 +98,7 @@ MGIMO FINISHED – приложение для изучения английск
 ## Бекенд
 
 - создан [репозиторий с бекендом](https://github.com/mlatysheva/react-rslang-be) и размещен на heroku
-- на основе бекенда создан [ReactLearnWords API](https://rs-lang-mlatysheva.herokuapp.com/doc/#/Users%2FAggregatedWords/get_users__id__aggregatedWords__wordId_), позволяющий получить исходные данные
+- на основе бекенда создан [ReactLearnWords API](https://rs-lang-mlatysheva.herokuapp.com/doc/), позволяющий получить исходные данные
 - база данных со словами размещена в MongoDB
 
 
