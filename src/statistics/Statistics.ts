@@ -1,12 +1,10 @@
-import { getUserStatistics, getUserWordsAll, putUserStatistics } from '../js/api';
+import { getUserStatistics, getUserWordsAll } from '../js/api';
 import { AbstractView } from '../js/views/AbstractView';
-import { sprintNewWords } from './globalStorage';
 import { getItemFromLocalStorage } from '../js/localStorage';
 import { numberDayLearnedWords, percentLearnedWords, dayWords } from '../book/learnedWords';
-import { sprintIcon, callIcon } from '../book/svg';
-import { getLastDay, getTodayDate } from '../game1/localStorageHelper';
-import { UserStatistics } from '../js/types';
-import * as audiocallApiHelper from '../game1/audiocallApiHelper';
+import { callIcon } from '../book/svg';
+import { getTodayDate } from '../game1/localStorageHelper';
+import * as audiocallApiHelper from '../game1/statisticsApiHelper';
 import { numberForStatistic, numberLearnedWords } from '../book/difficultPage';
 
 export class Statistics extends AbstractView {
