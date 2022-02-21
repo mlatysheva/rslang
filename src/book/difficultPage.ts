@@ -25,7 +25,7 @@ export function removeCard() {
         const cardToDelete = document.getElementById(`${id}`);
         deletedCards.push(id);
         setItemToLocalStorage('deletedCards', JSON.stringify(deletedCards));
-        // if (cardToDelete) cardToDelete.remove();
+        if (cardToDelete) cardToDelete.remove();
       }
     }
   });
@@ -41,7 +41,6 @@ export function difficultWord() {
           const word = document.getElementById(`${wordId}`);
           if (word) word.classList.add('difficult-word');
           (<HTMLButtonElement>e.target).disabled = true;
-          // if (deleteBtn && deleteBtnId === wordId) deleteBtn.disabled = true;
           (<HTMLButtonElement>e.target).classList.add('opacity');
           difficultWords.push(wordId);
           setItemToLocalStorage('difficultWords', JSON.stringify(difficultWords));
@@ -64,10 +63,6 @@ export async function removeDifficultWord() {
         const id = (e.target as HTMLElement).id.split('delete')[1];
         deletedCards.push(id);
         await deleteUserWord(myId, id);
-        if (ifDifficultGroup) {
-          const cardToDelete = document.getElementById(`${id}`);
-          // if (cardToDelete) cardToDelete.remove();
-        }
       }
     }
   });
@@ -81,22 +76,14 @@ export async function renderDifficultPage() {
       const id = (e.target as HTMLElement).id.split('level')[1];
       if (id === difficultGroup.toString()) {
         if (cardsOnPage) cardsOnPage.innerHTML = '';
-
         const diffWordsId = await getUserDifficultWords(myId);
         const diffWords = diffWordsId[0].paginatedResults;
-        const count = diffWordsId[0].totalCount[0];
-        const numberWords = Object.values(Object.values(count))[0];
-        console.log(numberWords);
         pagination?.classList.toggle('hide');
-        const difficultBtn = document.querySelectorAll('difficult');
-        difficultBtn.forEach((btn) => {
-          btn.classList.add('hide');
-        });
-
         if (diffWords) {
           diffWords.forEach(async (item) => {
             const cardOnPage = new CardElement(item).renderCard();
             if (cardsOnPage) cardsOnPage.appendChild(cardOnPage);
+            cardOnPage.classList.remove('opacity');
             cardOnPage.classList.add('difficult-word');
           });
         }
@@ -119,7 +106,6 @@ export const getNumberDiffWords = async () => {
   }
   const numberWords = Object.values(count)[0];
   numberForStatistic.push(numberWords);
-  return numberWords;
 };
 
 getNumberDiffWords();
@@ -135,7 +121,6 @@ export const getNumberLernedWords = async () => {
   }
   const numberWords = Object.values(count)[0];
   numberLearnedWords.push(numberWords);
-  return numberWords;
 };
 
 getNumberLernedWords();

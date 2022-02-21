@@ -27,8 +27,7 @@ export async function changeLevel() {
         (e.target as HTMLElement).classList.add('active-page');
         if (!myId && id === 6) {
           (<HTMLButtonElement>e.target).disabled = true;
-          console.log(<HTMLButtonElement>e.target);
-        }
+       }
 
         if (cardsOnPage) cardsOnPage.innerHTML = '';
         const data = await getWords(id, firstPage);

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
 import {
-  getWords, getUserLearnedWords, getUserDifficultWords, getUserLearnDiffWords,
+  getWords, getUserLearnedWords, getUserDifficultWords,
 } from '../js/api';
 import { CardElement, myId } from '../card/cardElement';
 import { settings, sprintIcon, callIcon } from '../book/svg';
@@ -157,8 +157,8 @@ export async function renderPage(group: number, page: number): Promise<HTMLEleme
 
   Page.appendChild(cardsOnPage);
   wrapperBook.appendChild(Page);
-  // const aside = createAside();
-  // wrapperBook.appendChild(aside);
+  const aside = createAside();
+  wrapperBook.appendChild(aside);
 
   renderUserWords();
 
