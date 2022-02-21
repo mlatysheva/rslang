@@ -1,0 +1,98 @@
+/*statistic*/
+:root {
+  --statistic-background: rgb(235, 183, 88);
+  --statistic-background-2: rgb(245, 213, 154);
+}
+
+.statistic-game1 {
+  background-color: var(--statistic-background);
+  border-radius: 25%;
+  padding: 2rem;
+}
+
+.statistic-table {
+  width: 600px;
+}
+
+.row-2 {
+  background-color: var(--statistic-background-2);
+}
+
+.key-game1,
+.from-key {
+  font-style: italic;
+  padding-top: 15px;
+}
+
+table .statistic-game1 {
+  border-spacing: 0;
+}
+
+td .row-results:nth-child(1) {
+  width: 10%;
+}
+
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 20%;
+}
+
+thead th:nth-child(4) {
+  width: 20%;
+}
+
+thead th:nth-child(5) {
+  width: 10%;
+}
+
+table .play {
+  padding: 0;
+}
+
+td.row-results {
+  padding: 0, 5px;
+}
+
+.game1-results th {
+  margin: 0.5rem;
+}
+
+.correct-word {
+  margin: 50px;
+}
+
+.game1-results {
+  display: flex;
+  justify-content: space-between;
+}
+
+.center {
+  margin-left: 45%;
+}
+
+.userAudioCall {
+  width: 100px;
+  height: 80px;
+}
+
+.userAudioCall:hover {
+  box-shadow: 2px 5px 3px;
+}
+
+@media (max-width: 728px) {
+  .game1 {
+    font-size: 0.8rem;
+  }
+  .statistic-table {
+    width: 410px;
+    padding: 0.5rem;
+  }
+  .statistic-game1 {
+    font-size: 0.8rem;
+    border-radius: 10%;
+    padding: 1rem;
+  }
+}

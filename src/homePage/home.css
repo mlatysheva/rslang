@@ -1,0 +1,244 @@
+.text-box, .todo {
+  display: block;
+  background-color: white;
+  border-radius: 10px;
+  font-size: x-large;
+  text-align: center;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin: 1rem;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
+}
+.home-view {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  padding-top: 0 !important;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
+}
+.home-hero {
+  background-image: url(../assets/images/mgimo-hero1.jpg);
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 400px;
+}
+.home-text-large {
+  font-size: x-large;
+  letter-spacing: 2px;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.mission-wrapper {
+  padding-bottom: 100px;
+}
+
+.home-mission-text {
+  font-size: 40px;
+  text-transform: uppercase;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.top-margin-text {
+  margin-top: 90px;
+}
+
+.advantages-wrapper {
+  width: 100%;
+  padding: 1.5rem;
+  padding-bottom: 50px;
+  height: auto;
+  background-color: rgb(232, 250, 178);
+  display: flex;
+  flex-direction: column;
+}
+.advantage-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.home-bold {
+  font-weight: 700;
+}
+.advantages-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.advantage-cards-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem;
+  margin-top: 2rem;
+  justify-content: space-around;
+}
+.advantage-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 22%;
+  min-width: 300px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
+  text-align: center;
+  margin: 1rem;
+}
+.advantage-icon {
+  width: 8rem;
+  height: 8rem;
+  padding: 1rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.advantage-title {
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.mandalorian-icon {
+  background-image: url('../assets/images/mandalorian.svg');
+}
+.manual-icon {
+  background-image: url('../assets/images/favorite-site.svg');
+}
+.schwein-icon {
+  background-image: url('../assets//images/moneybox.svg');
+}
+.game-icon {
+  background-image: url('../assets/images/joystick.svg');
+}
+.advantage-link {
+  display: block;
+  background-color: var(--purple);
+  border-radius: 10px;
+  cursor: pointer;
+  width: 200px;
+  margin: 0.5rem auto;
+  text-align: center;
+  font-size: larger;
+  text-transform: uppercase;
+  line-height: 50px;
+}
+
+/* About the team */
+
+.about-wrapper {
+  width: 100%;
+  padding-bottom: 50px;
+  height: auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+.about-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.about-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.about-cards-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem;
+  margin-top: 2rem;
+  justify-content: space-around;
+}
+.about-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 28%;
+  background-color: rgb(232, 250, 178);
+  border-radius: 10px;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
+  text-align: center;
+
+}
+.about-photo {
+  width: 10rem;
+  height: 10rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: white;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 10px 7px rgba(34, 60, 80, 0.2);
+}
+.about-title {
+  text-transform: uppercase;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.maria-photo {
+  background-image: url('../assets/images/Maria.JPG');
+}
+.julia-photo {
+  background-image: url('../assets/images/Julia.jpg');
+}
+.lena-photo {
+  background-image: url('../assets//images/Lena.jpg');
+}
+.about-link {
+  color: var(--purple);
+}
+.github-link-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.github-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.5rem;
+  margin-right: 1rem;
+  background-image: url('../assets/images/GitHub-Mark-32px.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 1450px) {
+  .advantage-cards-container {
+    column: 2;
+  }
+  .advantage-card-wrapper {
+    width: 45%;
+  }
+}
+@media (max-width: 1000px) {
+  
+  .about-card-wrapper {
+    width: 85%;
+    margin: 1rem;
+  }
+}
+@media (max-width: 830px) {
+  
+  .advantage-card-wrapper {
+    width: 85%;
+    margin: 1rem;
+  }
+}
+
