@@ -802,6 +802,18 @@ a:hover {
 @media (max-width: 520px) {
   .levels {
     position: unset;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items:center;
+    justify-content: center;
+  }
+  .levels h2 {
+    margin-right: 120px;
+  }
+  .level7 {
+    margin-right: 73px;
+    margin-left: 70px;
   }
   .user-name {
     font-size: 12px;

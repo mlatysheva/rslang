@@ -16,8 +16,8 @@ export class Manual extends AbstractView {
     if (footer.classList.contains('hide')) {
       footer.classList.remove('hide');
     }
-    const aside = createAside();
-    app.appendChild(aside);
+    // const aside = createAside();
+    // app.appendChild(aside);
     addModal();
     toggleTranslate();
     toggleButtons();
@@ -27,16 +27,3 @@ export class Manual extends AbstractView {
   }
 }
 export default Manual;
-
-/*function bookOrGame1() {
-      if (game1) {
-        app.innerText = '';
-        return renderGameFromBook();
-      }
-      return renderPage(Group, currentPage);
-    }
-
-    const game1 = document.getElementById('call');
-    game1?.addEventListener('click', bookOrGame1);
-
-    return bookOrGame1();*/

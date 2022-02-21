@@ -157,6 +157,9 @@ export class CardElement {
     difficultBtn.innerText = 'difficult';
     difficultBtn.setAttribute('id', `difficult${this.data.id || this.data._id}`);
     cardWrapper.appendChild(elemText);
+    if (currentGroup === 6) {
+      difficultBtn.classList.add('hide');
+    }
 
     const deleteBtn = document.createElement('button');
     deleteBtn.classList.add('delete');
