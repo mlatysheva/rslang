@@ -4,6 +4,7 @@ import { getLevelPage } from './localStorageHelper';
 export function renderGameFromBook(): any {
   //TODO: normal type
   let levelPage = getLevelPage();
+
   let groupRoundIdGame1 = +levelPage.slice(1, 2);
   let page = +levelPage.slice(3, -1);
 
@@ -19,7 +20,7 @@ export function renderGameFromBook(): any {
   gameName.appendChild(gameDescription);
   const levelOfRound = document.createElement('div');
   levelOfRound.classList.add('levelsGame1');
-  levelOfRound.classList.add('center');
+  //levelOfRound.classList.add('center');
   levelOfRound.innerHTML = `
   <button id="levelGame0" class="game1 level1">Play</button>`;
   gameSectionDescribe.appendChild(gameName);

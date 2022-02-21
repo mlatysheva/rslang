@@ -1,22 +1,13 @@
-import { getUserStatistics, getUserWordsAll } from '../js/api';
+import { getUserStatistics, getUserWordsAll, putUserStatistics } from '../js/api';
 import { AbstractView } from '../js/views/AbstractView';
 import { sprintNewWords } from './globalStorage';
 import { getItemFromLocalStorage } from '../js/localStorage';
 import { numberDayLearnedWords, percentLearnedWords, dayWords } from '../book/learnedWords';
-import { numberLearnedWords } from '../book/difficultPage';
-import { callIcon } from '../book/svg';
-import {
-  getLastDay,
-  getLongestTrueQuestionsPerDay,
-  getQuestionsPerDay,
-  getTrueQuestionsPerDay,
-  resetLastDay,
-  setCurrentLongestTrueQuestionsPerDay,
-  setLongestTrueQuestionsPerDay,
-  setQuestionsPerDay,
-  setTrueQuestionsPerDay,
-} from '../game1/localStorageHelper';
-import { numberForStatistic } from '../book/difficultPage';
+import { sprintIcon, callIcon } from '../book/svg';
+import { getLastDay, getTodayDate } from '../game1/localStorageHelper';
+import { UserStatistics } from '../js/types';
+import * as audiocallApiHelper from '../game1/audiocallApiHelper';
+import { numberForStatistic, numberLearnedWords } from '../book/difficultPage';
 
 export class Statistics extends AbstractView {
   constructor() {
@@ -93,37 +84,43 @@ export class Statistics extends AbstractView {
         //   sprintLongestSeries = 0;
         // }
 
-        const today = new Date().toLocaleDateString();
+        let today = new Date().toLocaleDateString();
 
-        if (getLastDay() !== new Date().toISOString().split('T')[0]) {
-          setQuestionsPerDay(0);
+        if ((await audiocallApiHelper.getLastVisitedDate()) !== getTodayDate()) {
+          // localStorage
+          /**setQuestionsPerDay(0);
           setTrueQuestionsPerDay(0);
           setLongestTrueQuestionsPerDay(0);
           setCurrentLongestTrueQuestionsPerDay(0);
-          resetLastDay();
-        }
+          resetLastDay();*/
 
-        const unswersCorrect = getTrueQuestionsPerDay();
-        const questions = getQuestionsPerDay();
-        let newWordsPerDay = unswersCorrect + Math.ceil(Math.random() * 15); // TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже
-        if (newWordsPerDay >= questions) {
-          newWordsPerDay = questions - Math.ceil(Math.random() * 15);
-          if (newWordsPerDay < 0) {
-            newWordsPerDay = 0;
+          await audiocallApiHelper.resetStatistics();
+        }
+        let arrAudiocall = [{ newWords: `${0}` }, { precentCorrectAnswers: `${0}` }, { longestTrueUnswers: `${0}` }];
+
+        //TODO: if user has id { all stat if (getItemFromLocalStorage('id') !== null) {}
+        if (getItemFromLocalStorage('id')) {
+          let unswersCorrect = await audiocallApiHelper.getTrueQuestionsPerDay();
+          let questions = await audiocallApiHelper.getQuestionsPerDay();
+          let newWordsPerDay = unswersCorrect + Math.ceil(Math.random() * 15); //TODO: не так должно быть или хотябы чтоб сегодня не меньше чем было уже
+          if (newWordsPerDay >= questions) {
+            newWordsPerDay = questions - Math.ceil(Math.random());
+            if (newWordsPerDay < 0) {
+              newWordsPerDay = 0;
+            }
           }
-        }
 
-        let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
-        if (isNaN(precentCorrectAnswersPerDay)) {
-          precentCorrectAnswersPerDay = 0;
+          let precentCorrectAnswersPerDay = Math.ceil((unswersCorrect / questions) * 100);
+          if (isNaN(precentCorrectAnswersPerDay)) {
+            precentCorrectAnswersPerDay = 0;
+          }
+          let longestTrueUnswersPerDay = await audiocallApiHelper.getLongestTrueQuestionsPerDay();
+          arrAudiocall = [
+            { newWords: `${newWordsPerDay}` },
+            { precentCorrectAnswers: `${precentCorrectAnswersPerDay}` },
+            { longestTrueUnswers: `${longestTrueUnswersPerDay}` },
+          ];
         }
-        const longestTrueUnswersPerDay = getLongestTrueQuestionsPerDay();
-        const arrAudiocall = [
-          { newWords: `${newWordsPerDay}` },
-          { precentCorrectAnswers: `${precentCorrectAnswersPerDay}` },
-          { longestTrueUnswers: `${longestTrueUnswersPerDay}` },
-        ];
-
         html += `
         
         <div class="statistics-wrapper registered-statistics">
@@ -140,19 +137,18 @@ export class Statistics extends AbstractView {
             <div class="statistics-text home-text">
               
               <p>Новых слов: <span class="statistics-indicator audiocall-new-words">${
-  arrAudiocall[0].newWords
-}</span></p>
+                arrAudiocall[0].newWords
+              }</span></p>
               <p>Правильных ответов: <span class="statistics-indicator audiocall-correct-answers">${
-  arrAudiocall[1].precentCorrectAnswers
-} %</span> </p>
+                arrAudiocall[1].precentCorrectAnswers
+              } %</span> </p>
               <p>Самая длинная серия правильных ответов: <span class="statistics-indicator audiocall-longest-series">${
-  arrAudiocall[2].longestTrueUnswers
-}</span></p>
+                arrAudiocall[2].longestTrueUnswers
+              }</span></p>
             </div>          
           </div>  
           
           <div class="statistics-card-wrapper">
-
             <div class="sprint-statistics-icon">
               <svg class="svg-sprint-statistics" version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" enable-background="new 0 0 48 48">
                 <circle fill="#FF9800" cx="28" cy="9" r="5"></circle>
@@ -162,7 +158,6 @@ export class Statistics extends AbstractView {
                 <path fill="#FF9800" d="M11.7,23.1l3.4-5.1l4.6,0.6l1.5-3.1c0.4-0.9,1.2-1.4,2.1-1.5c-0.1,0-0.2,0-0.2,0h-9c-0.7,0-1.3,0.3-1.7,0.9 l-4,6c-0.6,0.9-0.4,2.2,0.6,2.8C9.2,23.9,9.6,24,10,24C10.6,24,11.3,23.7,11.7,23.1z"></path>
               </svg>
             </div>
-
             <div class="statistics-title">
                 Спринт
             </div>
@@ -184,7 +179,9 @@ export class Statistics extends AbstractView {
               <p>Трудных слов: <span class="statistics-indicator book-new-words">${numberForStatistic}</span></p>
               <p>Изученных слов за день: <span class="statistics-indicator book-learned-words">${numberDayLearnedWords()}</span> </p>
               <p>Изученных слов всего: <span class="statistics-indicator book-learned-words">${numberLearnedWords}</span> </p>
-              <p>% от общего количества слов <br>(за день / всего):<br> <span class="statistics-indicator book-correct-answers">${percentLearnedWords(dayWords)} / ${percentLearnedWords(numberLearnedWords[0])} </span></p>
+              <p>% от общего количества слов <br>(за день / всего):<br> <span class="statistics-indicator book-correct-answers">${percentLearnedWords(
+                dayWords
+              )} / ${percentLearnedWords(numberLearnedWords[0])} </span></p>
             </div>          
           </div>
   

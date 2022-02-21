@@ -3,7 +3,7 @@ import { renderPage, createAside, Group } from './renderPage';
 import { currentPage } from './paginationBook';
 import { addModal, toggleTranslate, toggleButtons } from './settings';
 import { renderDifficultPage } from './difficultPage';
-import { renderGameFromBook } from '../game1/game1FromBook';
+import { setItemToLocalStorage } from '../js/localStorage';
 
 export class Manual extends AbstractView {
   constructor() {
@@ -22,7 +22,7 @@ export class Manual extends AbstractView {
     toggleTranslate();
     toggleButtons();
     renderDifficultPage();
-
+    setItemToLocalStorage('currentPage', JSON.stringify(`${Group}-${currentPage}`));
     return renderPage(Group, currentPage);
   }
 }

@@ -35,14 +35,18 @@ export function getLastDay(): string {
   let item = window.localStorage.getItem(LAST_PLAYED_DATE);
   if (!item) {
     resetLastDay();
-    return new Date().toISOString().split('T')[0];
+    return getTodayDate();
   } else {
     return item;
   }
 }
 
 export function resetLastDay(): void {
-  window.localStorage.setItem(LAST_PLAYED_DATE, `${new Date().toISOString().split('T')[0]}`);
+  window.localStorage.setItem(LAST_PLAYED_DATE, `${getTodayDate()}`);
+}
+
+export function getTodayDate(): string {
+  return new Date().toISOString().split('T')[0];
 }
 
 //make calqulator for questions all in game per day
