@@ -41,10 +41,13 @@ export class Statistics extends AbstractView {
         let sprintLongestSeries;
         if (content.optional == null) {
           sprintLongestSeries = 0;
+          console.log(`we are in content.optional  ${content.optional}`);
         } else if (content.optional.sprintLongestSeries == null) {
           sprintLongestSeries = 0;
+          console.log(`we are in content.optional.sprintLongest ${content.optional.sprintLongestSeries}`);
         } else {
           sprintLongestSeries = content.optional.sprintLongestSeries;
+          console.log(`we are in else ${content.optional.sprintLongestSeries}`);
         }
 
         const userWords = await getUserWordsAll(getItemFromLocalStorage('id'));

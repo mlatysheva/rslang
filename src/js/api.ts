@@ -223,8 +223,8 @@ export const getUserWordsAll = async (userId: string):Promise<UserWord[]> => {
 
 export const getUserStatistics = async (): Promise<Response> => {
   const userId = getItemFromLocalStorage('id');
-  // const token = getItemFromLocalStorage('token');
-  const token = await getToken(userId);
+  const token = getItemFromLocalStorage('token');
+  // const token = await getToken(userId);
   try {
     const rawResponse = await fetch(`${users}/${userId}/statistics`, {
       method: 'GET',
