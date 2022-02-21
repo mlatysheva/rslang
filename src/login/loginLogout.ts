@@ -16,8 +16,10 @@ export function logout() {
       localStorage.removeItem('email');
       localStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
-      renderUserName();        
+      renderUserName(); 
+         
       window.location.hash = '#/login/';
+      window.location.reload();   
     }
   });
 }
